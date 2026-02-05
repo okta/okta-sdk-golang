@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the PolicyPeopleCondition type satisfies the MappedNullable interface at compile time
@@ -33,8 +32,8 @@ var _ MappedNullable = &PolicyPeopleCondition{}
 
 // PolicyPeopleCondition Identifies users and groups that are used together
 type PolicyPeopleCondition struct {
-	Groups               GroupCondition `json:"groups"`
-	Users                UserCondition  `json:"users"`
+	Groups               *GroupCondition `json:"groups,omitempty"`
+	Users                *UserCondition  `json:"users,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -44,10 +43,8 @@ type _PolicyPeopleCondition PolicyPeopleCondition
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPolicyPeopleCondition(groups GroupCondition, users UserCondition) *PolicyPeopleCondition {
+func NewPolicyPeopleCondition() *PolicyPeopleCondition {
 	this := PolicyPeopleCondition{}
-	this.Groups = groups
-	this.Users = users
 	return &this
 }
 
@@ -59,52 +56,68 @@ func NewPolicyPeopleConditionWithDefaults() *PolicyPeopleCondition {
 	return &this
 }
 
-// GetGroups returns the Groups field value
+// GetGroups returns the Groups field value if set, zero value otherwise.
 func (o *PolicyPeopleCondition) GetGroups() GroupCondition {
-	if o == nil {
+	if o == nil || IsNil(o.Groups) {
 		var ret GroupCondition
 		return ret
 	}
-
-	return o.Groups
+	return *o.Groups
 }
 
-// GetGroupsOk returns a tuple with the Groups field value
+// GetGroupsOk returns a tuple with the Groups field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyPeopleCondition) GetGroupsOk() (*GroupCondition, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Groups) {
 		return nil, false
 	}
-	return &o.Groups, true
+	return o.Groups, true
 }
 
-// SetGroups sets field value
+// HasGroups returns a boolean if a field has been set.
+func (o *PolicyPeopleCondition) HasGroups() bool {
+	if o != nil && !IsNil(o.Groups) {
+		return true
+	}
+
+	return false
+}
+
+// SetGroups gets a reference to the given GroupCondition and assigns it to the Groups field.
 func (o *PolicyPeopleCondition) SetGroups(v GroupCondition) {
-	o.Groups = v
+	o.Groups = &v
 }
 
-// GetUsers returns the Users field value
+// GetUsers returns the Users field value if set, zero value otherwise.
 func (o *PolicyPeopleCondition) GetUsers() UserCondition {
-	if o == nil {
+	if o == nil || IsNil(o.Users) {
 		var ret UserCondition
 		return ret
 	}
-
-	return o.Users
+	return *o.Users
 }
 
-// GetUsersOk returns a tuple with the Users field value
+// GetUsersOk returns a tuple with the Users field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PolicyPeopleCondition) GetUsersOk() (*UserCondition, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Users) {
 		return nil, false
 	}
-	return &o.Users, true
+	return o.Users, true
 }
 
-// SetUsers sets field value
+// HasUsers returns a boolean if a field has been set.
+func (o *PolicyPeopleCondition) HasUsers() bool {
+	if o != nil && !IsNil(o.Users) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsers gets a reference to the given UserCondition and assigns it to the Users field.
 func (o *PolicyPeopleCondition) SetUsers(v UserCondition) {
-	o.Users = v
+	o.Users = &v
 }
 
 func (o PolicyPeopleCondition) MarshalJSON() ([]byte, error) {
@@ -117,8 +130,12 @@ func (o PolicyPeopleCondition) MarshalJSON() ([]byte, error) {
 
 func (o PolicyPeopleCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["groups"] = o.Groups
-	toSerialize["users"] = o.Users
+	if !IsNil(o.Groups) {
+		toSerialize["groups"] = o.Groups
+	}
+	if !IsNil(o.Users) {
+		toSerialize["users"] = o.Users
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -128,28 +145,6 @@ func (o PolicyPeopleCondition) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *PolicyPeopleCondition) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"groups",
-		"users",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varPolicyPeopleCondition := _PolicyPeopleCondition{}
 
 	err = json.Unmarshal(data, &varPolicyPeopleCondition)

@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the UserCondition type satisfies the MappedNullable interface at compile time
@@ -34,9 +33,9 @@ var _ MappedNullable = &UserCondition{}
 // UserCondition Specifies a set of users to be included or excluded
 type UserCondition struct {
 	// Users to be excluded
-	Exclude []string `json:"exclude"`
+	Exclude []string `json:"exclude,omitempty"`
 	// Users to be included
-	Include              []string `json:"include"`
+	Include              []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -46,10 +45,8 @@ type _UserCondition UserCondition
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUserCondition(exclude []string, include []string) *UserCondition {
+func NewUserCondition() *UserCondition {
 	this := UserCondition{}
-	this.Exclude = exclude
-	this.Include = include
 	return &this
 }
 
@@ -61,50 +58,66 @@ func NewUserConditionWithDefaults() *UserCondition {
 	return &this
 }
 
-// GetExclude returns the Exclude field value
+// GetExclude returns the Exclude field value if set, zero value otherwise.
 func (o *UserCondition) GetExclude() []string {
-	if o == nil {
+	if o == nil || IsNil(o.Exclude) {
 		var ret []string
 		return ret
 	}
-
 	return o.Exclude
 }
 
-// GetExcludeOk returns a tuple with the Exclude field value
+// GetExcludeOk returns a tuple with the Exclude field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserCondition) GetExcludeOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Exclude) {
 		return nil, false
 	}
 	return o.Exclude, true
 }
 
-// SetExclude sets field value
+// HasExclude returns a boolean if a field has been set.
+func (o *UserCondition) HasExclude() bool {
+	if o != nil && !IsNil(o.Exclude) {
+		return true
+	}
+
+	return false
+}
+
+// SetExclude gets a reference to the given []string and assigns it to the Exclude field.
 func (o *UserCondition) SetExclude(v []string) {
 	o.Exclude = v
 }
 
-// GetInclude returns the Include field value
+// GetInclude returns the Include field value if set, zero value otherwise.
 func (o *UserCondition) GetInclude() []string {
-	if o == nil {
+	if o == nil || IsNil(o.Include) {
 		var ret []string
 		return ret
 	}
-
 	return o.Include
 }
 
-// GetIncludeOk returns a tuple with the Include field value
+// GetIncludeOk returns a tuple with the Include field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserCondition) GetIncludeOk() ([]string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Include) {
 		return nil, false
 	}
 	return o.Include, true
 }
 
-// SetInclude sets field value
+// HasInclude returns a boolean if a field has been set.
+func (o *UserCondition) HasInclude() bool {
+	if o != nil && !IsNil(o.Include) {
+		return true
+	}
+
+	return false
+}
+
+// SetInclude gets a reference to the given []string and assigns it to the Include field.
 func (o *UserCondition) SetInclude(v []string) {
 	o.Include = v
 }
@@ -119,8 +132,12 @@ func (o UserCondition) MarshalJSON() ([]byte, error) {
 
 func (o UserCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["exclude"] = o.Exclude
-	toSerialize["include"] = o.Include
+	if !IsNil(o.Exclude) {
+		toSerialize["exclude"] = o.Exclude
+	}
+	if !IsNil(o.Include) {
+		toSerialize["include"] = o.Include
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -130,28 +147,6 @@ func (o UserCondition) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *UserCondition) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"exclude",
-		"include",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varUserCondition := _UserCondition{}
 
 	err = json.Unmarshal(data, &varUserCondition)

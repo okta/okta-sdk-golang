@@ -57887,9 +57887,6 @@ components:
           items:
             type: string
           type: array
-      required:
-      - exclude
-      - include
       type: object
     GroupMembershipsRequestSchema:
       properties:
@@ -69230,9 +69227,6 @@ components:
           $ref: "#/components/schemas/GroupCondition"
         users:
           $ref: "#/components/schemas/UserCondition"
-      required:
-      - groups
-      - users
       type: object
     PolicyPlatformOperatingSystemType:
       type: string
@@ -73270,22 +73264,6 @@ components:
           description: Template for app user's username when a user is assigned to
             the app
           type: string
-      required:
-      - allowMultipleAcsEndpoints
-      - assertionSigned
-      - audience
-      - authnContextClassRef
-      - destination
-      - digestAlgorithm
-      - honorForceAuthn
-      - idpIssuer
-      - recipient
-      - requestCompressed
-      - responseSigned
-      - signatureAlgorithm
-      - ssoAcsUrl
-      - subjectNameIdFormat
-      - subjectNameIdTemplate
       type: object
     SamlAssertionEncryption:
       description: Determines if the app supports encrypted assertions
@@ -76410,11 +76388,6 @@ components:
           description: CSS selector for the **Username** field in the sign-in form
             (for three-field SWA apps with the `template_swa3field` app name definition)
           type: string
-      required:
-      - buttonField
-      - passwordField
-      - url
-      - usernameField
       type: object
     TacAuthenticatorEnrollment:
       example:
@@ -77847,9 +77820,6 @@ components:
           items:
             type: string
           type: array
-      required:
-      - exclude
-      - include
       type: object
     UserCredentials:
       description: Specifies primary authentication and recovery credentials for a
@@ -79260,9 +79230,6 @@ components:
           x-okta-known-values:
           - ATTRIBUTE
           - IDENTIFIER
-      required:
-      - patterns
-      - type
       type: object
     UserIdentifierType:
       description: "What to match against, either user ID or an attribute in the user's\

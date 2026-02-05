@@ -36418,9 +36418,6 @@ components:
           description: Groups to be included
           items:
             type: string
-      required:
-        - exclude
-        - include
     GroupMembershipsRequestSchema:
       type: object
       properties:
@@ -44375,9 +44372,6 @@ components:
           $ref: '#/components/schemas/GroupCondition'
         users:
           $ref: '#/components/schemas/UserCondition'
-      required:
-        - groups
-        - users
     PolicyPlatformOperatingSystemType:
       type: string
       x-okta-known-values:
@@ -47430,22 +47424,6 @@ components:
         subjectNameIdTemplate:
           type: string
           description: Template for app user's username when a user is assigned to the app
-      required:
-        - allowMultipleAcsEndpoints
-        - assertionSigned
-        - audience
-        - authnContextClassRef
-        - destination
-        - digestAlgorithm
-        - honorForceAuthn
-        - idpIssuer
-        - recipient
-        - requestCompressed
-        - responseSigned
-        - signatureAlgorithm
-        - ssoAcsUrl
-        - subjectNameIdFormat
-        - subjectNameIdTemplate
     SamlAssertionEncryption:
       description: Determines if the app supports encrypted assertions
       type: object
@@ -49565,11 +49543,6 @@ components:
         userNameSelector:
           type: string
           description: CSS selector for the **Username** field in the sign-in form (for three-field SWA apps with the `template_swa3field` app name definition)
-      required:
-        - buttonField
-        - passwordField
-        - usernameField
-        - url
     TacAuthenticatorEnrollment:
       type: object
       properties:
@@ -51169,9 +51142,6 @@ components:
           type: array
           items:
             type: string
-      required:
-        - exclude
-        - include
     UserCredentials:
       description: Specifies primary authentication and recovery credentials for a user. Credential types and requirements vary depending on the provider and security policy of the org.
       type: object
@@ -52148,9 +52118,6 @@ components:
             $ref: '#/components/schemas/UserIdentifierConditionEvaluatorPattern'
         type:
           $ref: '#/components/schemas/UserIdentifierType'
-      required:
-        - patterns
-        - type
     UserIdentifierType:
       description: What to match against, either user ID or an attribute in the user's Okta profile.
       type: string
