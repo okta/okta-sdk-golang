@@ -49,8 +49,8 @@ type ApplicationSSOPublicKeysAPI interface {
 	ActivateOAuth2ClientJsonWebKey(ctx context.Context, appId string, keyId string) ApiActivateOAuth2ClientJsonWebKeyRequest
 
 	// ActivateOAuth2ClientJsonWebKeyExecute executes the request
-	//  @return ListJwk200ResponseInner
-	ActivateOAuth2ClientJsonWebKeyExecute(r ApiActivateOAuth2ClientJsonWebKeyRequest) (*ListJwk200ResponseInner, *APIResponse, error)
+	//  @return AddJwk201Response
+	ActivateOAuth2ClientJsonWebKeyExecute(r ApiActivateOAuth2ClientJsonWebKeyRequest) (*AddJwk201Response, *APIResponse, error)
 
 	/*
 		ActivateOAuth2ClientSecret Activate an OAuth 2.0 client secret
@@ -81,8 +81,8 @@ type ApplicationSSOPublicKeysAPI interface {
 	AddJwk(ctx context.Context, appId string) ApiAddJwkRequest
 
 	// AddJwkExecute executes the request
-	//  @return ListJwk200ResponseInner
-	AddJwkExecute(r ApiAddJwkRequest) (*ListJwk200ResponseInner, *APIResponse, error)
+	//  @return AddJwk201Response
+	AddJwkExecute(r ApiAddJwkRequest) (*AddJwk201Response, *APIResponse, error)
 
 	/*
 			CreateOAuth2ClientSecret Create an OAuth 2.0 client secret
@@ -114,8 +114,8 @@ type ApplicationSSOPublicKeysAPI interface {
 	DeactivateOAuth2ClientJsonWebKey(ctx context.Context, appId string, keyId string) ApiDeactivateOAuth2ClientJsonWebKeyRequest
 
 	// DeactivateOAuth2ClientJsonWebKeyExecute executes the request
-	//  @return DeactivateOAuth2ClientJsonWebKey200Response
-	DeactivateOAuth2ClientJsonWebKeyExecute(r ApiDeactivateOAuth2ClientJsonWebKeyRequest) (*DeactivateOAuth2ClientJsonWebKey200Response, *APIResponse, error)
+	//  @return OAuth2ClientJsonSigningKeyResponse
+	DeactivateOAuth2ClientJsonWebKeyExecute(r ApiDeactivateOAuth2ClientJsonWebKeyRequest) (*OAuth2ClientJsonSigningKeyResponse, *APIResponse, error)
 
 	/*
 		DeactivateOAuth2ClientSecret Deactivate an OAuth 2.0 client secret
@@ -207,8 +207,8 @@ type ApplicationSSOPublicKeysAPI interface {
 	ListJwk(ctx context.Context, appId string) ApiListJwkRequest
 
 	// ListJwkExecute executes the request
-	//  @return []ListJwk200ResponseInner
-	ListJwkExecute(r ApiListJwkRequest) ([]ListJwk200ResponseInner, *APIResponse, error)
+	//  @return OAuth2ClientJsonWebKeySet
+	ListJwkExecute(r ApiListJwkRequest) (*OAuth2ClientJsonWebKeySet, *APIResponse, error)
 
 	/*
 		ListOAuth2ClientSecrets List all OAuth 2.0 client secrets
@@ -237,7 +237,7 @@ type ApiActivateOAuth2ClientJsonWebKeyRequest struct {
 	retryCount int32
 }
 
-func (r ApiActivateOAuth2ClientJsonWebKeyRequest) Execute() (*ListJwk200ResponseInner, *APIResponse, error) {
+func (r ApiActivateOAuth2ClientJsonWebKeyRequest) Execute() (*AddJwk201Response, *APIResponse, error) {
 	return r.ApiService.ActivateOAuth2ClientJsonWebKeyExecute(r)
 }
 
@@ -264,13 +264,13 @@ func (a *ApplicationSSOPublicKeysAPIService) ActivateOAuth2ClientJsonWebKey(ctx 
 
 // Execute executes the request
 //
-//	@return ListJwk200ResponseInner
-func (a *ApplicationSSOPublicKeysAPIService) ActivateOAuth2ClientJsonWebKeyExecute(r ApiActivateOAuth2ClientJsonWebKeyRequest) (*ListJwk200ResponseInner, *APIResponse, error) {
+//	@return AddJwk201Response
+func (a *ApplicationSSOPublicKeysAPIService) ActivateOAuth2ClientJsonWebKeyExecute(r ApiActivateOAuth2ClientJsonWebKeyRequest) (*AddJwk201Response, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ListJwk200ResponseInner
+		localVarReturnValue  *AddJwk201Response
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -607,7 +607,7 @@ func (r ApiAddJwkRequest) AddJwkRequest(addJwkRequest AddJwkRequest) ApiAddJwkRe
 	return r
 }
 
-func (r ApiAddJwkRequest) Execute() (*ListJwk200ResponseInner, *APIResponse, error) {
+func (r ApiAddJwkRequest) Execute() (*AddJwk201Response, *APIResponse, error) {
 	return r.ApiService.AddJwkExecute(r)
 }
 
@@ -632,13 +632,13 @@ func (a *ApplicationSSOPublicKeysAPIService) AddJwk(ctx context.Context, appId s
 
 // Execute executes the request
 //
-//	@return ListJwk200ResponseInner
-func (a *ApplicationSSOPublicKeysAPIService) AddJwkExecute(r ApiAddJwkRequest) (*ListJwk200ResponseInner, *APIResponse, error) {
+//	@return AddJwk201Response
+func (a *ApplicationSSOPublicKeysAPIService) AddJwkExecute(r ApiAddJwkRequest) (*AddJwk201Response, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ListJwk200ResponseInner
+		localVarReturnValue  *AddJwk201Response
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -979,7 +979,7 @@ type ApiDeactivateOAuth2ClientJsonWebKeyRequest struct {
 	retryCount int32
 }
 
-func (r ApiDeactivateOAuth2ClientJsonWebKeyRequest) Execute() (*DeactivateOAuth2ClientJsonWebKey200Response, *APIResponse, error) {
+func (r ApiDeactivateOAuth2ClientJsonWebKeyRequest) Execute() (*OAuth2ClientJsonSigningKeyResponse, *APIResponse, error) {
 	return r.ApiService.DeactivateOAuth2ClientJsonWebKeyExecute(r)
 }
 
@@ -1006,13 +1006,13 @@ func (a *ApplicationSSOPublicKeysAPIService) DeactivateOAuth2ClientJsonWebKey(ct
 
 // Execute executes the request
 //
-//	@return DeactivateOAuth2ClientJsonWebKey200Response
-func (a *ApplicationSSOPublicKeysAPIService) DeactivateOAuth2ClientJsonWebKeyExecute(r ApiDeactivateOAuth2ClientJsonWebKeyRequest) (*DeactivateOAuth2ClientJsonWebKey200Response, *APIResponse, error) {
+//	@return OAuth2ClientJsonSigningKeyResponse
+func (a *ApplicationSSOPublicKeysAPIService) DeactivateOAuth2ClientJsonWebKeyExecute(r ApiDeactivateOAuth2ClientJsonWebKeyRequest) (*OAuth2ClientJsonSigningKeyResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *DeactivateOAuth2ClientJsonWebKey200Response
+		localVarReturnValue  *OAuth2ClientJsonSigningKeyResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -2093,7 +2093,7 @@ type ApiListJwkRequest struct {
 	retryCount int32
 }
 
-func (r ApiListJwkRequest) Execute() ([]ListJwk200ResponseInner, *APIResponse, error) {
+func (r ApiListJwkRequest) Execute() (*OAuth2ClientJsonWebKeySet, *APIResponse, error) {
 	return r.ApiService.ListJwkExecute(r)
 }
 
@@ -2117,13 +2117,13 @@ func (a *ApplicationSSOPublicKeysAPIService) ListJwk(ctx context.Context, appId 
 
 // Execute executes the request
 //
-//	@return []ListJwk200ResponseInner
-func (a *ApplicationSSOPublicKeysAPIService) ListJwkExecute(r ApiListJwkRequest) ([]ListJwk200ResponseInner, *APIResponse, error) {
+//	@return OAuth2ClientJsonWebKeySet
+func (a *ApplicationSSOPublicKeysAPIService) ListJwkExecute(r ApiListJwkRequest) (*OAuth2ClientJsonWebKeySet, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  []ListJwk200ResponseInner
+		localVarReturnValue  *OAuth2ClientJsonWebKeySet
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error

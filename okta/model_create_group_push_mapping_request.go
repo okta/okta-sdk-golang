@@ -33,7 +33,7 @@ var _ MappedNullable = &CreateGroupPushMappingRequest{}
 
 // CreateGroupPushMappingRequest struct for CreateGroupPushMappingRequest
 type CreateGroupPushMappingRequest struct {
-	AppConfig AppConfig `json:"appConfig,omitempty"`
+	AppConfig *AppConfig `json:"appConfig,omitempty"`
 	// The ID of the source group for the group push mapping
 	SourceGroupId string `json:"sourceGroupId"`
 	// The status of the group push mapping
@@ -75,14 +75,14 @@ func (o *CreateGroupPushMappingRequest) GetAppConfig() AppConfig {
 		var ret AppConfig
 		return ret
 	}
-	return o.AppConfig
+	return *o.AppConfig
 }
 
 // GetAppConfigOk returns a tuple with the AppConfig field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateGroupPushMappingRequest) GetAppConfigOk() (AppConfig, bool) {
+func (o *CreateGroupPushMappingRequest) GetAppConfigOk() (*AppConfig, bool) {
 	if o == nil || IsNil(o.AppConfig) {
-		return AppConfig{}, false
+		return nil, false
 	}
 	return o.AppConfig, true
 }
@@ -98,7 +98,7 @@ func (o *CreateGroupPushMappingRequest) HasAppConfig() bool {
 
 // SetAppConfig gets a reference to the given AppConfig and assigns it to the AppConfig field.
 func (o *CreateGroupPushMappingRequest) SetAppConfig(v AppConfig) {
-	o.AppConfig = v
+	o.AppConfig = &v
 }
 
 // GetSourceGroupId returns the SourceGroupId field value

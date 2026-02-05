@@ -58,8 +58,11 @@ func (dst *ListOrgContactTypes200ResponseInner) UnmarshalJSON(data []byte) error
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
+	// Get discriminator value, treating nil/missing as empty string for comparison
+	discriminatorValue, _ := jsonDict["contactType"].(string)
+
 	// check if the discriminator value is 'BILLING'
-	if jsonDict["contactType"] == "BILLING" {
+	if discriminatorValue == "BILLING" {
 		// try to unmarshal JSON data into OrgBillingContactType
 		err = json.Unmarshal(data, &dst.OrgBillingContactType)
 		if err == nil {
@@ -71,7 +74,7 @@ func (dst *ListOrgContactTypes200ResponseInner) UnmarshalJSON(data []byte) error
 	}
 
 	// check if the discriminator value is 'TECHNICAL'
-	if jsonDict["contactType"] == "TECHNICAL" {
+	if discriminatorValue == "TECHNICAL" {
 		// try to unmarshal JSON data into OrgTechnicalContactType
 		err = json.Unmarshal(data, &dst.OrgTechnicalContactType)
 		if err == nil {
@@ -82,6 +85,16 @@ func (dst *ListOrgContactTypes200ResponseInner) UnmarshalJSON(data []byte) error
 		}
 	}
 
+	// If discriminator value is empty/missing, default to the last mapped model (typically the most common type)
+	if discriminatorValue == "" {
+		err = json.Unmarshal(data, &dst.OrgTechnicalContactType)
+		if err == nil {
+			return nil
+		}
+		dst.OrgTechnicalContactType = nil
+	}
+
+	// No match found or unmarshal failed - return nil to allow partial unmarshalling
 	return nil
 }
 

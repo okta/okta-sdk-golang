@@ -66,8 +66,11 @@ func (dst *ListNetworkZones200ResponseInner) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
+	// Get discriminator value, treating nil/missing as empty string for comparison
+	discriminatorValue, _ := jsonDict["type"].(string)
+
 	// check if the discriminator value is 'DYNAMIC'
-	if jsonDict["type"] == "DYNAMIC" {
+	if discriminatorValue == "DYNAMIC" {
 		// try to unmarshal JSON data into DynamicNetworkZone
 		err = json.Unmarshal(data, &dst.DynamicNetworkZone)
 		if err == nil {
@@ -79,7 +82,7 @@ func (dst *ListNetworkZones200ResponseInner) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'DYNAMIC_V2'
-	if jsonDict["type"] == "DYNAMIC_V2" {
+	if discriminatorValue == "DYNAMIC_V2" {
 		// try to unmarshal JSON data into EnhancedDynamicNetworkZone
 		err = json.Unmarshal(data, &dst.EnhancedDynamicNetworkZone)
 		if err == nil {
@@ -91,7 +94,7 @@ func (dst *ListNetworkZones200ResponseInner) UnmarshalJSON(data []byte) error {
 	}
 
 	// check if the discriminator value is 'IP'
-	if jsonDict["type"] == "IP" {
+	if discriminatorValue == "IP" {
 		// try to unmarshal JSON data into IPNetworkZone
 		err = json.Unmarshal(data, &dst.IPNetworkZone)
 		if err == nil {
@@ -102,6 +105,16 @@ func (dst *ListNetworkZones200ResponseInner) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// If discriminator value is empty/missing, default to the last mapped model (typically the most common type)
+	if discriminatorValue == "" {
+		err = json.Unmarshal(data, &dst.IPNetworkZone)
+		if err == nil {
+			return nil
+		}
+		dst.IPNetworkZone = nil
+	}
+
+	// No match found or unmarshal failed - return nil to allow partial unmarshalling
 	return nil
 }
 

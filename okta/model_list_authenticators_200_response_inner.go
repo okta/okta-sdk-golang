@@ -170,8 +170,11 @@ func (dst *ListAuthenticators200ResponseInner) UnmarshalJSON(data []byte) error 
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
+	// Get discriminator value, treating nil/missing as empty string for comparison
+	discriminatorValue, _ := jsonDict["key"].(string)
+
 	// check if the discriminator value is 'custom_app'
-	if jsonDict["key"] == "custom_app" {
+	if discriminatorValue == "custom_app" {
 		// try to unmarshal JSON data into AuthenticatorKeyCustomApp
 		err = json.Unmarshal(data, &dst.AuthenticatorKeyCustomApp)
 		if err == nil {
@@ -183,7 +186,7 @@ func (dst *ListAuthenticators200ResponseInner) UnmarshalJSON(data []byte) error 
 	}
 
 	// check if the discriminator value is 'duo'
-	if jsonDict["key"] == "duo" {
+	if discriminatorValue == "duo" {
 		// try to unmarshal JSON data into AuthenticatorKeyDuo
 		err = json.Unmarshal(data, &dst.AuthenticatorKeyDuo)
 		if err == nil {
@@ -195,7 +198,7 @@ func (dst *ListAuthenticators200ResponseInner) UnmarshalJSON(data []byte) error 
 	}
 
 	// check if the discriminator value is 'external_idp'
-	if jsonDict["key"] == "external_idp" {
+	if discriminatorValue == "external_idp" {
 		// try to unmarshal JSON data into AuthenticatorKeyExternalIdp
 		err = json.Unmarshal(data, &dst.AuthenticatorKeyExternalIdp)
 		if err == nil {
@@ -207,7 +210,7 @@ func (dst *ListAuthenticators200ResponseInner) UnmarshalJSON(data []byte) error 
 	}
 
 	// check if the discriminator value is 'google_otp'
-	if jsonDict["key"] == "google_otp" {
+	if discriminatorValue == "google_otp" {
 		// try to unmarshal JSON data into AuthenticatorKeyGoogleOtp
 		err = json.Unmarshal(data, &dst.AuthenticatorKeyGoogleOtp)
 		if err == nil {
@@ -219,7 +222,7 @@ func (dst *ListAuthenticators200ResponseInner) UnmarshalJSON(data []byte) error 
 	}
 
 	// check if the discriminator value is 'okta_email'
-	if jsonDict["key"] == "okta_email" {
+	if discriminatorValue == "okta_email" {
 		// try to unmarshal JSON data into AuthenticatorKeyEmail
 		err = json.Unmarshal(data, &dst.AuthenticatorKeyEmail)
 		if err == nil {
@@ -231,7 +234,7 @@ func (dst *ListAuthenticators200ResponseInner) UnmarshalJSON(data []byte) error 
 	}
 
 	// check if the discriminator value is 'okta_password'
-	if jsonDict["key"] == "okta_password" {
+	if discriminatorValue == "okta_password" {
 		// try to unmarshal JSON data into AuthenticatorKeyPassword
 		err = json.Unmarshal(data, &dst.AuthenticatorKeyPassword)
 		if err == nil {
@@ -243,7 +246,7 @@ func (dst *ListAuthenticators200ResponseInner) UnmarshalJSON(data []byte) error 
 	}
 
 	// check if the discriminator value is 'okta_verify'
-	if jsonDict["key"] == "okta_verify" {
+	if discriminatorValue == "okta_verify" {
 		// try to unmarshal JSON data into AuthenticatorKeyOktaVerify
 		err = json.Unmarshal(data, &dst.AuthenticatorKeyOktaVerify)
 		if err == nil {
@@ -255,7 +258,7 @@ func (dst *ListAuthenticators200ResponseInner) UnmarshalJSON(data []byte) error 
 	}
 
 	// check if the discriminator value is 'onprem_mfa'
-	if jsonDict["key"] == "onprem_mfa" {
+	if discriminatorValue == "onprem_mfa" {
 		// try to unmarshal JSON data into AuthenticatorKeyOnprem
 		err = json.Unmarshal(data, &dst.AuthenticatorKeyOnprem)
 		if err == nil {
@@ -267,7 +270,7 @@ func (dst *ListAuthenticators200ResponseInner) UnmarshalJSON(data []byte) error 
 	}
 
 	// check if the discriminator value is 'phone_number'
-	if jsonDict["key"] == "phone_number" {
+	if discriminatorValue == "phone_number" {
 		// try to unmarshal JSON data into AuthenticatorKeyPhone
 		err = json.Unmarshal(data, &dst.AuthenticatorKeyPhone)
 		if err == nil {
@@ -279,7 +282,7 @@ func (dst *ListAuthenticators200ResponseInner) UnmarshalJSON(data []byte) error 
 	}
 
 	// check if the discriminator value is 'security_key'
-	if jsonDict["key"] == "security_key" {
+	if discriminatorValue == "security_key" {
 		// try to unmarshal JSON data into AuthenticatorKeySecurityKey
 		err = json.Unmarshal(data, &dst.AuthenticatorKeySecurityKey)
 		if err == nil {
@@ -291,7 +294,7 @@ func (dst *ListAuthenticators200ResponseInner) UnmarshalJSON(data []byte) error 
 	}
 
 	// check if the discriminator value is 'security_question'
-	if jsonDict["key"] == "security_question" {
+	if discriminatorValue == "security_question" {
 		// try to unmarshal JSON data into AuthenticatorKeySecurityQuestion
 		err = json.Unmarshal(data, &dst.AuthenticatorKeySecurityQuestion)
 		if err == nil {
@@ -303,7 +306,7 @@ func (dst *ListAuthenticators200ResponseInner) UnmarshalJSON(data []byte) error 
 	}
 
 	// check if the discriminator value is 'smart_card_idp'
-	if jsonDict["key"] == "smart_card_idp" {
+	if discriminatorValue == "smart_card_idp" {
 		// try to unmarshal JSON data into AuthenticatorKeySmartCard
 		err = json.Unmarshal(data, &dst.AuthenticatorKeySmartCard)
 		if err == nil {
@@ -315,7 +318,7 @@ func (dst *ListAuthenticators200ResponseInner) UnmarshalJSON(data []byte) error 
 	}
 
 	// check if the discriminator value is 'symantec_vip'
-	if jsonDict["key"] == "symantec_vip" {
+	if discriminatorValue == "symantec_vip" {
 		// try to unmarshal JSON data into AuthenticatorKeySymantecVip
 		err = json.Unmarshal(data, &dst.AuthenticatorKeySymantecVip)
 		if err == nil {
@@ -327,7 +330,7 @@ func (dst *ListAuthenticators200ResponseInner) UnmarshalJSON(data []byte) error 
 	}
 
 	// check if the discriminator value is 'tac'
-	if jsonDict["key"] == "tac" {
+	if discriminatorValue == "tac" {
 		// try to unmarshal JSON data into AuthenticatorKeyTac
 		err = json.Unmarshal(data, &dst.AuthenticatorKeyTac)
 		if err == nil {
@@ -339,7 +342,7 @@ func (dst *ListAuthenticators200ResponseInner) UnmarshalJSON(data []byte) error 
 	}
 
 	// check if the discriminator value is 'webauthn'
-	if jsonDict["key"] == "webauthn" {
+	if discriminatorValue == "webauthn" {
 		// try to unmarshal JSON data into AuthenticatorKeyWebauthn
 		err = json.Unmarshal(data, &dst.AuthenticatorKeyWebauthn)
 		if err == nil {
@@ -351,7 +354,7 @@ func (dst *ListAuthenticators200ResponseInner) UnmarshalJSON(data []byte) error 
 	}
 
 	// check if the discriminator value is 'yubikey_token'
-	if jsonDict["key"] == "yubikey_token" {
+	if discriminatorValue == "yubikey_token" {
 		// try to unmarshal JSON data into AuthenticatorKeyYubikey
 		err = json.Unmarshal(data, &dst.AuthenticatorKeyYubikey)
 		if err == nil {
@@ -362,6 +365,16 @@ func (dst *ListAuthenticators200ResponseInner) UnmarshalJSON(data []byte) error 
 		}
 	}
 
+	// If discriminator value is empty/missing, default to the last mapped model (typically the most common type)
+	if discriminatorValue == "" {
+		err = json.Unmarshal(data, &dst.AuthenticatorKeyYubikey)
+		if err == nil {
+			return nil
+		}
+		dst.AuthenticatorKeyYubikey = nil
+	}
+
+	// No match found or unmarshal failed - return nil to allow partial unmarshalling
 	return nil
 }
 

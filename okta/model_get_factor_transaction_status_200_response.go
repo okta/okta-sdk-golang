@@ -82,8 +82,11 @@ func (dst *GetFactorTransactionStatus200Response) UnmarshalJSON(data []byte) err
 		return fmt.Errorf("failed to unmarshal JSON into map for the discriminator lookup")
 	}
 
+	// Get discriminator value, treating nil/missing as empty string for comparison
+	discriminatorValue, _ := jsonDict["factorResult"].(string)
+
 	// check if the discriminator value is 'REJECTED'
-	if jsonDict["factorResult"] == "REJECTED" {
+	if discriminatorValue == "REJECTED" {
 		// try to unmarshal JSON data into UserFactorPushTransactionRejected
 		err = json.Unmarshal(data, &dst.UserFactorPushTransactionRejected)
 		if err == nil {
@@ -95,7 +98,7 @@ func (dst *GetFactorTransactionStatus200Response) UnmarshalJSON(data []byte) err
 	}
 
 	// check if the discriminator value is 'SUCCESS'
-	if jsonDict["factorResult"] == "SUCCESS" {
+	if discriminatorValue == "SUCCESS" {
 		// try to unmarshal JSON data into UserFactorPushTransaction
 		err = json.Unmarshal(data, &dst.UserFactorPushTransaction)
 		if err == nil {
@@ -107,7 +110,7 @@ func (dst *GetFactorTransactionStatus200Response) UnmarshalJSON(data []byte) err
 	}
 
 	// check if the discriminator value is 'TIMEOUT'
-	if jsonDict["factorResult"] == "TIMEOUT" {
+	if discriminatorValue == "TIMEOUT" {
 		// try to unmarshal JSON data into UserFactorPushTransactionTimeout
 		err = json.Unmarshal(data, &dst.UserFactorPushTransactionTimeout)
 		if err == nil {
@@ -119,7 +122,7 @@ func (dst *GetFactorTransactionStatus200Response) UnmarshalJSON(data []byte) err
 	}
 
 	// check if the discriminator value is 'WAITING'
-	if jsonDict["factorResult"] == "WAITING" {
+	if discriminatorValue == "WAITING" {
 		// try to unmarshal JSON data into UserFactorPushTransactionWaitingNoNMC
 		err = json.Unmarshal(data, &dst.UserFactorPushTransactionWaitingNoNMC)
 		if err == nil {
@@ -131,7 +134,7 @@ func (dst *GetFactorTransactionStatus200Response) UnmarshalJSON(data []byte) err
 	}
 
 	// check if the discriminator value is 'WAITING (with number matching challenge)'
-	if jsonDict["factorResult"] == "WAITING (with number matching challenge)" {
+	if discriminatorValue == "WAITING (with number matching challenge)" {
 		// try to unmarshal JSON data into UserFactorPushTransactionWaitingNMC
 		err = json.Unmarshal(data, &dst.UserFactorPushTransactionWaitingNMC)
 		if err == nil {
@@ -142,6 +145,16 @@ func (dst *GetFactorTransactionStatus200Response) UnmarshalJSON(data []byte) err
 		}
 	}
 
+	// If discriminator value is empty/missing, default to the last mapped model (typically the most common type)
+	if discriminatorValue == "" {
+		err = json.Unmarshal(data, &dst.UserFactorPushTransactionWaitingNMC)
+		if err == nil {
+			return nil
+		}
+		dst.UserFactorPushTransactionWaitingNMC = nil
+	}
+
+	// No match found or unmarshal failed - return nil to allow partial unmarshalling
 	return nil
 }
 
