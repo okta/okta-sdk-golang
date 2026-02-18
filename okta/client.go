@@ -805,6 +805,9 @@ func getAccessTokenForPrivateKey(httpClient *http.Client, orgURL, clientAssertio
 	}
 
 	respBody, err := io.ReadAll(tokenResponse.Body)
+	if err != nil {
+		return nil, "", nil, err
+	}
 	origResp := io.NopCloser(bytes.NewBuffer(respBody))
 	tokenResponse.Body = origResp
 	var accessToken *RequestAccessToken
@@ -883,7 +886,7 @@ func getAccessTokenForDpopPrivateKey(tokenRequest *http.Request, httpClient *htt
 	tokenResponse.Body = origResp
 	var accessToken *RequestAccessToken
 	_, err = buildResponse(tokenResponse, nil, &accessToken)
-	return accessToken, nonce, privateKey, nil
+	return accessToken, nonce, privateKey, err
 }
 
 // NewAPIClient creates a new API client. Requires a userAgent string describing your application.
