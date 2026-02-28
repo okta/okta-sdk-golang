@@ -67055,8 +67055,6 @@ components:
               For example, if `https://redirect-*-domain.example.com/oidc/redirect` is configured as a redirect URI, then `https://redirect-1-domain.example.com/oidc/redirect` and `https://redirect-sub-domain.example.com/oidc/redirect` match, but `https://redirect-1.sub-domain.example.com/oidc/redirect` doesn't match.
               Only the `https` URI scheme can use wildcard redirect URIs.
               > **Note:** The use of wildcard subdomains is discouraged as an insecure practice, since it may allow malicious actors to have tokens or authorization codes sent to unexpected or attacker-controlled pages. Exercise caution if you decide to include a wildcard redirect URI in your configuration.
-      required:
-      - grant_types
       type: object
     OpenIdConnectApplicationSettingsClientKeys:
       description: "A [JSON Web Key Set](https://tools.ietf.org/html/rfc7517#section-5)\
