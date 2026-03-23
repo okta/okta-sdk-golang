@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -80,7 +80,7 @@ type RateLimit struct {
 	Reset     int64
 }
 
-// APIClient manages communication with the Okta Admin Management API v5.1.0
+// APIClient manages communication with the Okta Admin Management API API v5.1.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg           *Configuration
@@ -1486,7 +1486,6 @@ func (c *APIClient) doWithRetries(ctx context.Context, req *http.Request) (*http
 			if err != nil {
 				return nil, err
 			}
-
 			req.Header = req.Header.Clone() // Start with original headers
 
 			// Update only the authentication headers from the fresh auth request
