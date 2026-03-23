@@ -80,7 +80,7 @@ type RateLimit struct {
 	Reset     int64
 }
 
-// APIClient manages communication with the Okta Admin Management API API v2026.03.0
+// APIClient manages communication with the Okta Admin Management API API v5.1.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
 	cfg           *Configuration

@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Exclude** | **[]string** | An array of detected risk events to exclude in the entity policy rule | 
-**Include** | **[]string** | An array of detected risk events to include in the entity policy rule | 
+**Exclude** | Pointer to **[]string** | An array of detected risk events to exclude in the entity policy rule | [optional] 
+**Include** | Pointer to **[]string** | An array of detected risk events to include in the entity policy rule | [optional] 
 
 ## Methods
 
 ### NewRiskDetectionTypesPolicyRuleCondition
 
-`func NewRiskDetectionTypesPolicyRuleCondition(exclude []string, include []string, ) *RiskDetectionTypesPolicyRuleCondition`
+`func NewRiskDetectionTypesPolicyRuleCondition() *RiskDetectionTypesPolicyRuleCondition`
 
 NewRiskDetectionTypesPolicyRuleCondition instantiates a new RiskDetectionTypesPolicyRuleCondition object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +45,11 @@ and a boolean to check if the value has been set.
 
 SetExclude sets Exclude field to given value.
 
+### HasExclude
+
+`func (o *RiskDetectionTypesPolicyRuleCondition) HasExclude() bool`
+
+HasExclude returns a boolean if a field has been set.
 
 ### GetInclude
 
@@ -65,6 +70,11 @@ and a boolean to check if the value has been set.
 
 SetInclude sets Include field to given value.
 
+### HasInclude
+
+`func (o *RiskDetectionTypesPolicyRuleCondition) HasInclude() bool`
+
+HasInclude returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -10,7 +10,7 @@ info:
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://developer.okta.com/terms/
   title: Okta Admin Management API
-  version: 2026.03.0
+  version: 5.1.0
   x-logo:
     url: logo.svg
     backgroundColor: transparent
@@ -75268,9 +75268,6 @@ components:
           items:
             $ref: "#/components/schemas/DetectedRiskEvents"
           type: array
-      required:
-      - exclude
-      - include
       type: object
     RiskEvent:
       properties:

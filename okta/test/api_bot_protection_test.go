@@ -32,21 +32,17 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func Test_okta_DirectoriesIntegrationAPIService(t *testing.T) {
+func Test_okta_BotProtectionAPIService(t *testing.T) {
 
 	configuration, err := openapiclient.NewConfiguration()
 	require.Nil(t, err)
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test DirectoriesIntegrationAPIService GetGroupAttributeQueryResult", func(t *testing.T) {
+	t.Run("Test BotProtectionAPIService GetBotProtectionConfiguration", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
 
-		var appInstanceId string
-		var groupId string
-		var resultId string
-
-		resp, httpRes, err := apiClient.DirectoriesIntegrationAPI.GetGroupAttributeQueryResult(context.Background(), appInstanceId, groupId, resultId).Execute()
+		resp, httpRes, err := apiClient.BotProtectionAPI.GetBotProtectionConfiguration(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -54,30 +50,14 @@ func Test_okta_DirectoriesIntegrationAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test DirectoriesIntegrationAPIService SubmitGroupAttributeQuery", func(t *testing.T) {
+	t.Run("Test BotProtectionAPIService UpdateBotProtectionConfiguration", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
 
-		var appInstanceId string
-		var groupId string
-
-		resp, httpRes, err := apiClient.DirectoriesIntegrationAPI.SubmitGroupAttributeQuery(context.Background(), appInstanceId, groupId).Execute()
+		resp, httpRes, err := apiClient.BotProtectionAPI.UpdateBotProtectionConfiguration(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
-	})
-
-	t.Run("Test DirectoriesIntegrationAPIService UpdateGroupMembership", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		var appInstanceId string
-
-		httpRes, err := apiClient.DirectoriesIntegrationAPI.UpdateGroupMembership(context.Background(), appInstanceId).Execute()
-
-		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})

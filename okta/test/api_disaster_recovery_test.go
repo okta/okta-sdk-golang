@@ -32,21 +32,17 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func Test_okta_DirectoriesIntegrationAPIService(t *testing.T) {
+func Test_okta_DisasterRecoveryAPIService(t *testing.T) {
 
 	configuration, err := openapiclient.NewConfiguration()
 	require.Nil(t, err)
 	apiClient := openapiclient.NewAPIClient(configuration)
 
-	t.Run("Test DirectoriesIntegrationAPIService GetGroupAttributeQueryResult", func(t *testing.T) {
+	t.Run("Test DisasterRecoveryAPIService GetDRStatus", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
 
-		var appInstanceId string
-		var groupId string
-		var resultId string
-
-		resp, httpRes, err := apiClient.DirectoriesIntegrationAPI.GetGroupAttributeQueryResult(context.Background(), appInstanceId, groupId, resultId).Execute()
+		resp, httpRes, err := apiClient.DisasterRecoveryAPI.GetDRStatus(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -54,14 +50,13 @@ func Test_okta_DirectoriesIntegrationAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test DirectoriesIntegrationAPIService SubmitGroupAttributeQuery", func(t *testing.T) {
+	t.Run("Test DisasterRecoveryAPIService GetDRStatusForDomain", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
 
-		var appInstanceId string
-		var groupId string
+		var domain string
 
-		resp, httpRes, err := apiClient.DirectoriesIntegrationAPI.SubmitGroupAttributeQuery(context.Background(), appInstanceId, groupId).Execute()
+		resp, httpRes, err := apiClient.DisasterRecoveryAPI.GetDRStatusForDomain(context.Background(), domain).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -69,15 +64,26 @@ func Test_okta_DirectoriesIntegrationAPIService(t *testing.T) {
 
 	})
 
-	t.Run("Test DirectoriesIntegrationAPIService UpdateGroupMembership", func(t *testing.T) {
+	t.Run("Test DisasterRecoveryAPIService StartOrgFailback", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
 
-		var appInstanceId string
-
-		httpRes, err := apiClient.DirectoriesIntegrationAPI.UpdateGroupMembership(context.Background(), appInstanceId).Execute()
+		resp, httpRes, err := apiClient.DisasterRecoveryAPI.StartOrgFailback(context.Background()).Execute()
 
 		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DisasterRecoveryAPIService StartOrgFailover", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		resp, httpRes, err := apiClient.DisasterRecoveryAPI.StartOrgFailover(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})
