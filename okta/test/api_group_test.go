@@ -129,6 +129,9 @@ func Test_okta_GroupAPIService(t *testing.T) {
 		require.Nil(t, err)
 		require.NotNil(t, createdGroup)
 
+		// Allow time for API propagation
+		time.Sleep(3 * time.Second)
+
 		resp, httpRes, err := apiClient.GroupAPI.ListGroups(context.Background()).Limit(200).Execute()
 
 		require.Nil(t, err)
