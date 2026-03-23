@@ -1,6 +1,9 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v6.0.4
+- Fix `PolicyPeopleCondition` by making `UserCondition` and `GroupCondition` optional. Thanks [@pranav-okta](https://github.com/pranav-okta)
+
 ## v6.0.3
 - Fix `CreateGroupPushMapping` API request body structure [#570](https://github.com/okta/okta-sdk-golang/pull/570). Thanks [@aditya-okta](https://github.com/aditya-okta)
 - Fix "data matches more than one schema in oneOf" error when creating/reading OIDC applications with JWKS keys [#571](https://github.com/okta/okta-sdk-golang/pull/571). Thanks [@aditya-okta](https://github.com/aditya-okta)
