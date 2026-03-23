@@ -9,7 +9,7 @@ info:
     name: Apache-2.0
     url: https://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: https://developer.okta.com/terms/
-  title: Okta Admin Management
+  title: Okta Admin Management API
   version: 5.1.0
   x-logo:
     url: logo.svg
@@ -57887,9 +57887,6 @@ components:
           items:
             type: string
           type: array
-      required:
-      - exclude
-      - include
       type: object
     GroupMembershipsRequestSchema:
       properties:
@@ -69209,7 +69206,8 @@ components:
       - ANYWHERE
       - ZONE
     PolicyPeopleCondition:
-      description: Identifies users and groups that are used together
+      description: Specifies the users and groups that are included or excluded by
+        the policy rule
       example:
         groups:
           include:
@@ -69230,9 +69228,6 @@ components:
           $ref: "#/components/schemas/GroupCondition"
         users:
           $ref: "#/components/schemas/UserCondition"
-      required:
-      - groups
-      - users
       type: object
     PolicyPlatformOperatingSystemType:
       type: string
@@ -77847,9 +77842,6 @@ components:
           items:
             type: string
           type: array
-      required:
-      - exclude
-      - include
       type: object
     UserCredentials:
       description: Specifies primary authentication and recovery credentials for a

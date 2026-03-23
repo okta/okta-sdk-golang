@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Okta Admin Management
+  title: Okta Admin Management API
   description: Allows customers to easily access the Okta Management APIs
   termsOfService: https://developer.okta.com/terms/
   contact:
@@ -36418,9 +36418,6 @@ components:
           description: Groups to be included
           items:
             type: string
-      required:
-        - exclude
-        - include
     GroupMembershipsRequestSchema:
       type: object
       properties:
@@ -44368,16 +44365,13 @@ components:
         - ANYWHERE
         - ZONE
     PolicyPeopleCondition:
-      description: Identifies users and groups that are used together
+      description: Specifies the users and groups that are included or excluded by the policy rule
       type: object
       properties:
         groups:
           $ref: '#/components/schemas/GroupCondition'
         users:
           $ref: '#/components/schemas/UserCondition'
-      required:
-        - groups
-        - users
     PolicyPlatformOperatingSystemType:
       type: string
       x-okta-known-values:
@@ -51169,9 +51163,6 @@ components:
           type: array
           items:
             type: string
-      required:
-        - exclude
-        - include
     UserCredentials:
       description: Specifies primary authentication and recovery credentials for a user. Credential types and requirements vary depending on the provider and security policy of the org.
       type: object
