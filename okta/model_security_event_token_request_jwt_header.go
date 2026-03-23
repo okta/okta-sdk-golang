@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -31,7 +31,7 @@ import (
 // checks if the SecurityEventTokenRequestJwtHeader type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SecurityEventTokenRequestJwtHeader{}
 
-// SecurityEventTokenRequestJwtHeader JSON Web Token header for a Security Event Token
+// SecurityEventTokenRequestJwtHeader JSON web token header for a security event token
 type SecurityEventTokenRequestJwtHeader struct {
 	// Algorithm used to sign or encrypt the JWT
 	Alg string `json:"alg"`

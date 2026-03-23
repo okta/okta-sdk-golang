@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -31,7 +31,7 @@ import (
 // checks if the Org2OrgApplication type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Org2OrgApplication{}
 
-// Org2OrgApplication Schema for the Okta Org2Org app (key name: `okta_org2org`)  To create an Org2Org app, use the [Create an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication) request with the following parameters in the request body. > **Notes:** > * The Okta Org2Org (`okta_org2org`) app isn't available in Okta Integrator Free Plan orgs. If you need to test this feature in your Integrator Free Plan org, contact your Okta account team. > * The Okta Org2Org app supports `SAML_2_0` and `AUTO_LOGIN` sign-on modes.
+// Org2OrgApplication Schema for the Okta Org2Org app (key name: `okta_org2org`)  To create an Org2Org app, use the [Create an Application](/openapi/okta-management/management/tags/application/other/createapplication) request with the following parameters in the request body. > **Notes:** > * The Okta Org2Org (`okta_org2org`) app isn't available in Okta Integrator Free Plan orgs. If you need to test this feature in your Integrator Free Plan org, contact your Okta account team. > * The Okta Org2Org app supports `SAML_2_0` and `AUTO_LOGIN` sign-on modes.
 type Org2OrgApplication struct {
 	Accessibility *ApplicationAccessibility     `json:"accessibility,omitempty"`
 	Credentials   *SchemeApplicationCredentials `json:"credentials,omitempty"`

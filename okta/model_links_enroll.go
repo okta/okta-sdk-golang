@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -32,7 +32,7 @@ var _ MappedNullable = &LinksEnroll{}
 
 // LinksEnroll struct for LinksEnroll
 type LinksEnroll struct {
-	// Enrolls a supported factor. See [Enroll a factor](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/enrollFactor).
+	// Enrolls a supported factor. See [Enroll a factor](/openapi/okta-management/management/userfactor/enrollfactor).
 	Enroll               *HrefObject `json:"enroll,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

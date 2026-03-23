@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ActivationToken** | Pointer to **string** | Token received as part of an activation user request. If a password was set before the user was activated, then user must sign in with their password or the &#x60;activationToken&#x60; and not the activation link. More information about using the &#x60;activationToken&#x60; to login can be found in the [Authentication API](https://developer.okta.com/docs/reference/api/authn/#primary-authentication-with-activation-token). | [optional] [readonly] 
-**ActivationUrl** | Pointer to **string** | If &#x60;sendEmail&#x60; is &#x60;false&#x60;, returns an activation link for the user to set up their account. The activation token can be used to create a custom activation link. | [optional] [readonly] 
+**ActivationUrl** | Pointer to **string** | If &#x60;sendEmail&#x60; is &#x60;false&#x60;, returns an activation link for the user to set up their account. You can use the activation token to create a custom activation link.  &gt; **Note:** The &#x60;activationUrl&#x60; varies depending on if you are on a Classic or Identity Engine org. &gt; - For Identity Engine orgs, the activation link is in this format: &#x60;https://{yourOktaDomain}/tokens/{activationToken}/verify&#x60; &gt; - For Classic orgs, the activation link is in this format: &#x60;https://{yourOktaDomain}/welcome/{activationToken}&#x60; | [optional] [readonly] 
 
 ## Methods
 

@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -31,7 +31,7 @@ import (
 // checks if the ZscalerbyzApplication type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ZscalerbyzApplication{}
 
-// ZscalerbyzApplication Schema for the Zscaler 2.0 app (key name: `zscalerbyz`)  To create a Zscaler 2.0 app, use the [Create an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication) request with the following parameters in the request body. > **Note:** The Zscaler 2.0 app only supports `BROWSER_PLUGIN` and `SAML_2_0` sign-on modes.
+// ZscalerbyzApplication Schema for the Zscaler 2.0 app (key name: `zscalerbyz`)  To create a Zscaler 2.0 app, use the [Create an Application](/openapi/okta-management/management/tags/application/other/createapplication) request with the following parameters in the request body. > **Note:** The Zscaler 2.0 app only supports `BROWSER_PLUGIN` and `SAML_2_0` sign-on modes.
 type ZscalerbyzApplication struct {
 	Accessibility *ApplicationAccessibility     `json:"accessibility,omitempty"`
 	Credentials   *SchemeApplicationCredentials `json:"credentials,omitempty"`

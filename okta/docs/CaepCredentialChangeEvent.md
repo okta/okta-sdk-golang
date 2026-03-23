@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ChangeType** | **string** | The type of action done towards the credential | 
-**CredentialType** | **string** | The credential type of the changed credential. It will one of the supported enum values or any other credential type supported mutually by the Transmitter and the Receiver. | 
+**CredentialType** | **string** | The credential type of the changed credential. It&#39;s one of the supported enum values or any other credential type supported mutually by the transmitter and the receiver. | 
 **EventTimestamp** | Pointer to **int64** | The time of the event (UNIX timestamp) | [optional] 
 **Fido2Aaguid** | Pointer to **string** | FIDO2 Authenticator Attestation GUID | [optional] 
 **FriendlyName** | Pointer to **string** | Credential friendly name | [optional] 

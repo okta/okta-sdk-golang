@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -37,7 +37,7 @@ type Realm struct {
 	Created *time.Time `json:"created,omitempty"`
 	// Unique ID for the realm
 	Id *string `json:"id,omitempty"`
-	// Indicates the default realm. Existing users will start out in the default realm and can be moved to other realms individually or through realm assignments. See [Realms Assignments API](/openapi/okta-management/management/tag/RealmAssignment/).
+	// Indicates the default realm. Existing users will start out in the default realm and can be moved to other realms individually or through realm assignments. See [Realms Assignments API](/openapi/okta-management/management/tags/realmassignment/).
 	IsDefault *bool `json:"isDefault,omitempty"`
 	// Timestamp when the realm was updated
 	LastUpdated          *time.Time    `json:"lastUpdated,omitempty"`

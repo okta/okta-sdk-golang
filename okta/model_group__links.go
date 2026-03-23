@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -30,7 +30,7 @@ import (
 // checks if the GroupLinks type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GroupLinks{}
 
-// GroupLinks [Discoverable resources](/openapi/okta-management/management/tag/Group/#tag/Group/operation/listGroups!c=200&path=_links&t=response) related to the group
+// GroupLinks [Discoverable resources](/openapi/okta-management/management/group/listgroups#group/listgroups/t=response&c=200&path=_links/source) related to the group
 type GroupLinks struct {
 	Self                 *HrefObjectSelfLink `json:"self,omitempty"`
 	Apps                 *HrefObject         `json:"apps,omitempty"`

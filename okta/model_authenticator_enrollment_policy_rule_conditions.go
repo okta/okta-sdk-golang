@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -32,6 +32,7 @@ var _ MappedNullable = &AuthenticatorEnrollmentPolicyRuleConditions{}
 
 // AuthenticatorEnrollmentPolicyRuleConditions Specifies conditions that must be met during policy evaluation to apply the rule. All policy conditions and conditions for at least one rule must be met to apply the settings specified in the policy and the associated rule.
 type AuthenticatorEnrollmentPolicyRuleConditions struct {
+	App                  *AppAndInstancePolicyRuleCondition                 `json:"app,omitempty"`
 	Network              *PolicyNetworkCondition                            `json:"network,omitempty"`
 	People               *AuthenticatorEnrollmentPolicyRuleConditionsPeople `json:"people,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -54,6 +55,38 @@ func NewAuthenticatorEnrollmentPolicyRuleConditions() *AuthenticatorEnrollmentPo
 func NewAuthenticatorEnrollmentPolicyRuleConditionsWithDefaults() *AuthenticatorEnrollmentPolicyRuleConditions {
 	this := AuthenticatorEnrollmentPolicyRuleConditions{}
 	return &this
+}
+
+// GetApp returns the App field value if set, zero value otherwise.
+func (o *AuthenticatorEnrollmentPolicyRuleConditions) GetApp() AppAndInstancePolicyRuleCondition {
+	if o == nil || IsNil(o.App) {
+		var ret AppAndInstancePolicyRuleCondition
+		return ret
+	}
+	return *o.App
+}
+
+// GetAppOk returns a tuple with the App field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuthenticatorEnrollmentPolicyRuleConditions) GetAppOk() (*AppAndInstancePolicyRuleCondition, bool) {
+	if o == nil || IsNil(o.App) {
+		return nil, false
+	}
+	return o.App, true
+}
+
+// HasApp returns a boolean if a field has been set.
+func (o *AuthenticatorEnrollmentPolicyRuleConditions) HasApp() bool {
+	if o != nil && !IsNil(o.App) {
+		return true
+	}
+
+	return false
+}
+
+// SetApp gets a reference to the given AppAndInstancePolicyRuleCondition and assigns it to the App field.
+func (o *AuthenticatorEnrollmentPolicyRuleConditions) SetApp(v AppAndInstancePolicyRuleCondition) {
+	o.App = &v
 }
 
 // GetNetwork returns the Network field value if set, zero value otherwise.
@@ -130,6 +163,9 @@ func (o AuthenticatorEnrollmentPolicyRuleConditions) MarshalJSON() ([]byte, erro
 
 func (o AuthenticatorEnrollmentPolicyRuleConditions) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.App) {
+		toSerialize["app"] = o.App
+	}
 	if !IsNil(o.Network) {
 		toSerialize["network"] = o.Network
 	}
@@ -158,6 +194,7 @@ func (o *AuthenticatorEnrollmentPolicyRuleConditions) UnmarshalJSON(data []byte)
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "app")
 		delete(additionalProperties, "network")
 		delete(additionalProperties, "people")
 		o.AdditionalProperties = additionalProperties

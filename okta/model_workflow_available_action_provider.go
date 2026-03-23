@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -45,12 +45,12 @@ type _WorkflowAvailableActionProvider WorkflowAvailableActionProvider
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewWorkflowAvailableActionProvider(actionName string, externalId string, type_ string, url string) *WorkflowAvailableActionProvider {
+func NewWorkflowAvailableActionProvider(actionName string, externalId string, link string, type_ string) *WorkflowAvailableActionProvider {
 	this := WorkflowAvailableActionProvider{}
 	this.ActionName = actionName
 	this.ExternalId = externalId
+	this.Link = link
 	this.Type = type_
-	this.Url = url
 	return &this
 }
 
@@ -95,8 +95,8 @@ func (o *WorkflowAvailableActionProvider) UnmarshalJSON(data []byte) (err error)
 	requiredProperties := []string{
 		"actionName",
 		"externalId",
+		"link",
 		"type",
-		"url",
 	}
 
 	allProperties := make(map[string]interface{})

@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Providers** | Pointer to [**[]IdpPolicyRuleActionProvider**](IdpPolicyRuleActionProvider.md) | List of configured identity providers that a given rule can route to. Ability to define multiple providers is a part of the Identity Engine. This allows users to choose a provider when they sign in. Contact support for information on the Identity Engine. | [optional] 
 **IdpSelectionType** | Pointer to **string** | Determines whether the rule should use expression language or a specific IdP | [optional] 
 **MatchCriteria** | Pointer to [**[]IdpPolicyRuleActionMatchCriteria**](IdpPolicyRuleActionMatchCriteria.md) | Required if &#x60;idpSelectionType&#x60; is set to &#x60;DYNAMIC&#x60; | [optional] 
+**ShouldFallBackToOkta** | Pointer to **bool** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;Specifies whether to fall back to &#x60;OKTA&#x60; if authentication with the configured identity provider fails | [optional] [default to false]
 
 ## Methods
 
@@ -101,6 +102,31 @@ SetMatchCriteria sets MatchCriteria field to given value.
 `func (o *IdpPolicyRuleActionIdp) HasMatchCriteria() bool`
 
 HasMatchCriteria returns a boolean if a field has been set.
+
+### GetShouldFallBackToOkta
+
+`func (o *IdpPolicyRuleActionIdp) GetShouldFallBackToOkta() bool`
+
+GetShouldFallBackToOkta returns the ShouldFallBackToOkta field if non-nil, zero value otherwise.
+
+### GetShouldFallBackToOktaOk
+
+`func (o *IdpPolicyRuleActionIdp) GetShouldFallBackToOktaOk() (*bool, bool)`
+
+GetShouldFallBackToOktaOk returns a tuple with the ShouldFallBackToOkta field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetShouldFallBackToOkta
+
+`func (o *IdpPolicyRuleActionIdp) SetShouldFallBackToOkta(v bool)`
+
+SetShouldFallBackToOkta sets ShouldFallBackToOkta field to given value.
+
+### HasShouldFallBackToOkta
+
+`func (o *IdpPolicyRuleActionIdp) HasShouldFallBackToOkta() bool`
+
+HasShouldFallBackToOkta returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**User** | Pointer to **map[string]map[string]interface{}** | The specified [Application User](/openapi/okta-management/management/tag/ApplicationUsers/) assigned to the app | [optional] 
+**User** | Pointer to **map[string]map[string]interface{}** | The specified [Application User](/openapi/okta-management/management/tags/applicationusers) assigned to the app | [optional] 
 
 ## Methods
 

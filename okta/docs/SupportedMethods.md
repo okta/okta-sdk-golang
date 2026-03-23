@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Settings** | Pointer to [**SupportedMethodsSettings**](SupportedMethodsSettings.md) |  | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
+**Status** | Pointer to **string** | The status of the authenticator method | [optional] 
 **Type** | Pointer to **string** | The type of authenticator method | [optional] 
 
 ## Methods

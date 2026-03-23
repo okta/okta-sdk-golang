@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -125,8 +125,8 @@ type AgentPoolsAPI interface {
 	GetAgentPoolsUpdateSettings(ctx context.Context, poolId string) ApiGetAgentPoolsUpdateSettingsRequest
 
 	// GetAgentPoolsUpdateSettingsExecute executes the request
-	//  @return AgentPoolUpdateSetting
-	GetAgentPoolsUpdateSettingsExecute(r ApiGetAgentPoolsUpdateSettingsRequest) (*AgentPoolUpdateSetting, *APIResponse, error)
+	//  @return AgentPoolUpdateSettingResponse
+	GetAgentPoolsUpdateSettingsExecute(r ApiGetAgentPoolsUpdateSettingsRequest) (*AgentPoolUpdateSettingResponse, *APIResponse, error)
 
 	/*
 		ListAgentPools List all agent pools
@@ -249,8 +249,8 @@ type AgentPoolsAPI interface {
 	UpdateAgentPoolsUpdateSettings(ctx context.Context, poolId string) ApiUpdateAgentPoolsUpdateSettingsRequest
 
 	// UpdateAgentPoolsUpdateSettingsExecute executes the request
-	//  @return AgentPoolUpdateSetting
-	UpdateAgentPoolsUpdateSettingsExecute(r ApiUpdateAgentPoolsUpdateSettingsRequest) (*AgentPoolUpdateSetting, *APIResponse, error)
+	//  @return AgentPoolUpdateSettingResponse
+	UpdateAgentPoolsUpdateSettingsExecute(r ApiUpdateAgentPoolsUpdateSettingsRequest) (*AgentPoolUpdateSettingResponse, *APIResponse, error)
 }
 
 // AgentPoolsAPIService AgentPoolsAPI service
@@ -1119,7 +1119,7 @@ type ApiGetAgentPoolsUpdateSettingsRequest struct {
 	retryCount int32
 }
 
-func (r ApiGetAgentPoolsUpdateSettingsRequest) Execute() (*AgentPoolUpdateSetting, *APIResponse, error) {
+func (r ApiGetAgentPoolsUpdateSettingsRequest) Execute() (*AgentPoolUpdateSettingResponse, *APIResponse, error) {
 	return r.ApiService.GetAgentPoolsUpdateSettingsExecute(r)
 }
 
@@ -1143,13 +1143,13 @@ func (a *AgentPoolsAPIService) GetAgentPoolsUpdateSettings(ctx context.Context, 
 
 // Execute executes the request
 //
-//	@return AgentPoolUpdateSetting
-func (a *AgentPoolsAPIService) GetAgentPoolsUpdateSettingsExecute(r ApiGetAgentPoolsUpdateSettingsRequest) (*AgentPoolUpdateSetting, *APIResponse, error) {
+//	@return AgentPoolUpdateSettingResponse
+func (a *AgentPoolsAPIService) GetAgentPoolsUpdateSettingsExecute(r ApiGetAgentPoolsUpdateSettingsRequest) (*AgentPoolUpdateSettingResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *AgentPoolUpdateSetting
+		localVarReturnValue  *AgentPoolUpdateSettingResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -2508,19 +2508,19 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateExecute(r ApiUpdateAgentPoo
 }
 
 type ApiUpdateAgentPoolsUpdateSettingsRequest struct {
-	ctx                    context.Context
-	ApiService             AgentPoolsAPI
-	poolId                 string
-	agentPoolUpdateSetting *AgentPoolUpdateSetting
-	retryCount             int32
+	ctx                           context.Context
+	ApiService                    AgentPoolsAPI
+	poolId                        string
+	agentPoolUpdateSettingRequest *AgentPoolUpdateSettingRequest
+	retryCount                    int32
 }
 
-func (r ApiUpdateAgentPoolsUpdateSettingsRequest) AgentPoolUpdateSetting(agentPoolUpdateSetting AgentPoolUpdateSetting) ApiUpdateAgentPoolsUpdateSettingsRequest {
-	r.agentPoolUpdateSetting = &agentPoolUpdateSetting
+func (r ApiUpdateAgentPoolsUpdateSettingsRequest) AgentPoolUpdateSettingRequest(agentPoolUpdateSettingRequest AgentPoolUpdateSettingRequest) ApiUpdateAgentPoolsUpdateSettingsRequest {
+	r.agentPoolUpdateSettingRequest = &agentPoolUpdateSettingRequest
 	return r
 }
 
-func (r ApiUpdateAgentPoolsUpdateSettingsRequest) Execute() (*AgentPoolUpdateSetting, *APIResponse, error) {
+func (r ApiUpdateAgentPoolsUpdateSettingsRequest) Execute() (*AgentPoolUpdateSettingResponse, *APIResponse, error) {
 	return r.ApiService.UpdateAgentPoolsUpdateSettingsExecute(r)
 }
 
@@ -2544,13 +2544,13 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateSettings(ctx context.Contex
 
 // Execute executes the request
 //
-//	@return AgentPoolUpdateSetting
-func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateSettingsExecute(r ApiUpdateAgentPoolsUpdateSettingsRequest) (*AgentPoolUpdateSetting, *APIResponse, error) {
+//	@return AgentPoolUpdateSettingResponse
+func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateSettingsExecute(r ApiUpdateAgentPoolsUpdateSettingsRequest) (*AgentPoolUpdateSettingResponse, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *AgentPoolUpdateSetting
+		localVarReturnValue  *AgentPoolUpdateSettingResponse
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -2572,8 +2572,8 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateSettingsExecute(r ApiUpdate
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.agentPoolUpdateSetting == nil {
-		return localVarReturnValue, nil, reportError("agentPoolUpdateSetting is required and must be specified")
+	if r.agentPoolUpdateSettingRequest == nil {
+		return localVarReturnValue, nil, reportError("agentPoolUpdateSettingRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -2594,7 +2594,7 @@ func (a *AgentPoolsAPIService) UpdateAgentPoolsUpdateSettingsExecute(r ApiUpdate
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.agentPoolUpdateSetting
+	localVarPostBody = r.agentPoolUpdateSettingRequest
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Status** | Pointer to **string** | The status of the SSF Stream configuration | [optional] 
-**StreamId** | Pointer to **string** | The ID of the SSF Stream configuration. This corresponds to the value in the query parameter of the request. | [optional] 
+**Status** | Pointer to **string** | The status of the SSF stream configuration | [optional] 
+**StreamId** | Pointer to **string** | The ID of the SSF stream configuration. This corresponds to the value in the query parameter of the request. | [optional] 
 
 ## Methods
 

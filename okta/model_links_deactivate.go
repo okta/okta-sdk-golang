@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -32,7 +32,7 @@ var _ MappedNullable = &LinksDeactivate{}
 
 // LinksDeactivate struct for LinksDeactivate
 type LinksDeactivate struct {
-	// Deactivates the factor. See [Unenroll a factor](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/unenrollFactor).
+	// Deactivates the factor. See [Unenroll a factor](/openapi/okta-management/management/userfactor/unenrollfactor).
 	Deactivate           *HrefObject `json:"deactivate,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

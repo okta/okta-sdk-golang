@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**TempPassword** | Pointer to **string** |  | [optional] [readonly] 
+**TempPassword** | Pointer to **string** | A temporary password that the user can sign in with. This is only returned when expiring a password with a temporary password. | [optional] [readonly] 
 
 ## Methods
 

@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -129,7 +129,7 @@ type LogStreamAPI interface {
 
 		This operation is typically used to update the configuration of a log stream.
 		Depending on the type of log stream you want to update, certain properties can't be modified after the log stream is initially created.
-		Use the [Retrieve the log stream schema for the schema type](/openapi/okta-management/management/tag/Schema/#tag/Schema/operation/getLogStreamSchema) request to determine which properties you can update for the specific log stream type.
+		Use the [Retrieve the log stream schema for the schema type](/openapi/okta-management/management/schema/getlogstreamschema) request to determine which properties you can update for the specific log stream type.
 		Log stream properties with the `"writeOnce" : true` attribute can't be updated after creation.
 		You must still specify these `writeOnce` properties in the request body with the original values in the PUT request.
 
@@ -1177,7 +1177,7 @@ Replaces the log stream object properties for a given ID.
 
 This operation is typically used to update the configuration of a log stream.
 Depending on the type of log stream you want to update, certain properties can't be modified after the log stream is initially created.
-Use the [Retrieve the log stream schema for the schema type](/openapi/okta-management/management/tag/Schema/#tag/Schema/operation/getLogStreamSchema) request to determine which properties you can update for the specific log stream type.
+Use the [Retrieve the log stream schema for the schema type](/openapi/okta-management/management/schema/getlogstreamschema) request to determine which properties you can update for the specific log stream type.
 Log stream properties with the `"writeOnce" : true` attribute can't be updated after creation.
 You must still specify these `writeOnce` properties in the request body with the original values in the PUT request.
 

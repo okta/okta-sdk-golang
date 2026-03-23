@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -31,7 +31,7 @@ import (
 // checks if the MetadataLink type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &MetadataLink{}
 
-// MetadataLink Link to the [SAML metadata](/openapi/okta-management/management/tag/ApplicationSSO/#tag/ApplicationSSO/operation/previewSAMLmetadataForApplication) for SSO
+// MetadataLink Link to the [SAML metadata](/openapi/okta-management/management/applicationsso/previewsamlmetadataforapplication) for SSO
 type MetadataLink struct {
 	Hints *HrefHints `json:"hints,omitempty"`
 	// Link URI

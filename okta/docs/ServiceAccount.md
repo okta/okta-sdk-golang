@@ -12,8 +12,8 @@ Name | Type | Description | Notes
 **Name** | **string** | The user-defined name for the service account | 
 **OwnerGroupIds** | Pointer to **[]string** | A list of IDs of the Okta groups that own the service account | [optional] 
 **OwnerUserIds** | Pointer to **[]string** | A list of IDs of the Okta users that own the service account | [optional] 
-**Status** | Pointer to **string** | Describes the current status of an app service account | [optional] [readonly] 
-**StatusDetail** | Pointer to **string** | Describes the detailed status of an app service account | [optional] [readonly] 
+**Status** | Pointer to **string** | Describes the current status of a service account | [optional] [readonly] 
+**StatusDetail** | Pointer to **string** | Describes the detailed status of a service account | [optional] [readonly] 
 
 ## Methods
 

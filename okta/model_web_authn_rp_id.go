@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -30,7 +30,7 @@ import (
 // checks if the WebAuthnRpId type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &WebAuthnRpId{}
 
-// WebAuthnRpId The [RP ID](https://www.w3.org/TR/webauthn/#relying-party-identifier) object for WebAuthn configuration
+// WebAuthnRpId The [RP ID](https://www.w3.org/TR/webauthn/#relying-party-identifier) object for WebAuthn configuration  > **Note:** Changing the RP ID `domain` invalidates all existing passkeys for all users. You must notify your users that they need to re-enroll their passkeys if you replace an existing RP ID.
 type WebAuthnRpId struct {
 	Domain *WebAuthnRpIdDomain `json:"domain,omitempty"`
 	// Indicates whether the RP ID is active and is used for WebAuthn operations. It can only be set to `true` once the `validationStatus` of the `domain` object is `VERIFIED`. `enabled` can only be `true` for this same `domain`. Its value must be `false` to be able to configure the `domain`.

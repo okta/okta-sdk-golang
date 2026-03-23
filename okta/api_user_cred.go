@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -101,10 +101,9 @@ type UserCredAPI interface {
 			Expires the password and resets the user's password to a temporary password. This operation transitions the user status to `PASSWORD_EXPIRED` so that the user must change their password the next time that they sign in.
 		The user's password is reset to a temporary password that's returned, and then the user's password is expired.
 		If `revokeSessions` is included in the request with a value of `true`, the user's current outstanding sessions are revoked and require re-authentication.
-		<br>
+
 		If you have integrated Okta with your on-premises Active Directory (AD), then setting a user's password as expired in Okta also expires the password in AD.
-		When the user tries to sign in to Okta, delegated authentication finds the password-expired status in AD,
-		and the user is presented with the password-expired page where they can change their password.
+		When the user tries to sign in to Okta, delegated authentication finds the password-expired status in AD, and the user is presented with the password-expired page where they can change their password.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
@@ -113,8 +112,8 @@ type UserCredAPI interface {
 	ExpirePasswordWithTempPassword(ctx context.Context, id string) ApiExpirePasswordWithTempPasswordRequest
 
 	// ExpirePasswordWithTempPasswordExecute executes the request
-	//  @return User
-	ExpirePasswordWithTempPasswordExecute(r ApiExpirePasswordWithTempPasswordRequest) (*User, *APIResponse, error)
+	//  @return TempPassword
+	ExpirePasswordWithTempPasswordExecute(r ApiExpirePasswordWithTempPasswordRequest) (*TempPassword, *APIResponse, error)
 
 	/*
 			ForgotPassword Start forgot password flow
@@ -773,7 +772,7 @@ func (r ApiExpirePasswordWithTempPasswordRequest) RevokeSessions(revokeSessions 
 	return r
 }
 
-func (r ApiExpirePasswordWithTempPasswordRequest) Execute() (*User, *APIResponse, error) {
+func (r ApiExpirePasswordWithTempPasswordRequest) Execute() (*TempPassword, *APIResponse, error) {
 	return r.ApiService.ExpirePasswordWithTempPasswordExecute(r)
 }
 
@@ -783,10 +782,9 @@ ExpirePasswordWithTempPassword Expire the password with a temporary password
 Expires the password and resets the user's password to a temporary password. This operation transitions the user status to `PASSWORD_EXPIRED` so that the user must change their password the next time that they sign in.
 The user's password is reset to a temporary password that's returned, and then the user's password is expired.
 If `revokeSessions` is included in the request with a value of `true`, the user's current outstanding sessions are revoked and require re-authentication.
-<br>
+
 If you have integrated Okta with your on-premises Active Directory (AD), then setting a user's password as expired in Okta also expires the password in AD.
-When the user tries to sign in to Okta, delegated authentication finds the password-expired status in AD,
-and the user is presented with the password-expired page where they can change their password.
+When the user tries to sign in to Okta, delegated authentication finds the password-expired status in AD, and the user is presented with the password-expired page where they can change their password.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
@@ -803,13 +801,13 @@ func (a *UserCredAPIService) ExpirePasswordWithTempPassword(ctx context.Context,
 
 // Execute executes the request
 //
-//	@return User
-func (a *UserCredAPIService) ExpirePasswordWithTempPasswordExecute(r ApiExpirePasswordWithTempPasswordRequest) (*User, *APIResponse, error) {
+//	@return TempPassword
+func (a *UserCredAPIService) ExpirePasswordWithTempPasswordExecute(r ApiExpirePasswordWithTempPasswordRequest) (*TempPassword, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *User
+		localVarReturnValue  *TempPassword
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error

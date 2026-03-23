@@ -30,7 +30,7 @@ import (
 
 func main() {
 	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the policy
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -49,7 +49,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **appId** | **string** | Application ID | 
-**policyId** | **string** | &#x60;id&#x60; of the Policy | 
+**policyId** | **string** | &#x60;id&#x60; of the policy | 
 
 ### Other Parameters
 

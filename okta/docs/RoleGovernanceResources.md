@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Resources** | Pointer to [**[]RoleGovernanceResource**](RoleGovernanceResource.md) |  | [optional] 
-**Links** | Pointer to [**AIAgentOperationListResponseLinks**](AIAgentOperationListResponseLinks.md) |  | [optional] 
+**Links** | Pointer to [**RoleGovernanceResourcesLinks**](RoleGovernanceResourcesLinks.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasResources returns a boolean if a field has been set.
 
 ### GetLinks
 
-`func (o *RoleGovernanceResources) GetLinks() AIAgentOperationListResponseLinks`
+`func (o *RoleGovernanceResources) GetLinks() RoleGovernanceResourcesLinks`
 
 GetLinks returns the Links field if non-nil, zero value otherwise.
 
 ### GetLinksOk
 
-`func (o *RoleGovernanceResources) GetLinksOk() (*AIAgentOperationListResponseLinks, bool)`
+`func (o *RoleGovernanceResources) GetLinksOk() (*RoleGovernanceResourcesLinks, bool)`
 
 GetLinksOk returns a tuple with the Links field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLinks
 
-`func (o *RoleGovernanceResources) SetLinks(v AIAgentOperationListResponseLinks)`
+`func (o *RoleGovernanceResources) SetLinks(v RoleGovernanceResourcesLinks)`
 
 SetLinks sets Links field to given value.
 

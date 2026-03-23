@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -33,15 +33,15 @@ var _ MappedNullable = &ApplicationGroupAssignment{}
 
 // ApplicationGroupAssignment The Application Group object that defines a group of users' app-specific profile and credentials for an app
 type ApplicationGroupAssignment struct {
-	// ID of the [group](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/)
+	// ID of the [group](openapi/okta-management/management/group)
 	Id *string `json:"id,omitempty"`
 	// Timestamp when the object was last updated
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	// Priority assigned to the group. If an app has more than one group assigned to the same user, then the group with the higher priority has its profile applied to the [application user](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/ApplicationUsers/). If a priority value isn't specified, then the next highest priority is assigned by default. See [Assign attribute group priority](https://help.okta.com/okta_help.htm?type=oie&id=ext-usgp-app-group-priority) and the [sample priority use case](https://help.okta.com/okta_help.htm?type=oie&id=ext-usgp-combine-values-use).
+	// Priority assigned to the group. If an app has more than one group assigned to the same user, then the group with the higher priority has its profile applied to the [application user](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/applicationusers). If a priority value isn't specified, then the next highest priority is assigned by default. See [Assign attribute group priority](https://help.okta.com/okta_help.htm?type=oie&id=ext-usgp-app-group-priority) and the [sample priority use case](https://help.okta.com/okta_help.htm?type=oie&id=ext-usgp-combine-values-use).
 	Priority *int32 `json:"priority,omitempty"`
-	// Specifies the profile properties applied to [application users](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/ApplicationUsers/) that are assigned to the app through group membership. Some reference properties are imported from the target app and can't be configured. See [profile](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/#tag/User/operation/getUser!c=200&path=profile&t=response).
+	// Specifies the profile properties applied to [application users](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/applicationusers) that are assigned to the app through group membership. Some reference properties are imported from the target app and can't be configured. See [profile](https://developer.okta.com/docs/api/openapi/okta-management/management/user/getuser#user/getuser/t=response&c=200&path=profile).
 	Profile map[string]interface{} `json:"profile,omitempty"`
-	// Embedded resource related to the Application Group using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. If the `expand=group` query parameter is specified, then the [group](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/) object is embedded. If the `expand=metadata` query parameter is specified, then the group assignment metadata is embedded.
+	// Embedded resource related to the Application Group using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. If the `expand=group` query parameter is specified, then the [group](openapi/okta-management/management/group) object is embedded. If the `expand=metadata` query parameter is specified, then the group assignment metadata is embedded.
 	Embedded             map[string]map[string]interface{} `json:"_embedded,omitempty"`
 	Links                *ApplicationGroupAssignmentLinks  `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}

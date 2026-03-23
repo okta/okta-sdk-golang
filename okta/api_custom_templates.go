@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -283,6 +283,8 @@ type CustomTemplatesAPI interface {
 		<x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is enabled and the `language` parameter is an additional language, the test email uses the customization corresponding to the language.
 		2. The email template's default customization
 		3. The email template's default content, translated to the current user's language
+
+		You can only send customized test emails if you've configured a custom email domain. If you don't have a custom email domain, test emails use the Okta default template and are sent from the Okta email domain.
 
 		> **Note:** Super admins can view customized email templates with the **Send a test email** request. However, when custom email templates are sent to super admins as part of actual email notification flows, the customizations aren't applied. Instead, the default email template is used. This only applies to super admins.
 
@@ -2746,6 +2748,8 @@ Sends a test email to the current user's primary and secondary email addresses. 
 <x-lifecycle class="ea"></x-lifecycle> If Custom languages for Okta Email Templates is enabled and the `language` parameter is an additional language, the test email uses the customization corresponding to the language.
 2. The email template's default customization
 3. The email template's default content, translated to the current user's language
+
+You can only send customized test emails if you've configured a custom email domain. If you don't have a custom email domain, test emails use the Okta default template and are sent from the Okta email domain.
 
 > **Note:** Super admins can view customized email templates with the **Send a test email** request. However, when custom email templates are sent to super admins as part of actual email notification flows, the customizations aren't applied. Instead, the default email template is used. This only applies to super admins.
 

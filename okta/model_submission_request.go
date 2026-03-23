@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -33,16 +33,20 @@ var _ MappedNullable = &SubmissionRequest{}
 
 // SubmissionRequest struct for SubmissionRequest
 type SubmissionRequest struct {
-	// List of actions supported by this integration
-	Actions      []SubmissionAction `json:"actions,omitempty"`
-	AuthSettings *AuthSettings      `json:"authSettings,omitempty"`
-	// List of capabilities supported by this integration
-	Capabilities []SubmissionCapability `json:"capabilities,omitempty"`
+	// List of contact details for the app integration
+	AppContactDetails []SubmissionResponseAppContactDetailsInner `json:"appContactDetails,omitempty"`
+	AuthSettings      *AuthSettings                              `json:"authSettings,omitempty"`
+	// List of capabilities supported by this integration with embedded protocol configurations
+	Capabilities []SubmissionCapabilityEnhanced `json:"capabilities,omitempty"`
+	// The most recent date and time when a Salesforce case associated with the OIN integration was updated
+	CaseLastUpdated *string `json:"caseLastUpdated,omitempty"`
 	// List of org-level variables for the customer per-tenant configuration. For example, a `subdomain` variable can be used in the ACS URL: `https://${org.subdomain}.example.com/saml/login`
 	Config []SubmissionResponseConfigInner `json:"config,omitempty"`
+	// Indicates whether the app submission uses a default logo or a custom-uploaded logo: * If `true`: Uses the default Okta-provided placeholder logo. * If `false`: Uses a custom logo type other than the default logo.
+	DefaultLogo *bool `json:"defaultLogo,omitempty"`
 	// A general description of your application and the benefits provided to your customers
-	Description           string                                   `json:"description"`
-	GlobalTokenRevocation *SubmissionResponseGlobalTokenRevocation `json:"globalTokenRevocation,omitempty"`
+	Description           string                 `json:"description"`
+	GlobalTokenRevocation *GlobalTokenRevocation `json:"globalTokenRevocation,omitempty"`
 	// OIN Integration ID
 	Id *string `json:"id,omitempty"`
 	// Timestamp when the OIN Integration was last published
@@ -54,7 +58,9 @@ type SubmissionRequest struct {
 	// URL to an uploaded application logo. This logo appears next to your app integration name in the OIN catalog. You must first [Upload an OIN Integration logo](/openapi/okta-management/management/tag/YourOinIntegrations/#tag/YourOinIntegrations/operation/uploadSubmissionLogo) to obtain the logo URL before you can specify this value.
 	Logo string `json:"logo"`
 	// The app integration name. This is the main title used for your integration in the OIN catalog.
-	Name         string               `json:"name"`
+	Name string `json:"name"`
+	// Type of feature supported by the OIN integration
+	OinFeatures  *string              `json:"oinFeatures,omitempty"`
 	Provisioning *ProvisioningDetails `json:"provisioning,omitempty"`
 	Sso          *Sso                 `json:"sso,omitempty"`
 	// Status of the OIN Integration submission
@@ -70,6 +76,8 @@ type _SubmissionRequest SubmissionRequest
 // will change when the set of required properties is changed
 func NewSubmissionRequest(description string, logo string, name string) *SubmissionRequest {
 	this := SubmissionRequest{}
+	var defaultLogo bool = false
+	this.DefaultLogo = &defaultLogo
 	this.Description = description
 	this.Logo = logo
 	this.Name = name
@@ -81,39 +89,41 @@ func NewSubmissionRequest(description string, logo string, name string) *Submiss
 // but it doesn't guarantee that properties required by API are set
 func NewSubmissionRequestWithDefaults() *SubmissionRequest {
 	this := SubmissionRequest{}
+	var defaultLogo bool = false
+	this.DefaultLogo = &defaultLogo
 	return &this
 }
 
-// GetActions returns the Actions field value if set, zero value otherwise.
-func (o *SubmissionRequest) GetActions() []SubmissionAction {
-	if o == nil || IsNil(o.Actions) {
-		var ret []SubmissionAction
+// GetAppContactDetails returns the AppContactDetails field value if set, zero value otherwise.
+func (o *SubmissionRequest) GetAppContactDetails() []SubmissionResponseAppContactDetailsInner {
+	if o == nil || IsNil(o.AppContactDetails) {
+		var ret []SubmissionResponseAppContactDetailsInner
 		return ret
 	}
-	return o.Actions
+	return o.AppContactDetails
 }
 
-// GetActionsOk returns a tuple with the Actions field value if set, nil otherwise
+// GetAppContactDetailsOk returns a tuple with the AppContactDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SubmissionRequest) GetActionsOk() ([]SubmissionAction, bool) {
-	if o == nil || IsNil(o.Actions) {
+func (o *SubmissionRequest) GetAppContactDetailsOk() ([]SubmissionResponseAppContactDetailsInner, bool) {
+	if o == nil || IsNil(o.AppContactDetails) {
 		return nil, false
 	}
-	return o.Actions, true
+	return o.AppContactDetails, true
 }
 
-// HasActions returns a boolean if a field has been set.
-func (o *SubmissionRequest) HasActions() bool {
-	if o != nil && !IsNil(o.Actions) {
+// HasAppContactDetails returns a boolean if a field has been set.
+func (o *SubmissionRequest) HasAppContactDetails() bool {
+	if o != nil && !IsNil(o.AppContactDetails) {
 		return true
 	}
 
 	return false
 }
 
-// SetActions gets a reference to the given []SubmissionAction and assigns it to the Actions field.
-func (o *SubmissionRequest) SetActions(v []SubmissionAction) {
-	o.Actions = v
+// SetAppContactDetails gets a reference to the given []SubmissionResponseAppContactDetailsInner and assigns it to the AppContactDetails field.
+func (o *SubmissionRequest) SetAppContactDetails(v []SubmissionResponseAppContactDetailsInner) {
+	o.AppContactDetails = v
 }
 
 // GetAuthSettings returns the AuthSettings field value if set, zero value otherwise.
@@ -149,9 +159,9 @@ func (o *SubmissionRequest) SetAuthSettings(v AuthSettings) {
 }
 
 // GetCapabilities returns the Capabilities field value if set, zero value otherwise.
-func (o *SubmissionRequest) GetCapabilities() []SubmissionCapability {
+func (o *SubmissionRequest) GetCapabilities() []SubmissionCapabilityEnhanced {
 	if o == nil || IsNil(o.Capabilities) {
-		var ret []SubmissionCapability
+		var ret []SubmissionCapabilityEnhanced
 		return ret
 	}
 	return o.Capabilities
@@ -159,7 +169,7 @@ func (o *SubmissionRequest) GetCapabilities() []SubmissionCapability {
 
 // GetCapabilitiesOk returns a tuple with the Capabilities field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SubmissionRequest) GetCapabilitiesOk() ([]SubmissionCapability, bool) {
+func (o *SubmissionRequest) GetCapabilitiesOk() ([]SubmissionCapabilityEnhanced, bool) {
 	if o == nil || IsNil(o.Capabilities) {
 		return nil, false
 	}
@@ -175,9 +185,41 @@ func (o *SubmissionRequest) HasCapabilities() bool {
 	return false
 }
 
-// SetCapabilities gets a reference to the given []SubmissionCapability and assigns it to the Capabilities field.
-func (o *SubmissionRequest) SetCapabilities(v []SubmissionCapability) {
+// SetCapabilities gets a reference to the given []SubmissionCapabilityEnhanced and assigns it to the Capabilities field.
+func (o *SubmissionRequest) SetCapabilities(v []SubmissionCapabilityEnhanced) {
 	o.Capabilities = v
+}
+
+// GetCaseLastUpdated returns the CaseLastUpdated field value if set, zero value otherwise.
+func (o *SubmissionRequest) GetCaseLastUpdated() string {
+	if o == nil || IsNil(o.CaseLastUpdated) {
+		var ret string
+		return ret
+	}
+	return *o.CaseLastUpdated
+}
+
+// GetCaseLastUpdatedOk returns a tuple with the CaseLastUpdated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SubmissionRequest) GetCaseLastUpdatedOk() (*string, bool) {
+	if o == nil || IsNil(o.CaseLastUpdated) {
+		return nil, false
+	}
+	return o.CaseLastUpdated, true
+}
+
+// HasCaseLastUpdated returns a boolean if a field has been set.
+func (o *SubmissionRequest) HasCaseLastUpdated() bool {
+	if o != nil && !IsNil(o.CaseLastUpdated) {
+		return true
+	}
+
+	return false
+}
+
+// SetCaseLastUpdated gets a reference to the given string and assigns it to the CaseLastUpdated field.
+func (o *SubmissionRequest) SetCaseLastUpdated(v string) {
+	o.CaseLastUpdated = &v
 }
 
 // GetConfig returns the Config field value if set, zero value otherwise.
@@ -212,6 +254,38 @@ func (o *SubmissionRequest) SetConfig(v []SubmissionResponseConfigInner) {
 	o.Config = v
 }
 
+// GetDefaultLogo returns the DefaultLogo field value if set, zero value otherwise.
+func (o *SubmissionRequest) GetDefaultLogo() bool {
+	if o == nil || IsNil(o.DefaultLogo) {
+		var ret bool
+		return ret
+	}
+	return *o.DefaultLogo
+}
+
+// GetDefaultLogoOk returns a tuple with the DefaultLogo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SubmissionRequest) GetDefaultLogoOk() (*bool, bool) {
+	if o == nil || IsNil(o.DefaultLogo) {
+		return nil, false
+	}
+	return o.DefaultLogo, true
+}
+
+// HasDefaultLogo returns a boolean if a field has been set.
+func (o *SubmissionRequest) HasDefaultLogo() bool {
+	if o != nil && !IsNil(o.DefaultLogo) {
+		return true
+	}
+
+	return false
+}
+
+// SetDefaultLogo gets a reference to the given bool and assigns it to the DefaultLogo field.
+func (o *SubmissionRequest) SetDefaultLogo(v bool) {
+	o.DefaultLogo = &v
+}
+
 // GetDescription returns the Description field value
 func (o *SubmissionRequest) GetDescription() string {
 	if o == nil {
@@ -237,9 +311,9 @@ func (o *SubmissionRequest) SetDescription(v string) {
 }
 
 // GetGlobalTokenRevocation returns the GlobalTokenRevocation field value if set, zero value otherwise.
-func (o *SubmissionRequest) GetGlobalTokenRevocation() SubmissionResponseGlobalTokenRevocation {
+func (o *SubmissionRequest) GetGlobalTokenRevocation() GlobalTokenRevocation {
 	if o == nil || IsNil(o.GlobalTokenRevocation) {
-		var ret SubmissionResponseGlobalTokenRevocation
+		var ret GlobalTokenRevocation
 		return ret
 	}
 	return *o.GlobalTokenRevocation
@@ -247,7 +321,7 @@ func (o *SubmissionRequest) GetGlobalTokenRevocation() SubmissionResponseGlobalT
 
 // GetGlobalTokenRevocationOk returns a tuple with the GlobalTokenRevocation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SubmissionRequest) GetGlobalTokenRevocationOk() (*SubmissionResponseGlobalTokenRevocation, bool) {
+func (o *SubmissionRequest) GetGlobalTokenRevocationOk() (*GlobalTokenRevocation, bool) {
 	if o == nil || IsNil(o.GlobalTokenRevocation) {
 		return nil, false
 	}
@@ -263,8 +337,8 @@ func (o *SubmissionRequest) HasGlobalTokenRevocation() bool {
 	return false
 }
 
-// SetGlobalTokenRevocation gets a reference to the given SubmissionResponseGlobalTokenRevocation and assigns it to the GlobalTokenRevocation field.
-func (o *SubmissionRequest) SetGlobalTokenRevocation(v SubmissionResponseGlobalTokenRevocation) {
+// SetGlobalTokenRevocation gets a reference to the given GlobalTokenRevocation and assigns it to the GlobalTokenRevocation field.
+func (o *SubmissionRequest) SetGlobalTokenRevocation(v GlobalTokenRevocation) {
 	o.GlobalTokenRevocation = &v
 }
 
@@ -444,6 +518,38 @@ func (o *SubmissionRequest) SetName(v string) {
 	o.Name = v
 }
 
+// GetOinFeatures returns the OinFeatures field value if set, zero value otherwise.
+func (o *SubmissionRequest) GetOinFeatures() string {
+	if o == nil || IsNil(o.OinFeatures) {
+		var ret string
+		return ret
+	}
+	return *o.OinFeatures
+}
+
+// GetOinFeaturesOk returns a tuple with the OinFeatures field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SubmissionRequest) GetOinFeaturesOk() (*string, bool) {
+	if o == nil || IsNil(o.OinFeatures) {
+		return nil, false
+	}
+	return o.OinFeatures, true
+}
+
+// HasOinFeatures returns a boolean if a field has been set.
+func (o *SubmissionRequest) HasOinFeatures() bool {
+	if o != nil && !IsNil(o.OinFeatures) {
+		return true
+	}
+
+	return false
+}
+
+// SetOinFeatures gets a reference to the given string and assigns it to the OinFeatures field.
+func (o *SubmissionRequest) SetOinFeatures(v string) {
+	o.OinFeatures = &v
+}
+
 // GetProvisioning returns the Provisioning field value if set, zero value otherwise.
 func (o *SubmissionRequest) GetProvisioning() ProvisioningDetails {
 	if o == nil || IsNil(o.Provisioning) {
@@ -550,8 +656,8 @@ func (o SubmissionRequest) MarshalJSON() ([]byte, error) {
 
 func (o SubmissionRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Actions) {
-		toSerialize["actions"] = o.Actions
+	if !IsNil(o.AppContactDetails) {
+		toSerialize["appContactDetails"] = o.AppContactDetails
 	}
 	if !IsNil(o.AuthSettings) {
 		toSerialize["authSettings"] = o.AuthSettings
@@ -559,8 +665,14 @@ func (o SubmissionRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Capabilities) {
 		toSerialize["capabilities"] = o.Capabilities
 	}
+	if !IsNil(o.CaseLastUpdated) {
+		toSerialize["caseLastUpdated"] = o.CaseLastUpdated
+	}
 	if !IsNil(o.Config) {
 		toSerialize["config"] = o.Config
+	}
+	if !IsNil(o.DefaultLogo) {
+		toSerialize["defaultLogo"] = o.DefaultLogo
 	}
 	toSerialize["description"] = o.Description
 	if !IsNil(o.GlobalTokenRevocation) {
@@ -580,6 +692,9 @@ func (o SubmissionRequest) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["logo"] = o.Logo
 	toSerialize["name"] = o.Name
+	if !IsNil(o.OinFeatures) {
+		toSerialize["oinFeatures"] = o.OinFeatures
+	}
 	if !IsNil(o.Provisioning) {
 		toSerialize["provisioning"] = o.Provisioning
 	}
@@ -634,10 +749,12 @@ func (o *SubmissionRequest) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "actions")
+		delete(additionalProperties, "appContactDetails")
 		delete(additionalProperties, "authSettings")
 		delete(additionalProperties, "capabilities")
+		delete(additionalProperties, "caseLastUpdated")
 		delete(additionalProperties, "config")
+		delete(additionalProperties, "defaultLogo")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "globalTokenRevocation")
 		delete(additionalProperties, "id")
@@ -646,6 +763,7 @@ func (o *SubmissionRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "lastUpdatedBy")
 		delete(additionalProperties, "logo")
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "oinFeatures")
 		delete(additionalProperties, "provisioning")
 		delete(additionalProperties, "sso")
 		delete(additionalProperties, "status")

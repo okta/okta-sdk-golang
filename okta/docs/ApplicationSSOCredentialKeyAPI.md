@@ -39,7 +39,7 @@ import (
 func main() {
 	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
 	keyId := "sjP9eiETijYz110VkhHN" // string | ID of the Key Credential for the application
-	targetAid := "0ouuytCAJSSDELFTUIDS" // string | Unique key of the target Application
+	targetAid := "0ouuytCAJSSDELFTUIDS" // string | Unique key of the target app
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **targetAid** | **string** | Unique key of the target Application | 
+ **targetAid** | **string** | Unique key of the target app | 
 
 ### Return type
 
@@ -113,7 +113,7 @@ import (
 
 func main() {
 	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	validityYears := int32(5) // int32 | Expiry years of the Application Key Credential
+	validityYears := int32(5) // int32 | Expiry years of the application key credential
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -143,7 +143,7 @@ Other parameters are passed through a pointer to a apiGenerateApplicationKeyRequ
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **validityYears** | **int32** | Expiry years of the Application Key Credential | 
+ **validityYears** | **int32** | Expiry years of the application key credential | 
 
 ### Return type
 

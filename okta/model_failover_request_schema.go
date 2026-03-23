@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -32,7 +32,7 @@ var _ MappedNullable = &FailoverRequestSchema{}
 
 // FailoverRequestSchema struct for FailoverRequestSchema
 type FailoverRequestSchema struct {
-	// List of Okta domains to failover
+	// The Okta domain to failover
 	Domains              []string `json:"domains,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

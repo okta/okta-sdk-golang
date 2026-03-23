@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -47,9 +47,9 @@ type User struct {
 	// The timestamp when the user's password was last updated
 	PasswordChanged NullableTime `json:"passwordChanged,omitempty"`
 	Profile         *UserProfile `json:"profile,omitempty"`
-	// The ID of the realm in which the user is residing. See [Realms](/openapi/okta-management/management/tag/Realm/).
+	// The ID of the realm in which the user is residing. See [Realms](/openapi/okta-management/management/tags/realm).
 	RealmId *string `json:"realmId,omitempty"`
-	// The current status of the user.  The status of a user changes in response to explicit events, such as admin-driven lifecycle changes, user login, or self-service password recovery. Okta doesn't asynchronously sweep through users and update their password expiry state, for example. Instead, Okta evaluates password policy at login time, notices the password has expired, and moves the user to the expired state. When running reports, remember that the data is valid as of the last login or lifecycle event for that user.
+	// The current status of the user.  The status of a user changes in response to explicit events, such as admin-driven lifecycle changes, user login, or self-service password recovery. Okta doesn't asynchronously sweep through users and update their password expiry state, for example. Instead, Okta evaluates password policy at login time, notices the password has expired, and moves the user to the expired state. When running reports, remember that the data is valid as of the last login or lifecycle event for that user.  > **Note:** The `ACTIVATING` status is a transitional status that occurs when a user is being activated but hasn't completed the activation process. This status isn't directly settable through the API, nor should you use it for any of your user management workflows.
 	Status *string `json:"status,omitempty"`
 	// The timestamp when the status of the user last changed
 	StatusChanged NullableTime `json:"statusChanged,omitempty"`

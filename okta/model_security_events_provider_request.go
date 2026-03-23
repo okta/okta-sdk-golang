@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -31,12 +31,12 @@ import (
 // checks if the SecurityEventsProviderRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SecurityEventsProviderRequest{}
 
-// SecurityEventsProviderRequest The request schema for creating or updating a Security Events Provider. The `settings` must match one of the schemas.
+// SecurityEventsProviderRequest The request schema for creating or updating a security events provider. The `settings` must match one of the schemas.
 type SecurityEventsProviderRequest struct {
-	// The name of the Security Events Provider instance
+	// The name of the security events provider instance
 	Name     string                                `json:"name"`
 	Settings SecurityEventsProviderRequestSettings `json:"settings"`
-	// The application type of the Security Events Provider
+	// The app type of the security events provider
 	Type                 string `json:"type"`
 	AdditionalProperties map[string]interface{}
 }

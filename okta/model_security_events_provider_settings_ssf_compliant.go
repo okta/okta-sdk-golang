@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -31,9 +31,9 @@ import (
 // checks if the SecurityEventsProviderSettingsSSFCompliant type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SecurityEventsProviderSettingsSSFCompliant{}
 
-// SecurityEventsProviderSettingsSSFCompliant Security Events Provider with well-known URL setting
+// SecurityEventsProviderSettingsSSFCompliant Security events provider with well-known URL setting
 type SecurityEventsProviderSettingsSSFCompliant struct {
-	// The published well-known URL of the Security Events Provider (the SSF transmitter)
+	// The published well-known URL of the security events provider (the SSF transmitter)
 	WellKnownUrl         string `json:"well_known_url"`
 	AdditionalProperties map[string]interface{}
 }

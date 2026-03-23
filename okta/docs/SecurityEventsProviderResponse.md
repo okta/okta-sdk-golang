@@ -5,10 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** | The unique identifier of this instance | [optional] [readonly] 
-**Name** | Pointer to **string** | The name of the Security Events Provider instance | [optional] 
+**Name** | Pointer to **string** | The name of the security events provider instance | [optional] 
 **Settings** | Pointer to [**SecurityEventsProviderSettingsResponse**](SecurityEventsProviderSettingsResponse.md) |  | [optional] 
-**Status** | Pointer to **string** | Indicates whether the Security Events Provider is active or not | [optional] [readonly] 
-**Type** | Pointer to **string** | The application type of the Security Events Provider | [optional] 
+**Status** | Pointer to **string** | Indicates whether the security events provider is active or not | [optional] [readonly] 
+**Type** | Pointer to **string** | The app type of the security events provider | [optional] 
 **Links** | Pointer to [**LinksSelfAndLifecycle**](LinksSelfAndLifecycle.md) |  | [optional] 
 
 ## Methods

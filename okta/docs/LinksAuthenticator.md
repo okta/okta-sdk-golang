@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Authenticator** | Pointer to [**HrefObject**](HrefObject.md) | Returns information about a specific authenticator. See [Retrieve an authenticator](/openapi/okta-management/management/tag/Authenticator/#tag/Authenticator/operation/getAuthenticator). | [optional] 
+**Authenticator** | Pointer to [**HrefObject**](HrefObject.md) | Returns information about a specific authenticator. See [Retrieve an authenticator](/openapi/okta-management/management/authenticator/getauthenticator). | [optional] 
 
 ## Methods
 

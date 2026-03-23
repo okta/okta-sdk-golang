@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -34,7 +34,7 @@ var _ MappedNullable = &UpdateUserRequest{}
 type UpdateUserRequest struct {
 	Credentials *UserCredentials `json:"credentials,omitempty"`
 	Profile     *UserProfile     `json:"profile,omitempty"`
-	// The ID of the realm in which the user is residing. See [Realms](/openapi/okta-management/management/tag/Realm/).
+	// The ID of the realm in which the user is residing. See [Realms](/openapi/okta-management/management/tags/realm).
 	RealmId              *string                `json:"realmId,omitempty"`
 	Type                 *UpdateUserRequestType `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}

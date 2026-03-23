@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountLink** | Pointer to [**PolicyAccountLink**](PolicyAccountLink.md) |  | [optional] 
 **MaxClockSkew** | Pointer to **int32** | Maximum allowable clock skew when processing messages from the IdP | [optional] 
+**TrustClaims** | Pointer to **bool** | Indicates whether to trust authentication claims from the IdP | [optional] [default to false]
 **Provisioning** | Pointer to [**Provisioning**](Provisioning.md) |  | [optional] 
 **Subject** | Pointer to [**PolicySubject**](PolicySubject.md) |  | [optional] 
 
@@ -77,6 +78,31 @@ SetMaxClockSkew sets MaxClockSkew field to given value.
 `func (o *IdentityProviderPolicy) HasMaxClockSkew() bool`
 
 HasMaxClockSkew returns a boolean if a field has been set.
+
+### GetTrustClaims
+
+`func (o *IdentityProviderPolicy) GetTrustClaims() bool`
+
+GetTrustClaims returns the TrustClaims field if non-nil, zero value otherwise.
+
+### GetTrustClaimsOk
+
+`func (o *IdentityProviderPolicy) GetTrustClaimsOk() (*bool, bool)`
+
+GetTrustClaimsOk returns a tuple with the TrustClaims field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTrustClaims
+
+`func (o *IdentityProviderPolicy) SetTrustClaims(v bool)`
+
+SetTrustClaims sets TrustClaims field to given value.
+
+### HasTrustClaims
+
+`func (o *IdentityProviderPolicy) HasTrustClaims() bool`
+
+HasTrustClaims returns a boolean if a field has been set.
 
 ### GetProvisioning
 

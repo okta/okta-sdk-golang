@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -39,7 +39,7 @@ type CatalogApplication struct {
 	Description *string `json:"description,omitempty"`
 	// OIN catalog app display name
 	DisplayName *string `json:"displayName,omitempty"`
-	// Features supported by the app. See app [features](/openapi/okta-management/management/tag/Application/#tag/Application/operation/listApplications!c=200&path=0/features&t=response).
+	// Features supported by the app. See app [features](/openapi/okta-management/management/application/listapplications#application/listapplications/t=response&c=200&path=&d=0/features).
 	Features []string `json:"features,omitempty"`
 	// ID of the app instance. Okta returns this property only for apps not in the OIN catalog.
 	Id *string `json:"id,omitempty"`
@@ -47,7 +47,7 @@ type CatalogApplication struct {
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// App key name. For OIN catalog apps, this is a unique key for the app definition.
 	Name *string `json:"name,omitempty"`
-	// Authentication mode for the app. See app [signOnMode](/openapi/okta-management/management/tag/Application/#tag/Application/operation/listApplications!c=200&path=0/signOnMode&t=response).
+	// Authentication mode for the app. See app [signOnMode](/openapi/okta-management/management/application/listapplications#application/listapplications/t=response&c=200&path=&d=0/signonmode).
 	SignOnModes []string `json:"signOnModes,omitempty"`
 	// App status
 	Status *string `json:"status,omitempty"`

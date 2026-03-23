@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -38,7 +38,7 @@ type Application struct {
 	// Timestamp when the application object was created
 	Created              *time.Time                       `json:"created,omitempty"`
 	ExpressConfiguration *ApplicationExpressConfiguration `json:"expressConfiguration,omitempty"`
-	// Enabled app features > **Note:** See [Application Features](/openapi/okta-management/management/tag/ApplicationFeatures/) for app provisioning features.
+	// Enabled app features > **Note:** See [Application Features](/openapi/okta-management/management/tags/applicationfeatures/) for app provisioning features.
 	Features []string `json:"features,omitempty"`
 	// Unique ID for the app instance
 	Id *string `json:"id,omitempty"`

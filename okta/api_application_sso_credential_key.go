@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -39,7 +39,7 @@ type ApplicationSSOCredentialKeyAPI interface {
 	/*
 			CloneApplicationKey Clone a key credential
 
-			Clones an X.509 certificate for an Application Key Credential from a source app to a target app.
+			Clones an X.509 certificate for an application key credential from a source app to a target app.
 
 		For step-by-step instructions to clone a credential, see [Share application key credentials for IdPs across apps](https://developer.okta.com/docs/guides/sharing-cert/main/).
 		> **Note:** Sharing certificates isn't a recommended security practice.
@@ -59,7 +59,7 @@ type ApplicationSSOCredentialKeyAPI interface {
 			GenerateApplicationKey Generate a key credential
 
 			Generates a new X.509 certificate for an app key credential
-		> **Note:** To update an Application with the newly generated key credential, use the [Replace an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication) request with the new [credentials.signing.kid](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication!path=4/credentials/signing/kid&t=request) value in the request body. You can provide just the [Signing Credential object](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication!path=4/credentials/signing&t=request) instead of the entire [Application Credential object](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication!path=4/credentials&t=request).
+		> **Note:** To update an app with the newly generated key credential, use the [Replace an Application](/openapi/okta-management/management/application/replaceapplication) request with the new [credentials.signing.kid](/openapi/okta-management/management/application/replaceapplication#application/replaceapplication/t=request&path=&d=0/credentials/signing/kid) value in the request body. You can provide just the [signing credential object](/openapi/okta-management/management/application/replaceapplication#application/replaceapplication/t=request&path=&d=0/credentials/signing) instead of the entire [application credential object](/openapi/okta-management/management/application/replaceapplication#application/replaceapplication/t=response&c=200&path=&d=0/credentials).
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param appId Application ID
@@ -74,10 +74,10 @@ type ApplicationSSOCredentialKeyAPI interface {
 	/*
 			GenerateCsrForApplication Generate a certificate signing request
 
-			Generates a new key pair and returns the Certificate Signing Request(CSR) for it. The information in a CSR is used by the Certificate Authority (CA) to verify and create your certificate. It also contains the public key that is included in your certificate.
+			Generates a new key pair and returns the certificate signing request (CSR) for it. The information in a CSR is used by the Certificate Authority (CA) to verify and create your certificate. It also contains the public key that's included in your certificate.
 
 		Returns CSR in `pkcs#10` format if the `Accept` media type is `application/pkcs10` or a CSR object if the `Accept` media type is `application/json`.
-		> **Note:** The key pair isn't listed in the Key Credentials for the app until it's published.
+		> **Note:** The key pair isn't listed in the key credentials for the app until it's published.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param appId Application ID
@@ -92,7 +92,7 @@ type ApplicationSSOCredentialKeyAPI interface {
 	/*
 		GetApplicationKey Retrieve a key credential
 
-		Retrieves a specific Application Key Credential by `kid`
+		Retrieves a specific application key credential by `kid`
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param appId Application ID
@@ -108,7 +108,7 @@ type ApplicationSSOCredentialKeyAPI interface {
 	/*
 			GetCsrForApplication Retrieve a certificate signing request
 
-			Retrieves a Certificate Signing Request (CSR) for the app by `csrId`.
+			Retrieves a certificate signing request (CSR) for the app by `csrId`.
 
 		Returns a Base64-encoded CSR in DER format if the `Accept` media type is `application/pkcs10` or a CSR object if the `Accept` media type is `application/json`.
 
@@ -141,7 +141,7 @@ type ApplicationSSOCredentialKeyAPI interface {
 	/*
 		ListCsrsForApplication List all certificate signing requests
 
-		Lists all Certificate Signing Requests for an application
+		Lists all certificate signing requests for an app
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param appId Application ID
@@ -156,7 +156,7 @@ type ApplicationSSOCredentialKeyAPI interface {
 	/*
 			PublishCsrFromApplication Publish a certificate signing request
 
-			Publishes a Certificate Signing Request (CSR) for the app with a signed X.509 certificate and adds it into the Application Key Credentials.
+			Publishes a certificate signing request (CSR) for the app with a signed X.509 certificate and adds it into the application key credentials.
 		> **Note:** Publishing a certificate completes the lifecycle of the CSR and it's no longer accessible.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -173,7 +173,7 @@ type ApplicationSSOCredentialKeyAPI interface {
 	/*
 		RevokeCsrFromApplication Revoke a certificate signing request
 
-		Revokes a Certificate Signing Request and deletes the key pair from the app
+		Revokes a certificate signing request and deletes the key pair from the app
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param appId Application ID
@@ -198,7 +198,7 @@ type ApiCloneApplicationKeyRequest struct {
 	retryCount int32
 }
 
-// Unique key of the target Application
+// Unique key of the target app
 func (r ApiCloneApplicationKeyRequest) TargetAid(targetAid string) ApiCloneApplicationKeyRequest {
 	r.targetAid = &targetAid
 	return r
@@ -211,7 +211,7 @@ func (r ApiCloneApplicationKeyRequest) Execute() (*JsonWebKey, *APIResponse, err
 /*
 CloneApplicationKey Clone a key credential
 
-Clones an X.509 certificate for an Application Key Credential from a source app to a target app.
+Clones an X.509 certificate for an application key credential from a source app to a target app.
 
 For step-by-step instructions to clone a credential, see [Share application key credentials for IdPs across apps](https://developer.okta.com/docs/guides/sharing-cert/main/).
 > **Note:** Sharing certificates isn't a recommended security practice.
@@ -393,7 +393,7 @@ type ApiGenerateApplicationKeyRequest struct {
 	retryCount    int32
 }
 
-// Expiry years of the Application Key Credential
+// Expiry years of the application key credential
 func (r ApiGenerateApplicationKeyRequest) ValidityYears(validityYears int32) ApiGenerateApplicationKeyRequest {
 	r.validityYears = &validityYears
 	return r
@@ -407,7 +407,7 @@ func (r ApiGenerateApplicationKeyRequest) Execute() (*JsonWebKey, *APIResponse, 
 GenerateApplicationKey Generate a key credential
 
 Generates a new X.509 certificate for an app key credential
-> **Note:** To update an Application with the newly generated key credential, use the [Replace an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication) request with the new [credentials.signing.kid](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication!path=4/credentials/signing/kid&t=request) value in the request body. You can provide just the [Signing Credential object](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication!path=4/credentials/signing&t=request) instead of the entire [Application Credential object](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication!path=4/credentials&t=request).
+> **Note:** To update an app with the newly generated key credential, use the [Replace an Application](/openapi/okta-management/management/application/replaceapplication) request with the new [credentials.signing.kid](/openapi/okta-management/management/application/replaceapplication#application/replaceapplication/t=request&path=&d=0/credentials/signing/kid) value in the request body. You can provide just the [signing credential object](/openapi/okta-management/management/application/replaceapplication#application/replaceapplication/t=request&path=&d=0/credentials/signing) instead of the entire [application credential object](/openapi/okta-management/management/application/replaceapplication#application/replaceapplication/t=response&c=200&path=&d=0/credentials).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param appId Application ID
@@ -595,10 +595,10 @@ func (r ApiGenerateCsrForApplicationRequest) Execute() (string, *APIResponse, er
 /*
 GenerateCsrForApplication Generate a certificate signing request
 
-Generates a new key pair and returns the Certificate Signing Request(CSR) for it. The information in a CSR is used by the Certificate Authority (CA) to verify and create your certificate. It also contains the public key that is included in your certificate.
+Generates a new key pair and returns the certificate signing request (CSR) for it. The information in a CSR is used by the Certificate Authority (CA) to verify and create your certificate. It also contains the public key that's included in your certificate.
 
 Returns CSR in `pkcs#10` format if the `Accept` media type is `application/pkcs10` or a CSR object if the `Accept` media type is `application/json`.
-> **Note:** The key pair isn't listed in the Key Credentials for the app until it's published.
+> **Note:** The key pair isn't listed in the key credentials for the app until it's published.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param appId Application ID
@@ -782,7 +782,7 @@ func (r ApiGetApplicationKeyRequest) Execute() (*JsonWebKey, *APIResponse, error
 /*
 GetApplicationKey Retrieve a key credential
 
-Retrieves a specific Application Key Credential by `kid`
+Retrieves a specific application key credential by `kid`
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param appId Application ID
@@ -952,7 +952,7 @@ func (r ApiGetCsrForApplicationRequest) Execute() (*Csr, *APIResponse, error) {
 /*
 GetCsrForApplication Retrieve a certificate signing request
 
-Retrieves a Certificate Signing Request (CSR) for the app by `csrId`.
+Retrieves a certificate signing request (CSR) for the app by `csrId`.
 
 Returns a Base64-encoded CSR in DER format if the `Accept` media type is `application/pkcs10` or a CSR object if the `Accept` media type is `application/json`.
 
@@ -1289,7 +1289,7 @@ func (r ApiListCsrsForApplicationRequest) Execute() ([]Csr, *APIResponse, error)
 /*
 ListCsrsForApplication List all certificate signing requests
 
-Lists all Certificate Signing Requests for an application
+Lists all certificate signing requests for an app
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param appId Application ID
@@ -1462,7 +1462,7 @@ func (r ApiPublishCsrFromApplicationRequest) Execute() (*JsonWebKey, *APIRespons
 /*
 PublishCsrFromApplication Publish a certificate signing request
 
-Publishes a Certificate Signing Request (CSR) for the app with a signed X.509 certificate and adds it into the Application Key Credentials.
+Publishes a certificate signing request (CSR) for the app with a signed X.509 certificate and adds it into the application key credentials.
 > **Note:** Publishing a certificate completes the lifecycle of the CSR and it's no longer accessible.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -1650,7 +1650,7 @@ func (r ApiRevokeCsrFromApplicationRequest) Execute() (*APIResponse, error) {
 /*
 RevokeCsrFromApplication Revoke a certificate signing request
 
-Revokes a Certificate Signing Request and deletes the key pair from the app
+Revokes a certificate signing request and deletes the key pair from the app
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param appId Application ID

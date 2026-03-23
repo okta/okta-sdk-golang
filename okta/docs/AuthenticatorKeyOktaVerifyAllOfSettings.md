@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ChannelBinding** | Pointer to [**ChannelBinding**](ChannelBinding.md) |  | [optional] 
 **Compliance** | Pointer to [**Compliance**](Compliance.md) |  | [optional] 
-**UserVerification** | Pointer to **string** | User verification setting. Possible values &#x60;DISCOURAGED&#x60; (the authenticator isn&#39;t asked to perform user verification, but may do so at its discretion), &#x60;PREFERRED&#x60; (the client uses an authenticator capable of user verification if possible), or &#x60;REQUIRED&#x60;(the client uses only an authenticator capable of user verification) | [optional] 
+**UserVerification** | Pointer to **string** | User verification settings. Possible values &#x60;DISCOURAGED&#x60; (the authenticator isn&#39;t asked to perform user verification, but may do so at its discretion), &#x60;PREFERRED&#x60; (the client uses an authenticator capable of user verification if possible), or &#x60;REQUIRED&#x60; (the client uses only an authenticator capable of user verification) | [optional] 
 **AppInstanceId** | Pointer to **string** | The application instance ID | [optional] 
 
 ## Methods

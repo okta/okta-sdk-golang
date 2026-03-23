@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Status** | Pointer to **string** |  | [optional] 
+**Status** | Pointer to **string** | The status of the authenticator method | [optional] 
 **Type** | Pointer to **string** | The type of authenticator method | [optional] 
 **Links** | Pointer to [**LinksSelfAndLifecycle**](LinksSelfAndLifecycle.md) |  | [optional] 
 **Settings** | Pointer to [**AuthenticatorMethodWebAuthnAllOfSettings**](AuthenticatorMethodWebAuthnAllOfSettings.md) |  | [optional] 

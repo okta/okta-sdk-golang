@@ -310,7 +310,7 @@ import (
 
 func main() {
 	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
-	expand := "user/0oa1gjh63g214q0Hq0g4" // string | An optional query parameter to return the specified [Application User](/openapi/okta-management/management/tag/ApplicationUsers/) in the `_embedded` property. Valid value: `expand=user/{userId}` (optional)
+	expand := "user/0oa1gjh63g214q0Hq0g4" // string | An optional query parameter to return the specified [Application User](/openapi/okta-management/management/tags/applicationusers) in the `_embedded` property. Valid value: `expand=user/{userId}` (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -340,7 +340,7 @@ Other parameters are passed through a pointer to a apiGetApplicationRequest stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **expand** | **string** | An optional query parameter to return the specified [Application User](/openapi/okta-management/management/tag/ApplicationUsers/) in the &#x60;_embedded&#x60; property. Valid value: &#x60;expand&#x3D;user/{userId}&#x60; | 
+ **expand** | **string** | An optional query parameter to return the specified [Application User](/openapi/okta-management/management/tags/applicationusers) in the &#x60;_embedded&#x60; property. Valid value: &#x60;expand&#x3D;user/{userId}&#x60; | 
 
 ### Return type
 
@@ -387,7 +387,7 @@ func main() {
 	alwaysIncludeVpnSettings := true // bool | Specifies whether to include the VPN configuration for existing notifications in the result, regardless of whether VPN notifications are configured (optional) (default to false)
 	limit := int32(56) // int32 | Specifies the number of results per page (optional) (default to -1)
 	filter := "status%20eq%20%22ACTIVE%22" // string | Filters apps with a supported expression for a subset of properties. Filtering supports the following limited number of properties: `id`, `status`, `credentials.signing.kid`, `settings.slo.enabled`, or `name`. See [Filter](https://developer.okta.com/docs/api/#filter). (optional)
-	expand := "user/0oa1gjh63g214q0Hq0g4" // string | An optional parameter used for link expansion to embed more resources in the response. Only supports `expand=user/{userId}` and must be used with the `user.id eq \"{userId}\"` filter query for the same user. Returns the assigned [application user](/openapi/okta-management/management/tag/ApplicationUsers/) in the `_embedded` property. (optional)
+	expand := "user/0oa1gjh63g214q0Hq0g4" // string | An optional parameter used for link expansion to embed more resources in the response. Only supports `expand=user/{userId}` and must be used with the `user.id eq \"{userId}\"` filter query for the same user. Returns the assigned [application user](/openapi/okta-management/management/tags/applicationusers) in the `_embedded` property. (optional)
 	includeNonDeleted := true // bool | Specifies whether to include non-active, but not deleted apps in the results (optional) (default to false)
 
 	configuration := openapiclient.NewConfiguration()
@@ -419,7 +419,7 @@ Name | Type | Description  | Notes
  **alwaysIncludeVpnSettings** | **bool** | Specifies whether to include the VPN configuration for existing notifications in the result, regardless of whether VPN notifications are configured | [default to false]
  **limit** | **int32** | Specifies the number of results per page | [default to -1]
  **filter** | **string** | Filters apps with a supported expression for a subset of properties. Filtering supports the following limited number of properties: &#x60;id&#x60;, &#x60;status&#x60;, &#x60;credentials.signing.kid&#x60;, &#x60;settings.slo.enabled&#x60;, or &#x60;name&#x60;. See [Filter](https://developer.okta.com/docs/api/#filter). | 
- **expand** | **string** | An optional parameter used for link expansion to embed more resources in the response. Only supports &#x60;expand&#x3D;user/{userId}&#x60; and must be used with the &#x60;user.id eq \&quot;{userId}\&quot;&#x60; filter query for the same user. Returns the assigned [application user](/openapi/okta-management/management/tag/ApplicationUsers/) in the &#x60;_embedded&#x60; property. | 
+ **expand** | **string** | An optional parameter used for link expansion to embed more resources in the response. Only supports &#x60;expand&#x3D;user/{userId}&#x60; and must be used with the &#x60;user.id eq \&quot;{userId}\&quot;&#x60; filter query for the same user. Returns the assigned [application user](/openapi/okta-management/management/tags/applicationusers) in the &#x60;_embedded&#x60; property. | 
  **includeNonDeleted** | **bool** | Specifies whether to include non-active, but not deleted apps in the results | [default to false]
 
 ### Return type

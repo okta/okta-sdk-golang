@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -35,7 +35,7 @@ var _ MappedNullable = &CaepSessionRevokedEvent{}
 type CaepSessionRevokedEvent struct {
 	// Current IP of the session
 	CurrentIp *string `json:"current_ip,omitempty"`
-	// Current User Agent of the session
+	// Current user agent of the session
 	CurrentUserAgent *string `json:"current_user_agent,omitempty"`
 	// The time of the event (UNIX timestamp)
 	EventTimestamp int64 `json:"event_timestamp"`
@@ -43,7 +43,7 @@ type CaepSessionRevokedEvent struct {
 	InitiatingEntity *string `json:"initiating_entity,omitempty"`
 	// Last known IP of the session
 	LastKnownIp *string `json:"last_known_ip,omitempty"`
-	// Last known User Agent of the session
+	// Last known user agent of the session
 	LastKnownUserAgent   *string                                     `json:"last_known_user_agent,omitempty"`
 	ReasonAdmin          *CaepDeviceComplianceChangeEventReasonAdmin `json:"reason_admin,omitempty"`
 	ReasonUser           *CaepDeviceComplianceChangeEventReasonUser  `json:"reason_user,omitempty"`

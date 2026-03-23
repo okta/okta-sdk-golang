@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Constraints** | Pointer to [**NullableAuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints**](AuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints.md) |  | [optional] 
 **Enroll** | Pointer to [**AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll**](AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll.md) |  | [optional] 
+**Id** | Pointer to **string** | The authenticator ID for &#x60;custom_app&#x60;, &#x60;custom_otp&#x60; or &#x60;external_idp&#x60;. Use this property to select a specific &#x60;custom_app&#x60;, &#x60;custom_otp&#x60; or &#x60;external_idp&#x60; authenticator. | [optional] 
 **Key** | Pointer to **string** | A label that identifies the authenticator | [optional] 
 
 ## Methods
@@ -86,6 +87,31 @@ SetEnroll sets Enroll field to given value.
 `func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) HasEnroll() bool`
 
 HasEnroll returns a boolean if a field has been set.
+
+### GetId
+
+`func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetKey
 

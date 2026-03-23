@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **CurrentIp** | Pointer to **string** | Current IP of the session | [optional] 
-**CurrentUserAgent** | Pointer to **string** | Current User Agent of the session | [optional] 
+**CurrentUserAgent** | Pointer to **string** | Current user agent of the session | [optional] 
 **EventTimestamp** | **int64** | The time of the event (UNIX timestamp) | 
 **InitiatingEntity** | Pointer to **string** | The entity that initiated the event | [optional] 
 **LastKnownIp** | Pointer to **string** | Last known IP of the session | [optional] 
-**LastKnownUserAgent** | Pointer to **string** | Last known User Agent of the session | [optional] 
+**LastKnownUserAgent** | Pointer to **string** | Last known user agent of the session | [optional] 
 **ReasonAdmin** | Pointer to [**CaepDeviceComplianceChangeEventReasonAdmin**](CaepDeviceComplianceChangeEventReasonAdmin.md) |  | [optional] 
 **ReasonUser** | Pointer to [**CaepDeviceComplianceChangeEventReasonUser**](CaepDeviceComplianceChangeEventReasonUser.md) |  | [optional] 
 **Subject** | [**SecurityEventSubject**](SecurityEventSubject.md) |  | 

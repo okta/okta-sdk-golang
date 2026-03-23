@@ -4,11 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Extend** | Pointer to [**HrefObject**](HrefObject.md) | Link to [extend Okta Support Access](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/extendOktaSupport) | [optional] 
-**Revoke** | Pointer to [**HrefObject**](HrefObject.md) | Link to [revoke Okta Support Access](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/revokeOktaSupport) | [optional] 
-**Grant** | Pointer to [**HrefObject**](HrefObject.md) | Link to [grant Okta Support Access](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/grantOktaSupport) | [optional] 
-**Case** | Pointer to [**HrefObject**](HrefObject.md) | Link to [update an Okta Support case](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/updateOktaSupportCase) | [optional] 
-**Cases** | Pointer to [**HrefObject**](HrefObject.md) | Link to [List all Okta Support cases](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/listOktaSupportCases) | [optional] 
+**Extend** | Pointer to [**HrefObject**](HrefObject.md) | Link to [extend Okta Support Access](/openapi/okta-management/management/tags/orgsettingsupport/other/extendoktasupport) | [optional] 
+**Revoke** | Pointer to [**HrefObject**](HrefObject.md) | Link to [revoke Okta Support Access](/openapi/okta-management/management/tags/orgsettingsupport/other/revokeoktasupport) | [optional] 
+**Grant** | Pointer to [**HrefObject**](HrefObject.md) | Link to [grant Okta Support Access](/openapi/okta-management/management/tags/orgsettingsupport/other/grantoktasupport) | [optional] 
+**Case** | Pointer to [**HrefObject**](HrefObject.md) | Link to [update an Okta Support case](/openapi/okta-management/management/tags/orgsettingsupport/other/updateoktasupportcase) | [optional] 
+**Cases** | Pointer to [**HrefObject**](HrefObject.md) | Link to [List all Okta Support cases](/openapi/okta-management/management/tags/orgsettingsupport/other/listoktasupportcases) | [optional] 
 
 ## Methods
 

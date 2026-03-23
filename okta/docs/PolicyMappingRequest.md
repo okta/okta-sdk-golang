@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ResourceId** | Pointer to **string** | [Policy ID](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Policy/#tag/Policy/operation/listPolicies!c&#x3D;200&amp;path&#x3D;0/id&amp;t&#x3D;response) of the app sign-in policy that you want to map | [optional] 
+**ResourceId** | Pointer to **string** | [Policy ID](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/policy/#tag/Policy/operation/listPolicies!c&#x3D;200&amp;path&#x3D;0/id&amp;t&#x3D;response) of the app sign-in policy that you want to map | [optional] 
 **ResourceType** | Pointer to **string** | Specifies the type of resource to map. You can only map an app sign-in policy to a device signal collection policy (the &#x60;policyId&#x60; path parameter). | [optional] 
 
 ## Methods

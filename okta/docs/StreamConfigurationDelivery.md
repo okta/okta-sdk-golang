@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AuthorizationHeader** | Pointer to **NullableString** | The HTTP Authorization header that is included for each HTTP POST request | [optional] 
+**AuthorizationHeader** | Pointer to **NullableString** | The HTTP authorization header that&#39;s included for each HTTP POST request | [optional] 
 **EndpointUrl** | **string** | The target endpoint URL where the transmitter delivers the SET using HTTP POST requests | 
 **Method** | **string** | The delivery method that the transmitter uses for delivering a SET | 
 

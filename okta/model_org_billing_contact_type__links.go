@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -32,7 +32,7 @@ var _ MappedNullable = &OrgBillingContactTypeLinks{}
 
 // OrgBillingContactTypeLinks Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for the org billing contact type object using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification
 type OrgBillingContactTypeLinks struct {
-	// Link to the org billing [contact type user](/openapi/okta-management/management/tag/OrgSettingContact/#tag/OrgSettingContact/operation/getOrgContactUser) resource
+	// Link to the org billing [contact type user](/openapi/okta-management/management/orgsettingcontact/#tag/OrgSettingContact/operation/getOrgContactUser) resource
 	Billing              *HrefObject `json:"billing,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

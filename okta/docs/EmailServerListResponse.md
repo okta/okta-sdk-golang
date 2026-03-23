@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EmailServers** | Pointer to [**[]EmailServerResponse**](EmailServerResponse.md) |  | [optional] 
+**EmailServers** | Pointer to [**[]BaseEmailServer**](BaseEmailServer.md) | List of enrolled SMTP servers | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetEmailServers
 
-`func (o *EmailServerListResponse) GetEmailServers() []EmailServerResponse`
+`func (o *EmailServerListResponse) GetEmailServers() []BaseEmailServer`
 
 GetEmailServers returns the EmailServers field if non-nil, zero value otherwise.
 
 ### GetEmailServersOk
 
-`func (o *EmailServerListResponse) GetEmailServersOk() (*[]EmailServerResponse, bool)`
+`func (o *EmailServerListResponse) GetEmailServersOk() (*[]BaseEmailServer, bool)`
 
 GetEmailServersOk returns a tuple with the EmailServers field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEmailServers
 
-`func (o *EmailServerListResponse) SetEmailServers(v []EmailServerResponse)`
+`func (o *EmailServerListResponse) SetEmailServers(v []BaseEmailServer)`
 
 SetEmailServers sets EmailServers field to given value.
 

@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -36,9 +36,9 @@ var _ MappedNullable = &PolicyCommon{}
 type PolicyCommon struct {
 	// Timestamp when the policy was created
 	Created *time.Time `json:"created,omitempty"`
-	// Description of the Policy
+	// Description of the policy
 	Description *string `json:"description,omitempty"`
-	// Identifier of the Policy
+	// Identifier of the policy
 	Id *string `json:"id,omitempty"`
 	// Timestamp when the policy was last modified
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
@@ -48,9 +48,9 @@ type PolicyCommon struct {
 	Priority *int32 `json:"priority,omitempty"`
 	// Whether or not the policy is active. Use the `activate` query parameter to set the status of a policy.
 	Status *string `json:"status,omitempty"`
-	// Specifies whether Okta created the Policy
+	// Specifies whether Okta created the policy
 	System *bool `json:"system,omitempty"`
-	// All Okta orgs contain only one IdP discovery policy with an immutable default rule routing to your org's sign-in page, one entity risk policy, and one session protection policy. Creating or replacing a policy with the `IDP_DISCOVERY` type, the `ENTITY_RISK` type, or the `POST_AUTH_SESSION` type isn't supported. The following policy types are available with Identity Engine: `ACCESS_POLICY`, `PROFILE_ENROLLMENT`, `POST_AUTH_SESSION`, <x-lifecycle class=\"ea\"></x-lifecycle> `DEVICE_SIGNAL_COLLECTION`, `ENTITY_RISK`.
+	// All Okta orgs contain only one IdP discovery policy with an immutable default rule routing to your org's sign-in page, one entity risk policy, and one session protection policy. Creating or replacing a policy with the `IDP_DISCOVERY` type, the `ENTITY_RISK` type, the `POST_AUTH_SESSION`, or the <x-lifecycle class=\"ea\"></x-lifecycle> `CLIENT_UPDATE` type isn't supported. The following policy types are available with Identity Engine: `ACCESS_POLICY`, `PROFILE_ENROLLMENT`, `POST_AUTH_SESSION`, <x-lifecycle class=\"ea\"></x-lifecycle> `DEVICE_SIGNAL_COLLECTION`, `ENTITY_RISK`.
 	Type                 string                            `json:"type"`
 	Embedded             map[string]map[string]interface{} `json:"_embedded,omitempty"`
 	Links                *PolicyLinks                      `json:"_links,omitempty"`

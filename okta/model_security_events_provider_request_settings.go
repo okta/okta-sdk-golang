@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// SecurityEventsProviderRequestSettings - Information about the Security Events Provider for signal ingestion
+// SecurityEventsProviderRequestSettings - Information about the security events provider for signal ingestion
 type SecurityEventsProviderRequestSettings struct {
 	SecurityEventsProviderSettingsNonSSFCompliant *SecurityEventsProviderSettingsNonSSFCompliant
 	SecurityEventsProviderSettingsSSFCompliant    *SecurityEventsProviderSettingsSSFCompliant

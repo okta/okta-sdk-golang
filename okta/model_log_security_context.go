@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -35,15 +35,18 @@ type LogSecurityContext struct {
 	// The [Autonomous system](https://docs.telemetry.mozilla.org/datasets/other/asn_aggregates/reference) number that's associated with the autonomous system the event request was sourced to
 	AsNumber NullableInt32 `json:"asNumber,omitempty"`
 	// The organization that is associated with the autonomous system that the event request is sourced to
-	AsOrg NullableString `json:"asOrg,omitempty"`
+	AsOrg         NullableString           `json:"asOrg,omitempty"`
+	BotProtection NullableLogBotProtection `json:"botProtection,omitempty"`
 	// The domain name that's associated with the IP address of the inbound event request
-	Domain NullableString `json:"domain,omitempty"`
+	Domain    NullableString       `json:"domain,omitempty"`
+	IpDetails NullableLogIpDetails `json:"ipDetails,omitempty"`
 	// The Internet service provider that's used to send the event's request
 	Isp NullableString `json:"isp,omitempty"`
 	// Specifies whether an event's request is from a known proxy
-	IsProxy NullableBool `json:"isProxy,omitempty"`
+	IsProxy NullableBool    `json:"isProxy,omitempty"`
+	Risk    NullableLogRisk `json:"risk,omitempty"`
 	// The result of the user behavior detection models associated with the event
-	UserBehaviors        []string `json:"userBehaviors,omitempty"`
+	UserBehaviors        []LogUserBehavior `json:"userBehaviors,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -152,6 +155,49 @@ func (o *LogSecurityContext) UnsetAsOrg() {
 	o.AsOrg.Unset()
 }
 
+// GetBotProtection returns the BotProtection field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *LogSecurityContext) GetBotProtection() LogBotProtection {
+	if o == nil || IsNil(o.BotProtection.Get()) {
+		var ret LogBotProtection
+		return ret
+	}
+	return *o.BotProtection.Get()
+}
+
+// GetBotProtectionOk returns a tuple with the BotProtection field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *LogSecurityContext) GetBotProtectionOk() (*LogBotProtection, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.BotProtection.Get(), o.BotProtection.IsSet()
+}
+
+// HasBotProtection returns a boolean if a field has been set.
+func (o *LogSecurityContext) HasBotProtection() bool {
+	if o != nil && o.BotProtection.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetBotProtection gets a reference to the given NullableLogBotProtection and assigns it to the BotProtection field.
+func (o *LogSecurityContext) SetBotProtection(v LogBotProtection) {
+	o.BotProtection.Set(&v)
+}
+
+// SetBotProtectionNil sets the value for BotProtection to be an explicit nil
+func (o *LogSecurityContext) SetBotProtectionNil() {
+	o.BotProtection.Set(nil)
+}
+
+// UnsetBotProtection ensures that no value is present for BotProtection, not even an explicit nil
+func (o *LogSecurityContext) UnsetBotProtection() {
+	o.BotProtection.Unset()
+}
+
 // GetDomain returns the Domain field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *LogSecurityContext) GetDomain() string {
 	if o == nil || IsNil(o.Domain.Get()) {
@@ -193,6 +239,49 @@ func (o *LogSecurityContext) SetDomainNil() {
 // UnsetDomain ensures that no value is present for Domain, not even an explicit nil
 func (o *LogSecurityContext) UnsetDomain() {
 	o.Domain.Unset()
+}
+
+// GetIpDetails returns the IpDetails field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *LogSecurityContext) GetIpDetails() LogIpDetails {
+	if o == nil || IsNil(o.IpDetails.Get()) {
+		var ret LogIpDetails
+		return ret
+	}
+	return *o.IpDetails.Get()
+}
+
+// GetIpDetailsOk returns a tuple with the IpDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *LogSecurityContext) GetIpDetailsOk() (*LogIpDetails, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.IpDetails.Get(), o.IpDetails.IsSet()
+}
+
+// HasIpDetails returns a boolean if a field has been set.
+func (o *LogSecurityContext) HasIpDetails() bool {
+	if o != nil && o.IpDetails.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetIpDetails gets a reference to the given NullableLogIpDetails and assigns it to the IpDetails field.
+func (o *LogSecurityContext) SetIpDetails(v LogIpDetails) {
+	o.IpDetails.Set(&v)
+}
+
+// SetIpDetailsNil sets the value for IpDetails to be an explicit nil
+func (o *LogSecurityContext) SetIpDetailsNil() {
+	o.IpDetails.Set(nil)
+}
+
+// UnsetIpDetails ensures that no value is present for IpDetails, not even an explicit nil
+func (o *LogSecurityContext) UnsetIpDetails() {
+	o.IpDetails.Unset()
 }
 
 // GetIsp returns the Isp field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -281,10 +370,53 @@ func (o *LogSecurityContext) UnsetIsProxy() {
 	o.IsProxy.Unset()
 }
 
-// GetUserBehaviors returns the UserBehaviors field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *LogSecurityContext) GetUserBehaviors() []string {
+// GetRisk returns the Risk field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *LogSecurityContext) GetRisk() LogRisk {
+	if o == nil || IsNil(o.Risk.Get()) {
+		var ret LogRisk
+		return ret
+	}
+	return *o.Risk.Get()
+}
+
+// GetRiskOk returns a tuple with the Risk field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *LogSecurityContext) GetRiskOk() (*LogRisk, bool) {
 	if o == nil {
-		var ret []string
+		return nil, false
+	}
+	return o.Risk.Get(), o.Risk.IsSet()
+}
+
+// HasRisk returns a boolean if a field has been set.
+func (o *LogSecurityContext) HasRisk() bool {
+	if o != nil && o.Risk.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetRisk gets a reference to the given NullableLogRisk and assigns it to the Risk field.
+func (o *LogSecurityContext) SetRisk(v LogRisk) {
+	o.Risk.Set(&v)
+}
+
+// SetRiskNil sets the value for Risk to be an explicit nil
+func (o *LogSecurityContext) SetRiskNil() {
+	o.Risk.Set(nil)
+}
+
+// UnsetRisk ensures that no value is present for Risk, not even an explicit nil
+func (o *LogSecurityContext) UnsetRisk() {
+	o.Risk.Unset()
+}
+
+// GetUserBehaviors returns the UserBehaviors field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *LogSecurityContext) GetUserBehaviors() []LogUserBehavior {
+	if o == nil {
+		var ret []LogUserBehavior
 		return ret
 	}
 	return o.UserBehaviors
@@ -293,7 +425,7 @@ func (o *LogSecurityContext) GetUserBehaviors() []string {
 // GetUserBehaviorsOk returns a tuple with the UserBehaviors field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *LogSecurityContext) GetUserBehaviorsOk() ([]string, bool) {
+func (o *LogSecurityContext) GetUserBehaviorsOk() ([]LogUserBehavior, bool) {
 	if o == nil || IsNil(o.UserBehaviors) {
 		return nil, false
 	}
@@ -309,8 +441,8 @@ func (o *LogSecurityContext) HasUserBehaviors() bool {
 	return false
 }
 
-// SetUserBehaviors gets a reference to the given []string and assigns it to the UserBehaviors field.
-func (o *LogSecurityContext) SetUserBehaviors(v []string) {
+// SetUserBehaviors gets a reference to the given []LogUserBehavior and assigns it to the UserBehaviors field.
+func (o *LogSecurityContext) SetUserBehaviors(v []LogUserBehavior) {
 	o.UserBehaviors = v
 }
 
@@ -330,14 +462,23 @@ func (o LogSecurityContext) ToMap() (map[string]interface{}, error) {
 	if o.AsOrg.IsSet() {
 		toSerialize["asOrg"] = o.AsOrg.Get()
 	}
+	if o.BotProtection.IsSet() {
+		toSerialize["botProtection"] = o.BotProtection.Get()
+	}
 	if o.Domain.IsSet() {
 		toSerialize["domain"] = o.Domain.Get()
+	}
+	if o.IpDetails.IsSet() {
+		toSerialize["ipDetails"] = o.IpDetails.Get()
 	}
 	if o.Isp.IsSet() {
 		toSerialize["isp"] = o.Isp.Get()
 	}
 	if o.IsProxy.IsSet() {
 		toSerialize["isProxy"] = o.IsProxy.Get()
+	}
+	if o.Risk.IsSet() {
+		toSerialize["risk"] = o.Risk.Get()
 	}
 	if o.UserBehaviors != nil {
 		toSerialize["userBehaviors"] = o.UserBehaviors
@@ -366,9 +507,12 @@ func (o *LogSecurityContext) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "asNumber")
 		delete(additionalProperties, "asOrg")
+		delete(additionalProperties, "botProtection")
 		delete(additionalProperties, "domain")
+		delete(additionalProperties, "ipDetails")
 		delete(additionalProperties, "isp")
 		delete(additionalProperties, "isProxy")
+		delete(additionalProperties, "risk")
 		delete(additionalProperties, "userBehaviors")
 		o.AdditionalProperties = additionalProperties
 	}

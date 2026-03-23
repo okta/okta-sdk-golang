@@ -36,8 +36,8 @@ import (
 
 func main() {
 	body := *openapiclient.NewCreateUserRequest(*openapiclient.NewUserProfile()) // CreateUserRequest | 
-	activate := true // bool | Executes an [activation lifecycle](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserLifecycle/#tag/UserLifecycle/operation/activateUser) operation when creating the user (optional) (default to true)
-	provider := true // bool | Indicates whether to create a user with a specified authentication provider (optional) (default to false)
+	activate := true // bool | Executes an [activation lifecycle](https://developer.okta.com/docs/api/openapi/okta-management/management/userlifecycle/activateuser) operation when creating the user (optional) (default to true)
+	provider := true // bool | Indicates whether to create a user with a specified authentication provider. (optional) (default to false)
 	nextLogin := "nextLogin_example" // string | With `activate=true`, if `nextLogin=changePassword`, a user is created, activated, and the password is set to `EXPIRED`. The user must change it the next time they sign in. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -64,8 +64,8 @@ Other parameters are passed through a pointer to a apiCreateUserRequest struct v
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | [**CreateUserRequest**](CreateUserRequest.md) |  | 
- **activate** | **bool** | Executes an [activation lifecycle](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserLifecycle/#tag/UserLifecycle/operation/activateUser) operation when creating the user | [default to true]
- **provider** | **bool** | Indicates whether to create a user with a specified authentication provider | [default to false]
+ **activate** | **bool** | Executes an [activation lifecycle](https://developer.okta.com/docs/api/openapi/okta-management/management/userlifecycle/activateuser) operation when creating the user | [default to true]
+ **provider** | **bool** | Indicates whether to create a user with a specified authentication provider. | [default to false]
  **nextLogin** | **string** | With &#x60;activate&#x3D;true&#x60;, if &#x60;nextLogin&#x3D;changePassword&#x60;, a user is created, activated, and the password is set to &#x60;EXPIRED&#x60;. The user must change it the next time they sign in. | 
 
 ### Return type

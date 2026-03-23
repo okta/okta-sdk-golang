@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -37,7 +37,7 @@ type SSFSecurityEventTokenAPI interface {
 	/*
 		PublishSecurityEventTokens Publish a security event token
 
-		Publishes a Security Event Token (SET) sent by a Security Events Provider. After the token is verified, Okta ingests the event and performs any appropriate action.
+		Publishes a security event token (SET) sent by a security events provider. After the token is verified, Okta ingests the event and performs any appropriate action.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return ApiPublishSecurityEventTokensRequest
@@ -58,7 +58,7 @@ type ApiPublishSecurityEventTokensRequest struct {
 	retryCount         int32
 }
 
-// The request body is a signed [SET](https://datatracker.ietf.org/doc/html/rfc8417), which is a type of JSON Web Token (JWT).  For SET JWT header and body descriptions, see [SET JWT header](/openapi/okta-management/management/tag/SSFSecurityEventToken/#tag/SSFSecurityEventToken/schema/SecurityEventTokenRequestJwtHeader) and [SET JWT body payload](/openapi/okta-management/management/tag/SSFSecurityEventToken/#tag/SSFSecurityEventToken/schema/SecurityEventTokenRequestJwtBody).
+// The request body is a signed [SET](https://datatracker.ietf.org/doc/html/rfc8417), which is a type of JSON Web Token (JWT).  For SET JWT header and body descriptions, see [SET JWT header](/openapi/okta-management/management/ssfsecurityeventtoken/securityeventtokenrequestjwtheader) and [SET JWT body payload](/openapi/okta-management/management/ssfsecurityeventtoken/securityeventtokenrequestjwtbody).
 func (r ApiPublishSecurityEventTokensRequest) SecurityEventToken(securityEventToken string) ApiPublishSecurityEventTokensRequest {
 	r.securityEventToken = &securityEventToken
 	return r
@@ -71,7 +71,7 @@ func (r ApiPublishSecurityEventTokensRequest) Execute() (*APIResponse, error) {
 /*
 PublishSecurityEventTokens Publish a security event token
 
-Publishes a Security Event Token (SET) sent by a Security Events Provider. After the token is verified, Okta ingests the event and performs any appropriate action.
+Publishes a security event token (SET) sent by a security events provider. After the token is verified, Okta ingests the event and performs any appropriate action.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiPublishSecurityEventTokensRequest

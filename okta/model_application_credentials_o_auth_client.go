@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -34,7 +34,7 @@ var _ MappedNullable = &ApplicationCredentialsOAuthClient{}
 type ApplicationCredentialsOAuthClient struct {
 	// Requested key rotation mode
 	AutoKeyRotation *bool `json:"autoKeyRotation,omitempty"`
-	// Unique identifier for the OAuth 2.0 client app  > **Notes:** > * If you don't specify the `client_id`, this immutable property is populated with the [Application instance ID](/openapi/okta-management/management/tag/Application/#tag/Application/operation/getApplication!c=200&path=4/id&t=response). > * The `client_id` must consist of alphanumeric characters or the following special characters: `$-_.+!*'(),`. > * You can't use the reserved word `ALL_CLIENTS`.
+	// Unique identifier for the OAuth 2.0 client app  > **Notes:** > * If you don't specify the `client_id`, this immutable property is populated with the [Application instance ID](/openapi/okta-management/management/application/replaceapplication#application/replaceapplication/t=response&c=200&path=&d=0/id). > * The `client_id` must consist of alphanumeric characters or the following special characters: `$-_.+!*'(),`. > * You can't use the reserved word `ALL_CLIENTS`.
 	ClientId *string `json:"client_id,omitempty"`
 	// OAuth 2.0 client secret string (used for confidential clients)  > **Notes:** If a `client_secret` isn't provided on creation, and the `token_endpoint_auth_method` requires one, Okta generates a random `client_secret` for the client app. > The `client_secret` is only shown when an OAuth 2.0 client app is created or updated (and only if the `token_endpoint_auth_method` requires a client secret).
 	ClientSecret *string `json:"client_secret,omitempty"`

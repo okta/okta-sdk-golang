@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Network** | Pointer to [**PolicyNetworkCondition**](PolicyNetworkCondition.md) |  | [optional] 
-**Platform** | Pointer to [**PlatformPolicyRuleCondition**](PlatformPolicyRuleCondition.md) |  | [optional] 
+**Platform** | Pointer to [**DeviceSignalCollectionPlatformPolicyRuleCondition**](DeviceSignalCollectionPlatformPolicyRuleCondition.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasNetwork returns a boolean if a field has been set.
 
 ### GetPlatform
 
-`func (o *DeviceSignalCollectionPolicyRuleConditions) GetPlatform() PlatformPolicyRuleCondition`
+`func (o *DeviceSignalCollectionPolicyRuleConditions) GetPlatform() DeviceSignalCollectionPlatformPolicyRuleCondition`
 
 GetPlatform returns the Platform field if non-nil, zero value otherwise.
 
 ### GetPlatformOk
 
-`func (o *DeviceSignalCollectionPolicyRuleConditions) GetPlatformOk() (*PlatformPolicyRuleCondition, bool)`
+`func (o *DeviceSignalCollectionPolicyRuleConditions) GetPlatformOk() (*DeviceSignalCollectionPlatformPolicyRuleCondition, bool)`
 
 GetPlatformOk returns a tuple with the Platform field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPlatform
 
-`func (o *DeviceSignalCollectionPolicyRuleConditions) SetPlatform(v PlatformPolicyRuleCondition)`
+`func (o *DeviceSignalCollectionPolicyRuleConditions) SetPlatform(v DeviceSignalCollectionPlatformPolicyRuleCondition)`
 
 SetPlatform sets Platform field to given value.
 

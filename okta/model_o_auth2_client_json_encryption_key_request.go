@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -30,8 +30,10 @@ import (
 // checks if the OAuth2ClientJsonEncryptionKeyRequest type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &OAuth2ClientJsonEncryptionKeyRequest{}
 
-// OAuth2ClientJsonEncryptionKeyRequest <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>A [JSON Web Key (JWK)](https://tools.ietf.org/html/rfc7517) is a JSON representation of a cryptographic key. Okta uses an encryption key to encrypt an ID token JWT minted by the org authorization server or custom authorization server. Okta supports only RSA keys for encrypting tokens.
+// OAuth2ClientJsonEncryptionKeyRequest A [JSON Web Key (JWK)](https://tools.ietf.org/html/rfc7517) is a JSON representation of a cryptographic key. Okta uses an encryption key to encrypt an ID token JWT minted by the org authorization server or custom authorization server. Okta supports only RSA keys for encrypting tokens.
 type OAuth2ClientJsonEncryptionKeyRequest struct {
+	// Algorithm used in the key
+	Alg *string `json:"alg,omitempty"`
 	// RSA key value (exponent) for key binding
 	E *string `json:"e,omitempty"`
 	// Cryptographic algorithm family for the certificate's key pair
@@ -40,7 +42,7 @@ type OAuth2ClientJsonEncryptionKeyRequest struct {
 	N *string `json:"n,omitempty"`
 	// Acceptable use of the JSON Web Key
 	Use *string `json:"use,omitempty"`
-	// Unique identifier of the JSON Web Key in the OAuth 2.0 client's JWKS
+	// Unique identifier of the JSON Web Key in the OAUth 2.0 client's JWKS
 	Kid NullableString `json:"kid,omitempty"`
 	// Status of the OAuth 2.0 client JSON Web Key
 	Status               *string `json:"status,omitempty"`
@@ -68,6 +70,38 @@ func NewOAuth2ClientJsonEncryptionKeyRequestWithDefaults() *OAuth2ClientJsonEncr
 	var status string = "ACTIVE"
 	this.Status = &status
 	return &this
+}
+
+// GetAlg returns the Alg field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonEncryptionKeyRequest) GetAlg() string {
+	if o == nil || IsNil(o.Alg) {
+		var ret string
+		return ret
+	}
+	return *o.Alg
+}
+
+// GetAlgOk returns a tuple with the Alg field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OAuth2ClientJsonEncryptionKeyRequest) GetAlgOk() (*string, bool) {
+	if o == nil || IsNil(o.Alg) {
+		return nil, false
+	}
+	return o.Alg, true
+}
+
+// HasAlg returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonEncryptionKeyRequest) HasAlg() bool {
+	if o != nil && !IsNil(o.Alg) {
+		return true
+	}
+
+	return false
+}
+
+// SetAlg gets a reference to the given string and assigns it to the Alg field.
+func (o *OAuth2ClientJsonEncryptionKeyRequest) SetAlg(v string) {
+	o.Alg = &v
 }
 
 // GetE returns the E field value if set, zero value otherwise.
@@ -283,6 +317,9 @@ func (o OAuth2ClientJsonEncryptionKeyRequest) MarshalJSON() ([]byte, error) {
 
 func (o OAuth2ClientJsonEncryptionKeyRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Alg) {
+		toSerialize["alg"] = o.Alg
+	}
 	if !IsNil(o.E) {
 		toSerialize["e"] = o.E
 	}
@@ -323,6 +360,7 @@ func (o *OAuth2ClientJsonEncryptionKeyRequest) UnmarshalJSON(data []byte) (err e
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "alg")
 		delete(additionalProperties, "e")
 		delete(additionalProperties, "kty")
 		delete(additionalProperties, "n")

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Question** | Pointer to [**HrefObject**](HrefObject.md) | Lists all supported security questions. See [List all supported security questions](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/listSupportedSecurityQuestions). | [optional] 
+**Question** | Pointer to [**HrefObject**](HrefObject.md) | Lists all supported security questions. See [List all supported security questions](/openapi/okta-management/management/userfactor/listsupportedsecurityquestions). | [optional] 
 
 ## Methods
 

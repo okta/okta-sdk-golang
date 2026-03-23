@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -33,8 +33,8 @@ var _ MappedNullable = &UserRequestSchema{}
 // UserRequestSchema struct for UserRequestSchema
 type UserRequestSchema struct {
 	// The external ID of the user in the identity source
-	ExternalId           *string                             `json:"externalId,omitempty"`
-	Profile              *IdentitySourceUserProfileForUpsert `json:"profile,omitempty"`
+	ExternalId           *string                                     `json:"externalId,omitempty"`
+	Profile              *IdentitySourceUserProfileForUpsertRequired `json:"profile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -90,9 +90,9 @@ func (o *UserRequestSchema) SetExternalId(v string) {
 }
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
-func (o *UserRequestSchema) GetProfile() IdentitySourceUserProfileForUpsert {
+func (o *UserRequestSchema) GetProfile() IdentitySourceUserProfileForUpsertRequired {
 	if o == nil || IsNil(o.Profile) {
-		var ret IdentitySourceUserProfileForUpsert
+		var ret IdentitySourceUserProfileForUpsertRequired
 		return ret
 	}
 	return *o.Profile
@@ -100,7 +100,7 @@ func (o *UserRequestSchema) GetProfile() IdentitySourceUserProfileForUpsert {
 
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UserRequestSchema) GetProfileOk() (*IdentitySourceUserProfileForUpsert, bool) {
+func (o *UserRequestSchema) GetProfileOk() (*IdentitySourceUserProfileForUpsertRequired, bool) {
 	if o == nil || IsNil(o.Profile) {
 		return nil, false
 	}
@@ -116,8 +116,8 @@ func (o *UserRequestSchema) HasProfile() bool {
 	return false
 }
 
-// SetProfile gets a reference to the given IdentitySourceUserProfileForUpsert and assigns it to the Profile field.
-func (o *UserRequestSchema) SetProfile(v IdentitySourceUserProfileForUpsert) {
+// SetProfile gets a reference to the given IdentitySourceUserProfileForUpsertRequired and assigns it to the Profile field.
+func (o *UserRequestSchema) SetProfile(v IdentitySourceUserProfileForUpsertRequired) {
 	o.Profile = &v
 }
 

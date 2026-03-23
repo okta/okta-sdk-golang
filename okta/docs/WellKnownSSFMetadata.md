@@ -5,13 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AuthorizationSchemes** | Pointer to [**[]WellKnownSSFMetadataSpecUrn**](WellKnownSSFMetadataSpecUrn.md) | An array of JSON objects that specify the authorization scheme properties supported by the transmitter | [optional] 
-**ConfigurationEndpoint** | Pointer to **string** | The URL of the SSF Stream configuration endpoint | [optional] 
+**ConfigurationEndpoint** | Pointer to **string** | The URL of the SSF stream configuration endpoint | [optional] 
 **DefaultSubjects** | Pointer to **string** | A string that indicates the default behavior of newly created streams | [optional] 
 **DeliveryMethodsSupported** | Pointer to **[]string** | An array of supported SET delivery methods | [optional] 
-**Issuer** | Pointer to **string** | The issuer used in Security Event Tokens. This value is set as &#x60;iss&#x60; in the claim. | [optional] 
-**JwksUri** | Pointer to **string** | The URL of the JSON Web Key Set (JWKS) that contains the signing keys for validating the signatures of Security Event Tokens (SETs) | [optional] 
+**Issuer** | Pointer to **string** | The issuer used in security event tokens. This value is set as &#x60;iss&#x60; in the claim. | [optional] 
+**JwksUri** | Pointer to **string** | The URL of the JSON Web Key Set (JWKS) that contains the signing keys for validating the signatures of security event tokens (SETs) | [optional] 
 **SpecVersion** | Pointer to **string** | The version identifying the implementer&#39;s draft or final specification implemented by the transmitter | [optional] 
-**VerificationEndpoint** | Pointer to **string** | The URL of the SSF Stream verification endpoint | [optional] 
+**VerificationEndpoint** | Pointer to **string** | The URL of the SSF stream verification endpoint | [optional] 
 
 ## Methods
 

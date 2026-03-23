@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -30,15 +30,17 @@ import (
 
 // ListPolicyRules200ResponseInner - struct for ListPolicyRules200ResponseInner
 type ListPolicyRules200ResponseInner struct {
-	AccessPolicyRule                  *AccessPolicyRule
-	AuthenticatorEnrollmentPolicyRule *AuthenticatorEnrollmentPolicyRule
-	DeviceSignalCollectionPolicyRule  *DeviceSignalCollectionPolicyRule
-	EntityRiskPolicyRule              *EntityRiskPolicyRule
-	IdpDiscoveryPolicyRule            *IdpDiscoveryPolicyRule
-	OktaSignOnPolicyRule              *OktaSignOnPolicyRule
-	PasswordPolicyRule                *PasswordPolicyRule
-	PostAuthSessionPolicyRule         *PostAuthSessionPolicyRule
-	ProfileEnrollmentPolicyRule       *ProfileEnrollmentPolicyRule
+	AccessPolicyRule                    *AccessPolicyRule
+	AuthenticatorEnrollmentPolicyRule   *AuthenticatorEnrollmentPolicyRule
+	ClientUpdatePolicyRule              *ClientUpdatePolicyRule
+	DeviceSignalCollectionPolicyRule    *DeviceSignalCollectionPolicyRule
+	EntityRiskPolicyRule                *EntityRiskPolicyRule
+	IdpDiscoveryPolicyRule              *IdpDiscoveryPolicyRule
+	OktaSignOnPolicyRule                *OktaSignOnPolicyRule
+	PasswordPolicyRule                  *PasswordPolicyRule
+	PostAuthSessionPolicyRule           *PostAuthSessionPolicyRule
+	ProfileEnrollmentPolicyRule         *ProfileEnrollmentPolicyRule
+	SessionViolationDetectionPolicyRule *SessionViolationDetectionPolicyRule
 }
 
 // AccessPolicyRuleAsListPolicyRules200ResponseInner is a convenience function that returns AccessPolicyRule wrapped in ListPolicyRules200ResponseInner
@@ -52,6 +54,13 @@ func AccessPolicyRuleAsListPolicyRules200ResponseInner(v *AccessPolicyRule) List
 func AuthenticatorEnrollmentPolicyRuleAsListPolicyRules200ResponseInner(v *AuthenticatorEnrollmentPolicyRule) ListPolicyRules200ResponseInner {
 	return ListPolicyRules200ResponseInner{
 		AuthenticatorEnrollmentPolicyRule: v,
+	}
+}
+
+// ClientUpdatePolicyRuleAsListPolicyRules200ResponseInner is a convenience function that returns ClientUpdatePolicyRule wrapped in ListPolicyRules200ResponseInner
+func ClientUpdatePolicyRuleAsListPolicyRules200ResponseInner(v *ClientUpdatePolicyRule) ListPolicyRules200ResponseInner {
+	return ListPolicyRules200ResponseInner{
+		ClientUpdatePolicyRule: v,
 	}
 }
 
@@ -104,6 +113,13 @@ func ProfileEnrollmentPolicyRuleAsListPolicyRules200ResponseInner(v *ProfileEnro
 	}
 }
 
+// SessionViolationDetectionPolicyRuleAsListPolicyRules200ResponseInner is a convenience function that returns SessionViolationDetectionPolicyRule wrapped in ListPolicyRules200ResponseInner
+func SessionViolationDetectionPolicyRuleAsListPolicyRules200ResponseInner(v *SessionViolationDetectionPolicyRule) ListPolicyRules200ResponseInner {
+	return ListPolicyRules200ResponseInner{
+		SessionViolationDetectionPolicyRule: v,
+	}
+}
+
 // Unmarshal JSON data into one of the pointers in the struct
 func (dst *ListPolicyRules200ResponseInner) UnmarshalJSON(data []byte) error {
 	var err error
@@ -126,6 +142,18 @@ func (dst *ListPolicyRules200ResponseInner) UnmarshalJSON(data []byte) error {
 		} else {
 			dst.AccessPolicyRule = nil
 			return fmt.Errorf("failed to unmarshal ListPolicyRules200ResponseInner as AccessPolicyRule: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'CLIENT_UPDATE'
+	if discriminatorValue == "CLIENT_UPDATE" {
+		// try to unmarshal JSON data into ClientUpdatePolicyRule
+		err = json.Unmarshal(data, &dst.ClientUpdatePolicyRule)
+		if err == nil {
+			return nil // data stored in dst.ClientUpdatePolicyRule, return on the first match
+		} else {
+			dst.ClientUpdatePolicyRule = nil
+			return fmt.Errorf("failed to unmarshal ListPolicyRules200ResponseInner as ClientUpdatePolicyRule: %s", err.Error())
 		}
 	}
 
@@ -213,6 +241,18 @@ func (dst *ListPolicyRules200ResponseInner) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'SESSION_VIOLATION_DETECTION'
+	if discriminatorValue == "SESSION_VIOLATION_DETECTION" {
+		// try to unmarshal JSON data into SessionViolationDetectionPolicyRule
+		err = json.Unmarshal(data, &dst.SessionViolationDetectionPolicyRule)
+		if err == nil {
+			return nil // data stored in dst.SessionViolationDetectionPolicyRule, return on the first match
+		} else {
+			dst.SessionViolationDetectionPolicyRule = nil
+			return fmt.Errorf("failed to unmarshal ListPolicyRules200ResponseInner as SessionViolationDetectionPolicyRule: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'SIGN_ON'
 	if discriminatorValue == "SIGN_ON" {
 		// try to unmarshal JSON data into OktaSignOnPolicyRule
@@ -248,6 +288,10 @@ func (src ListPolicyRules200ResponseInner) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.AuthenticatorEnrollmentPolicyRule)
 	}
 
+	if src.ClientUpdatePolicyRule != nil {
+		return json.Marshal(&src.ClientUpdatePolicyRule)
+	}
+
 	if src.DeviceSignalCollectionPolicyRule != nil {
 		return json.Marshal(&src.DeviceSignalCollectionPolicyRule)
 	}
@@ -276,6 +320,10 @@ func (src ListPolicyRules200ResponseInner) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.ProfileEnrollmentPolicyRule)
 	}
 
+	if src.SessionViolationDetectionPolicyRule != nil {
+		return json.Marshal(&src.SessionViolationDetectionPolicyRule)
+	}
+
 	return nil, nil // no data in oneOf schemas
 }
 
@@ -290,6 +338,10 @@ func (obj *ListPolicyRules200ResponseInner) GetActualInstance() interface{} {
 
 	if obj.AuthenticatorEnrollmentPolicyRule != nil {
 		return obj.AuthenticatorEnrollmentPolicyRule
+	}
+
+	if obj.ClientUpdatePolicyRule != nil {
+		return obj.ClientUpdatePolicyRule
 	}
 
 	if obj.DeviceSignalCollectionPolicyRule != nil {
@@ -320,6 +372,10 @@ func (obj *ListPolicyRules200ResponseInner) GetActualInstance() interface{} {
 		return obj.ProfileEnrollmentPolicyRule
 	}
 
+	if obj.SessionViolationDetectionPolicyRule != nil {
+		return obj.SessionViolationDetectionPolicyRule
+	}
+
 	// all schemas are nil
 	return nil
 }
@@ -332,6 +388,10 @@ func (obj ListPolicyRules200ResponseInner) GetActualInstanceValue() interface{} 
 
 	if obj.AuthenticatorEnrollmentPolicyRule != nil {
 		return *obj.AuthenticatorEnrollmentPolicyRule
+	}
+
+	if obj.ClientUpdatePolicyRule != nil {
+		return *obj.ClientUpdatePolicyRule
 	}
 
 	if obj.DeviceSignalCollectionPolicyRule != nil {
@@ -360,6 +420,10 @@ func (obj ListPolicyRules200ResponseInner) GetActualInstanceValue() interface{} 
 
 	if obj.ProfileEnrollmentPolicyRule != nil {
 		return *obj.ProfileEnrollmentPolicyRule
+	}
+
+	if obj.SessionViolationDetectionPolicyRule != nil {
+		return *obj.SessionViolationDetectionPolicyRule
 	}
 
 	// all schemas are nil

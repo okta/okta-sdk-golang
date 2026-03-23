@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Technical** | Pointer to [**HrefObject**](HrefObject.md) | Link to the org technical [Contact Type User](/openapi/okta-management/management/tag/OrgSettingContact/#tag/OrgSettingContact/operation/getOrgContactUser) resource | [optional] 
+**Technical** | Pointer to [**HrefObject**](HrefObject.md) | Link to the org technical [Contact Type User](/openapi/okta-management/management/orgsettingcontact/#tag/OrgSettingContact/operation/getOrgContactUser) resource | [optional] 
 
 ## Methods
 

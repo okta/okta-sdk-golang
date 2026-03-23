@@ -27,6 +27,7 @@ Name | Type | Description | Notes
 **WidgetGeneration** | Pointer to **string** | The generation of the Sign-in Widget | [optional] 
 **PostAuthKeepMeSignedInPrompt** | Pointer to [**PostAuthKeepMeSignedInPrompt**](PostAuthKeepMeSignedInPrompt.md) |  | [optional] 
 **ClassicFooterHelpTitle** | Pointer to **string** | The title of the footer link on the sign-in page. Only applicable for Classic Engine orgs. | [optional] 
+**GracePeriodRequiredSoon** | Pointer to [**GracePeriodRequiredSoon**](GracePeriodRequiredSoon.md) |  | [optional] 
 
 ## Methods
 
@@ -621,6 +622,31 @@ SetClassicFooterHelpTitle sets ClassicFooterHelpTitle field to given value.
 `func (o *SignInPageAllOfWidgetCustomizations) HasClassicFooterHelpTitle() bool`
 
 HasClassicFooterHelpTitle returns a boolean if a field has been set.
+
+### GetGracePeriodRequiredSoon
+
+`func (o *SignInPageAllOfWidgetCustomizations) GetGracePeriodRequiredSoon() GracePeriodRequiredSoon`
+
+GetGracePeriodRequiredSoon returns the GracePeriodRequiredSoon field if non-nil, zero value otherwise.
+
+### GetGracePeriodRequiredSoonOk
+
+`func (o *SignInPageAllOfWidgetCustomizations) GetGracePeriodRequiredSoonOk() (*GracePeriodRequiredSoon, bool)`
+
+GetGracePeriodRequiredSoonOk returns a tuple with the GracePeriodRequiredSoon field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetGracePeriodRequiredSoon
+
+`func (o *SignInPageAllOfWidgetCustomizations) SetGracePeriodRequiredSoon(v GracePeriodRequiredSoon)`
+
+SetGracePeriodRequiredSoon sets GracePeriodRequiredSoon field to given value.
+
+### HasGracePeriodRequiredSoon
+
+`func (o *SignInPageAllOfWidgetCustomizations) HasGracePeriodRequiredSoon() bool`
+
+HasGracePeriodRequiredSoon returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

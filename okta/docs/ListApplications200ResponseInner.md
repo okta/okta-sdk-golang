@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Accessibility** | Pointer to [**ApplicationAccessibility**](ApplicationAccessibility.md) |  | [optional] 
 **Created** | Pointer to **time.Time** | Timestamp when the application object was created | [optional] [readonly] 
 **ExpressConfiguration** | Pointer to [**ApplicationExpressConfiguration**](ApplicationExpressConfiguration.md) |  | [optional] 
-**Features** | Pointer to **[]string** | Enabled app features &gt; **Note:** See [Application Features](/openapi/okta-management/management/tag/ApplicationFeatures/) for app provisioning features.  | [optional] [readonly] 
+**Features** | Pointer to **[]string** | Enabled app features &gt; **Note:** See [Application Features](/openapi/okta-management/management/tags/applicationfeatures/) for app provisioning features.  | [optional] [readonly] 
 **Id** | Pointer to **string** | Unique ID for the app instance | [optional] [readonly] 
 **Label** | **string** | User-defined display name for app | 
 **LastUpdated** | Pointer to **time.Time** | Timestamp when the application object was last updated | [optional] [readonly] 

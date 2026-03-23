@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Email** | Pointer to **string** | Email address of the user. This must be either the primary or secondary email address associated with the Okta user account. | [optional] 
+**Email** | Pointer to **string** | Email address of the user. This must be either the primary or secondary email address associated with the Okta user account.  &gt; **Note:** For Identity Engine orgs, you can only enroll the primary email address of the user. | [optional] 
 
 ## Methods
 

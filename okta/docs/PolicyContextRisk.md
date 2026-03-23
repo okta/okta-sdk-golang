@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Level** | Pointer to **string** |  | [optional] 
+**MinRiskLevel** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
@@ -49,6 +50,31 @@ SetLevel sets Level field to given value.
 `func (o *PolicyContextRisk) HasLevel() bool`
 
 HasLevel returns a boolean if a field has been set.
+
+### GetMinRiskLevel
+
+`func (o *PolicyContextRisk) GetMinRiskLevel() string`
+
+GetMinRiskLevel returns the MinRiskLevel field if non-nil, zero value otherwise.
+
+### GetMinRiskLevelOk
+
+`func (o *PolicyContextRisk) GetMinRiskLevelOk() (*string, bool)`
+
+GetMinRiskLevelOk returns a tuple with the MinRiskLevel field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMinRiskLevel
+
+`func (o *PolicyContextRisk) SetMinRiskLevel(v string)`
+
+SetMinRiskLevel sets MinRiskLevel field to given value.
+
+### HasMinRiskLevel
+
+`func (o *PolicyContextRisk) HasMinRiskLevel() bool`
+
+HasMinRiskLevel returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -35,6 +35,8 @@ var _ MappedNullable = &AuthenticatorBase{}
 type AuthenticatorBase struct {
 	// Timestamp when the authenticator was created
 	Created *time.Time `json:"created,omitempty"`
+	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>The description of the authenticator. This setting is only available for the `webauthn` authenticator type (Passkeys).
+	Description *string `json:"description,omitempty"`
 	// A unique identifier for the authenticator
 	Id *string `json:"id,omitempty"`
 	// A human-readable string that identifies the authenticator
@@ -42,7 +44,8 @@ type AuthenticatorBase struct {
 	// Timestamp when the authenticator was last modified
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// Display name of the authenticator
-	Name   *string `json:"name,omitempty"`
+	Name *string `json:"name,omitempty"`
+	// Status of the authenticator
 	Status *string `json:"status,omitempty"`
 	// The type of authenticator
 	Type                 *string             `json:"type,omitempty"`
@@ -99,6 +102,38 @@ func (o *AuthenticatorBase) HasCreated() bool {
 // SetCreated gets a reference to the given time.Time and assigns it to the Created field.
 func (o *AuthenticatorBase) SetCreated(v time.Time) {
 	o.Created = &v
+}
+
+// GetDescription returns the Description field value if set, zero value otherwise.
+func (o *AuthenticatorBase) GetDescription() string {
+	if o == nil || IsNil(o.Description) {
+		var ret string
+		return ret
+	}
+	return *o.Description
+}
+
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuthenticatorBase) GetDescriptionOk() (*string, bool) {
+	if o == nil || IsNil(o.Description) {
+		return nil, false
+	}
+	return o.Description, true
+}
+
+// HasDescription returns a boolean if a field has been set.
+func (o *AuthenticatorBase) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
+func (o *AuthenticatorBase) SetDescription(v string) {
+	o.Description = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -338,6 +373,9 @@ func (o AuthenticatorBase) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
 	}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
@@ -382,6 +420,7 @@ func (o *AuthenticatorBase) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
+		delete(additionalProperties, "description")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "key")
 		delete(additionalProperties, "lastUpdated")

@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -30,7 +30,7 @@ import (
 // checks if the ResourceServerJsonWebKeys type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ResourceServerJsonWebKeys{}
 
-// ResourceServerJsonWebKeys <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>A [JSON Web Key Set](https://tools.ietf.org/html/rfc7517#section-5) for encrypting JWTs minted by the custom authorization server
+// ResourceServerJsonWebKeys A [JSON Web Key Set](https://tools.ietf.org/html/rfc7517#section-5) for encrypting JWTs minted by the custom authorization server
 type ResourceServerJsonWebKeys struct {
 	Keys                 []ResourceServerJsonWebKey `json:"keys,omitempty"`
 	AdditionalProperties map[string]interface{}

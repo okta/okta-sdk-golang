@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -36,6 +36,36 @@ import (
 type IdentitySourceAPI interface {
 
 	/*
+		CreateIdentitySourceGroups Create an identity source group
+
+		Creates a group in an identity source for the given identity source instance
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param identitySourceId The ID of the identity source for which the session is created
+		@return ApiCreateIdentitySourceGroupsRequest
+	*/
+	CreateIdentitySourceGroups(ctx context.Context, identitySourceId string) ApiCreateIdentitySourceGroupsRequest
+
+	// CreateIdentitySourceGroupsExecute executes the request
+	//  @return GroupsResponseSchema
+	CreateIdentitySourceGroupsExecute(r ApiCreateIdentitySourceGroupsRequest) (*GroupsResponseSchema, *APIResponse, error)
+
+	/*
+		CreateIdentitySourceGroupsMemberships Create the memberships for the given identity source group
+
+		Creates the group memberships for the given identity source group
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param identitySourceId The ID of the identity source for which the session is created
+		@param groupOrExternalId The Okta group ID or external ID of the identity source group
+		@return ApiCreateIdentitySourceGroupsMembershipsRequest
+	*/
+	CreateIdentitySourceGroupsMemberships(ctx context.Context, identitySourceId string, groupOrExternalId string) ApiCreateIdentitySourceGroupsMembershipsRequest
+
+	// CreateIdentitySourceGroupsMembershipsExecute executes the request
+	CreateIdentitySourceGroupsMembershipsExecute(r ApiCreateIdentitySourceGroupsMembershipsRequest) (*APIResponse, error)
+
+	/*
 		CreateIdentitySourceSession Create an identity source session
 
 		Creates an identity source session for the given identity source instance
@@ -51,6 +81,51 @@ type IdentitySourceAPI interface {
 	CreateIdentitySourceSessionExecute(r ApiCreateIdentitySourceSessionRequest) (*IdentitySourceSession, *APIResponse, error)
 
 	/*
+		CreateIdentitySourceUser Create an identity source user
+
+		Creates a user in an identity source for the given identity source instance
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param identitySourceId The ID of the identity source for which the session is created
+		@return ApiCreateIdentitySourceUserRequest
+	*/
+	CreateIdentitySourceUser(ctx context.Context, identitySourceId string) ApiCreateIdentitySourceUserRequest
+
+	// CreateIdentitySourceUserExecute executes the request
+	CreateIdentitySourceUserExecute(r ApiCreateIdentitySourceUserRequest) (*APIResponse, error)
+
+	/*
+		DeleteIdentitySourceGroup Delete an identity source group
+
+		Deletes a group in an identity source for a given identity source ID and group ID
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param identitySourceId The ID of the identity source for which the session is created
+		@param groupOrExternalId The Okta group ID or external ID of the identity source group
+		@return ApiDeleteIdentitySourceGroupRequest
+	*/
+	DeleteIdentitySourceGroup(ctx context.Context, identitySourceId string, groupOrExternalId string) ApiDeleteIdentitySourceGroupRequest
+
+	// DeleteIdentitySourceGroupExecute executes the request
+	DeleteIdentitySourceGroupExecute(r ApiDeleteIdentitySourceGroupRequest) (*APIResponse, error)
+
+	/*
+		DeleteIdentitySourceGroupMemberships Delete the memberships for the specified identity source group
+
+		Deletes group memberships for the specified identity source group using member external IDs
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param identitySourceId The ID of the identity source for which the session is created
+		@param groupOrExternalId The Okta group ID or external ID of the identity source group
+		@param memberExternalId The external ID of the identity source user
+		@return ApiDeleteIdentitySourceGroupMembershipsRequest
+	*/
+	DeleteIdentitySourceGroupMemberships(ctx context.Context, identitySourceId string, groupOrExternalId string, memberExternalId string) ApiDeleteIdentitySourceGroupMembershipsRequest
+
+	// DeleteIdentitySourceGroupMembershipsExecute executes the request
+	DeleteIdentitySourceGroupMembershipsExecute(r ApiDeleteIdentitySourceGroupMembershipsRequest) (*APIResponse, error)
+
+	/*
 		DeleteIdentitySourceSession Delete an identity source session
 
 		Deletes an identity source session for a given identity source ID and session Id
@@ -64,6 +139,53 @@ type IdentitySourceAPI interface {
 
 	// DeleteIdentitySourceSessionExecute executes the request
 	DeleteIdentitySourceSessionExecute(r ApiDeleteIdentitySourceSessionRequest) (*APIResponse, error)
+
+	/*
+		DeleteIdentitySourceUser Delete an identity source user
+
+		Deletes a user in an identity source for the given identity source instance and external ID
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param identitySourceId The ID of the identity source for which the session is created
+		@param externalId The external ID of the user
+		@return ApiDeleteIdentitySourceUserRequest
+	*/
+	DeleteIdentitySourceUser(ctx context.Context, identitySourceId string, externalId string) ApiDeleteIdentitySourceUserRequest
+
+	// DeleteIdentitySourceUserExecute executes the request
+	DeleteIdentitySourceUserExecute(r ApiDeleteIdentitySourceUserRequest) (*APIResponse, error)
+
+	/*
+		GetIdentitySourceGroup Retrieve an identity source group
+
+		Retrieves a group from an identity source for a given identity source ID and group ID or external ID
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param identitySourceId The ID of the identity source for which the session is created
+		@param groupOrExternalId The Okta group ID or external ID of the identity source group
+		@return ApiGetIdentitySourceGroupRequest
+	*/
+	GetIdentitySourceGroup(ctx context.Context, identitySourceId string, groupOrExternalId string) ApiGetIdentitySourceGroupRequest
+
+	// GetIdentitySourceGroupExecute executes the request
+	//  @return GroupsResponseSchema
+	GetIdentitySourceGroupExecute(r ApiGetIdentitySourceGroupRequest) (*GroupsResponseSchema, *APIResponse, error)
+
+	/*
+		GetIdentitySourceGroupMemberships Retrieve the memberships for the given identity source group
+
+		Retrieves the group memberships for the given identity source group in the given identity source instance
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param identitySourceId The ID of the identity source for which the session is created
+		@param groupOrExternalId The Okta group ID or external ID of the identity source group
+		@return ApiGetIdentitySourceGroupMembershipsRequest
+	*/
+	GetIdentitySourceGroupMemberships(ctx context.Context, identitySourceId string, groupOrExternalId string) ApiGetIdentitySourceGroupMembershipsRequest
+
+	// GetIdentitySourceGroupMembershipsExecute executes the request
+	//  @return GroupMembershipsResponseSchema
+	GetIdentitySourceGroupMembershipsExecute(r ApiGetIdentitySourceGroupMembershipsRequest) (*GroupMembershipsResponseSchema, *APIResponse, error)
 
 	/*
 		GetIdentitySourceSession Retrieve an identity source session
@@ -82,6 +204,22 @@ type IdentitySourceAPI interface {
 	GetIdentitySourceSessionExecute(r ApiGetIdentitySourceSessionRequest) (*IdentitySourceSession, *APIResponse, error)
 
 	/*
+		GetIdentitySourceUser Retrieve an identity source user
+
+		Retrieves a user by external ID in an identity source for the given identity source instance
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param identitySourceId The ID of the identity source for which the session is created
+		@param externalId The external ID of the user
+		@return ApiGetIdentitySourceUserRequest
+	*/
+	GetIdentitySourceUser(ctx context.Context, identitySourceId string, externalId string) ApiGetIdentitySourceUserRequest
+
+	// GetIdentitySourceUserExecute executes the request
+	//  @return UserResponseSchema
+	GetIdentitySourceUserExecute(r ApiGetIdentitySourceUserRequest) (*UserResponseSchema, *APIResponse, error)
+
+	/*
 		ListIdentitySourceSessions List all identity source sessions
 
 		Lists all identity source sessions for the given identity source instance
@@ -95,6 +233,22 @@ type IdentitySourceAPI interface {
 	// ListIdentitySourceSessionsExecute executes the request
 	//  @return []IdentitySourceSession
 	ListIdentitySourceSessionsExecute(r ApiListIdentitySourceSessionsRequest) ([]IdentitySourceSession, *APIResponse, error)
+
+	/*
+		ReplaceExistingIdentitySourceUser Replace an existing identity source user
+
+		Replaces an existing user for the given identity source instance and external ID
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param identitySourceId The ID of the identity source for which the session is created
+		@param externalId The external ID of the user
+		@return ApiReplaceExistingIdentitySourceUserRequest
+	*/
+	ReplaceExistingIdentitySourceUser(ctx context.Context, identitySourceId string, externalId string) ApiReplaceExistingIdentitySourceUserRequest
+
+	// ReplaceExistingIdentitySourceUserExecute executes the request
+	//  @return UserResponseSchema
+	ReplaceExistingIdentitySourceUserExecute(r ApiReplaceExistingIdentitySourceUserRequest) (*UserResponseSchema, *APIResponse, error)
 
 	/*
 		StartImportFromIdentitySource Start the import from the identity source
@@ -111,6 +265,38 @@ type IdentitySourceAPI interface {
 	// StartImportFromIdentitySourceExecute executes the request
 	//  @return IdentitySourceSession
 	StartImportFromIdentitySourceExecute(r ApiStartImportFromIdentitySourceRequest) (*IdentitySourceSession, *APIResponse, error)
+
+	/*
+		UpdateIdentitySourceGroups Update an identity source group
+
+		Updates a group to an identity source for the given identity source instance and group ID
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param identitySourceId The ID of the identity source for which the session is created
+		@param groupOrExternalId The Okta group ID or external ID of the identity source group
+		@return ApiUpdateIdentitySourceGroupsRequest
+	*/
+	UpdateIdentitySourceGroups(ctx context.Context, identitySourceId string, groupOrExternalId string) ApiUpdateIdentitySourceGroupsRequest
+
+	// UpdateIdentitySourceGroupsExecute executes the request
+	//  @return GroupsResponseSchema
+	UpdateIdentitySourceGroupsExecute(r ApiUpdateIdentitySourceGroupsRequest) (*GroupsResponseSchema, *APIResponse, error)
+
+	/*
+		UpdateIdentitySourceUsers Update an identity source user
+
+		Updates a user to an identity source for the given identity source instance and external ID
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param identitySourceId The ID of the identity source for which the session is created
+		@param externalId The external ID of the user
+		@return ApiUpdateIdentitySourceUsersRequest
+	*/
+	UpdateIdentitySourceUsers(ctx context.Context, identitySourceId string, externalId string) ApiUpdateIdentitySourceUsersRequest
+
+	// UpdateIdentitySourceUsersExecute executes the request
+	//  @return UserResponseSchema
+	UpdateIdentitySourceUsersExecute(r ApiUpdateIdentitySourceUsersRequest) (*UserResponseSchema, *APIResponse, error)
 
 	/*
 		UploadIdentitySourceDataForDelete Upload the data to be deleted in Okta
@@ -205,6 +391,357 @@ type IdentitySourceAPI interface {
 
 // IdentitySourceAPIService IdentitySourceAPI service
 type IdentitySourceAPIService service
+
+type ApiCreateIdentitySourceGroupsRequest struct {
+	ctx                 context.Context
+	ApiService          IdentitySourceAPI
+	identitySourceId    string
+	groupsRequestSchema *GroupsRequestSchema
+	retryCount          int32
+}
+
+func (r ApiCreateIdentitySourceGroupsRequest) GroupsRequestSchema(groupsRequestSchema GroupsRequestSchema) ApiCreateIdentitySourceGroupsRequest {
+	r.groupsRequestSchema = &groupsRequestSchema
+	return r
+}
+
+func (r ApiCreateIdentitySourceGroupsRequest) Execute() (*GroupsResponseSchema, *APIResponse, error) {
+	return r.ApiService.CreateIdentitySourceGroupsExecute(r)
+}
+
+/*
+CreateIdentitySourceGroups Create an identity source group
+
+Creates a group in an identity source for the given identity source instance
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param identitySourceId The ID of the identity source for which the session is created
+	@return ApiCreateIdentitySourceGroupsRequest
+*/
+func (a *IdentitySourceAPIService) CreateIdentitySourceGroups(ctx context.Context, identitySourceId string) ApiCreateIdentitySourceGroupsRequest {
+	return ApiCreateIdentitySourceGroupsRequest{
+		ApiService:       a,
+		ctx:              ctx,
+		identitySourceId: identitySourceId,
+		retryCount:       0,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GroupsResponseSchema
+func (a *IdentitySourceAPIService) CreateIdentitySourceGroupsExecute(r ApiCreateIdentitySourceGroupsRequest) (*GroupsResponseSchema, *APIResponse, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *GroupsResponseSchema
+		localVarHTTPResponse *http.Response
+		localAPIResponse     *APIResponse
+		err                  error
+	)
+
+	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
+		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
+		r.ctx = localctx
+		defer cancel()
+	}
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentitySourceAPIService.CreateIdentitySourceGroups")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/identity-sources/{identitySourceId}/groups"
+	localVarPath = strings.Replace(localVarPath, "{"+"identitySourceId"+"}", url.PathEscape(parameterToString(r.identitySourceId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.groupsRequestSchema
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiToken"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, newErr
+	}
+
+	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+	return localVarReturnValue, localAPIResponse, nil
+}
+
+type ApiCreateIdentitySourceGroupsMembershipsRequest struct {
+	ctx                     context.Context
+	ApiService              IdentitySourceAPI
+	identitySourceId        string
+	groupOrExternalId       string
+	membershipRequestSchema *MembershipRequestSchema
+	retryCount              int32
+}
+
+func (r ApiCreateIdentitySourceGroupsMembershipsRequest) MembershipRequestSchema(membershipRequestSchema MembershipRequestSchema) ApiCreateIdentitySourceGroupsMembershipsRequest {
+	r.membershipRequestSchema = &membershipRequestSchema
+	return r
+}
+
+func (r ApiCreateIdentitySourceGroupsMembershipsRequest) Execute() (*APIResponse, error) {
+	return r.ApiService.CreateIdentitySourceGroupsMembershipsExecute(r)
+}
+
+/*
+CreateIdentitySourceGroupsMemberships Create the memberships for the given identity source group
+
+Creates the group memberships for the given identity source group
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param identitySourceId The ID of the identity source for which the session is created
+	@param groupOrExternalId The Okta group ID or external ID of the identity source group
+	@return ApiCreateIdentitySourceGroupsMembershipsRequest
+*/
+func (a *IdentitySourceAPIService) CreateIdentitySourceGroupsMemberships(ctx context.Context, identitySourceId string, groupOrExternalId string) ApiCreateIdentitySourceGroupsMembershipsRequest {
+	return ApiCreateIdentitySourceGroupsMembershipsRequest{
+		ApiService:        a,
+		ctx:               ctx,
+		identitySourceId:  identitySourceId,
+		groupOrExternalId: groupOrExternalId,
+		retryCount:        0,
+	}
+}
+
+// Execute executes the request
+func (a *IdentitySourceAPIService) CreateIdentitySourceGroupsMembershipsExecute(r ApiCreateIdentitySourceGroupsMembershipsRequest) (*APIResponse, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarHTTPResponse *http.Response
+		localAPIResponse     *APIResponse
+		err                  error
+	)
+
+	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
+		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
+		r.ctx = localctx
+		defer cancel()
+	}
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentitySourceAPIService.CreateIdentitySourceGroupsMemberships")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/identity-sources/{identitySourceId}/groups/{groupOrExternalId}/membership"
+	localVarPath = strings.Replace(localVarPath, "{"+"identitySourceId"+"}", url.PathEscape(parameterToString(r.identitySourceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"groupOrExternalId"+"}", url.PathEscape(parameterToString(r.groupOrExternalId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.membershipRequestSchema
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiToken"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, newErr
+	}
+
+	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+	return localAPIResponse, nil
+}
 
 type ApiCreateIdentitySourceSessionRequest struct {
 	ctx              context.Context
@@ -372,6 +909,485 @@ func (a *IdentitySourceAPIService) CreateIdentitySourceSessionExecute(r ApiCreat
 	return localVarReturnValue, localAPIResponse, nil
 }
 
+type ApiCreateIdentitySourceUserRequest struct {
+	ctx               context.Context
+	ApiService        IdentitySourceAPI
+	identitySourceId  string
+	userRequestSchema *UserRequestSchema
+	retryCount        int32
+}
+
+func (r ApiCreateIdentitySourceUserRequest) UserRequestSchema(userRequestSchema UserRequestSchema) ApiCreateIdentitySourceUserRequest {
+	r.userRequestSchema = &userRequestSchema
+	return r
+}
+
+func (r ApiCreateIdentitySourceUserRequest) Execute() (*APIResponse, error) {
+	return r.ApiService.CreateIdentitySourceUserExecute(r)
+}
+
+/*
+CreateIdentitySourceUser Create an identity source user
+
+Creates a user in an identity source for the given identity source instance
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param identitySourceId The ID of the identity source for which the session is created
+	@return ApiCreateIdentitySourceUserRequest
+*/
+func (a *IdentitySourceAPIService) CreateIdentitySourceUser(ctx context.Context, identitySourceId string) ApiCreateIdentitySourceUserRequest {
+	return ApiCreateIdentitySourceUserRequest{
+		ApiService:       a,
+		ctx:              ctx,
+		identitySourceId: identitySourceId,
+		retryCount:       0,
+	}
+}
+
+// Execute executes the request
+func (a *IdentitySourceAPIService) CreateIdentitySourceUserExecute(r ApiCreateIdentitySourceUserRequest) (*APIResponse, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarHTTPResponse *http.Response
+		localAPIResponse     *APIResponse
+		err                  error
+	)
+
+	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
+		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
+		r.ctx = localctx
+		defer cancel()
+	}
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentitySourceAPIService.CreateIdentitySourceUser")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/identity-sources/{identitySourceId}/users"
+	localVarPath = strings.Replace(localVarPath, "{"+"identitySourceId"+"}", url.PathEscape(parameterToString(r.identitySourceId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.userRequestSchema
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiToken"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, newErr
+	}
+
+	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+	return localAPIResponse, nil
+}
+
+type ApiDeleteIdentitySourceGroupRequest struct {
+	ctx               context.Context
+	ApiService        IdentitySourceAPI
+	identitySourceId  string
+	groupOrExternalId string
+	retryCount        int32
+}
+
+func (r ApiDeleteIdentitySourceGroupRequest) Execute() (*APIResponse, error) {
+	return r.ApiService.DeleteIdentitySourceGroupExecute(r)
+}
+
+/*
+DeleteIdentitySourceGroup Delete an identity source group
+
+Deletes a group in an identity source for a given identity source ID and group ID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param identitySourceId The ID of the identity source for which the session is created
+	@param groupOrExternalId The Okta group ID or external ID of the identity source group
+	@return ApiDeleteIdentitySourceGroupRequest
+*/
+func (a *IdentitySourceAPIService) DeleteIdentitySourceGroup(ctx context.Context, identitySourceId string, groupOrExternalId string) ApiDeleteIdentitySourceGroupRequest {
+	return ApiDeleteIdentitySourceGroupRequest{
+		ApiService:        a,
+		ctx:               ctx,
+		identitySourceId:  identitySourceId,
+		groupOrExternalId: groupOrExternalId,
+		retryCount:        0,
+	}
+}
+
+// Execute executes the request
+func (a *IdentitySourceAPIService) DeleteIdentitySourceGroupExecute(r ApiDeleteIdentitySourceGroupRequest) (*APIResponse, error) {
+	var (
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarHTTPResponse *http.Response
+		localAPIResponse     *APIResponse
+		err                  error
+	)
+
+	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
+		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
+		r.ctx = localctx
+		defer cancel()
+	}
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentitySourceAPIService.DeleteIdentitySourceGroup")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/identity-sources/{identitySourceId}/groups/{groupOrExternalId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"identitySourceId"+"}", url.PathEscape(parameterToString(r.identitySourceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"groupOrExternalId"+"}", url.PathEscape(parameterToString(r.groupOrExternalId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiToken"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, newErr
+	}
+
+	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+	return localAPIResponse, nil
+}
+
+type ApiDeleteIdentitySourceGroupMembershipsRequest struct {
+	ctx               context.Context
+	ApiService        IdentitySourceAPI
+	identitySourceId  string
+	groupOrExternalId string
+	memberExternalId  string
+	retryCount        int32
+}
+
+func (r ApiDeleteIdentitySourceGroupMembershipsRequest) Execute() (*APIResponse, error) {
+	return r.ApiService.DeleteIdentitySourceGroupMembershipsExecute(r)
+}
+
+/*
+DeleteIdentitySourceGroupMemberships Delete the memberships for the specified identity source group
+
+Deletes group memberships for the specified identity source group using member external IDs
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param identitySourceId The ID of the identity source for which the session is created
+	@param groupOrExternalId The Okta group ID or external ID of the identity source group
+	@param memberExternalId The external ID of the identity source user
+	@return ApiDeleteIdentitySourceGroupMembershipsRequest
+*/
+func (a *IdentitySourceAPIService) DeleteIdentitySourceGroupMemberships(ctx context.Context, identitySourceId string, groupOrExternalId string, memberExternalId string) ApiDeleteIdentitySourceGroupMembershipsRequest {
+	return ApiDeleteIdentitySourceGroupMembershipsRequest{
+		ApiService:        a,
+		ctx:               ctx,
+		identitySourceId:  identitySourceId,
+		groupOrExternalId: groupOrExternalId,
+		memberExternalId:  memberExternalId,
+		retryCount:        0,
+	}
+}
+
+// Execute executes the request
+func (a *IdentitySourceAPIService) DeleteIdentitySourceGroupMembershipsExecute(r ApiDeleteIdentitySourceGroupMembershipsRequest) (*APIResponse, error) {
+	var (
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarHTTPResponse *http.Response
+		localAPIResponse     *APIResponse
+		err                  error
+	)
+
+	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
+		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
+		r.ctx = localctx
+		defer cancel()
+	}
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentitySourceAPIService.DeleteIdentitySourceGroupMemberships")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/identity-sources/{identitySourceId}/groups/{groupOrExternalId}/membership/{memberExternalId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"identitySourceId"+"}", url.PathEscape(parameterToString(r.identitySourceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"groupOrExternalId"+"}", url.PathEscape(parameterToString(r.groupOrExternalId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"memberExternalId"+"}", url.PathEscape(parameterToString(r.memberExternalId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiToken"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, newErr
+	}
+
+	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+	return localAPIResponse, nil
+}
+
 type ApiDeleteIdentitySourceSessionRequest struct {
 	ctx              context.Context
 	ApiService       IdentitySourceAPI
@@ -529,6 +1545,523 @@ func (a *IdentitySourceAPIService) DeleteIdentitySourceSessionExecute(r ApiDelet
 	return localAPIResponse, nil
 }
 
+type ApiDeleteIdentitySourceUserRequest struct {
+	ctx              context.Context
+	ApiService       IdentitySourceAPI
+	identitySourceId string
+	externalId       string
+	retryCount       int32
+}
+
+func (r ApiDeleteIdentitySourceUserRequest) Execute() (*APIResponse, error) {
+	return r.ApiService.DeleteIdentitySourceUserExecute(r)
+}
+
+/*
+DeleteIdentitySourceUser Delete an identity source user
+
+Deletes a user in an identity source for the given identity source instance and external ID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param identitySourceId The ID of the identity source for which the session is created
+	@param externalId The external ID of the user
+	@return ApiDeleteIdentitySourceUserRequest
+*/
+func (a *IdentitySourceAPIService) DeleteIdentitySourceUser(ctx context.Context, identitySourceId string, externalId string) ApiDeleteIdentitySourceUserRequest {
+	return ApiDeleteIdentitySourceUserRequest{
+		ApiService:       a,
+		ctx:              ctx,
+		identitySourceId: identitySourceId,
+		externalId:       externalId,
+		retryCount:       0,
+	}
+}
+
+// Execute executes the request
+func (a *IdentitySourceAPIService) DeleteIdentitySourceUserExecute(r ApiDeleteIdentitySourceUserRequest) (*APIResponse, error) {
+	var (
+		localVarHTTPMethod   = http.MethodDelete
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarHTTPResponse *http.Response
+		localAPIResponse     *APIResponse
+		err                  error
+	)
+
+	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
+		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
+		r.ctx = localctx
+		defer cancel()
+	}
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentitySourceAPIService.DeleteIdentitySourceUser")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/identity-sources/{identitySourceId}/users/{externalId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"identitySourceId"+"}", url.PathEscape(parameterToString(r.identitySourceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"externalId"+"}", url.PathEscape(parameterToString(r.externalId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiToken"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, newErr
+	}
+
+	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+	return localAPIResponse, nil
+}
+
+type ApiGetIdentitySourceGroupRequest struct {
+	ctx               context.Context
+	ApiService        IdentitySourceAPI
+	identitySourceId  string
+	groupOrExternalId string
+	retryCount        int32
+}
+
+func (r ApiGetIdentitySourceGroupRequest) Execute() (*GroupsResponseSchema, *APIResponse, error) {
+	return r.ApiService.GetIdentitySourceGroupExecute(r)
+}
+
+/*
+GetIdentitySourceGroup Retrieve an identity source group
+
+Retrieves a group from an identity source for a given identity source ID and group ID or external ID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param identitySourceId The ID of the identity source for which the session is created
+	@param groupOrExternalId The Okta group ID or external ID of the identity source group
+	@return ApiGetIdentitySourceGroupRequest
+*/
+func (a *IdentitySourceAPIService) GetIdentitySourceGroup(ctx context.Context, identitySourceId string, groupOrExternalId string) ApiGetIdentitySourceGroupRequest {
+	return ApiGetIdentitySourceGroupRequest{
+		ApiService:        a,
+		ctx:               ctx,
+		identitySourceId:  identitySourceId,
+		groupOrExternalId: groupOrExternalId,
+		retryCount:        0,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GroupsResponseSchema
+func (a *IdentitySourceAPIService) GetIdentitySourceGroupExecute(r ApiGetIdentitySourceGroupRequest) (*GroupsResponseSchema, *APIResponse, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *GroupsResponseSchema
+		localVarHTTPResponse *http.Response
+		localAPIResponse     *APIResponse
+		err                  error
+	)
+
+	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
+		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
+		r.ctx = localctx
+		defer cancel()
+	}
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentitySourceAPIService.GetIdentitySourceGroup")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/identity-sources/{identitySourceId}/groups/{groupOrExternalId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"identitySourceId"+"}", url.PathEscape(parameterToString(r.identitySourceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"groupOrExternalId"+"}", url.PathEscape(parameterToString(r.groupOrExternalId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiToken"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, newErr
+	}
+
+	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+	return localVarReturnValue, localAPIResponse, nil
+}
+
+type ApiGetIdentitySourceGroupMembershipsRequest struct {
+	ctx               context.Context
+	ApiService        IdentitySourceAPI
+	identitySourceId  string
+	groupOrExternalId string
+	after             *string
+	limit             *int32
+	retryCount        int32
+}
+
+// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header).
+func (r ApiGetIdentitySourceGroupMembershipsRequest) After(after string) ApiGetIdentitySourceGroupMembershipsRequest {
+	r.after = &after
+	return r
+}
+
+// Specifies the number of group membership results in a page. Okta recommends using a specific value other than the default or maximum. If your request times out, retry your request with a smaller &#x60;limit&#x60; and [page the results](https://developer.okta.com/docs/api/#pagination).
+func (r ApiGetIdentitySourceGroupMembershipsRequest) Limit(limit int32) ApiGetIdentitySourceGroupMembershipsRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r ApiGetIdentitySourceGroupMembershipsRequest) Execute() (*GroupMembershipsResponseSchema, *APIResponse, error) {
+	return r.ApiService.GetIdentitySourceGroupMembershipsExecute(r)
+}
+
+/*
+GetIdentitySourceGroupMemberships Retrieve the memberships for the given identity source group
+
+Retrieves the group memberships for the given identity source group in the given identity source instance
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param identitySourceId The ID of the identity source for which the session is created
+	@param groupOrExternalId The Okta group ID or external ID of the identity source group
+	@return ApiGetIdentitySourceGroupMembershipsRequest
+*/
+func (a *IdentitySourceAPIService) GetIdentitySourceGroupMemberships(ctx context.Context, identitySourceId string, groupOrExternalId string) ApiGetIdentitySourceGroupMembershipsRequest {
+	return ApiGetIdentitySourceGroupMembershipsRequest{
+		ApiService:        a,
+		ctx:               ctx,
+		identitySourceId:  identitySourceId,
+		groupOrExternalId: groupOrExternalId,
+		retryCount:        0,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GroupMembershipsResponseSchema
+func (a *IdentitySourceAPIService) GetIdentitySourceGroupMembershipsExecute(r ApiGetIdentitySourceGroupMembershipsRequest) (*GroupMembershipsResponseSchema, *APIResponse, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *GroupMembershipsResponseSchema
+		localVarHTTPResponse *http.Response
+		localAPIResponse     *APIResponse
+		err                  error
+	)
+
+	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
+		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
+		r.ctx = localctx
+		defer cancel()
+	}
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentitySourceAPIService.GetIdentitySourceGroupMemberships")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/identity-sources/{identitySourceId}/groups/{groupOrExternalId}/membership"
+	localVarPath = strings.Replace(localVarPath, "{"+"identitySourceId"+"}", url.PathEscape(parameterToString(r.identitySourceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"groupOrExternalId"+"}", url.PathEscape(parameterToString(r.groupOrExternalId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.after != nil {
+		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
+	}
+	if r.limit != nil {
+		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiToken"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, newErr
+	}
+
+	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+	return localVarReturnValue, localAPIResponse, nil
+}
+
 type ApiGetIdentitySourceSessionRequest struct {
 	ctx              context.Context
 	ApiService       IdentitySourceAPI
@@ -588,6 +2121,176 @@ func (a *IdentitySourceAPIService) GetIdentitySourceSessionExecute(r ApiGetIdent
 	localVarPath := localBasePath + "/api/v1/identity-sources/{identitySourceId}/sessions/{sessionId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"identitySourceId"+"}", url.PathEscape(parameterToString(r.identitySourceId, "")), -1)
 	localVarPath = strings.Replace(localVarPath, "{"+"sessionId"+"}", url.PathEscape(parameterToString(r.sessionId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiToken"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, newErr
+	}
+
+	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+	return localVarReturnValue, localAPIResponse, nil
+}
+
+type ApiGetIdentitySourceUserRequest struct {
+	ctx              context.Context
+	ApiService       IdentitySourceAPI
+	identitySourceId string
+	externalId       string
+	retryCount       int32
+}
+
+func (r ApiGetIdentitySourceUserRequest) Execute() (*UserResponseSchema, *APIResponse, error) {
+	return r.ApiService.GetIdentitySourceUserExecute(r)
+}
+
+/*
+GetIdentitySourceUser Retrieve an identity source user
+
+Retrieves a user by external ID in an identity source for the given identity source instance
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param identitySourceId The ID of the identity source for which the session is created
+	@param externalId The external ID of the user
+	@return ApiGetIdentitySourceUserRequest
+*/
+func (a *IdentitySourceAPIService) GetIdentitySourceUser(ctx context.Context, identitySourceId string, externalId string) ApiGetIdentitySourceUserRequest {
+	return ApiGetIdentitySourceUserRequest{
+		ApiService:       a,
+		ctx:              ctx,
+		identitySourceId: identitySourceId,
+		externalId:       externalId,
+		retryCount:       0,
+	}
+}
+
+// Execute executes the request
+//
+//	@return UserResponseSchema
+func (a *IdentitySourceAPIService) GetIdentitySourceUserExecute(r ApiGetIdentitySourceUserRequest) (*UserResponseSchema, *APIResponse, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *UserResponseSchema
+		localVarHTTPResponse *http.Response
+		localAPIResponse     *APIResponse
+		err                  error
+	)
+
+	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
+		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
+		r.ctx = localctx
+		defer cancel()
+	}
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentitySourceAPIService.GetIdentitySourceUser")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/identity-sources/{identitySourceId}/users/{externalId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"identitySourceId"+"}", url.PathEscape(parameterToString(r.identitySourceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"externalId"+"}", url.PathEscape(parameterToString(r.externalId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -865,6 +2568,184 @@ func (a *IdentitySourceAPIService) ListIdentitySourceSessionsExecute(r ApiListId
 	return localVarReturnValue, localAPIResponse, nil
 }
 
+type ApiReplaceExistingIdentitySourceUserRequest struct {
+	ctx               context.Context
+	ApiService        IdentitySourceAPI
+	identitySourceId  string
+	externalId        string
+	userRequestSchema *UserRequestSchema
+	retryCount        int32
+}
+
+func (r ApiReplaceExistingIdentitySourceUserRequest) UserRequestSchema(userRequestSchema UserRequestSchema) ApiReplaceExistingIdentitySourceUserRequest {
+	r.userRequestSchema = &userRequestSchema
+	return r
+}
+
+func (r ApiReplaceExistingIdentitySourceUserRequest) Execute() (*UserResponseSchema, *APIResponse, error) {
+	return r.ApiService.ReplaceExistingIdentitySourceUserExecute(r)
+}
+
+/*
+ReplaceExistingIdentitySourceUser Replace an existing identity source user
+
+Replaces an existing user for the given identity source instance and external ID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param identitySourceId The ID of the identity source for which the session is created
+	@param externalId The external ID of the user
+	@return ApiReplaceExistingIdentitySourceUserRequest
+*/
+func (a *IdentitySourceAPIService) ReplaceExistingIdentitySourceUser(ctx context.Context, identitySourceId string, externalId string) ApiReplaceExistingIdentitySourceUserRequest {
+	return ApiReplaceExistingIdentitySourceUserRequest{
+		ApiService:       a,
+		ctx:              ctx,
+		identitySourceId: identitySourceId,
+		externalId:       externalId,
+		retryCount:       0,
+	}
+}
+
+// Execute executes the request
+//
+//	@return UserResponseSchema
+func (a *IdentitySourceAPIService) ReplaceExistingIdentitySourceUserExecute(r ApiReplaceExistingIdentitySourceUserRequest) (*UserResponseSchema, *APIResponse, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPut
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *UserResponseSchema
+		localVarHTTPResponse *http.Response
+		localAPIResponse     *APIResponse
+		err                  error
+	)
+
+	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
+		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
+		r.ctx = localctx
+		defer cancel()
+	}
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentitySourceAPIService.ReplaceExistingIdentitySourceUser")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/identity-sources/{identitySourceId}/users/{externalId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"identitySourceId"+"}", url.PathEscape(parameterToString(r.identitySourceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"externalId"+"}", url.PathEscape(parameterToString(r.externalId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.userRequestSchema
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiToken"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, newErr
+	}
+
+	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+	return localVarReturnValue, localAPIResponse, nil
+}
+
 type ApiStartImportFromIdentitySourceRequest struct {
 	ctx              context.Context
 	ApiService       IdentitySourceAPI
@@ -946,6 +2827,362 @@ func (a *IdentitySourceAPIService) StartImportFromIdentitySourceExecute(r ApiSta
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiToken"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, newErr
+	}
+
+	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+	return localVarReturnValue, localAPIResponse, nil
+}
+
+type ApiUpdateIdentitySourceGroupsRequest struct {
+	ctx                 context.Context
+	ApiService          IdentitySourceAPI
+	identitySourceId    string
+	groupOrExternalId   string
+	groupsRequestSchema *GroupsRequestSchema
+	retryCount          int32
+}
+
+func (r ApiUpdateIdentitySourceGroupsRequest) GroupsRequestSchema(groupsRequestSchema GroupsRequestSchema) ApiUpdateIdentitySourceGroupsRequest {
+	r.groupsRequestSchema = &groupsRequestSchema
+	return r
+}
+
+func (r ApiUpdateIdentitySourceGroupsRequest) Execute() (*GroupsResponseSchema, *APIResponse, error) {
+	return r.ApiService.UpdateIdentitySourceGroupsExecute(r)
+}
+
+/*
+UpdateIdentitySourceGroups Update an identity source group
+
+Updates a group to an identity source for the given identity source instance and group ID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param identitySourceId The ID of the identity source for which the session is created
+	@param groupOrExternalId The Okta group ID or external ID of the identity source group
+	@return ApiUpdateIdentitySourceGroupsRequest
+*/
+func (a *IdentitySourceAPIService) UpdateIdentitySourceGroups(ctx context.Context, identitySourceId string, groupOrExternalId string) ApiUpdateIdentitySourceGroupsRequest {
+	return ApiUpdateIdentitySourceGroupsRequest{
+		ApiService:        a,
+		ctx:               ctx,
+		identitySourceId:  identitySourceId,
+		groupOrExternalId: groupOrExternalId,
+		retryCount:        0,
+	}
+}
+
+// Execute executes the request
+//
+//	@return GroupsResponseSchema
+func (a *IdentitySourceAPIService) UpdateIdentitySourceGroupsExecute(r ApiUpdateIdentitySourceGroupsRequest) (*GroupsResponseSchema, *APIResponse, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *GroupsResponseSchema
+		localVarHTTPResponse *http.Response
+		localAPIResponse     *APIResponse
+		err                  error
+	)
+
+	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
+		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
+		r.ctx = localctx
+		defer cancel()
+	}
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentitySourceAPIService.UpdateIdentitySourceGroups")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/identity-sources/{identitySourceId}/groups/{groupOrExternalId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"identitySourceId"+"}", url.PathEscape(parameterToString(r.identitySourceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"groupOrExternalId"+"}", url.PathEscape(parameterToString(r.groupOrExternalId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.groupsRequestSchema
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiToken"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, newErr
+	}
+
+	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+	return localVarReturnValue, localAPIResponse, nil
+}
+
+type ApiUpdateIdentitySourceUsersRequest struct {
+	ctx                      context.Context
+	ApiService               IdentitySourceAPI
+	identitySourceId         string
+	externalId               string
+	usersUpdateRequestSchema *UsersUpdateRequestSchema
+	retryCount               int32
+}
+
+func (r ApiUpdateIdentitySourceUsersRequest) UsersUpdateRequestSchema(usersUpdateRequestSchema UsersUpdateRequestSchema) ApiUpdateIdentitySourceUsersRequest {
+	r.usersUpdateRequestSchema = &usersUpdateRequestSchema
+	return r
+}
+
+func (r ApiUpdateIdentitySourceUsersRequest) Execute() (*UserResponseSchema, *APIResponse, error) {
+	return r.ApiService.UpdateIdentitySourceUsersExecute(r)
+}
+
+/*
+UpdateIdentitySourceUsers Update an identity source user
+
+Updates a user to an identity source for the given identity source instance and external ID
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param identitySourceId The ID of the identity source for which the session is created
+	@param externalId The external ID of the user
+	@return ApiUpdateIdentitySourceUsersRequest
+*/
+func (a *IdentitySourceAPIService) UpdateIdentitySourceUsers(ctx context.Context, identitySourceId string, externalId string) ApiUpdateIdentitySourceUsersRequest {
+	return ApiUpdateIdentitySourceUsersRequest{
+		ApiService:       a,
+		ctx:              ctx,
+		identitySourceId: identitySourceId,
+		externalId:       externalId,
+		retryCount:       0,
+	}
+}
+
+// Execute executes the request
+//
+//	@return UserResponseSchema
+func (a *IdentitySourceAPIService) UpdateIdentitySourceUsersExecute(r ApiUpdateIdentitySourceUsersRequest) (*UserResponseSchema, *APIResponse, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPatch
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *UserResponseSchema
+		localVarHTTPResponse *http.Response
+		localAPIResponse     *APIResponse
+		err                  error
+	)
+
+	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
+		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
+		r.ctx = localctx
+		defer cancel()
+	}
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "IdentitySourceAPIService.UpdateIdentitySourceUsers")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/identity-sources/{identitySourceId}/users/{externalId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"identitySourceId"+"}", url.PathEscape(parameterToString(r.identitySourceId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"externalId"+"}", url.PathEscape(parameterToString(r.externalId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.usersUpdateRequestSchema
 	if r.ctx != nil {
 		// API Key Authentication
 		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {

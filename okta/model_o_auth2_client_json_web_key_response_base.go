@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -34,7 +34,7 @@ var _ MappedNullable = &OAuth2ClientJsonWebKeyResponseBase{}
 type OAuth2ClientJsonWebKeyResponseBase struct {
 	// Timestamp when the OAuth 2.0 client JSON Web Key was created
 	Created *string `json:"created,omitempty"`
-	// The unique ID of the OAuth Client JSON Web Key
+	// The unique ID of the OAuth client JSON Web Key
 	Id *string `json:"id,omitempty"`
 	// Timestamp when the OAuth 2.0 client JSON Web Key was updated
 	LastUpdated          *string                 `json:"lastUpdated,omitempty"`

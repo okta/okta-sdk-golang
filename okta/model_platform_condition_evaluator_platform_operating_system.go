@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -32,7 +32,8 @@ var _ MappedNullable = &PlatformConditionEvaluatorPlatformOperatingSystem{}
 
 // PlatformConditionEvaluatorPlatformOperatingSystem struct for PlatformConditionEvaluatorPlatformOperatingSystem
 type PlatformConditionEvaluatorPlatformOperatingSystem struct {
-	Expression           *string                                                   `json:"expression,omitempty"`
+	Expression *string `json:"expression,omitempty"`
+	// The type of operating system
 	Type                 *string                                                   `json:"type,omitempty"`
 	Version              *PlatformConditionEvaluatorPlatformOperatingSystemVersion `json:"version,omitempty"`
 	AdditionalProperties map[string]interface{}

@@ -5,11 +5,11 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ClientSecret** | Pointer to **string** | The OAuth 2.0 client secret string | [optional] [readonly] 
-**Created** | Pointer to **string** | Timestamp when the OAuth Client 2.0 Secret was created | [optional] [readonly] 
-**Id** | Pointer to **string** | The unique ID of the OAuth Client Secret | [optional] [readonly] 
-**LastUpdated** | Pointer to **string** | Timestamp when the OAuth Client 2.0 Secret was updated | [optional] [readonly] 
+**Created** | Pointer to **string** | Timestamp when the OAuth 2.0 client secret was created | [optional] [readonly] 
+**Id** | Pointer to **string** | The unique ID of the OAuth 2.0 client secret | [optional] [readonly] 
+**LastUpdated** | Pointer to **string** | Timestamp when the OAuth 2.0 client secret was updated | [optional] [readonly] 
 **SecretHash** | Pointer to **string** | OAuth 2.0 client secret string hash | [optional] [readonly] 
-**Status** | Pointer to **string** | Status of the OAuth 2.0 Client Secret | [optional] [default to "ACTIVE"]
+**Status** | Pointer to **string** | Status of the OAuth 2.0 client secret | [optional] [default to "ACTIVE"]
 **Links** | Pointer to [**OAuthClientSecretLinks**](OAuthClientSecretLinks.md) |  | [optional] 
 
 ## Methods

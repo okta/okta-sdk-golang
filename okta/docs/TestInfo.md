@@ -4,7 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**EscalationSupportContact** | **string** | An email for Okta to contact your company about your integration. This email isn&#39;t shared with customers. | 
+**ApiServiceTestConfiguration** | Pointer to [**TestInfoApiServiceTestConfiguration**](TestInfoApiServiceTestConfiguration.md) |  | [optional] 
+**EscalationSupportContact** | Pointer to **string** | An email for Okta to contact your company about your integration. This email isn&#39;t shared with customers. | [optional] 
 **OidcTestConfiguration** | Pointer to [**TestInfoOidcTestConfiguration**](TestInfoOidcTestConfiguration.md) |  | [optional] 
 **SamlTestConfiguration** | Pointer to [**TestInfoSamlTestConfiguration**](TestInfoSamlTestConfiguration.md) |  | [optional] 
 **ScimTestConfiguration** | Pointer to [**TestInfoScimTestConfiguration**](TestInfoScimTestConfiguration.md) |  | [optional] 
@@ -14,7 +15,7 @@ Name | Type | Description | Notes
 
 ### NewTestInfo
 
-`func NewTestInfo(escalationSupportContact string, ) *TestInfo`
+`func NewTestInfo() *TestInfo`
 
 NewTestInfo instantiates a new TestInfo object
 This constructor will assign default values to properties that have it defined,
@@ -28,6 +29,31 @@ will change when the set of required properties is changed
 NewTestInfoWithDefaults instantiates a new TestInfo object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetApiServiceTestConfiguration
+
+`func (o *TestInfo) GetApiServiceTestConfiguration() TestInfoApiServiceTestConfiguration`
+
+GetApiServiceTestConfiguration returns the ApiServiceTestConfiguration field if non-nil, zero value otherwise.
+
+### GetApiServiceTestConfigurationOk
+
+`func (o *TestInfo) GetApiServiceTestConfigurationOk() (*TestInfoApiServiceTestConfiguration, bool)`
+
+GetApiServiceTestConfigurationOk returns a tuple with the ApiServiceTestConfiguration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetApiServiceTestConfiguration
+
+`func (o *TestInfo) SetApiServiceTestConfiguration(v TestInfoApiServiceTestConfiguration)`
+
+SetApiServiceTestConfiguration sets ApiServiceTestConfiguration field to given value.
+
+### HasApiServiceTestConfiguration
+
+`func (o *TestInfo) HasApiServiceTestConfiguration() bool`
+
+HasApiServiceTestConfiguration returns a boolean if a field has been set.
 
 ### GetEscalationSupportContact
 
@@ -48,6 +74,11 @@ and a boolean to check if the value has been set.
 
 SetEscalationSupportContact sets EscalationSupportContact field to given value.
 
+### HasEscalationSupportContact
+
+`func (o *TestInfo) HasEscalationSupportContact() bool`
+
+HasEscalationSupportContact returns a boolean if a field has been set.
 
 ### GetOidcTestConfiguration
 

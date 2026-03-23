@@ -36,7 +36,7 @@ import (
 
 func main() {
 	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the policy
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -55,7 +55,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **authServerId** | **string** | &#x60;id&#x60; of the Authorization Server | 
-**policyId** | **string** | &#x60;id&#x60; of the Policy | 
+**policyId** | **string** | &#x60;id&#x60; of the policy | 
 
 ### Other Parameters
 
@@ -179,7 +179,7 @@ import (
 
 func main() {
 	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the policy
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -198,7 +198,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **authServerId** | **string** | &#x60;id&#x60; of the Authorization Server | 
-**policyId** | **string** | &#x60;id&#x60; of the Policy | 
+**policyId** | **string** | &#x60;id&#x60; of the policy | 
 
 ### Other Parameters
 
@@ -250,7 +250,7 @@ import (
 
 func main() {
 	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the policy
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -269,7 +269,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **authServerId** | **string** | &#x60;id&#x60; of the Authorization Server | 
-**policyId** | **string** | &#x60;id&#x60; of the Policy | 
+**policyId** | **string** | &#x60;id&#x60; of the policy | 
 
 ### Other Parameters
 
@@ -321,7 +321,7 @@ import (
 
 func main() {
 	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the policy
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -342,7 +342,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **authServerId** | **string** | &#x60;id&#x60; of the Authorization Server | 
-**policyId** | **string** | &#x60;id&#x60; of the Policy | 
+**policyId** | **string** | &#x60;id&#x60; of the policy | 
 
 ### Other Parameters
 
@@ -464,7 +464,7 @@ import (
 
 func main() {
 	authServerId := "GeGRTEr7f3yu2n7grw22" // string | `id` of the Authorization Server
-	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the policy
 	policy := *openapiclient.NewAuthorizationServerPolicy() // AuthorizationServerPolicy | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -486,7 +486,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
 **authServerId** | **string** | &#x60;id&#x60; of the Authorization Server | 
-**policyId** | **string** | &#x60;id&#x60; of the Policy | 
+**policyId** | **string** | &#x60;id&#x60; of the policy | 
 
 ### Other Parameters
 

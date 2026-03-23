@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -30,7 +30,7 @@ import (
 // checks if the OSVersionDynamicVersionRequirement type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &OSVersionDynamicVersionRequirement{}
 
-// OSVersionDynamicVersionRequirement <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Contains the necessary properties for a dynamic version requirement
+// OSVersionDynamicVersionRequirement Contains the necessary properties for a dynamic version requirement
 type OSVersionDynamicVersionRequirement struct {
 	// Indicates the type of the dynamic OS version requirement
 	Type *string `json:"type,omitempty"`

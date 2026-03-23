@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -31,7 +31,7 @@ import (
 // checks if the SecurityEventTokenJwtBody type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SecurityEventTokenJwtBody{}
 
-// SecurityEventTokenJwtBody JSON Web Token body payload for a Security Event Token sent by the SSF Transmitter. For examples and more information, see [SSF Transmitter SET payload structures](https://developer.okta.com/docs/reference/ssf-transmitter-sets).
+// SecurityEventTokenJwtBody JSON web token body payload for a security event token sent by the SSF transmitter. For examples and more information, see [SSF Transmitter SET payload structures](https://developer.okta.com/docs/reference/ssf-transmitter-sets).
 type SecurityEventTokenJwtBody struct {
 	// Audience
 	Aud    string                      `json:"aud"`

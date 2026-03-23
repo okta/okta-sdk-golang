@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -32,7 +32,8 @@ var _ MappedNullable = &EmailServerListResponse{}
 
 // EmailServerListResponse struct for EmailServerListResponse
 type EmailServerListResponse struct {
-	EmailServers         []EmailServerResponse `json:"email-servers,omitempty"`
+	// List of enrolled SMTP servers
+	EmailServers         []BaseEmailServer `json:"email-servers,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,9 +57,9 @@ func NewEmailServerListResponseWithDefaults() *EmailServerListResponse {
 }
 
 // GetEmailServers returns the EmailServers field value if set, zero value otherwise.
-func (o *EmailServerListResponse) GetEmailServers() []EmailServerResponse {
+func (o *EmailServerListResponse) GetEmailServers() []BaseEmailServer {
 	if o == nil || IsNil(o.EmailServers) {
-		var ret []EmailServerResponse
+		var ret []BaseEmailServer
 		return ret
 	}
 	return o.EmailServers
@@ -66,7 +67,7 @@ func (o *EmailServerListResponse) GetEmailServers() []EmailServerResponse {
 
 // GetEmailServersOk returns a tuple with the EmailServers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *EmailServerListResponse) GetEmailServersOk() ([]EmailServerResponse, bool) {
+func (o *EmailServerListResponse) GetEmailServersOk() ([]BaseEmailServer, bool) {
 	if o == nil || IsNil(o.EmailServers) {
 		return nil, false
 	}
@@ -82,8 +83,8 @@ func (o *EmailServerListResponse) HasEmailServers() bool {
 	return false
 }
 
-// SetEmailServers gets a reference to the given []EmailServerResponse and assigns it to the EmailServers field.
-func (o *EmailServerListResponse) SetEmailServers(v []EmailServerResponse) {
+// SetEmailServers gets a reference to the given []BaseEmailServer and assigns it to the EmailServers field.
+func (o *EmailServerListResponse) SetEmailServers(v []BaseEmailServer) {
 	o.EmailServers = v
 }
 

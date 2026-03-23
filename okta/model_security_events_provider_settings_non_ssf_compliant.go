@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -31,7 +31,7 @@ import (
 // checks if the SecurityEventsProviderSettingsNonSSFCompliant type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SecurityEventsProviderSettingsNonSSFCompliant{}
 
-// SecurityEventsProviderSettingsNonSSFCompliant Security Events Provider with issuer and JWKS settings for signal ingestion
+// SecurityEventsProviderSettingsNonSSFCompliant Security events provider with issuer and JWKS settings for signal ingestion
 type SecurityEventsProviderSettingsNonSSFCompliant struct {
 	// Issuer URL
 	Issuer string `json:"issuer"`

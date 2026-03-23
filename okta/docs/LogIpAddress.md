@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **GeographicalContext** | Pointer to [**LogGeographicalContext**](LogGeographicalContext.md) |  | [optional] 
 **Ip** | Pointer to **string** | IP address | [optional] [readonly] 
+**IpDetails** | Pointer to [**NullableLogIpDetails**](LogIpDetails.md) |  | [optional] 
 **Source** | Pointer to **string** | Details regarding the source | [optional] [readonly] 
 **Version** | Pointer to **string** | IP address version | [optional] [readonly] 
 
@@ -78,6 +79,41 @@ SetIp sets Ip field to given value.
 
 HasIp returns a boolean if a field has been set.
 
+### GetIpDetails
+
+`func (o *LogIpAddress) GetIpDetails() LogIpDetails`
+
+GetIpDetails returns the IpDetails field if non-nil, zero value otherwise.
+
+### GetIpDetailsOk
+
+`func (o *LogIpAddress) GetIpDetailsOk() (*LogIpDetails, bool)`
+
+GetIpDetailsOk returns a tuple with the IpDetails field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIpDetails
+
+`func (o *LogIpAddress) SetIpDetails(v LogIpDetails)`
+
+SetIpDetails sets IpDetails field to given value.
+
+### HasIpDetails
+
+`func (o *LogIpAddress) HasIpDetails() bool`
+
+HasIpDetails returns a boolean if a field has been set.
+
+### SetIpDetailsNil
+
+`func (o *LogIpAddress) SetIpDetailsNil(b bool)`
+
+ SetIpDetailsNil sets the value for IpDetails to be an explicit nil
+
+### UnsetIpDetails
+`func (o *LogIpAddress) UnsetIpDetails()`
+
+UnsetIpDetails ensures that no value is present for IpDetails, not even an explicit nil
 ### GetSource
 
 `func (o *LogIpAddress) GetSource() string`

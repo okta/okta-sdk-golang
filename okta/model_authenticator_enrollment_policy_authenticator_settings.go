@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -34,6 +34,8 @@ var _ MappedNullable = &AuthenticatorEnrollmentPolicyAuthenticatorSettings{}
 type AuthenticatorEnrollmentPolicyAuthenticatorSettings struct {
 	Constraints NullableAuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints `json:"constraints,omitempty"`
 	Enroll      *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll             `json:"enroll,omitempty"`
+	// The authenticator ID for `custom_app`, `custom_otp` or `external_idp`. Use this property to select a specific `custom_app`, `custom_otp` or `external_idp` authenticator.
+	Id *string `json:"id,omitempty"`
 	// A label that identifies the authenticator
 	Key                  *string `json:"key,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -133,6 +135,38 @@ func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) SetEnroll(v Authent
 	o.Enroll = &v
 }
 
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) SetId(v string) {
+	o.Id = &v
+}
+
 // GetKey returns the Key field value if set, zero value otherwise.
 func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) GetKey() string {
 	if o == nil || IsNil(o.Key) {
@@ -181,6 +215,9 @@ func (o AuthenticatorEnrollmentPolicyAuthenticatorSettings) ToMap() (map[string]
 	if !IsNil(o.Enroll) {
 		toSerialize["enroll"] = o.Enroll
 	}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
 	if !IsNil(o.Key) {
 		toSerialize["key"] = o.Key
 	}
@@ -208,6 +245,7 @@ func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettings) UnmarshalJSON(data 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "constraints")
 		delete(additionalProperties, "enroll")
+		delete(additionalProperties, "id")
 		delete(additionalProperties, "key")
 		o.AdditionalProperties = additionalProperties
 	}

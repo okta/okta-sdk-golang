@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -38,28 +38,28 @@ type ApplicationSSOPublicKeysAPI interface {
 	/*
 			ActivateOAuth2ClientJsonWebKey Activate an OAuth 2.0 client JSON Web Key
 
-			Activates an OAuth 2.0 Client JSON Web Key by `keyId`
-		> **Note:** You can have only one active encryption key at any given time for app. When you activate an inactive key, the current active key is automatically deactivated.
+			Activates an OAuth 2.0 client JSON Web Key by `keyId`
+		> **Note:** You can have only one active encryption key at any given time for an app. When you activate an inactive key, the current active key is automatically deactivated.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param appId Application ID
-			@param keyId Unique `id` of the OAuth 2.0 Client JSON Web Key
+			@param keyId Unique `id` of the OAuth 2.0 client JSON Web Key
 			@return ApiActivateOAuth2ClientJsonWebKeyRequest
 	*/
 	ActivateOAuth2ClientJsonWebKey(ctx context.Context, appId string, keyId string) ApiActivateOAuth2ClientJsonWebKeyRequest
 
 	// ActivateOAuth2ClientJsonWebKeyExecute executes the request
-	//  @return AddJwk201Response
-	ActivateOAuth2ClientJsonWebKeyExecute(r ApiActivateOAuth2ClientJsonWebKeyRequest) (*AddJwk201Response, *APIResponse, error)
+	//  @return ListJwk200ResponseInner
+	ActivateOAuth2ClientJsonWebKeyExecute(r ApiActivateOAuth2ClientJsonWebKeyRequest) (*ListJwk200ResponseInner, *APIResponse, error)
 
 	/*
 		ActivateOAuth2ClientSecret Activate an OAuth 2.0 client secret
 
-		Activates an OAuth 2.0 Client Secret by `secretId`
+		Activates an OAuth 2.0 client secret by `secretId`
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param appId Application ID
-		@param secretId Unique `id` of the OAuth 2.0 Client Secret
+		@param secretId Unique `id` of the OAuth 2.0 client secret
 		@return ApiActivateOAuth2ClientSecretRequest
 	*/
 	ActivateOAuth2ClientSecret(ctx context.Context, appId string, secretId string) ApiActivateOAuth2ClientSecretRequest
@@ -72,7 +72,7 @@ type ApplicationSSOPublicKeysAPI interface {
 			AddJwk Add a JSON Web Key
 
 			Adds a new JSON Web Key to the client`s JSON Web Keys.
-		> **Note:** This API doesn't allow you to add a key if the existing key doesn't have a `kid`. This is also consistent with how the [Dynamic Client Registration](/openapi/okta-oauth/oauth/tag/Client/) or [Applications](/openapi/okta-management/management/tag/Application/) APIs behave, as they don't allow the creation of multiple keys without `kids`. Use the [Replace an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication) or the [Replace a Client Application](/openapi/okta-oauth/oauth/tag/Client/#tag/Client/operation/replaceClient) operation to update the JWKS or [Delete an OAuth 2.0 Client JSON Web Key](/openapi/okta-management/management/tag/ApplicationSSOPublicKeys/#tag/ApplicationSSOPublicKeys/operation/deletejwk) and re-add the key with a `kid`.
+		> **Note:** This API doesn't allow you to add a key if the existing key doesn't have a `kid`. This is also consistent with how the [Dynamic Client Registration](/openapi/okta-oauth/oauth/client) or [Applications](/openapi/okta-management/management/tags/application) APIs behave, as they don't allow the creation of multiple keys without `kids`. Use the [Replace an Application](/openapi/okta-management/management/application/replaceapplication) or the [Replace a Client Application](/openapi/okta-oauth/oauth/client/replaceclient) operation to update the JWKS or [Delete an OAuth 2.0 Client JSON Web Key](/openapi/okta-management/management/applicationssopublickeys/deletejwk) and re-add the key with a `kid`.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param appId Application ID
@@ -81,14 +81,14 @@ type ApplicationSSOPublicKeysAPI interface {
 	AddJwk(ctx context.Context, appId string) ApiAddJwkRequest
 
 	// AddJwkExecute executes the request
-	//  @return AddJwk201Response
-	AddJwkExecute(r ApiAddJwkRequest) (*AddJwk201Response, *APIResponse, error)
+	//  @return ListJwk200ResponseInner
+	AddJwkExecute(r ApiAddJwkRequest) (*ListJwk200ResponseInner, *APIResponse, error)
 
 	/*
 			CreateOAuth2ClientSecret Create an OAuth 2.0 client secret
 
-			Creates an OAuth 2.0 Client Secret object with a new active client secret. You can create up to two Secret objects. An error is returned if you attempt to create more than two Secret objects.
-		> **Note:** This API lets you bring your own secret. If [token_endpoint_auth_method](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication!path=4/credentials/oauthClient/token_endpoint_auth_method&t=request) of the app is `client_secret_jwt`, then the minimum length of `client_secret` is 32 characters. If no secret is specified in the request, Okta adds a new system-generated secret.
+			Creates an OAuth 2.0 client secret object with a new active client secret. You can create up to two secret objects. An error is returned if you attempt to create more than two secret objects.
+		> **Note:** This API lets you bring your own secret. If [token_endpoint_auth_method](/openapi/okta-oauth/oauth/client/createclient#client/createclient/t=request&path=token_endpoint_auth_method) of the app is `client_secret_jwt`, then the minimum length of `client_secret` is 32 characters. If no secret is specified in the request, Okta adds a new system-generated secret.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param appId Application ID
@@ -103,28 +103,28 @@ type ApplicationSSOPublicKeysAPI interface {
 	/*
 			DeactivateOAuth2ClientJsonWebKey Deactivate an OAuth 2.0 client JSON Web Key
 
-			Deactivates an OAuth 2.0 Client JSON Web Key by `keyId`.
+			Deactivates an OAuth 2.0 client JSON Web Key by `keyId`
 		> **Note:** You can only deactivate signing keys. Deactivating the active encryption key isn't allowed if the client has ID token encryption enabled. You can activate another encryption key, which makes the current key inactive.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param appId Application ID
-			@param keyId Unique `id` of the OAuth 2.0 Client JSON Web Key
+			@param keyId Unique `id` of the OAuth 2.0 client JSON Web Key
 			@return ApiDeactivateOAuth2ClientJsonWebKeyRequest
 	*/
 	DeactivateOAuth2ClientJsonWebKey(ctx context.Context, appId string, keyId string) ApiDeactivateOAuth2ClientJsonWebKeyRequest
 
 	// DeactivateOAuth2ClientJsonWebKeyExecute executes the request
-	//  @return OAuth2ClientJsonSigningKeyResponse
-	DeactivateOAuth2ClientJsonWebKeyExecute(r ApiDeactivateOAuth2ClientJsonWebKeyRequest) (*OAuth2ClientJsonSigningKeyResponse, *APIResponse, error)
+	//  @return DeactivateOAuth2ClientJsonWebKey200Response
+	DeactivateOAuth2ClientJsonWebKeyExecute(r ApiDeactivateOAuth2ClientJsonWebKeyRequest) (*DeactivateOAuth2ClientJsonWebKey200Response, *APIResponse, error)
 
 	/*
 		DeactivateOAuth2ClientSecret Deactivate an OAuth 2.0 client secret
 
-		Deactivates an OAuth 2.0 Client Secret by `secretId`. You can't deactivate a secret if it's the only secret of the client.
+		Deactivates an OAuth 2.0 client secret by `secretId`. You can't deactivate a secret if it's the only secret of the client.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param appId Application ID
-		@param secretId Unique `id` of the OAuth 2.0 Client Secret
+		@param secretId Unique `id` of the OAuth 2.0 client secret
 		@return ApiDeactivateOAuth2ClientSecretRequest
 	*/
 	DeactivateOAuth2ClientSecret(ctx context.Context, appId string, secretId string) ApiDeactivateOAuth2ClientSecretRequest
@@ -136,11 +136,11 @@ type ApplicationSSOPublicKeysAPI interface {
 	/*
 		DeleteOAuth2ClientSecret Delete an OAuth 2.0 client secret
 
-		Deletes an OAuth 2.0 Client Secret by `secretId`. You can only delete an inactive Secret.
+		Deletes an OAuth 2.0 client secret by `secretId`. You can only delete an inactive secret.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param appId Application ID
-		@param secretId Unique `id` of the OAuth 2.0 Client Secret
+		@param secretId Unique `id` of the OAuth 2.0 client secret
 		@return ApiDeleteOAuth2ClientSecretRequest
 	*/
 	DeleteOAuth2ClientSecret(ctx context.Context, appId string, secretId string) ApiDeleteOAuth2ClientSecretRequest
@@ -155,7 +155,7 @@ type ApplicationSSOPublicKeysAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param appId Application ID
-		@param keyId Unique `id` of the OAuth 2.0 Client JSON Web Key
+		@param keyId Unique `id` of the OAuth 2.0 client JSON Web Key
 		@return ApiDeletejwkRequest
 	*/
 	Deletejwk(ctx context.Context, appId string, keyId string) ApiDeletejwkRequest
@@ -166,11 +166,11 @@ type ApplicationSSOPublicKeysAPI interface {
 	/*
 		GetJwk Retrieve an OAuth 2.0 client JSON Web Key
 
-		Retrieves an OAuth 2.0 Client JSON Web Key by `keyId`.
+		Retrieves an OAuth 2.0 client JSON Web Key by `keyId`
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param appId Application ID
-		@param keyId Unique `id` of the OAuth 2.0 Client JSON Web Key
+		@param keyId Unique `id` of the OAuth 2.0 client JSON Web Key
 		@return ApiGetJwkRequest
 	*/
 	GetJwk(ctx context.Context, appId string, keyId string) ApiGetJwkRequest
@@ -182,11 +182,11 @@ type ApplicationSSOPublicKeysAPI interface {
 	/*
 		GetOAuth2ClientSecret Retrieve an OAuth 2.0 client secret
 
-		Retrieves an OAuth 2.0 Client Secret by `secretId`
+		Retrieves an OAuth 2.0 client secrets by `secretId`
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param appId Application ID
-		@param secretId Unique `id` of the OAuth 2.0 Client Secret
+		@param secretId Unique `id` of the OAuth 2.0 client secret
 		@return ApiGetOAuth2ClientSecretRequest
 	*/
 	GetOAuth2ClientSecret(ctx context.Context, appId string, secretId string) ApiGetOAuth2ClientSecretRequest
@@ -207,8 +207,8 @@ type ApplicationSSOPublicKeysAPI interface {
 	ListJwk(ctx context.Context, appId string) ApiListJwkRequest
 
 	// ListJwkExecute executes the request
-	//  @return OAuth2ClientJsonWebKeySet
-	ListJwkExecute(r ApiListJwkRequest) (*OAuth2ClientJsonWebKeySet, *APIResponse, error)
+	//  @return []ListJwk200ResponseInner
+	ListJwkExecute(r ApiListJwkRequest) ([]ListJwk200ResponseInner, *APIResponse, error)
 
 	/*
 		ListOAuth2ClientSecrets List all OAuth 2.0 client secrets
@@ -237,19 +237,19 @@ type ApiActivateOAuth2ClientJsonWebKeyRequest struct {
 	retryCount int32
 }
 
-func (r ApiActivateOAuth2ClientJsonWebKeyRequest) Execute() (*AddJwk201Response, *APIResponse, error) {
+func (r ApiActivateOAuth2ClientJsonWebKeyRequest) Execute() (*ListJwk200ResponseInner, *APIResponse, error) {
 	return r.ApiService.ActivateOAuth2ClientJsonWebKeyExecute(r)
 }
 
 /*
 ActivateOAuth2ClientJsonWebKey Activate an OAuth 2.0 client JSON Web Key
 
-Activates an OAuth 2.0 Client JSON Web Key by `keyId`
-> **Note:** You can have only one active encryption key at any given time for app. When you activate an inactive key, the current active key is automatically deactivated.
+Activates an OAuth 2.0 client JSON Web Key by `keyId`
+> **Note:** You can have only one active encryption key at any given time for an app. When you activate an inactive key, the current active key is automatically deactivated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param appId Application ID
-	@param keyId Unique `id` of the OAuth 2.0 Client JSON Web Key
+	@param keyId Unique `id` of the OAuth 2.0 client JSON Web Key
 	@return ApiActivateOAuth2ClientJsonWebKeyRequest
 */
 func (a *ApplicationSSOPublicKeysAPIService) ActivateOAuth2ClientJsonWebKey(ctx context.Context, appId string, keyId string) ApiActivateOAuth2ClientJsonWebKeyRequest {
@@ -264,13 +264,13 @@ func (a *ApplicationSSOPublicKeysAPIService) ActivateOAuth2ClientJsonWebKey(ctx 
 
 // Execute executes the request
 //
-//	@return AddJwk201Response
-func (a *ApplicationSSOPublicKeysAPIService) ActivateOAuth2ClientJsonWebKeyExecute(r ApiActivateOAuth2ClientJsonWebKeyRequest) (*AddJwk201Response, *APIResponse, error) {
+//	@return ListJwk200ResponseInner
+func (a *ApplicationSSOPublicKeysAPIService) ActivateOAuth2ClientJsonWebKeyExecute(r ApiActivateOAuth2ClientJsonWebKeyRequest) (*ListJwk200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *AddJwk201Response
+		localVarReturnValue  *ListJwk200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -427,11 +427,11 @@ func (r ApiActivateOAuth2ClientSecretRequest) Execute() (*OAuth2ClientSecret, *A
 /*
 ActivateOAuth2ClientSecret Activate an OAuth 2.0 client secret
 
-Activates an OAuth 2.0 Client Secret by `secretId`
+Activates an OAuth 2.0 client secret by `secretId`
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param appId Application ID
-	@param secretId Unique `id` of the OAuth 2.0 Client Secret
+	@param secretId Unique `id` of the OAuth 2.0 client secret
 	@return ApiActivateOAuth2ClientSecretRequest
 */
 func (a *ApplicationSSOPublicKeysAPIService) ActivateOAuth2ClientSecret(ctx context.Context, appId string, secretId string) ApiActivateOAuth2ClientSecretRequest {
@@ -607,7 +607,7 @@ func (r ApiAddJwkRequest) AddJwkRequest(addJwkRequest AddJwkRequest) ApiAddJwkRe
 	return r
 }
 
-func (r ApiAddJwkRequest) Execute() (*AddJwk201Response, *APIResponse, error) {
+func (r ApiAddJwkRequest) Execute() (*ListJwk200ResponseInner, *APIResponse, error) {
 	return r.ApiService.AddJwkExecute(r)
 }
 
@@ -615,7 +615,7 @@ func (r ApiAddJwkRequest) Execute() (*AddJwk201Response, *APIResponse, error) {
 AddJwk Add a JSON Web Key
 
 Adds a new JSON Web Key to the client`s JSON Web Keys.
-> **Note:** This API doesn't allow you to add a key if the existing key doesn't have a `kid`. This is also consistent with how the [Dynamic Client Registration](/openapi/okta-oauth/oauth/tag/Client/) or [Applications](/openapi/okta-management/management/tag/Application/) APIs behave, as they don't allow the creation of multiple keys without `kids`. Use the [Replace an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/replaceApplication) or the [Replace a Client Application](/openapi/okta-oauth/oauth/tag/Client/#tag/Client/operation/replaceClient) operation to update the JWKS or [Delete an OAuth 2.0 Client JSON Web Key](/openapi/okta-management/management/tag/ApplicationSSOPublicKeys/#tag/ApplicationSSOPublicKeys/operation/deletejwk) and re-add the key with a `kid`.
+> **Note:** This API doesn't allow you to add a key if the existing key doesn't have a `kid`. This is also consistent with how the [Dynamic Client Registration](/openapi/okta-oauth/oauth/client) or [Applications](/openapi/okta-management/management/tags/application) APIs behave, as they don't allow the creation of multiple keys without `kids`. Use the [Replace an Application](/openapi/okta-management/management/application/replaceapplication) or the [Replace a Client Application](/openapi/okta-oauth/oauth/client/replaceclient) operation to update the JWKS or [Delete an OAuth 2.0 Client JSON Web Key](/openapi/okta-management/management/applicationssopublickeys/deletejwk) and re-add the key with a `kid`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param appId Application ID
@@ -632,13 +632,13 @@ func (a *ApplicationSSOPublicKeysAPIService) AddJwk(ctx context.Context, appId s
 
 // Execute executes the request
 //
-//	@return AddJwk201Response
-func (a *ApplicationSSOPublicKeysAPIService) AddJwkExecute(r ApiAddJwkRequest) (*AddJwk201Response, *APIResponse, error) {
+//	@return ListJwk200ResponseInner
+func (a *ApplicationSSOPublicKeysAPIService) AddJwkExecute(r ApiAddJwkRequest) (*ListJwk200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *AddJwk201Response
+		localVarReturnValue  *ListJwk200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -804,8 +804,8 @@ func (r ApiCreateOAuth2ClientSecretRequest) Execute() (*OAuth2ClientSecret, *API
 /*
 CreateOAuth2ClientSecret Create an OAuth 2.0 client secret
 
-Creates an OAuth 2.0 Client Secret object with a new active client secret. You can create up to two Secret objects. An error is returned if you attempt to create more than two Secret objects.
-> **Note:** This API lets you bring your own secret. If [token_endpoint_auth_method](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication!path=4/credentials/oauthClient/token_endpoint_auth_method&t=request) of the app is `client_secret_jwt`, then the minimum length of `client_secret` is 32 characters. If no secret is specified in the request, Okta adds a new system-generated secret.
+Creates an OAuth 2.0 client secret object with a new active client secret. You can create up to two secret objects. An error is returned if you attempt to create more than two secret objects.
+> **Note:** This API lets you bring your own secret. If [token_endpoint_auth_method](/openapi/okta-oauth/oauth/client/createclient#client/createclient/t=request&path=token_endpoint_auth_method) of the app is `client_secret_jwt`, then the minimum length of `client_secret` is 32 characters. If no secret is specified in the request, Okta adds a new system-generated secret.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param appId Application ID
@@ -979,19 +979,19 @@ type ApiDeactivateOAuth2ClientJsonWebKeyRequest struct {
 	retryCount int32
 }
 
-func (r ApiDeactivateOAuth2ClientJsonWebKeyRequest) Execute() (*OAuth2ClientJsonSigningKeyResponse, *APIResponse, error) {
+func (r ApiDeactivateOAuth2ClientJsonWebKeyRequest) Execute() (*DeactivateOAuth2ClientJsonWebKey200Response, *APIResponse, error) {
 	return r.ApiService.DeactivateOAuth2ClientJsonWebKeyExecute(r)
 }
 
 /*
 DeactivateOAuth2ClientJsonWebKey Deactivate an OAuth 2.0 client JSON Web Key
 
-Deactivates an OAuth 2.0 Client JSON Web Key by `keyId`.
+Deactivates an OAuth 2.0 client JSON Web Key by `keyId`
 > **Note:** You can only deactivate signing keys. Deactivating the active encryption key isn't allowed if the client has ID token encryption enabled. You can activate another encryption key, which makes the current key inactive.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param appId Application ID
-	@param keyId Unique `id` of the OAuth 2.0 Client JSON Web Key
+	@param keyId Unique `id` of the OAuth 2.0 client JSON Web Key
 	@return ApiDeactivateOAuth2ClientJsonWebKeyRequest
 */
 func (a *ApplicationSSOPublicKeysAPIService) DeactivateOAuth2ClientJsonWebKey(ctx context.Context, appId string, keyId string) ApiDeactivateOAuth2ClientJsonWebKeyRequest {
@@ -1006,13 +1006,13 @@ func (a *ApplicationSSOPublicKeysAPIService) DeactivateOAuth2ClientJsonWebKey(ct
 
 // Execute executes the request
 //
-//	@return OAuth2ClientJsonSigningKeyResponse
-func (a *ApplicationSSOPublicKeysAPIService) DeactivateOAuth2ClientJsonWebKeyExecute(r ApiDeactivateOAuth2ClientJsonWebKeyRequest) (*OAuth2ClientJsonSigningKeyResponse, *APIResponse, error) {
+//	@return DeactivateOAuth2ClientJsonWebKey200Response
+func (a *ApplicationSSOPublicKeysAPIService) DeactivateOAuth2ClientJsonWebKeyExecute(r ApiDeactivateOAuth2ClientJsonWebKeyRequest) (*DeactivateOAuth2ClientJsonWebKey200Response, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *OAuth2ClientJsonSigningKeyResponse
+		localVarReturnValue  *DeactivateOAuth2ClientJsonWebKey200Response
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -1181,11 +1181,11 @@ func (r ApiDeactivateOAuth2ClientSecretRequest) Execute() (*OAuth2ClientSecret, 
 /*
 DeactivateOAuth2ClientSecret Deactivate an OAuth 2.0 client secret
 
-Deactivates an OAuth 2.0 Client Secret by `secretId`. You can't deactivate a secret if it's the only secret of the client.
+Deactivates an OAuth 2.0 client secret by `secretId`. You can't deactivate a secret if it's the only secret of the client.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param appId Application ID
-	@param secretId Unique `id` of the OAuth 2.0 Client Secret
+	@param secretId Unique `id` of the OAuth 2.0 client secret
 	@return ApiDeactivateOAuth2ClientSecretRequest
 */
 func (a *ApplicationSSOPublicKeysAPIService) DeactivateOAuth2ClientSecret(ctx context.Context, appId string, secretId string) ApiDeactivateOAuth2ClientSecretRequest {
@@ -1375,11 +1375,11 @@ func (r ApiDeleteOAuth2ClientSecretRequest) Execute() (*APIResponse, error) {
 /*
 DeleteOAuth2ClientSecret Delete an OAuth 2.0 client secret
 
-Deletes an OAuth 2.0 Client Secret by `secretId`. You can only delete an inactive Secret.
+Deletes an OAuth 2.0 client secret by `secretId`. You can only delete an inactive secret.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param appId Application ID
-	@param secretId Unique `id` of the OAuth 2.0 Client Secret
+	@param secretId Unique `id` of the OAuth 2.0 client secret
 	@return ApiDeleteOAuth2ClientSecretRequest
 */
 func (a *ApplicationSSOPublicKeysAPIService) DeleteOAuth2ClientSecret(ctx context.Context, appId string, secretId string) ApiDeleteOAuth2ClientSecretRequest {
@@ -1560,7 +1560,7 @@ Deletes an OAuth 2.0 Client JSON Web Key by `keyId`. You can only delete an inac
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param appId Application ID
-	@param keyId Unique `id` of the OAuth 2.0 Client JSON Web Key
+	@param keyId Unique `id` of the OAuth 2.0 client JSON Web Key
 	@return ApiDeletejwkRequest
 */
 func (a *ApplicationSSOPublicKeysAPIService) Deletejwk(ctx context.Context, appId string, keyId string) ApiDeletejwkRequest {
@@ -1737,11 +1737,11 @@ func (r ApiGetJwkRequest) Execute() (*GetJwk200Response, *APIResponse, error) {
 /*
 GetJwk Retrieve an OAuth 2.0 client JSON Web Key
 
-Retrieves an OAuth 2.0 Client JSON Web Key by `keyId`.
+Retrieves an OAuth 2.0 client JSON Web Key by `keyId`
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param appId Application ID
-	@param keyId Unique `id` of the OAuth 2.0 Client JSON Web Key
+	@param keyId Unique `id` of the OAuth 2.0 client JSON Web Key
 	@return ApiGetJwkRequest
 */
 func (a *ApplicationSSOPublicKeysAPIService) GetJwk(ctx context.Context, appId string, keyId string) ApiGetJwkRequest {
@@ -1919,11 +1919,11 @@ func (r ApiGetOAuth2ClientSecretRequest) Execute() (*OAuth2ClientSecret, *APIRes
 /*
 GetOAuth2ClientSecret Retrieve an OAuth 2.0 client secret
 
-Retrieves an OAuth 2.0 Client Secret by `secretId`
+Retrieves an OAuth 2.0 client secrets by `secretId`
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param appId Application ID
-	@param secretId Unique `id` of the OAuth 2.0 Client Secret
+	@param secretId Unique `id` of the OAuth 2.0 client secret
 	@return ApiGetOAuth2ClientSecretRequest
 */
 func (a *ApplicationSSOPublicKeysAPIService) GetOAuth2ClientSecret(ctx context.Context, appId string, secretId string) ApiGetOAuth2ClientSecretRequest {
@@ -2093,7 +2093,7 @@ type ApiListJwkRequest struct {
 	retryCount int32
 }
 
-func (r ApiListJwkRequest) Execute() (*OAuth2ClientJsonWebKeySet, *APIResponse, error) {
+func (r ApiListJwkRequest) Execute() ([]ListJwk200ResponseInner, *APIResponse, error) {
 	return r.ApiService.ListJwkExecute(r)
 }
 
@@ -2117,13 +2117,13 @@ func (a *ApplicationSSOPublicKeysAPIService) ListJwk(ctx context.Context, appId 
 
 // Execute executes the request
 //
-//	@return OAuth2ClientJsonWebKeySet
-func (a *ApplicationSSOPublicKeysAPIService) ListJwkExecute(r ApiListJwkRequest) (*OAuth2ClientJsonWebKeySet, *APIResponse, error) {
+//	@return []ListJwk200ResponseInner
+func (a *ApplicationSSOPublicKeysAPIService) ListJwkExecute(r ApiListJwkRequest) ([]ListJwk200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *OAuth2ClientJsonWebKeySet
+		localVarReturnValue  []ListJwk200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error

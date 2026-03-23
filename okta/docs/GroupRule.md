@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** | Name of the group rule | [optional] 
 **Status** | Pointer to **string** | Status of group rule. You can&#39;t update the status of a rule from &#x60;INACTIVE&#x60; to &#x60;ACTIVE&#x60;. You must use the activate and deactivate lifecycle operations. | [optional] 
 **Type** | Pointer to **string** | Type to indicate a group rule operation. Only &#x60;group_rule&#x60; is allowed. | [optional] 
+**Embedded** | Pointer to [**GroupRuleEmbedded**](GroupRuleEmbedded.md) |  | [optional] 
 
 ## Methods
 
@@ -231,6 +232,31 @@ SetType sets Type field to given value.
 `func (o *GroupRule) HasType() bool`
 
 HasType returns a boolean if a field has been set.
+
+### GetEmbedded
+
+`func (o *GroupRule) GetEmbedded() GroupRuleEmbedded`
+
+GetEmbedded returns the Embedded field if non-nil, zero value otherwise.
+
+### GetEmbeddedOk
+
+`func (o *GroupRule) GetEmbeddedOk() (*GroupRuleEmbedded, bool)`
+
+GetEmbeddedOk returns a tuple with the Embedded field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEmbedded
+
+`func (o *GroupRule) SetEmbedded(v GroupRuleEmbedded)`
+
+SetEmbedded sets Embedded field to given value.
+
+### HasEmbedded
+
+`func (o *GroupRule) HasEmbedded() bool`
+
+HasEmbedded returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

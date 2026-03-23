@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -30,11 +30,11 @@ import (
 // checks if the StreamStatus type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &StreamStatus{}
 
-// StreamStatus Status corresponding to the `stream_id` of the SSF Stream
+// StreamStatus Status corresponding to the `stream_id` of the SSF stream
 type StreamStatus struct {
-	// The status of the SSF Stream configuration
+	// The status of the SSF stream configuration
 	Status *string `json:"status,omitempty"`
-	// The ID of the SSF Stream configuration. This corresponds to the value in the query parameter of the request.
+	// The ID of the SSF stream configuration. This corresponds to the value in the query parameter of the request.
 	StreamId             *string `json:"stream_id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

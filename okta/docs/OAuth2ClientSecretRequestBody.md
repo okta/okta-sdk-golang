@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ClientSecret** | Pointer to **string** | The OAuth 2.0 client secret string | [optional] 
-**Status** | Pointer to **string** | Status of the OAuth 2.0 Client Secret | [optional] 
+**Status** | Pointer to **string** | Status of the OAuth 2.0 client secret | [optional] 
 
 ## Methods
 

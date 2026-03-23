@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -40,7 +40,7 @@ type RoleAssignmentClientAPI interface {
 
 			Assigns a [standard role](/openapi/okta-management/guides/roles/#standard-roles) to a client app.
 
-		You can also assign a custom role to a client app, but the preferred method to assign a custom role to a client is to create a binding between the custom role, the resource set, and the client app. See [Create a role resource set binding](/openapi/okta-management/management/tag/RoleDResourceSetBinding/#tag/RoleDResourceSetBinding/operation/createResourceSetBinding).
+		You can also assign a custom role to a client app, but the preferred method to assign a custom role to a client is to create a binding between the custom role, the resource set, and the client app. See [Create a role resource set binding](/openapi/okta-management/management/roledresourcesetbinding/createresourcesetbinding).
 
 		> **Notes:**
 		> * The request payload is different for standard and custom role assignments.
@@ -128,7 +128,7 @@ AssignRoleToClient Assign a client role
 
 Assigns a [standard role](/openapi/okta-management/guides/roles/#standard-roles) to a client app.
 
-You can also assign a custom role to a client app, but the preferred method to assign a custom role to a client is to create a binding between the custom role, the resource set, and the client app. See [Create a role resource set binding](/openapi/okta-management/management/tag/RoleDResourceSetBinding/#tag/RoleDResourceSetBinding/operation/createResourceSetBinding).
+You can also assign a custom role to a client app, but the preferred method to assign a custom role to a client is to create a binding between the custom role, the resource set, and the client app. See [Create a role resource set binding](/openapi/okta-management/management/roledresourcesetbinding/createresourcesetbinding).
 
 > **Notes:**
 > * The request payload is different for standard and custom role assignments.

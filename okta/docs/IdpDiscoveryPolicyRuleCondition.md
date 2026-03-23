@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **App** | Pointer to [**AppAndInstancePolicyRuleCondition**](AppAndInstancePolicyRuleCondition.md) |  | [optional] 
 **Network** | Pointer to [**PolicyNetworkCondition**](PolicyNetworkCondition.md) |  | [optional] 
-**Platform** | Pointer to [**PlatformPolicyRuleCondition**](PlatformPolicyRuleCondition.md) |  | [optional] 
+**Platform** | Pointer to [**IdpDiscoveryPlatformPolicyRuleCondition**](IdpDiscoveryPlatformPolicyRuleCondition.md) |  | [optional] 
 **UserIdentifier** | Pointer to [**UserIdentifierPolicyRuleCondition**](UserIdentifierPolicyRuleCondition.md) |  | [optional] 
 
 ## Methods
@@ -80,20 +80,20 @@ HasNetwork returns a boolean if a field has been set.
 
 ### GetPlatform
 
-`func (o *IdpDiscoveryPolicyRuleCondition) GetPlatform() PlatformPolicyRuleCondition`
+`func (o *IdpDiscoveryPolicyRuleCondition) GetPlatform() IdpDiscoveryPlatformPolicyRuleCondition`
 
 GetPlatform returns the Platform field if non-nil, zero value otherwise.
 
 ### GetPlatformOk
 
-`func (o *IdpDiscoveryPolicyRuleCondition) GetPlatformOk() (*PlatformPolicyRuleCondition, bool)`
+`func (o *IdpDiscoveryPolicyRuleCondition) GetPlatformOk() (*IdpDiscoveryPlatformPolicyRuleCondition, bool)`
 
 GetPlatformOk returns a tuple with the Platform field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetPlatform
 
-`func (o *IdpDiscoveryPolicyRuleCondition) SetPlatform(v PlatformPolicyRuleCondition)`
+`func (o *IdpDiscoveryPolicyRuleCondition) SetPlatform(v IdpDiscoveryPlatformPolicyRuleCondition)`
 
 SetPlatform sets Platform field to given value.
 

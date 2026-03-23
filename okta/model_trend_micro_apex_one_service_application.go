@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -31,7 +31,7 @@ import (
 // checks if the TrendMicroApexOneServiceApplication type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &TrendMicroApexOneServiceApplication{}
 
-// TrendMicroApexOneServiceApplication Schema for Trend Micro Apex One as a Service app (key name: `trendmicroapexoneservice`)  To create a Trend Micro Apex One as a Service app, use the [Create an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication) request with the following parameters in the request body. > **Note:** The Trend Micro Apex One as a Service app only supports `SAML_2_0` sign-on mode.
+// TrendMicroApexOneServiceApplication Schema for Trend Micro Apex One as a Service app (key name: `trendmicroapexoneservice`)  To create a Trend Micro Apex One as a Service app, use the [Create an Application](/openapi/okta-management/management/tags/application/other/createapplication) request with the following parameters in the request body. > **Note:** The Trend Micro Apex One as a Service app only supports `SAML_2_0` sign-on mode.
 type TrendMicroApexOneServiceApplication struct {
 	Accessibility *ApplicationAccessibility     `json:"accessibility,omitempty"`
 	Credentials   *SchemeApplicationCredentials `json:"credentials,omitempty"`

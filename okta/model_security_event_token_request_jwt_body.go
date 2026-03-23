@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -31,7 +31,7 @@ import (
 // checks if the SecurityEventTokenRequestJwtBody type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SecurityEventTokenRequestJwtBody{}
 
-// SecurityEventTokenRequestJwtBody JSON Web Token body payload for a Security Event Token
+// SecurityEventTokenRequestJwtBody JSON web token body payload for a security event token
 type SecurityEventTokenRequestJwtBody struct {
 	// Audience
 	Aud    string                             `json:"aud"`

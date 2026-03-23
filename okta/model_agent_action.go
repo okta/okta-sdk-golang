@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -25,16 +25,17 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AgentAction type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AgentAction{}
 
-// AgentAction Details about the Active Directory group membership update
+// AgentAction Details about the Active Directory or LDAP group membership update
 type AgentAction struct {
-	// ID of the Active Directory group to update
-	Id                   *string     `json:"id,omitempty"`
-	Parameters           *Parameters `json:"parameters,omitempty"`
+	// ID of the Active Directory or LDAP group to update
+	Id                   string     `json:"id"`
+	Parameters           Parameters `json:"parameters"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -44,8 +45,10 @@ type _AgentAction AgentAction
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAgentAction() *AgentAction {
+func NewAgentAction(id string, parameters Parameters) *AgentAction {
 	this := AgentAction{}
+	this.Id = id
+	this.Parameters = parameters
 	return &this
 }
 
@@ -57,68 +60,52 @@ func NewAgentActionWithDefaults() *AgentAction {
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *AgentAction) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *AgentAction) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *AgentAction) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *AgentAction) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
-// GetParameters returns the Parameters field value if set, zero value otherwise.
+// GetParameters returns the Parameters field value
 func (o *AgentAction) GetParameters() Parameters {
-	if o == nil || IsNil(o.Parameters) {
+	if o == nil {
 		var ret Parameters
 		return ret
 	}
-	return *o.Parameters
+
+	return o.Parameters
 }
 
-// GetParametersOk returns a tuple with the Parameters field value if set, nil otherwise
+// GetParametersOk returns a tuple with the Parameters field value
 // and a boolean to check if the value has been set.
 func (o *AgentAction) GetParametersOk() (*Parameters, bool) {
-	if o == nil || IsNil(o.Parameters) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Parameters, true
+	return &o.Parameters, true
 }
 
-// HasParameters returns a boolean if a field has been set.
-func (o *AgentAction) HasParameters() bool {
-	if o != nil && !IsNil(o.Parameters) {
-		return true
-	}
-
-	return false
-}
-
-// SetParameters gets a reference to the given Parameters and assigns it to the Parameters field.
+// SetParameters sets field value
 func (o *AgentAction) SetParameters(v Parameters) {
-	o.Parameters = &v
+	o.Parameters = v
 }
 
 func (o AgentAction) MarshalJSON() ([]byte, error) {
@@ -131,12 +118,8 @@ func (o AgentAction) MarshalJSON() ([]byte, error) {
 
 func (o AgentAction) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.Parameters) {
-		toSerialize["parameters"] = o.Parameters
-	}
+	toSerialize["id"] = o.Id
+	toSerialize["parameters"] = o.Parameters
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -146,6 +129,28 @@ func (o AgentAction) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *AgentAction) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+		"parameters",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varAgentAction := _AgentAction{}
 
 	err = json.Unmarshal(data, &varAgentAction)

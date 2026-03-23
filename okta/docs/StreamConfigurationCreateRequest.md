@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Delivery** | [**StreamConfigurationDelivery**](StreamConfigurationDelivery.md) |  | 
 **EventsRequested** | **[]string** | The events (mapped by the array of event type URIs) that the receiver wants to receive | 
-**Format** | Pointer to **string** | The Subject Identifier format expected for any SET transmitted. | [optional] 
+**Format** | Pointer to **string** | The subject identifier format expected for any SET transmitted. | [optional] 
 
 ## Methods
 

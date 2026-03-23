@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -32,8 +32,8 @@ var _ MappedNullable = &DeviceSignalCollectionPolicyRuleConditions{}
 
 // DeviceSignalCollectionPolicyRuleConditions <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Specifies conditions that must be met during policy evaluation to apply the rule. All policy conditions, as well as conditions for at least one rule must be met to apply the settings specified in the policy and the associated rule.
 type DeviceSignalCollectionPolicyRuleConditions struct {
-	Network              *PolicyNetworkCondition      `json:"network,omitempty"`
-	Platform             *PlatformPolicyRuleCondition `json:"platform,omitempty"`
+	Network              *PolicyNetworkCondition                            `json:"network,omitempty"`
+	Platform             *DeviceSignalCollectionPlatformPolicyRuleCondition `json:"platform,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -89,9 +89,9 @@ func (o *DeviceSignalCollectionPolicyRuleConditions) SetNetwork(v PolicyNetworkC
 }
 
 // GetPlatform returns the Platform field value if set, zero value otherwise.
-func (o *DeviceSignalCollectionPolicyRuleConditions) GetPlatform() PlatformPolicyRuleCondition {
+func (o *DeviceSignalCollectionPolicyRuleConditions) GetPlatform() DeviceSignalCollectionPlatformPolicyRuleCondition {
 	if o == nil || IsNil(o.Platform) {
-		var ret PlatformPolicyRuleCondition
+		var ret DeviceSignalCollectionPlatformPolicyRuleCondition
 		return ret
 	}
 	return *o.Platform
@@ -99,7 +99,7 @@ func (o *DeviceSignalCollectionPolicyRuleConditions) GetPlatform() PlatformPolic
 
 // GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DeviceSignalCollectionPolicyRuleConditions) GetPlatformOk() (*PlatformPolicyRuleCondition, bool) {
+func (o *DeviceSignalCollectionPolicyRuleConditions) GetPlatformOk() (*DeviceSignalCollectionPlatformPolicyRuleCondition, bool) {
 	if o == nil || IsNil(o.Platform) {
 		return nil, false
 	}
@@ -115,8 +115,8 @@ func (o *DeviceSignalCollectionPolicyRuleConditions) HasPlatform() bool {
 	return false
 }
 
-// SetPlatform gets a reference to the given PlatformPolicyRuleCondition and assigns it to the Platform field.
-func (o *DeviceSignalCollectionPolicyRuleConditions) SetPlatform(v PlatformPolicyRuleCondition) {
+// SetPlatform gets a reference to the given DeviceSignalCollectionPlatformPolicyRuleCondition and assigns it to the Platform field.
+func (o *DeviceSignalCollectionPolicyRuleConditions) SetPlatform(v DeviceSignalCollectionPlatformPolicyRuleCondition) {
 	o.Platform = &v
 }
 

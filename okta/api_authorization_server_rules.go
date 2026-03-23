@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -42,7 +42,7 @@ type AuthorizationServerRulesAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param authServerId `id` of the Authorization Server
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@param ruleId `id` of the policy rule
 		@return ApiActivateAuthorizationServerPolicyRuleRequest
 	*/
@@ -58,7 +58,7 @@ type AuthorizationServerRulesAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param authServerId `id` of the Authorization Server
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@return ApiCreateAuthorizationServerPolicyRuleRequest
 	*/
 	CreateAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string) ApiCreateAuthorizationServerPolicyRuleRequest
@@ -74,7 +74,7 @@ type AuthorizationServerRulesAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param authServerId `id` of the Authorization Server
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@param ruleId `id` of the policy rule
 		@return ApiDeactivateAuthorizationServerPolicyRuleRequest
 	*/
@@ -90,7 +90,7 @@ type AuthorizationServerRulesAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param authServerId `id` of the Authorization Server
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@param ruleId `id` of the policy rule
 		@return ApiDeleteAuthorizationServerPolicyRuleRequest
 	*/
@@ -106,7 +106,7 @@ type AuthorizationServerRulesAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param authServerId `id` of the Authorization Server
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@param ruleId `id` of the policy rule
 		@return ApiGetAuthorizationServerPolicyRuleRequest
 	*/
@@ -123,7 +123,7 @@ type AuthorizationServerRulesAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param authServerId `id` of the Authorization Server
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@return ApiListAuthorizationServerPolicyRulesRequest
 	*/
 	ListAuthorizationServerPolicyRules(ctx context.Context, authServerId string, policyId string) ApiListAuthorizationServerPolicyRulesRequest
@@ -139,7 +139,7 @@ type AuthorizationServerRulesAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param authServerId `id` of the Authorization Server
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@param ruleId `id` of the policy rule
 		@return ApiReplaceAuthorizationServerPolicyRuleRequest
 	*/
@@ -173,7 +173,7 @@ Activates an authorization server policy rule
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param authServerId `id` of the Authorization Server
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@param ruleId `id` of the policy rule
 	@return ApiActivateAuthorizationServerPolicyRuleRequest
 */
@@ -339,7 +339,7 @@ Creates a policy rule for the specified Custom Authorization Server and Policy
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param authServerId `id` of the Authorization Server
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@return ApiCreateAuthorizationServerPolicyRuleRequest
 */
 func (a *AuthorizationServerRulesAPIService) CreateAuthorizationServerPolicyRule(ctx context.Context, authServerId string, policyId string) ApiCreateAuthorizationServerPolicyRuleRequest {
@@ -527,7 +527,7 @@ Deactivates an authorization server policy rule
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param authServerId `id` of the Authorization Server
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@param ruleId `id` of the policy rule
 	@return ApiDeactivateAuthorizationServerPolicyRuleRequest
 */
@@ -688,7 +688,7 @@ Deletes a Policy Rule defined in the specified Custom Authorization Server and P
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param authServerId `id` of the Authorization Server
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@param ruleId `id` of the policy rule
 	@return ApiDeleteAuthorizationServerPolicyRuleRequest
 */
@@ -849,7 +849,7 @@ Retrieves a policy rule by `ruleId`
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param authServerId `id` of the Authorization Server
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@param ruleId `id` of the policy rule
 	@return ApiGetAuthorizationServerPolicyRuleRequest
 */
@@ -1022,7 +1022,7 @@ Lists all policy rules for the specified Custom Authorization Server and Policy
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param authServerId `id` of the Authorization Server
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@return ApiListAuthorizationServerPolicyRulesRequest
 */
 func (a *AuthorizationServerRulesAPIService) ListAuthorizationServerPolicyRules(ctx context.Context, authServerId string, policyId string) ApiListAuthorizationServerPolicyRulesRequest {
@@ -1199,7 +1199,7 @@ Replaces the configuration of the Policy Rule defined in the specified Custom Au
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param authServerId `id` of the Authorization Server
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@param ruleId `id` of the policy rule
 	@return ApiReplaceAuthorizationServerPolicyRuleRequest
 */

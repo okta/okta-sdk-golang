@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -37,11 +37,11 @@ type SSFTransmitterAPI interface {
 	/*
 			CreateSsfStream Create an SSF stream
 
-			Creates an SSF Stream for an event receiver to start receiving security events in the form of Security Event Tokens (SETs) from Okta.
+			Creates an SSF stream for an event receiver to start receiving security events in the form of Security Event Tokens (SETs) from Okta.
 
-		An SSF Stream is associated with the Client ID of the OAuth 2.0 access token used to create the stream. The Client ID is provided by Okta for an [OAuth 2.0 app integration](https://help.okta.com/okta_help.htm?id=ext_Apps_App_Integration_Wizard-oidc). One SSF Stream is allowed for each Client ID, hence, one SSF Stream is allowed for each app integration in Okta.
+		An SSF stream is associated with the client ID of the OAuth 2.0 access token used to create the stream. The client ID is provided by Okta for an [OAuth 2.0 app integration](https://help.okta.com/okta_help.htm?id=ext_Apps_App_Integration_Wizard-oidc). One SSF stream is allowed for each client ID, hence, one SSF stream is allowed for each app integration in Okta.
 
-		A maximum of 10 SSF Stream configurations can be created for one org.
+		You can create a maximum of 10 SSF stream configurations for one org.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@return ApiCreateSsfStreamRequest
@@ -55,9 +55,9 @@ type SSFTransmitterAPI interface {
 	/*
 			DeleteSsfStream Delete an SSF stream
 
-			Deletes the specified SSF Stream.
+			Deletes the specified SSF stream.
 
-		If the `stream_id` is not provided in the query string, the associated stream with the Client ID (through the request OAuth 2.0 access token) is deleted. Otherwise, the SSF Stream with the `stream_id` is deleted, if found.
+		If the `stream_id` is not provided in the query string, the associated stream with the client ID (through the request OAuth 2.0 access token) is deleted. Otherwise, the SSF stream with the `stream_id` is deleted, if found.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@return ApiDeleteSsfStreamRequest
@@ -68,9 +68,9 @@ type SSFTransmitterAPI interface {
 	DeleteSsfStreamExecute(r ApiDeleteSsfStreamRequest) (*APIResponse, error)
 
 	/*
-		GetSsfStreamStatus Retrieve the SSF Stream status
+		GetSsfStreamStatus Retrieve the SSF stream status
 
-		Retrieves the status of an SSF Stream. The status indicates whether the transmitter is able to transmit events over the stream.
+		Retrieves the status of an SSF stream. The status indicates whether the transmitter is able to transmit events over the stream.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return ApiGetSsfStreamStatusRequest
@@ -84,9 +84,9 @@ type SSFTransmitterAPI interface {
 	/*
 			GetSsfStreams Retrieve the SSF stream configuration(s)
 
-			Retrieves either a list of all known SSF Stream configurations or the individual configuration if specified by ID.
+			Retrieves either a list of all known SSF stream configurations or the individual configuration if specified by ID.
 
-		As Stream configurations are tied to a Client ID, only the Stream associated with the Client ID of the request OAuth 2.0 access token can be viewed.
+		As stream configurations are tied to a client ID, you can only view the stream associated with the client ID of the request OAuth 2.0 access token.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@return ApiGetSsfStreamsRequest
@@ -100,7 +100,7 @@ type SSFTransmitterAPI interface {
 	/*
 		GetWellknownSsfMetadata Retrieve the SSF transmitter metadata
 
-		Retrieves SSF Transmitter configuration metadata. This includes all supported endpoints and key information about certain properties of the Okta org as the transmitter, such as `delivery_methods_supported`, `issuer`, and `jwks_uri`.
+		Retrieves SSF transmitter configuration metadata. This includes all supported endpoints and key information about certain properties of the Okta org as the transmitter, such as `delivery_methods_supported`, `issuer`, and `jwks_uri`.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return ApiGetWellknownSsfMetadataRequest
@@ -114,9 +114,9 @@ type SSFTransmitterAPI interface {
 	/*
 			ReplaceSsfStream Replace an SSF stream
 
-			Replaces all properties for an existing SSF Stream configuration.
+			Replaces all properties for an existing SSF stream configuration.
 
-		If the `stream_id` isn't provided in the request body, the associated stream with the Client ID (through the request OAuth 2.0 access token) is replaced.
+		If the `stream_id` isn't provided in the request body, the associated stream with the client ID (through the request OAuth 2.0 access token) is replaced.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@return ApiReplaceSsfStreamRequest
@@ -130,9 +130,9 @@ type SSFTransmitterAPI interface {
 	/*
 			UpdateSsfStream Update an SSF stream
 
-			Updates properties for an existing SSF Stream configuration.
+			Updates properties for an existing SSF stream configuration.
 
-		If the `stream_id` isn't provided in the request body, the associated stream with the Client ID (through the request OAuth 2.0 access token) is updated.
+		If the `stream_id` isn't provided in the request body, the associated stream with the client ID (through the request OAuth 2.0 access token) is updated.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@return ApiUpdateSsfStreamRequest
@@ -146,11 +146,11 @@ type SSFTransmitterAPI interface {
 	/*
 			VerifySsfStream Verify an SSF stream
 
-			Verifies an SSF Stream by publishing a Verification Event requested by a Security Events Provider.
+			Verifies an SSF stream by publishing a verification event requested by a security events provider.
 
-		> **Note:** A successful response doesn't indicate that the Verification Event
+		> **Note:** A successful response doesn't indicate that the verification event
 		    was transmitted successfully, only that Okta has transmitted the event or will
-		    at some point in the future. The SSF Receiver is responsible for validating and acknowledging
+		    at some point in the future. The SSF receiver is responsible for validating and acknowledging
 		    successful transmission of the request by responding with HTTP Response Status Code 202.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -184,11 +184,11 @@ func (r ApiCreateSsfStreamRequest) Execute() (*StreamConfiguration, *APIResponse
 /*
 CreateSsfStream Create an SSF stream
 
-Creates an SSF Stream for an event receiver to start receiving security events in the form of Security Event Tokens (SETs) from Okta.
+Creates an SSF stream for an event receiver to start receiving security events in the form of Security Event Tokens (SETs) from Okta.
 
-An SSF Stream is associated with the Client ID of the OAuth 2.0 access token used to create the stream. The Client ID is provided by Okta for an [OAuth 2.0 app integration](https://help.okta.com/okta_help.htm?id=ext_Apps_App_Integration_Wizard-oidc). One SSF Stream is allowed for each Client ID, hence, one SSF Stream is allowed for each app integration in Okta.
+An SSF stream is associated with the client ID of the OAuth 2.0 access token used to create the stream. The client ID is provided by Okta for an [OAuth 2.0 app integration](https://help.okta.com/okta_help.htm?id=ext_Apps_App_Integration_Wizard-oidc). One SSF stream is allowed for each client ID, hence, one SSF stream is allowed for each app integration in Okta.
 
-A maximum of 10 SSF Stream configurations can be created for one org.
+You can create a maximum of 10 SSF stream configurations for one org.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiCreateSsfStreamRequest
@@ -372,9 +372,9 @@ func (r ApiDeleteSsfStreamRequest) Execute() (*APIResponse, error) {
 /*
 DeleteSsfStream Delete an SSF stream
 
-Deletes the specified SSF Stream.
+Deletes the specified SSF stream.
 
-If the `stream_id` is not provided in the query string, the associated stream with the Client ID (through the request OAuth 2.0 access token) is deleted. Otherwise, the SSF Stream with the `stream_id` is deleted, if found.
+If the `stream_id` is not provided in the query string, the associated stream with the client ID (through the request OAuth 2.0 access token) is deleted. Otherwise, the SSF stream with the `stream_id` is deleted, if found.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiDeleteSsfStreamRequest
@@ -530,7 +530,7 @@ type ApiGetSsfStreamStatusRequest struct {
 	retryCount int32
 }
 
-// The ID of the specified SSF Stream configuration
+// The ID of the specified SSF stream configuration
 func (r ApiGetSsfStreamStatusRequest) StreamId(streamId string) ApiGetSsfStreamStatusRequest {
 	r.streamId = &streamId
 	return r
@@ -541,9 +541,9 @@ func (r ApiGetSsfStreamStatusRequest) Execute() (*StreamStatus, *APIResponse, er
 }
 
 /*
-GetSsfStreamStatus Retrieve the SSF Stream status
+GetSsfStreamStatus Retrieve the SSF stream status
 
-Retrieves the status of an SSF Stream. The status indicates whether the transmitter is able to transmit events over the stream.
+Retrieves the status of an SSF stream. The status indicates whether the transmitter is able to transmit events over the stream.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiGetSsfStreamStatusRequest
@@ -713,7 +713,7 @@ type ApiGetSsfStreamsRequest struct {
 	retryCount int32
 }
 
-// The ID of the specified SSF Stream configuration
+// The ID of the specified SSF stream configuration
 func (r ApiGetSsfStreamsRequest) StreamId(streamId string) ApiGetSsfStreamsRequest {
 	r.streamId = &streamId
 	return r
@@ -726,9 +726,9 @@ func (r ApiGetSsfStreamsRequest) Execute() (*GetSsfStreams200Response, *APIRespo
 /*
 GetSsfStreams Retrieve the SSF stream configuration(s)
 
-Retrieves either a list of all known SSF Stream configurations or the individual configuration if specified by ID.
+Retrieves either a list of all known SSF stream configurations or the individual configuration if specified by ID.
 
-As Stream configurations are tied to a Client ID, only the Stream associated with the Client ID of the request OAuth 2.0 access token can be viewed.
+As stream configurations are tied to a client ID, you can only view the stream associated with the client ID of the request OAuth 2.0 access token.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiGetSsfStreamsRequest
@@ -891,7 +891,7 @@ func (r ApiGetWellknownSsfMetadataRequest) Execute() (*WellKnownSSFMetadata, *AP
 /*
 GetWellknownSsfMetadata Retrieve the SSF transmitter metadata
 
-Retrieves SSF Transmitter configuration metadata. This includes all supported endpoints and key information about certain properties of the Okta org as the transmitter, such as `delivery_methods_supported`, `issuer`, and `jwks_uri`.
+Retrieves SSF transmitter configuration metadata. This includes all supported endpoints and key information about certain properties of the Okta org as the transmitter, such as `delivery_methods_supported`, `issuer`, and `jwks_uri`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiGetWellknownSsfMetadataRequest
@@ -1057,9 +1057,9 @@ func (r ApiReplaceSsfStreamRequest) Execute() (*StreamConfiguration, *APIRespons
 /*
 ReplaceSsfStream Replace an SSF stream
 
-Replaces all properties for an existing SSF Stream configuration.
+Replaces all properties for an existing SSF stream configuration.
 
-If the `stream_id` isn't provided in the request body, the associated stream with the Client ID (through the request OAuth 2.0 access token) is replaced.
+If the `stream_id` isn't provided in the request body, the associated stream with the client ID (through the request OAuth 2.0 access token) is replaced.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiReplaceSsfStreamRequest
@@ -1242,9 +1242,9 @@ func (r ApiUpdateSsfStreamRequest) Execute() (*StreamConfiguration, *APIResponse
 /*
 UpdateSsfStream Update an SSF stream
 
-Updates properties for an existing SSF Stream configuration.
+Updates properties for an existing SSF stream configuration.
 
-If the `stream_id` isn't provided in the request body, the associated stream with the Client ID (through the request OAuth 2.0 access token) is updated.
+If the `stream_id` isn't provided in the request body, the associated stream with the client ID (through the request OAuth 2.0 access token) is updated.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiUpdateSsfStreamRequest
@@ -1427,12 +1427,12 @@ func (r ApiVerifySsfStreamRequest) Execute() (*APIResponse, error) {
 /*
 VerifySsfStream Verify an SSF stream
 
-Verifies an SSF Stream by publishing a Verification Event requested by a Security Events Provider.
+Verifies an SSF stream by publishing a verification event requested by a security events provider.
 
-> **Note:** A successful response doesn't indicate that the Verification Event
+> **Note:** A successful response doesn't indicate that the verification event
 
 	   was transmitted successfully, only that Okta has transmitted the event or will
-	   at some point in the future. The SSF Receiver is responsible for validating and acknowledging
+	   at some point in the future. The SSF receiver is responsible for validating and acknowledging
 	   successful transmission of the request by responding with HTTP Response Status Code 202.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().

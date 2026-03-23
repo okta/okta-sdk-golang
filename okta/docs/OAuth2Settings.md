@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **AuthorizeEndpoint** | **string** | The URL to the authorization server&#39;s authorization endpoint | 
 **ClientId** | **string** | The OAuth 2.0 client identifier | 
 **ClientSecret** | **string** | The OAuth 2.0 client secret | 
+**PublicKey** | Pointer to [**OAuth2SettingsPublicKey**](OAuth2SettingsPublicKey.md) |  | [optional] 
 **Scopes** | Pointer to **[]string** | List of OAuth 2.0 scopes | [optional] 
 **TokenEndpoint** | **string** | The URL to the authorization server&#39;s token endpoint | 
 
@@ -88,6 +89,31 @@ and a boolean to check if the value has been set.
 
 SetClientSecret sets ClientSecret field to given value.
 
+
+### GetPublicKey
+
+`func (o *OAuth2Settings) GetPublicKey() OAuth2SettingsPublicKey`
+
+GetPublicKey returns the PublicKey field if non-nil, zero value otherwise.
+
+### GetPublicKeyOk
+
+`func (o *OAuth2Settings) GetPublicKeyOk() (*OAuth2SettingsPublicKey, bool)`
+
+GetPublicKeyOk returns a tuple with the PublicKey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPublicKey
+
+`func (o *OAuth2Settings) SetPublicKey(v OAuth2SettingsPublicKey)`
+
+SetPublicKey sets PublicKey field to given value.
+
+### HasPublicKey
+
+`func (o *OAuth2Settings) HasPublicKey() bool`
+
+HasPublicKey returns a boolean if a field has been set.
 
 ### GetScopes
 

@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -34,7 +34,9 @@ var _ MappedNullable = &IdentityProviderPolicy{}
 type IdentityProviderPolicy struct {
 	AccountLink *PolicyAccountLink `json:"accountLink,omitempty"`
 	// Maximum allowable clock skew when processing messages from the IdP
-	MaxClockSkew         *int32         `json:"maxClockSkew,omitempty"`
+	MaxClockSkew *int32 `json:"maxClockSkew,omitempty"`
+	// Indicates whether to trust authentication claims from the IdP
+	TrustClaims          *bool          `json:"trustClaims,omitempty"`
 	Provisioning         *Provisioning  `json:"provisioning,omitempty"`
 	Subject              *PolicySubject `json:"subject,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -48,6 +50,8 @@ type _IdentityProviderPolicy IdentityProviderPolicy
 // will change when the set of required properties is changed
 func NewIdentityProviderPolicy() *IdentityProviderPolicy {
 	this := IdentityProviderPolicy{}
+	var trustClaims bool = false
+	this.TrustClaims = &trustClaims
 	return &this
 }
 
@@ -56,6 +60,8 @@ func NewIdentityProviderPolicy() *IdentityProviderPolicy {
 // but it doesn't guarantee that properties required by API are set
 func NewIdentityProviderPolicyWithDefaults() *IdentityProviderPolicy {
 	this := IdentityProviderPolicy{}
+	var trustClaims bool = false
+	this.TrustClaims = &trustClaims
 	return &this
 }
 
@@ -121,6 +127,38 @@ func (o *IdentityProviderPolicy) HasMaxClockSkew() bool {
 // SetMaxClockSkew gets a reference to the given int32 and assigns it to the MaxClockSkew field.
 func (o *IdentityProviderPolicy) SetMaxClockSkew(v int32) {
 	o.MaxClockSkew = &v
+}
+
+// GetTrustClaims returns the TrustClaims field value if set, zero value otherwise.
+func (o *IdentityProviderPolicy) GetTrustClaims() bool {
+	if o == nil || IsNil(o.TrustClaims) {
+		var ret bool
+		return ret
+	}
+	return *o.TrustClaims
+}
+
+// GetTrustClaimsOk returns a tuple with the TrustClaims field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IdentityProviderPolicy) GetTrustClaimsOk() (*bool, bool) {
+	if o == nil || IsNil(o.TrustClaims) {
+		return nil, false
+	}
+	return o.TrustClaims, true
+}
+
+// HasTrustClaims returns a boolean if a field has been set.
+func (o *IdentityProviderPolicy) HasTrustClaims() bool {
+	if o != nil && !IsNil(o.TrustClaims) {
+		return true
+	}
+
+	return false
+}
+
+// SetTrustClaims gets a reference to the given bool and assigns it to the TrustClaims field.
+func (o *IdentityProviderPolicy) SetTrustClaims(v bool) {
+	o.TrustClaims = &v
 }
 
 // GetProvisioning returns the Provisioning field value if set, zero value otherwise.
@@ -203,6 +241,9 @@ func (o IdentityProviderPolicy) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.MaxClockSkew) {
 		toSerialize["maxClockSkew"] = o.MaxClockSkew
 	}
+	if !IsNil(o.TrustClaims) {
+		toSerialize["trustClaims"] = o.TrustClaims
+	}
 	if !IsNil(o.Provisioning) {
 		toSerialize["provisioning"] = o.Provisioning
 	}
@@ -233,6 +274,7 @@ func (o *IdentityProviderPolicy) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "accountLink")
 		delete(additionalProperties, "maxClockSkew")
+		delete(additionalProperties, "trustClaims")
 		delete(additionalProperties, "provisioning")
 		delete(additionalProperties, "subject")
 		o.AdditionalProperties = additionalProperties

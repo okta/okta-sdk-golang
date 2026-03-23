@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -30,9 +30,9 @@ import (
 // checks if the ClientPolicyCondition type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ClientPolicyCondition{}
 
-// ClientPolicyCondition Specifies which clients are included in the Policy
+// ClientPolicyCondition Specifies which clients are included in the policy
 type ClientPolicyCondition struct {
-	// Which clients are included in the Policy
+	// Which clients are included in the policy
 	Include              []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

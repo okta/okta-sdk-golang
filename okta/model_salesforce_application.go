@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -31,7 +31,7 @@ import (
 // checks if the SalesforceApplication type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SalesforceApplication{}
 
-// SalesforceApplication Schema for the Salesforce app (key name: `salesforce`)  To create a Salesforce app, use the [Create an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication) request with the following parameters in the request body. > **Note:** The Salesforce app only supports `BROWSER_PLUGIN`, `BOOKMARK`, and `SAML_2_0` sign-on modes.
+// SalesforceApplication Schema for the Salesforce app (key name: `salesforce`)  To create a Salesforce app, use the [Create an Application](/openapi/okta-management/management/tags/application/other/createapplication) request with the following parameters in the request body. > **Note:** The Salesforce app only supports `BROWSER_PLUGIN`, `BOOKMARK`, and `SAML_2_0` sign-on modes.
 type SalesforceApplication struct {
 	Accessibility *ApplicationAccessibility     `json:"accessibility,omitempty"`
 	Credentials   *SchemeApplicationCredentials `json:"credentials,omitempty"`

@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -58,7 +58,7 @@ type UserProfile struct {
 	LastName NullableString `json:"lastName,omitempty"`
 	// The user's default location for purposes of localizing items such as currency, date time format, numerical representations, and so on. A locale value is a concatenation of the ISO 639-1 two-letter language code, an underscore, and the ISO 3166-1 two-letter country code. For example, en_US specifies the language English and country US. This value is `en_US` by default.
 	Locale *string `json:"locale,omitempty"`
-	// The unique identifier for the user (`username`). For validation, see [Login pattern validation](https://developer.okta.com/docs/reference/api/schemas/#login-pattern-validation).  Every user within your Okta org must have a unique identifier for a login. This constraint applies to all users you import from other systems or applications such as Active Directory. Your organization is the top-level namespace to mix and match logins from all your connected applications or directories. Careful consideration of naming conventions for your login identifier will make it easier to onboard new applications in the future.  Logins are not considered unique if they differ only in case and/or diacritical marks. If one of your users has a login of Isaac.Brock@example.com, there cannot be another user whose login is isaac.brock@example.com, nor isáàc.bröck@example.com.  Okta has a default ambiguous name resolution policy for usernames that include @-signs. (By default, usernames must be formatted as email addresses and thus always include @-signs. You can remove that restriction using either the Admin Console or the [Schemas API](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Schema/). Users can sign in with their non-qualified short name (for example: isaac.brock with username isaac.brock@example.com) as long as the short name is still unique within the organization. maxLength: 100
+	// The unique identifier for the user (`username`). For validation, see [Login pattern validation](https://developer.okta.com/docs/reference/api/schemas/#login-pattern-validation).  Every user within your Okta org must have a unique identifier for a login. This constraint applies to all users you import from other systems or applications such as Active Directory. Your organization is the top-level namespace to mix and match logins from all your connected applications or directories. Careful consideration of naming conventions for your login identifier will make it easier to onboard new applications in the future.  Logins are not considered unique if they differ only in case and/or diacritical marks. If one of your users has a login of `Isaac.Brock@example.com`, there cannot be another user whose login is `isaac.brock@example.com`, nor `isáàc.bröck@example.com`.  Okta has a default ambiguous name resolution policy for usernames that include @-signs. By default, usernames must be formatted as email addresses and thus always include @-signs. You can remove that restriction using either the Admin Console or the [Schemas API](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Schema/). Users can sign in with their non-qualified short name (for example: `isaac.brock` with username `isaac.brock@example.com`) as long as the short name is still unique within the org.
 	Login *string `json:"login,omitempty"`
 	// The `displayName` of the user's manager
 	Manager NullableString `json:"manager,omitempty"`
@@ -90,7 +90,7 @@ type UserProfile struct {
 	Timezone NullableString `json:"timezone,omitempty"`
 	// The user's title, such as Vice President
 	Title NullableString `json:"title,omitempty"`
-	// The property used to describe the organization-to-user relationship, such as employee or contractor
+	// The property used to describe the organization-to-user relationship, such as employee or contractor  > **Note:** The `userType` property is a standard string attribute and should be treated as a descriptive label rather than a functional setting. Unlike a user's assigned user [`type`](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/#tag/User/operation/createUser!path=type&t=request), this property is purely informational and doesn't influence the behavior of the Okta platform.
 	UserType NullableString `json:"userType,omitempty"`
 	// The ZIP code or postal code component of the user's address (`postalCode`)
 	ZipCode              NullableString `json:"zipCode,omitempty"`

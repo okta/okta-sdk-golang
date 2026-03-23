@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Issuer** | Pointer to **string** | Issuer URL | [optional] 
 **JwksUrl** | Pointer to **string** | The public URL where the JWKS public key is uploaded | [optional] 
-**WellKnownUrl** | Pointer to **NullableString** | The well-known URL of the Security Events Provider (the SSF transmitter) | [optional] 
+**WellKnownUrl** | Pointer to **NullableString** | The well-known URL of the security events provider (the SSF transmitter) | [optional] 
 
 ## Methods
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Domains** | Pointer to **[]string** | List of Okta domains to failover | [optional] 
+**Domains** | Pointer to **[]string** | The Okta domain to failover | [optional] 
 
 ## Methods
 

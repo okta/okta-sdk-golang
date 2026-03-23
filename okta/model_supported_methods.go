@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -33,7 +33,8 @@ var _ MappedNullable = &SupportedMethods{}
 // SupportedMethods The supported methods of an authenticator
 type SupportedMethods struct {
 	Settings *SupportedMethodsSettings `json:"settings,omitempty"`
-	Status   *string                   `json:"status,omitempty"`
+	// The status of the authenticator method
+	Status *string `json:"status,omitempty"`
 	// The type of authenticator method
 	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}

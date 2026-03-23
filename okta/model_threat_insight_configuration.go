@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -38,7 +38,7 @@ type ThreatInsightConfiguration struct {
 	Action string `json:"action"`
 	// Timestamp when the ThreatInsight Configuration object was created
 	Created *time.Time `json:"created,omitempty"`
-	// Accepts a list of [Network Zone](/openapi/okta-management/management/tag/NetworkZone/) IDs. IPs in the excluded network zones aren't logged or blocked. This ensures that traffic from known, trusted IPs isn't accidentally logged or blocked.
+	// Accepts a list of [Network Zone](/openapi/okta-management/management/networkzone/) IDs. IPs in the excluded network zones aren't logged or blocked. This ensures that traffic from known, trusted IPs isn't accidentally logged or blocked.
 	ExcludeZones []string `json:"excludeZones,omitempty"`
 	// Timestamp when the ThreatInsight Configuration object was last updated
 	LastUpdated          *time.Time `json:"lastUpdated,omitempty"`

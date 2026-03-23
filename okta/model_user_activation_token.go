@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -34,7 +34,7 @@ var _ MappedNullable = &UserActivationToken{}
 type UserActivationToken struct {
 	// Token received as part of an activation user request. If a password was set before the user was activated, then user must sign in with their password or the `activationToken` and not the activation link. More information about using the `activationToken` to login can be found in the [Authentication API](https://developer.okta.com/docs/reference/api/authn/#primary-authentication-with-activation-token).
 	ActivationToken *string `json:"activationToken,omitempty"`
-	// If `sendEmail` is `false`, returns an activation link for the user to set up their account. The activation token can be used to create a custom activation link.
+	// If `sendEmail` is `false`, returns an activation link for the user to set up their account. You can use the activation token to create a custom activation link.  > **Note:** The `activationUrl` varies depending on if you are on a Classic or Identity Engine org. > - For Identity Engine orgs, the activation link is in this format: `https://{yourOktaDomain}/tokens/{activationToken}/verify` > - For Classic orgs, the activation link is in this format: `https://{yourOktaDomain}/welcome/{activationToken}`
 	ActivationUrl        *string `json:"activationUrl,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

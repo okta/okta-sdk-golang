@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Expression** | Pointer to **string** |  | [optional] 
-**Type** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** | The type of operating system | [optional] 
 **Version** | Pointer to [**PlatformConditionEvaluatorPlatformOperatingSystemVersion**](PlatformConditionEvaluatorPlatformOperatingSystemVersion.md) |  | [optional] 
 
 ## Methods

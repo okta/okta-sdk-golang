@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AntivirusEnabled** | Pointer to **bool** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;Indicates whether antivirus software is enabled | [optional] 
+**AntivirusEnabled** | Pointer to **bool** | Indicates whether antivirus software is enabled | [optional] 
 **BrowserVersion** | Pointer to [**ChromeBrowserVersion**](ChromeBrowserVersion.md) |  | [optional] 
 **BuiltInDnsClientEnabled** | Pointer to **bool** | Indicates if a software stack is used to communicate with the DNS server | [optional] 
 **ChromeRemoteDesktopAppBlocked** | Pointer to **bool** | Indicates whether access to the Chrome Remote Desktop application is blocked through a policy | [optional] 

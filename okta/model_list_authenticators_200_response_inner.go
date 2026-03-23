@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -31,6 +31,7 @@ import (
 // ListAuthenticators200ResponseInner - struct for ListAuthenticators200ResponseInner
 type ListAuthenticators200ResponseInner struct {
 	AuthenticatorKeyCustomApp        *AuthenticatorKeyCustomApp
+	AuthenticatorKeyCustomOtp        *AuthenticatorKeyCustomOtp
 	AuthenticatorKeyDuo              *AuthenticatorKeyDuo
 	AuthenticatorKeyEmail            *AuthenticatorKeyEmail
 	AuthenticatorKeyExternalIdp      *AuthenticatorKeyExternalIdp
@@ -52,6 +53,13 @@ type ListAuthenticators200ResponseInner struct {
 func AuthenticatorKeyCustomAppAsListAuthenticators200ResponseInner(v *AuthenticatorKeyCustomApp) ListAuthenticators200ResponseInner {
 	return ListAuthenticators200ResponseInner{
 		AuthenticatorKeyCustomApp: v,
+	}
+}
+
+// AuthenticatorKeyCustomOtpAsListAuthenticators200ResponseInner is a convenience function that returns AuthenticatorKeyCustomOtp wrapped in ListAuthenticators200ResponseInner
+func AuthenticatorKeyCustomOtpAsListAuthenticators200ResponseInner(v *AuthenticatorKeyCustomOtp) ListAuthenticators200ResponseInner {
+	return ListAuthenticators200ResponseInner{
+		AuthenticatorKeyCustomOtp: v,
 	}
 }
 
@@ -182,6 +190,18 @@ func (dst *ListAuthenticators200ResponseInner) UnmarshalJSON(data []byte) error 
 		} else {
 			dst.AuthenticatorKeyCustomApp = nil
 			return fmt.Errorf("failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeyCustomApp: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'custom_otp'
+	if discriminatorValue == "custom_otp" {
+		// try to unmarshal JSON data into AuthenticatorKeyCustomOtp
+		err = json.Unmarshal(data, &dst.AuthenticatorKeyCustomOtp)
+		if err == nil {
+			return nil // data stored in dst.AuthenticatorKeyCustomOtp, return on the first match
+		} else {
+			dst.AuthenticatorKeyCustomOtp = nil
+			return fmt.Errorf("failed to unmarshal ListAuthenticators200ResponseInner as AuthenticatorKeyCustomOtp: %s", err.Error())
 		}
 	}
 
@@ -384,6 +404,10 @@ func (src ListAuthenticators200ResponseInner) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.AuthenticatorKeyCustomApp)
 	}
 
+	if src.AuthenticatorKeyCustomOtp != nil {
+		return json.Marshal(&src.AuthenticatorKeyCustomOtp)
+	}
+
 	if src.AuthenticatorKeyDuo != nil {
 		return json.Marshal(&src.AuthenticatorKeyDuo)
 	}
@@ -456,6 +480,10 @@ func (obj *ListAuthenticators200ResponseInner) GetActualInstance() interface{} {
 		return obj.AuthenticatorKeyCustomApp
 	}
 
+	if obj.AuthenticatorKeyCustomOtp != nil {
+		return obj.AuthenticatorKeyCustomOtp
+	}
+
 	if obj.AuthenticatorKeyDuo != nil {
 		return obj.AuthenticatorKeyDuo
 	}
@@ -524,6 +552,10 @@ func (obj *ListAuthenticators200ResponseInner) GetActualInstance() interface{} {
 func (obj ListAuthenticators200ResponseInner) GetActualInstanceValue() interface{} {
 	if obj.AuthenticatorKeyCustomApp != nil {
 		return *obj.AuthenticatorKeyCustomApp
+	}
+
+	if obj.AuthenticatorKeyCustomOtp != nil {
+		return *obj.AuthenticatorKeyCustomOtp
 	}
 
 	if obj.AuthenticatorKeyDuo != nil {

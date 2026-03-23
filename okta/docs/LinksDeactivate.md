@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Deactivate** | Pointer to [**HrefObject**](HrefObject.md) | Deactivates the factor. See [Unenroll a factor](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/unenrollFactor). | [optional] 
+**Deactivate** | Pointer to [**HrefObject**](HrefObject.md) | Deactivates the factor. See [Unenroll a factor](/openapi/okta-management/management/userfactor/unenrollfactor). | [optional] 
 
 ## Methods
 

@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -40,7 +40,7 @@ type RoleAssignmentAUserAPI interface {
 
 			Assigns a [standard role](/openapi/okta-management/guides/roles/#standard-roles) to a user.
 
-		You can also assign a custom role to a user, but the preferred method to assign a custom role to a user is to create a binding between the custom role, the resource set, and the user. See [Create a role resource set binding](/openapi/okta-management/management/tag/RoleDResourceSetBinding/#tag/RoleDResourceSetBinding/operation/createResourceSetBinding).
+		You can also assign a custom role to a user, but the preferred method to assign a custom role to a user is to create a binding between the custom role, the resource set, and the user. See [Create a role resource set binding](/openapi/okta-management/management/roledresourcesetbinding/createresourcesetbinding).
 
 		> **Notes:**
 		> * The request payload is different for standard and custom role assignments.
@@ -199,7 +199,7 @@ AssignRoleToUser Assign a user role
 
 Assigns a [standard role](/openapi/okta-management/guides/roles/#standard-roles) to a user.
 
-You can also assign a custom role to a user, but the preferred method to assign a custom role to a user is to create a binding between the custom role, the resource set, and the user. See [Create a role resource set binding](/openapi/okta-management/management/tag/RoleDResourceSetBinding/#tag/RoleDResourceSetBinding/operation/createResourceSetBinding).
+You can also assign a custom role to a user, but the preferred method to assign a custom role to a user is to create a binding between the custom role, the resource set, and the user. See [Create a role resource set binding](/openapi/okta-management/management/roledresourcesetbinding/createresourcesetbinding).
 
 > **Notes:**
 > * The request payload is different for standard and custom role assignments.

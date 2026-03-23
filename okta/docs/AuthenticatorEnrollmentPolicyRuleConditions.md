@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**App** | Pointer to [**AppAndInstancePolicyRuleCondition**](AppAndInstancePolicyRuleCondition.md) |  | [optional] 
 **Network** | Pointer to [**PolicyNetworkCondition**](PolicyNetworkCondition.md) |  | [optional] 
 **People** | Pointer to [**AuthenticatorEnrollmentPolicyRuleConditionsPeople**](AuthenticatorEnrollmentPolicyRuleConditionsPeople.md) |  | [optional] 
 
@@ -25,6 +26,31 @@ will change when the set of required properties is changed
 NewAuthenticatorEnrollmentPolicyRuleConditionsWithDefaults instantiates a new AuthenticatorEnrollmentPolicyRuleConditions object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetApp
+
+`func (o *AuthenticatorEnrollmentPolicyRuleConditions) GetApp() AppAndInstancePolicyRuleCondition`
+
+GetApp returns the App field if non-nil, zero value otherwise.
+
+### GetAppOk
+
+`func (o *AuthenticatorEnrollmentPolicyRuleConditions) GetAppOk() (*AppAndInstancePolicyRuleCondition, bool)`
+
+GetAppOk returns a tuple with the App field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetApp
+
+`func (o *AuthenticatorEnrollmentPolicyRuleConditions) SetApp(v AppAndInstancePolicyRuleCondition)`
+
+SetApp sets App field to given value.
+
+### HasApp
+
+`func (o *AuthenticatorEnrollmentPolicyRuleConditions) HasApp() bool`
+
+HasApp returns a boolean if a field has been set.
 
 ### GetNetwork
 

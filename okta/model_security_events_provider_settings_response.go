@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -30,13 +30,13 @@ import (
 // checks if the SecurityEventsProviderSettingsResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SecurityEventsProviderSettingsResponse{}
 
-// SecurityEventsProviderSettingsResponse Security Events Provider settings
+// SecurityEventsProviderSettingsResponse Security events provider settings
 type SecurityEventsProviderSettingsResponse struct {
 	// Issuer URL
 	Issuer *string `json:"issuer,omitempty"`
 	// The public URL where the JWKS public key is uploaded
 	JwksUrl *string `json:"jwks_url,omitempty"`
-	// The well-known URL of the Security Events Provider (the SSF transmitter)
+	// The well-known URL of the security events provider (the SSF transmitter)
 	WellKnownUrl         NullableString `json:"well_known_url,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
