@@ -416,10 +416,14 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 		require.NotNil(t, httpRes)
 		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
-		// ListPolicies returns a single policy wrapper, verify we got a valid response
+		// ListPolicies returns an array of policies
 		if err == nil {
 			require.NotNil(t, resp)
-			actualInstance := resp.GetActualInstance()
+			require.Greater(t, len(resp), 0, "Response should contain at least one policy")
+
+			// Get the first policy and verify it's an AccessPolicy
+			firstPolicy := resp[0]
+			actualInstance := firstPolicy.GetActualInstance()
 			require.NotNil(t, actualInstance, "Response should contain a policy instance")
 
 			// Type assert to AccessPolicy

@@ -31173,7 +31173,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listPolicies_200_response"
+                items:
+                  $ref: "#/components/schemas/listPolicies_200_response_inner"
+                type: array
           description: Success
         "403":
           content:
@@ -31390,7 +31392,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listPolicies_200_response"
+                $ref: "#/components/schemas/listPolicies_200_response_inner"
           description: Success
         "403":
           content:
@@ -31444,7 +31446,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listPolicies_200_response"
+                $ref: "#/components/schemas/listPolicies_200_response_inner"
           description: Success
         "400":
           content:
@@ -31555,7 +31557,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listPolicies_200_response"
+                $ref: "#/components/schemas/listPolicies_200_response_inner"
           description: Success
         "400":
           content:
@@ -85487,7 +85489,7 @@ components:
             Standard) algorithm to encrypt and decrypt the YubiKey OTP
           type: string
       type: object
-    listPolicies_200_response:
+    listPolicies_200_response_inner:
       discriminator:
         mapping:
           ACCESS_POLICY: "#/components/schemas/AccessPolicy"

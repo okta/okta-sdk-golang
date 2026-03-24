@@ -18721,32 +18721,34 @@ paths:
           content:
             application/json:
               schema:
-                oneOf: &ref_16
-                  - $ref: '#/components/schemas/AccessPolicy'
-                  - $ref: '#/components/schemas/IdpDiscoveryPolicy'
-                  - $ref: '#/components/schemas/AuthenticatorEnrollmentPolicy'
-                  - $ref: '#/components/schemas/OktaSignOnPolicy'
-                  - $ref: '#/components/schemas/PasswordPolicy'
-                  - $ref: '#/components/schemas/ProfileEnrollmentPolicy'
-                  - $ref: '#/components/schemas/PostAuthSessionPolicy'
-                  - $ref: '#/components/schemas/EntityRiskPolicy'
-                  - $ref: '#/components/schemas/SessionViolationDetectionPolicy'
-                  - $ref: '#/components/schemas/DeviceSignalCollectionPolicy'
-                  - $ref: '#/components/schemas/ClientUpdatePolicy'
-                discriminator: &ref_17
-                  propertyName: type
-                  mapping:
-                    ACCESS_POLICY: '#/components/schemas/AccessPolicy'
-                    IDP_DISCOVERY: '#/components/schemas/IdpDiscoveryPolicy'
-                    MFA_ENROLL: '#/components/schemas/AuthenticatorEnrollmentPolicy'
-                    OKTA_SIGN_ON: '#/components/schemas/OktaSignOnPolicy'
-                    PASSWORD: '#/components/schemas/PasswordPolicy'
-                    PROFILE_ENROLLMENT: '#/components/schemas/ProfileEnrollmentPolicy'
-                    POST_AUTH_SESSION: '#/components/schemas/PostAuthSessionPolicy'
-                    ENTITY_RISK: '#/components/schemas/EntityRiskPolicy'
-                    SESSION_VIOLATION_DETECTION: '#/components/schemas/SessionViolationDetectionPolicy'
-                    DEVICE_SIGNAL_COLLECTION: '#/components/schemas/DeviceSignalCollectionPolicy'
-                    CLIENT_UPDATE: '#/components/schemas/ClientUpdatePolicy'
+                type: array
+                items:
+                  oneOf: &ref_16
+                    - $ref: '#/components/schemas/AccessPolicy'
+                    - $ref: '#/components/schemas/IdpDiscoveryPolicy'
+                    - $ref: '#/components/schemas/AuthenticatorEnrollmentPolicy'
+                    - $ref: '#/components/schemas/OktaSignOnPolicy'
+                    - $ref: '#/components/schemas/PasswordPolicy'
+                    - $ref: '#/components/schemas/ProfileEnrollmentPolicy'
+                    - $ref: '#/components/schemas/PostAuthSessionPolicy'
+                    - $ref: '#/components/schemas/EntityRiskPolicy'
+                    - $ref: '#/components/schemas/SessionViolationDetectionPolicy'
+                    - $ref: '#/components/schemas/DeviceSignalCollectionPolicy'
+                    - $ref: '#/components/schemas/ClientUpdatePolicy'
+                  discriminator: &ref_17
+                    propertyName: type
+                    mapping:
+                      ACCESS_POLICY: '#/components/schemas/AccessPolicy'
+                      IDP_DISCOVERY: '#/components/schemas/IdpDiscoveryPolicy'
+                      MFA_ENROLL: '#/components/schemas/AuthenticatorEnrollmentPolicy'
+                      OKTA_SIGN_ON: '#/components/schemas/OktaSignOnPolicy'
+                      PASSWORD: '#/components/schemas/PasswordPolicy'
+                      PROFILE_ENROLLMENT: '#/components/schemas/ProfileEnrollmentPolicy'
+                      POST_AUTH_SESSION: '#/components/schemas/PostAuthSessionPolicy'
+                      ENTITY_RISK: '#/components/schemas/EntityRiskPolicy'
+                      SESSION_VIOLATION_DETECTION: '#/components/schemas/SessionViolationDetectionPolicy'
+                      DEVICE_SIGNAL_COLLECTION: '#/components/schemas/DeviceSignalCollectionPolicy'
+                      CLIENT_UPDATE: '#/components/schemas/ClientUpdatePolicy'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '429':
