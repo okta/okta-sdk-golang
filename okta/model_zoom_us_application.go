@@ -31,7 +31,7 @@ import (
 // checks if the ZoomUsApplication type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ZoomUsApplication{}
 
-// ZoomUsApplication Schema for the Zoom app (key name: `zoomus`)  To create a Zoom app, use the [Create an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication) request with the following parameters in the request body. > **Note:** The Zoom app only supports `SAML_2_0` sign-on mode.
+// ZoomUsApplication Schema for the Zoom app (key name: `zoomus`)  To create a Zoom app, use the [Create an Application](/openapi/okta-management/management/tags/application/other/createapplication) request with the following parameters in the request body. > **Note:** The Zoom app only supports `SAML_2_0` sign-on mode.
 type ZoomUsApplication struct {
 	Accessibility *ApplicationAccessibility     `json:"accessibility,omitempty"`
 	Credentials   *SchemeApplicationCredentials `json:"credentials,omitempty"`

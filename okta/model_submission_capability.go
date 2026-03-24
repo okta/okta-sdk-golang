@@ -31,7 +31,7 @@ import (
 // checks if the SubmissionCapability type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SubmissionCapability{}
 
-// SubmissionCapability struct for SubmissionCapability
+// SubmissionCapability Simple capability structure for capabilities endpoints (PUT/GET /capabilities)
 type SubmissionCapability struct {
 	Capability           string   `json:"capability"`
 	SupportedProtocols   []string `json:"supportedProtocols"`

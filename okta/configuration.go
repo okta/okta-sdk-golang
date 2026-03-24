@@ -179,7 +179,32 @@ func NewConfiguration(conf ...ConfigSetter) (*Configuration, error) {
 				},
 			},
 		},
-		OperationServers: map[string]ServerConfigurations{},
+		OperationServers: map[string]ServerConfigurations{
+			"DisasterRecoveryAPIService.GetDRStatus": {
+				{
+					URL:         "https://drapp.yourOrgSubDomain.okta.com",
+					Description: "No description provided",
+				},
+			},
+			"DisasterRecoveryAPIService.GetDRStatusForDomain": {
+				{
+					URL:         "https://drapp.yourOktaDomain.okta.com",
+					Description: "No description provided",
+				},
+			},
+			"DisasterRecoveryAPIService.StartOrgFailback": {
+				{
+					URL:         "https://drapp.yourOrgSubDomain.okta.com",
+					Description: "No description provided",
+				},
+			},
+			"DisasterRecoveryAPIService.StartOrgFailover": {
+				{
+					URL:         "https://drapp.yourOrgSubDomain.okta.com",
+					Description: "No description provided",
+				},
+			},
+		},
 	}
 
 	cfg.Okta.Testing.DisableHttpsCheck = false

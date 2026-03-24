@@ -36,7 +36,7 @@ type StreamConfigurationCreateRequest struct {
 	Delivery StreamConfigurationDelivery `json:"delivery"`
 	// The events (mapped by the array of event type URIs) that the receiver wants to receive
 	EventsRequested []string `json:"events_requested"`
-	// The Subject Identifier format expected for any SET transmitted.
+	// The subject identifier format expected for any SET transmitted.
 	Format               *string `json:"format,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

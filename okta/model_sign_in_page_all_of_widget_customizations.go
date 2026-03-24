@@ -76,8 +76,9 @@ type SignInPageAllOfWidgetCustomizations struct {
 	WidgetGeneration             *string                       `json:"widgetGeneration,omitempty"`
 	PostAuthKeepMeSignedInPrompt *PostAuthKeepMeSignedInPrompt `json:"postAuthKeepMeSignedInPrompt,omitempty"`
 	// The title of the footer link on the sign-in page. Only applicable for Classic Engine orgs.
-	ClassicFooterHelpTitle *string `json:"classicFooterHelpTitle,omitempty"`
-	AdditionalProperties   map[string]interface{}
+	ClassicFooterHelpTitle  *string                  `json:"classicFooterHelpTitle,omitempty"`
+	GracePeriodRequiredSoon *GracePeriodRequiredSoon `json:"gracePeriodRequiredSoon,omitempty"`
+	AdditionalProperties    map[string]interface{}
 }
 
 type _SignInPageAllOfWidgetCustomizations SignInPageAllOfWidgetCustomizations
@@ -835,6 +836,38 @@ func (o *SignInPageAllOfWidgetCustomizations) SetClassicFooterHelpTitle(v string
 	o.ClassicFooterHelpTitle = &v
 }
 
+// GetGracePeriodRequiredSoon returns the GracePeriodRequiredSoon field value if set, zero value otherwise.
+func (o *SignInPageAllOfWidgetCustomizations) GetGracePeriodRequiredSoon() GracePeriodRequiredSoon {
+	if o == nil || IsNil(o.GracePeriodRequiredSoon) {
+		var ret GracePeriodRequiredSoon
+		return ret
+	}
+	return *o.GracePeriodRequiredSoon
+}
+
+// GetGracePeriodRequiredSoonOk returns a tuple with the GracePeriodRequiredSoon field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SignInPageAllOfWidgetCustomizations) GetGracePeriodRequiredSoonOk() (*GracePeriodRequiredSoon, bool) {
+	if o == nil || IsNil(o.GracePeriodRequiredSoon) {
+		return nil, false
+	}
+	return o.GracePeriodRequiredSoon, true
+}
+
+// HasGracePeriodRequiredSoon returns a boolean if a field has been set.
+func (o *SignInPageAllOfWidgetCustomizations) HasGracePeriodRequiredSoon() bool {
+	if o != nil && !IsNil(o.GracePeriodRequiredSoon) {
+		return true
+	}
+
+	return false
+}
+
+// SetGracePeriodRequiredSoon gets a reference to the given GracePeriodRequiredSoon and assigns it to the GracePeriodRequiredSoon field.
+func (o *SignInPageAllOfWidgetCustomizations) SetGracePeriodRequiredSoon(v GracePeriodRequiredSoon) {
+	o.GracePeriodRequiredSoon = &v
+}
+
 func (o SignInPageAllOfWidgetCustomizations) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -914,6 +947,9 @@ func (o SignInPageAllOfWidgetCustomizations) ToMap() (map[string]interface{}, er
 	if !IsNil(o.ClassicFooterHelpTitle) {
 		toSerialize["classicFooterHelpTitle"] = o.ClassicFooterHelpTitle
 	}
+	if !IsNil(o.GracePeriodRequiredSoon) {
+		toSerialize["gracePeriodRequiredSoon"] = o.GracePeriodRequiredSoon
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -959,6 +995,7 @@ func (o *SignInPageAllOfWidgetCustomizations) UnmarshalJSON(data []byte) (err er
 		delete(additionalProperties, "widgetGeneration")
 		delete(additionalProperties, "postAuthKeepMeSignedInPrompt")
 		delete(additionalProperties, "classicFooterHelpTitle")
+		delete(additionalProperties, "gracePeriodRequiredSoon")
 		o.AdditionalProperties = additionalProperties
 	}
 

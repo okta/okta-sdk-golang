@@ -31,7 +31,7 @@ import (
 // checks if the AppUser type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AppUser{}
 
-// AppUser The application user object defines a user's app-specific profile and credentials for an app
+// AppUser The app user object defines a user's app-specific profile and credentials for an app
 type AppUser struct {
 	// Timestamp when the object was created
 	Created     *time.Time          `json:"created,omitempty"`
@@ -46,9 +46,9 @@ type AppUser struct {
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// Timestamp when the application user password was last changed
 	PasswordChanged NullableTime `json:"passwordChanged,omitempty"`
-	// Specifies the default and custom profile properties for a user. Properties that are visible in the Admin Console for an app assignment can also be assigned through the API. Some properties are reference properties that are imported from the target app and can't be configured. See [profile](/openapi/okta-management/management/tag/User/#tag/User/operation/getUser!c=200&path=profile&t=response).
+	// Specifies the default and custom profile properties for a user. Properties that are visible in the Admin Console for an app assignment can also be assigned through the API. Some properties are reference properties that are imported from the target app and can't be configured. See [profile](/openapi/okta-management/management/user/getuser#user/getuser/t=response&c=200&path=profile).
 	Profile map[string]interface{} `json:"profile,omitempty"`
-	// Indicates if the assignment is direct (`USER`) or by group membership (`GROUP`).
+	// Indicates if the assignment is direct (`USER`) or by group membership (`GROUP`). If not specified, Okta tries to determine the scope based on the assignment type.
 	Scope *string `json:"scope,omitempty"`
 	// Status of an application user
 	Status *string `json:"status,omitempty"`

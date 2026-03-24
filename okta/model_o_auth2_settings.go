@@ -38,7 +38,8 @@ type OAuth2Settings struct {
 	// The OAuth 2.0 client identifier
 	ClientId string `json:"clientId"`
 	// The OAuth 2.0 client secret
-	ClientSecret string `json:"clientSecret"`
+	ClientSecret string                   `json:"clientSecret"`
+	PublicKey    *OAuth2SettingsPublicKey `json:"publicKey,omitempty"`
 	// List of OAuth 2.0 scopes
 	Scopes []string `json:"scopes,omitempty"`
 	// The URL to the authorization server's token endpoint
@@ -141,6 +142,38 @@ func (o *OAuth2Settings) SetClientSecret(v string) {
 	o.ClientSecret = v
 }
 
+// GetPublicKey returns the PublicKey field value if set, zero value otherwise.
+func (o *OAuth2Settings) GetPublicKey() OAuth2SettingsPublicKey {
+	if o == nil || IsNil(o.PublicKey) {
+		var ret OAuth2SettingsPublicKey
+		return ret
+	}
+	return *o.PublicKey
+}
+
+// GetPublicKeyOk returns a tuple with the PublicKey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OAuth2Settings) GetPublicKeyOk() (*OAuth2SettingsPublicKey, bool) {
+	if o == nil || IsNil(o.PublicKey) {
+		return nil, false
+	}
+	return o.PublicKey, true
+}
+
+// HasPublicKey returns a boolean if a field has been set.
+func (o *OAuth2Settings) HasPublicKey() bool {
+	if o != nil && !IsNil(o.PublicKey) {
+		return true
+	}
+
+	return false
+}
+
+// SetPublicKey gets a reference to the given OAuth2SettingsPublicKey and assigns it to the PublicKey field.
+func (o *OAuth2Settings) SetPublicKey(v OAuth2SettingsPublicKey) {
+	o.PublicKey = &v
+}
+
 // GetScopes returns the Scopes field value if set, zero value otherwise.
 func (o *OAuth2Settings) GetScopes() []string {
 	if o == nil || IsNil(o.Scopes) {
@@ -210,6 +243,9 @@ func (o OAuth2Settings) ToMap() (map[string]interface{}, error) {
 	toSerialize["authorizeEndpoint"] = o.AuthorizeEndpoint
 	toSerialize["clientId"] = o.ClientId
 	toSerialize["clientSecret"] = o.ClientSecret
+	if !IsNil(o.PublicKey) {
+		toSerialize["publicKey"] = o.PublicKey
+	}
 	if !IsNil(o.Scopes) {
 		toSerialize["scopes"] = o.Scopes
 	}
@@ -263,6 +299,7 @@ func (o *OAuth2Settings) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "authorizeEndpoint")
 		delete(additionalProperties, "clientId")
 		delete(additionalProperties, "clientSecret")
+		delete(additionalProperties, "publicKey")
 		delete(additionalProperties, "scopes")
 		delete(additionalProperties, "tokenEndpoint")
 		o.AdditionalProperties = additionalProperties

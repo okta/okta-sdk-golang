@@ -385,7 +385,7 @@ Name | Type | Description  | Notes
 
 ## GetAgentPoolsUpdateSettings
 
-> AgentPoolUpdateSetting GetAgentPoolsUpdateSettings(ctx, poolId).Execute()
+> AgentPoolUpdateSettingResponse GetAgentPoolsUpdateSettings(ctx, poolId).Execute()
 
 Retrieve an agent pool update's settings
 
@@ -413,7 +413,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.GetAgentPoolsUpdateSettings``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAgentPoolsUpdateSettings`: AgentPoolUpdateSetting
+	// response from `GetAgentPoolsUpdateSettings`: AgentPoolUpdateSettingResponse
 	fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.GetAgentPoolsUpdateSettings`: %v\n", resp)
 }
 ```
@@ -437,7 +437,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AgentPoolUpdateSetting**](AgentPoolUpdateSetting.md)
+[**AgentPoolUpdateSettingResponse**](AgentPoolUpdateSettingResponse.md)
 
 ### Authorization
 
@@ -964,7 +964,7 @@ Name | Type | Description  | Notes
 
 ## UpdateAgentPoolsUpdateSettings
 
-> AgentPoolUpdateSetting UpdateAgentPoolsUpdateSettings(ctx, poolId).AgentPoolUpdateSetting(agentPoolUpdateSetting).Execute()
+> AgentPoolUpdateSettingResponse UpdateAgentPoolsUpdateSettings(ctx, poolId).AgentPoolUpdateSettingRequest(agentPoolUpdateSettingRequest).Execute()
 
 Update an agent pool update settings
 
@@ -984,16 +984,16 @@ import (
 
 func main() {
 	poolId := "poolId_example" // string | ID of the agent pool for which the settings apply to
-	agentPoolUpdateSetting := *openapiclient.NewAgentPoolUpdateSetting() // AgentPoolUpdateSetting | 
+	agentPoolUpdateSettingRequest := *openapiclient.NewAgentPoolUpdateSettingRequest("AgentType_example") // AgentPoolUpdateSettingRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.AgentPoolsAPI.UpdateAgentPoolsUpdateSettings(context.Background(), poolId).AgentPoolUpdateSetting(agentPoolUpdateSetting).Execute()
+	resp, r, err := apiClient.AgentPoolsAPI.UpdateAgentPoolsUpdateSettings(context.Background(), poolId).AgentPoolUpdateSettingRequest(agentPoolUpdateSettingRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `AgentPoolsAPI.UpdateAgentPoolsUpdateSettings``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateAgentPoolsUpdateSettings`: AgentPoolUpdateSetting
+	// response from `UpdateAgentPoolsUpdateSettings`: AgentPoolUpdateSettingResponse
 	fmt.Fprintf(os.Stdout, "Response from `AgentPoolsAPI.UpdateAgentPoolsUpdateSettings`: %v\n", resp)
 }
 ```
@@ -1014,11 +1014,11 @@ Other parameters are passed through a pointer to a apiUpdateAgentPoolsUpdateSett
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **agentPoolUpdateSetting** | [**AgentPoolUpdateSetting**](AgentPoolUpdateSetting.md) |  | 
+ **agentPoolUpdateSettingRequest** | [**AgentPoolUpdateSettingRequest**](AgentPoolUpdateSettingRequest.md) |  | 
 
 ### Return type
 
-[**AgentPoolUpdateSetting**](AgentPoolUpdateSetting.md)
+[**AgentPoolUpdateSettingResponse**](AgentPoolUpdateSettingResponse.md)
 
 ### Authorization
 

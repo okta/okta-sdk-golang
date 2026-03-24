@@ -34,7 +34,7 @@ var _ MappedNullable = &OAuth2ClientSecretRequestBody{}
 type OAuth2ClientSecretRequestBody struct {
 	// The OAuth 2.0 client secret string
 	ClientSecret *string `json:"client_secret,omitempty"`
-	// Status of the OAuth 2.0 Client Secret
+	// Status of the OAuth 2.0 client secret
 	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

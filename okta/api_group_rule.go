@@ -794,7 +794,7 @@ type ApiGetGroupRuleRequest struct {
 	retryCount  int32
 }
 
-// If specified as &#x60;groupIdToGroupNameMap&#x60;, then show group names
+// If specified, returns the mapping of group IDs to group names in the &#x60;_embedded&#x60; object.
 func (r ApiGetGroupRuleRequest) Expand(expand string) ApiGetGroupRuleRequest {
 	r.expand = &expand
 	return r
@@ -990,7 +990,7 @@ func (r ApiListGroupRulesRequest) Search(search string) ApiListGroupRulesRequest
 	return r
 }
 
-// If specified as &#x60;groupIdToGroupNameMap&#x60;, then displays group names
+// If specified, returns the mapping of group IDs to group names in the &#x60;_embedded&#x60; object.
 func (r ApiListGroupRulesRequest) Expand(expand string) ApiListGroupRulesRequest {
 	r.expand = &expand
 	return r

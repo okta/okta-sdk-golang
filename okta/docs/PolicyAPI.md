@@ -49,7 +49,7 @@ import (
 )
 
 func main() {
-	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the policy
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -67,7 +67,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**policyId** | **string** | &#x60;id&#x60; of the Policy | 
+**policyId** | **string** | &#x60;id&#x60; of the policy | 
 
 ### Other Parameters
 
@@ -117,7 +117,7 @@ import (
 )
 
 func main() {
-	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the policy
 	ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the policy rule
 
 	configuration := openapiclient.NewConfiguration()
@@ -136,7 +136,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**policyId** | **string** | &#x60;id&#x60; of the Policy | 
+**policyId** | **string** | &#x60;id&#x60; of the policy | 
 **ruleId** | **string** | &#x60;id&#x60; of the policy rule | 
 
 ### Other Parameters
@@ -169,7 +169,7 @@ Name | Type | Description  | Notes
 
 ## ClonePolicy
 
-> ListPolicies200ResponseInner ClonePolicy(ctx, policyId).Execute()
+> ListPolicies200Response ClonePolicy(ctx, policyId).Execute()
 
 Clone an existing policy
 
@@ -188,7 +188,7 @@ import (
 )
 
 func main() {
-	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the policy
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -197,7 +197,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.ClonePolicy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ClonePolicy`: ListPolicies200ResponseInner
+	// response from `ClonePolicy`: ListPolicies200Response
 	fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.ClonePolicy`: %v\n", resp)
 }
 ```
@@ -208,7 +208,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**policyId** | **string** | &#x60;id&#x60; of the Policy | 
+**policyId** | **string** | &#x60;id&#x60; of the policy | 
 
 ### Other Parameters
 
@@ -221,7 +221,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListPolicies200ResponseInner**](ListPolicies200ResponseInner.md)
+[**ListPolicies200Response**](ListPolicies200Response.md)
 
 ### Authorization
 
@@ -326,7 +326,7 @@ import (
 )
 
 func main() {
-	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the policy
 	policyRule := openapiclient.listPolicyRules_200_response_inner{AccessPolicyRule: openapiclient.NewAccessPolicyRule()} // ListPolicyRules200ResponseInner | 
 	limit := "limit_example" // string | Defines the number of policy rules returned. See [Pagination](https://developer.okta.com/docs/api/#pagination). (optional)
 	activate := true // bool | Set this parameter to `false` to create an `INACTIVE` rule. (optional) (default to true)
@@ -349,7 +349,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**policyId** | **string** | &#x60;id&#x60; of the Policy | 
+**policyId** | **string** | &#x60;id&#x60; of the policy | 
 
 ### Other Parameters
 
@@ -470,7 +470,7 @@ import (
 )
 
 func main() {
-	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the policy
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -488,7 +488,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**policyId** | **string** | &#x60;id&#x60; of the Policy | 
+**policyId** | **string** | &#x60;id&#x60; of the policy | 
 
 ### Other Parameters
 
@@ -538,7 +538,7 @@ import (
 )
 
 func main() {
-	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the policy
 	ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the policy rule
 
 	configuration := openapiclient.NewConfiguration()
@@ -557,7 +557,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**policyId** | **string** | &#x60;id&#x60; of the Policy | 
+**policyId** | **string** | &#x60;id&#x60; of the policy | 
 **ruleId** | **string** | &#x60;id&#x60; of the policy rule | 
 
 ### Other Parameters
@@ -609,7 +609,7 @@ import (
 )
 
 func main() {
-	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the policy
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -627,7 +627,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**policyId** | **string** | &#x60;id&#x60; of the Policy | 
+**policyId** | **string** | &#x60;id&#x60; of the policy | 
 
 ### Other Parameters
 
@@ -677,7 +677,7 @@ import (
 )
 
 func main() {
-	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the policy
 	mappingId := "maplr2rLjZ6NsGn1P0g3" // string | `id` of the policy resource Mapping
 
 	configuration := openapiclient.NewConfiguration()
@@ -696,7 +696,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**policyId** | **string** | &#x60;id&#x60; of the Policy | 
+**policyId** | **string** | &#x60;id&#x60; of the policy | 
 **mappingId** | **string** | &#x60;id&#x60; of the policy resource Mapping | 
 
 ### Other Parameters
@@ -748,7 +748,7 @@ import (
 )
 
 func main() {
-	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the policy
 	ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the policy rule
 
 	configuration := openapiclient.NewConfiguration()
@@ -767,7 +767,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**policyId** | **string** | &#x60;id&#x60; of the Policy | 
+**policyId** | **string** | &#x60;id&#x60; of the policy | 
 **ruleId** | **string** | &#x60;id&#x60; of the policy rule | 
 
 ### Other Parameters
@@ -800,7 +800,7 @@ Name | Type | Description  | Notes
 
 ## GetPolicy
 
-> ListPolicies200ResponseInner GetPolicy(ctx, policyId).Expand(expand).Execute()
+> ListPolicies200Response GetPolicy(ctx, policyId).Expand(expand).Execute()
 
 Retrieve a policy
 
@@ -819,7 +819,7 @@ import (
 )
 
 func main() {
-	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the policy
 	expand := "expand_example" // string |  (optional) (default to "")
 
 	configuration := openapiclient.NewConfiguration()
@@ -829,7 +829,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.GetPolicy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetPolicy`: ListPolicies200ResponseInner
+	// response from `GetPolicy`: ListPolicies200Response
 	fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.GetPolicy`: %v\n", resp)
 }
 ```
@@ -840,7 +840,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**policyId** | **string** | &#x60;id&#x60; of the Policy | 
+**policyId** | **string** | &#x60;id&#x60; of the policy | 
 
 ### Other Parameters
 
@@ -854,7 +854,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListPolicies200ResponseInner**](ListPolicies200ResponseInner.md)
+[**ListPolicies200Response**](ListPolicies200Response.md)
 
 ### Authorization
 
@@ -891,7 +891,7 @@ import (
 )
 
 func main() {
-	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the policy
 	mappingId := "maplr2rLjZ6NsGn1P0g3" // string | `id` of the policy resource Mapping
 
 	configuration := openapiclient.NewConfiguration()
@@ -912,7 +912,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**policyId** | **string** | &#x60;id&#x60; of the Policy | 
+**policyId** | **string** | &#x60;id&#x60; of the policy | 
 **mappingId** | **string** | &#x60;id&#x60; of the policy resource Mapping | 
 
 ### Other Parameters
@@ -964,7 +964,7 @@ import (
 )
 
 func main() {
-	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the policy
 	ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the policy rule
 
 	configuration := openapiclient.NewConfiguration()
@@ -985,7 +985,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**policyId** | **string** | &#x60;id&#x60; of the Policy | 
+**policyId** | **string** | &#x60;id&#x60; of the policy | 
 **ruleId** | **string** | &#x60;id&#x60; of the policy rule | 
 
 ### Other Parameters
@@ -1018,7 +1018,7 @@ Name | Type | Description  | Notes
 
 ## ListPolicies
 
-> []ListPolicies200ResponseInner ListPolicies(ctx).Type_(type_).Status(status).Q(q).Expand(expand).SortBy(sortBy).Limit(limit).ResourceId(resourceId).After(after).Execute()
+> ListPolicies200Response ListPolicies(ctx).Type_(type_).Status(status).Q(q).Expand(expand).SortBy(sortBy).Limit(limit).ResourceId(resourceId).After(after).Execute()
 
 List all policies
 
@@ -1037,7 +1037,7 @@ import (
 )
 
 func main() {
-	type_ := "type__example" // string | Specifies the type of policy to return. The following policy types are available only with the Okta Identity Engine - `ACCESS_POLICY`, <x-lifecycle class=\"ea\"></x-lifecycle> `DEVICE_SIGNAL_COLLECTION`, `PROFILE_ENROLLMENT`, `POST_AUTH_SESSION` and `ENTITY_RISK`.
+	type_ := "type__example" // string | Specifies the type of policy to return. The following policy types are available only with the Okta Identity Engine - `ACCESS_POLICY`, <x-lifecycle class=\"ea\"></x-lifecycle> `DEVICE_SIGNAL_COLLECTION`, `PROFILE_ENROLLMENT`, `POST_AUTH_SESSION`, `ENTITY_RISK`, and <x-lifecycle class=\"ea\"></x-lifecycle> `CLIENT_UPDATE`.
 	status := "status_example" // string | Refines the query by the `status` of the policy - `ACTIVE` or `INACTIVE` (optional)
 	q := "q_example" // string | Refines the query by policy name prefix (startWith method) passed in as `q=string` (optional)
 	expand := "expand_example" // string |  (optional) (default to "")
@@ -1053,7 +1053,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.ListPolicies``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListPolicies`: []ListPolicies200ResponseInner
+	// response from `ListPolicies`: ListPolicies200Response
 	fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.ListPolicies`: %v\n", resp)
 }
 ```
@@ -1069,7 +1069,7 @@ Other parameters are passed through a pointer to a apiListPoliciesRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **type_** | **string** | Specifies the type of policy to return. The following policy types are available only with the Okta Identity Engine - &#x60;ACCESS_POLICY&#x60;, &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &#x60;DEVICE_SIGNAL_COLLECTION&#x60;, &#x60;PROFILE_ENROLLMENT&#x60;, &#x60;POST_AUTH_SESSION&#x60; and &#x60;ENTITY_RISK&#x60;. | 
+ **type_** | **string** | Specifies the type of policy to return. The following policy types are available only with the Okta Identity Engine - &#x60;ACCESS_POLICY&#x60;, &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &#x60;DEVICE_SIGNAL_COLLECTION&#x60;, &#x60;PROFILE_ENROLLMENT&#x60;, &#x60;POST_AUTH_SESSION&#x60;, &#x60;ENTITY_RISK&#x60;, and &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &#x60;CLIENT_UPDATE&#x60;. | 
  **status** | **string** | Refines the query by the &#x60;status&#x60; of the policy - &#x60;ACTIVE&#x60; or &#x60;INACTIVE&#x60; | 
  **q** | **string** | Refines the query by policy name prefix (startWith method) passed in as &#x60;q&#x3D;string&#x60; | 
  **expand** | **string** |  | [default to &quot;&quot;]
@@ -1080,7 +1080,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**[]ListPolicies200ResponseInner**](ListPolicies200ResponseInner.md)
+[**ListPolicies200Response**](ListPolicies200Response.md)
 
 ### Authorization
 
@@ -1117,7 +1117,7 @@ import (
 )
 
 func main() {
-	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the policy
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1137,7 +1137,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**policyId** | **string** | &#x60;id&#x60; of the Policy | 
+**policyId** | **string** | &#x60;id&#x60; of the policy | 
 
 ### Other Parameters
 
@@ -1187,7 +1187,7 @@ import (
 )
 
 func main() {
-	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the policy
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1207,7 +1207,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**policyId** | **string** | &#x60;id&#x60; of the Policy | 
+**policyId** | **string** | &#x60;id&#x60; of the policy | 
 
 ### Other Parameters
 
@@ -1257,7 +1257,7 @@ import (
 )
 
 func main() {
-	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the policy
 	limit := "limit_example" // string | Defines the number of policy rules returned. See [Pagination](https://developer.okta.com/docs/api/#pagination). (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -1278,7 +1278,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**policyId** | **string** | &#x60;id&#x60; of the Policy | 
+**policyId** | **string** | &#x60;id&#x60; of the policy | 
 
 ### Other Parameters
 
@@ -1329,7 +1329,7 @@ import (
 )
 
 func main() {
-	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the policy
 	policyMappingRequest := *openapiclient.NewPolicyMappingRequest() // PolicyMappingRequest | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -1350,7 +1350,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**policyId** | **string** | &#x60;id&#x60; of the Policy | 
+**policyId** | **string** | &#x60;id&#x60; of the policy | 
 
 ### Other Parameters
 
@@ -1382,7 +1382,7 @@ Name | Type | Description  | Notes
 
 ## ReplacePolicy
 
-> ListPolicies200ResponseInner ReplacePolicy(ctx, policyId).Policy(policy).Execute()
+> ListPolicies200Response ReplacePolicy(ctx, policyId).Policy(policy).Execute()
 
 Replace a policy
 
@@ -1401,7 +1401,7 @@ import (
 )
 
 func main() {
-	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the policy
 	policy := openapiclient.createPolicy_request{AccessPolicy: openapiclient.NewAccessPolicy("Name_example", "Type_example")} // CreatePolicyRequest | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -1411,7 +1411,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `PolicyAPI.ReplacePolicy``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ReplacePolicy`: ListPolicies200ResponseInner
+	// response from `ReplacePolicy`: ListPolicies200Response
 	fmt.Fprintf(os.Stdout, "Response from `PolicyAPI.ReplacePolicy`: %v\n", resp)
 }
 ```
@@ -1422,7 +1422,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**policyId** | **string** | &#x60;id&#x60; of the Policy | 
+**policyId** | **string** | &#x60;id&#x60; of the policy | 
 
 ### Other Parameters
 
@@ -1436,7 +1436,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**ListPolicies200ResponseInner**](ListPolicies200ResponseInner.md)
+[**ListPolicies200Response**](ListPolicies200Response.md)
 
 ### Authorization
 
@@ -1473,7 +1473,7 @@ import (
 )
 
 func main() {
-	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the Policy
+	policyId := "00plrilJ7jZ66Gn0X0g3" // string | `id` of the policy
 	ruleId := "ruld3hJ7jZh4fn0st0g3" // string | `id` of the policy rule
 	policyRule := openapiclient.listPolicyRules_200_response_inner{AccessPolicyRule: openapiclient.NewAccessPolicyRule()} // ListPolicyRules200ResponseInner | 
 
@@ -1495,7 +1495,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**policyId** | **string** | &#x60;id&#x60; of the Policy | 
+**policyId** | **string** | &#x60;id&#x60; of the policy | 
 **ruleId** | **string** | &#x60;id&#x60; of the policy rule | 
 
 ### Other Parameters

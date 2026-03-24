@@ -38,7 +38,7 @@ type ApplicationPoliciesAPI interface {
 	/*
 			AssignApplicationPolicy Assign an app sign-in policy
 
-			Assigns an app to an [app sign-in policy](/openapi/okta-management/management/tag/Policy/), identified by `policyId`.
+			Assigns an app to an [app sign-in policy](/openapi/okta-management/management/tags/policy/), identified by `policyId`.
 		If the app was previously assigned to another policy, this operation replaces that assignment with the updated policy identified by `policyId`.
 
 		> **Note:** When you [merge duplicate app sign-in policies](https://help.okta.com/okta_help.htm?type=oie&id=ext-merge-auth-policies),
@@ -46,7 +46,7 @@ type ApplicationPoliciesAPI interface {
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param appId Application ID
-			@param policyId `id` of the Policy
+			@param policyId `id` of the policy
 			@return ApiAssignApplicationPolicyRequest
 	*/
 	AssignApplicationPolicy(ctx context.Context, appId string, policyId string) ApiAssignApplicationPolicyRequest
@@ -73,7 +73,7 @@ func (r ApiAssignApplicationPolicyRequest) Execute() (*APIResponse, error) {
 /*
 AssignApplicationPolicy Assign an app sign-in policy
 
-Assigns an app to an [app sign-in policy](/openapi/okta-management/management/tag/Policy/), identified by `policyId`.
+Assigns an app to an [app sign-in policy](/openapi/okta-management/management/tags/policy/), identified by `policyId`.
 If the app was previously assigned to another policy, this operation replaces that assignment with the updated policy identified by `policyId`.
 
 > **Note:** When you [merge duplicate app sign-in policies](https://help.okta.com/okta_help.htm?type=oie&id=ext-merge-auth-policies),
@@ -81,7 +81,7 @@ the policy and mapping CRUD operations may be unavailable during the consolidati
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param appId Application ID
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@return ApiAssignApplicationPolicyRequest
 */
 func (a *ApplicationPoliciesAPIService) AssignApplicationPolicy(ctx context.Context, appId string, policyId string) ApiAssignApplicationPolicyRequest {

@@ -37,7 +37,7 @@ type CreateUserRequest struct {
 	// The list of group IDs of groups that the user is added to at the time of creation
 	GroupIds []string    `json:"groupIds,omitempty"`
 	Profile  UserProfile `json:"profile"`
-	// The ID of the realm in which the user is residing. See [Realms](/openapi/okta-management/management/tag/Realm/).
+	// The ID of the realm in which the user is residing. See [Realms](/openapi/okta-management/management/tags/realm).
 	RealmId              *string                `json:"realmId,omitempty"`
 	Type                 *CreateUserRequestType `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}

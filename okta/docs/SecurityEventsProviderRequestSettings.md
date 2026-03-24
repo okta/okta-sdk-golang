@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**WellKnownUrl** | **string** | The published well-known URL of the Security Events Provider (the SSF transmitter) | 
+**WellKnownUrl** | **string** | The published well-known URL of the security events provider (the SSF transmitter) | 
 **Issuer** | **string** | Issuer URL | 
 **JwksUrl** | **string** | The public URL where the JWKS public key is uploaded | 
 

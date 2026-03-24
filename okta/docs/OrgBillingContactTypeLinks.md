@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Billing** | Pointer to [**HrefObject**](HrefObject.md) | Link to the org billing [contact type user](/openapi/okta-management/management/tag/OrgSettingContact/#tag/OrgSettingContact/operation/getOrgContactUser) resource | [optional] 
+**Billing** | Pointer to [**HrefObject**](HrefObject.md) | Link to the org billing [contact type user](/openapi/okta-management/management/orgsettingcontact/#tag/OrgSettingContact/operation/getOrgContactUser) resource | [optional] 
 
 ## Methods
 

@@ -308,7 +308,7 @@ import (
 
 func main() {
 	groupRuleId := "0pr3f7zMZZHPgUoWO0g4" // string | The `id` of the group rule
-	expand := "expand_example" // string | If specified as `groupIdToGroupNameMap`, then show group names (optional)
+	expand := "expand_example" // string | If specified, returns the mapping of group IDs to group names in the `_embedded` object. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -338,7 +338,7 @@ Other parameters are passed through a pointer to a apiGetGroupRuleRequest struct
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **expand** | **string** | If specified as &#x60;groupIdToGroupNameMap&#x60;, then show group names | 
+ **expand** | **string** | If specified, returns the mapping of group IDs to group names in the &#x60;_embedded&#x60; object. | 
 
 ### Return type
 
@@ -382,7 +382,7 @@ func main() {
 	limit := int32(56) // int32 | Specifies the number of rule results in a page (optional) (default to 50)
 	after := "after_example" // string | Specifies the pagination cursor for the next page of rules (optional)
 	search := "search_example" // string | Specifies the keyword to search rules for (optional)
-	expand := "expand_example" // string | If specified as `groupIdToGroupNameMap`, then displays group names (optional)
+	expand := "expand_example" // string | If specified, returns the mapping of group IDs to group names in the `_embedded` object. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -410,7 +410,7 @@ Name | Type | Description  | Notes
  **limit** | **int32** | Specifies the number of rule results in a page | [default to 50]
  **after** | **string** | Specifies the pagination cursor for the next page of rules | 
  **search** | **string** | Specifies the keyword to search rules for | 
- **expand** | **string** | If specified as &#x60;groupIdToGroupNameMap&#x60;, then displays group names | 
+ **expand** | **string** | If specified, returns the mapping of group IDs to group names in the &#x60;_embedded&#x60; object. | 
 
 ### Return type
 

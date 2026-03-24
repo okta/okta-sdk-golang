@@ -30,9 +30,9 @@ import (
 // checks if the ApplicationEmbedded type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ApplicationEmbedded{}
 
-// ApplicationEmbedded Embedded resources related to the app using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. If the `expand=user/{userId}` query parameter is specified, then the assigned [Application User](/openapi/okta-management/management/tag/ApplicationUsers/) is embedded.
+// ApplicationEmbedded Embedded resources related to the app using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification. If the `expand=user/{userId}` query parameter is specified, then the assigned [Application User](/openapi/okta-management/management/tags/applicationusers) is embedded.
 type ApplicationEmbedded struct {
-	// The specified [Application User](/openapi/okta-management/management/tag/ApplicationUsers/) assigned to the app
+	// The specified [Application User](/openapi/okta-management/management/tags/applicationusers) assigned to the app
 	User                 map[string]map[string]interface{} `json:"user,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

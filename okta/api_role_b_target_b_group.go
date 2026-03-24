@@ -128,7 +128,7 @@ type RoleBTargetBGroupAPI interface {
 			Unassigns an app instance target from an `APP_ADMIN` role assignment to a group
 
 		> **Note:** You can't remove the last app instance target from a role assignment.
-		> If you need a role assignment that applies to all apps, delete the `APP_ADMIN` role assignment with the target and create another one. See [Unassign a group role](/openapi/okta-management/management/tag/RoleAssignmentBGroup/#tag/RoleAssignmentBGroup/operation/unassignRoleFromGroup).
+		> If you need a role assignment that applies to all apps, delete the `APP_ADMIN` role assignment with the target and create another one. See [Unassign a group role](/openapi/okta-management/management/roleassignmentbgroup/unassignrolefromgroup).
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param groupId The `id` of the group
@@ -148,7 +148,7 @@ type RoleBTargetBGroupAPI interface {
 			Unassigns an OIN app target from an `APP_ADMIN` role assignment to a group
 
 		> **Note:** You can't remove the last app target from a role assignment.
-		> If you need a role assignment that applies to all apps, delete the `APP_ADMIN` role assignment with the target and create another one. See [Unassign a group role](/openapi/okta-management/management/tag/RoleAssignmentBGroup/#tag/RoleAssignmentBGroup/operation/unassignRoleFromGroup).
+		> If you need a role assignment that applies to all apps, delete the `APP_ADMIN` role assignment with the target and create another one. See [Unassign a group role](/openapi/okta-management/management/roleassignmentbgroup/unassignrolefromgroup).
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -1075,7 +1075,7 @@ UnassignAppInstanceTargetToAppAdminRoleForGroup Unassign a group role app instan
 Unassigns an app instance target from an `APP_ADMIN` role assignment to a group
 
 > **Note:** You can't remove the last app instance target from a role assignment.
-> If you need a role assignment that applies to all apps, delete the `APP_ADMIN` role assignment with the target and create another one. See [Unassign a group role](/openapi/okta-management/management/tag/RoleAssignmentBGroup/#tag/RoleAssignmentBGroup/operation/unassignRoleFromGroup).
+> If you need a role assignment that applies to all apps, delete the `APP_ADMIN` role assignment with the target and create another one. See [Unassign a group role](/openapi/okta-management/management/roleassignmentbgroup/unassignrolefromgroup).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId The `id` of the group
@@ -1242,7 +1242,7 @@ UnassignAppTargetToAdminRoleForGroup Unassign a group role app target
 Unassigns an OIN app target from an `APP_ADMIN` role assignment to a group
 
 > **Note:** You can't remove the last app target from a role assignment.
-> If you need a role assignment that applies to all apps, delete the `APP_ADMIN` role assignment with the target and create another one. See [Unassign a group role](/openapi/okta-management/management/tag/RoleAssignmentBGroup/#tag/RoleAssignmentBGroup/operation/unassignRoleFromGroup).
+> If you need a role assignment that applies to all apps, delete the `APP_ADMIN` role assignment with the target and create another one. See [Unassign a group role](/openapi/okta-management/management/roleassignmentbgroup/unassignrolefromgroup).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId The `id` of the group

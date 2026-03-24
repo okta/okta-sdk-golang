@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Enroll** | Pointer to [**HrefObject**](HrefObject.md) | Enrolls a supported factor. See [Enroll a factor](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/enrollFactor). | [optional] 
+**Enroll** | Pointer to [**HrefObject**](HrefObject.md) | Enrolls a supported factor. See [Enroll a factor](/openapi/okta-management/management/userfactor/enrollfactor). | [optional] 
 
 ## Methods
 

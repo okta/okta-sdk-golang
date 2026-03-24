@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Credentials** | Pointer to [**UserCredentialsWritable**](UserCredentialsWritable.md) |  | [optional] 
 **GroupIds** | Pointer to **[]string** | The list of group IDs of groups that the user is added to at the time of creation | [optional] 
 **Profile** | [**UserProfile**](UserProfile.md) |  | 
-**RealmId** | Pointer to **string** | The ID of the realm in which the user is residing. See [Realms](/openapi/okta-management/management/tag/Realm/). | [optional] 
+**RealmId** | Pointer to **string** | The ID of the realm in which the user is residing. See [Realms](/openapi/okta-management/management/tags/realm). | [optional] 
 **Type** | Pointer to [**CreateUserRequestType**](CreateUserRequestType.md) |  | [optional] 
 
 ## Methods

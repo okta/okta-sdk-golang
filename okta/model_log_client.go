@@ -40,7 +40,7 @@ type LogClient struct {
 	// IP address that the client is making its request from
 	IpAddress *string       `json:"ipAddress,omitempty"`
 	UserAgent *LogUserAgent `json:"userAgent,omitempty"`
-	// The `name` of the [Zone](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/NetworkZone/#tag/NetworkZone/operation/getNetworkZone) that the client's location is mapped to
+	// The `name` of the [Zone](https://developer.okta.com/docs/api/openapi/okta-management/management/networkzone/#tag/NetworkZone/operation/getNetworkZone) that the client's location is mapped to
 	Zone                 *string `json:"zone,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

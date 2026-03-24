@@ -32,6 +32,7 @@ var _ MappedNullable = &TempPassword{}
 
 // TempPassword struct for TempPassword
 type TempPassword struct {
+	// A temporary password that the user can sign in with. This is only returned when expiring a password with a temporary password.
 	TempPassword         *string `json:"tempPassword,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

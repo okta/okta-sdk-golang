@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Profile** | Pointer to [**IdentitySourceUserProfileForUpsert**](IdentitySourceUserProfileForUpsert.md) |  | [optional] 
+**Profile** | Pointer to [**IdentitySourceUserProfileForUpsertRequired**](IdentitySourceUserProfileForUpsertRequired.md) |  | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetProfile
 
-`func (o *UsersUpdateRequestSchema) GetProfile() IdentitySourceUserProfileForUpsert`
+`func (o *UsersUpdateRequestSchema) GetProfile() IdentitySourceUserProfileForUpsertRequired`
 
 GetProfile returns the Profile field if non-nil, zero value otherwise.
 
 ### GetProfileOk
 
-`func (o *UsersUpdateRequestSchema) GetProfileOk() (*IdentitySourceUserProfileForUpsert, bool)`
+`func (o *UsersUpdateRequestSchema) GetProfileOk() (*IdentitySourceUserProfileForUpsertRequired, bool)`
 
 GetProfileOk returns a tuple with the Profile field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetProfile
 
-`func (o *UsersUpdateRequestSchema) SetProfile(v IdentitySourceUserProfileForUpsert)`
+`func (o *UsersUpdateRequestSchema) SetProfile(v IdentitySourceUserProfileForUpsertRequired)`
 
 SetProfile sets Profile field to given value.
 

@@ -36,9 +36,9 @@ type Session struct {
 	// Authentication method reference
 	Amr       []string   `json:"amr,omitempty"`
 	CreatedAt *time.Time `json:"createdAt,omitempty"`
-	// A timestamp when the Session expires
+	// A timestamp when the session expires
 	ExpiresAt *time.Time `json:"expiresAt,omitempty"`
-	// A unique key for the Session
+	// A unique key for the session
 	Id  *string                  `json:"id,omitempty"`
 	Idp *SessionIdentityProvider `json:"idp,omitempty"`
 	// A timestamp when the user last performed multifactor authentication

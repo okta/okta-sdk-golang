@@ -32,6 +32,8 @@ var _ MappedNullable = &SamlRequestAlgorithm{}
 
 // SamlRequestAlgorithm Algorithm settings used to secure an `<AuthnRequest>` message
 type SamlRequestAlgorithm struct {
+	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>XML Digest Algorithm setting for cryptographically hashing `<AuthnRequest>` messages sent to the IdP > **Note:**  This property is ignored when you disable request signatures (`scope` set as `NONE`).
+	Digest               *string                        `json:"digest,omitempty"`
 	Signature            *SamlRequestSignatureAlgorithm `json:"signature,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -53,6 +55,38 @@ func NewSamlRequestAlgorithm() *SamlRequestAlgorithm {
 func NewSamlRequestAlgorithmWithDefaults() *SamlRequestAlgorithm {
 	this := SamlRequestAlgorithm{}
 	return &this
+}
+
+// GetDigest returns the Digest field value if set, zero value otherwise.
+func (o *SamlRequestAlgorithm) GetDigest() string {
+	if o == nil || IsNil(o.Digest) {
+		var ret string
+		return ret
+	}
+	return *o.Digest
+}
+
+// GetDigestOk returns a tuple with the Digest field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SamlRequestAlgorithm) GetDigestOk() (*string, bool) {
+	if o == nil || IsNil(o.Digest) {
+		return nil, false
+	}
+	return o.Digest, true
+}
+
+// HasDigest returns a boolean if a field has been set.
+func (o *SamlRequestAlgorithm) HasDigest() bool {
+	if o != nil && !IsNil(o.Digest) {
+		return true
+	}
+
+	return false
+}
+
+// SetDigest gets a reference to the given string and assigns it to the Digest field.
+func (o *SamlRequestAlgorithm) SetDigest(v string) {
+	o.Digest = &v
 }
 
 // GetSignature returns the Signature field value if set, zero value otherwise.
@@ -97,6 +131,9 @@ func (o SamlRequestAlgorithm) MarshalJSON() ([]byte, error) {
 
 func (o SamlRequestAlgorithm) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Digest) {
+		toSerialize["digest"] = o.Digest
+	}
 	if !IsNil(o.Signature) {
 		toSerialize["signature"] = o.Signature
 	}
@@ -122,6 +159,7 @@ func (o *SamlRequestAlgorithm) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "digest")
 		delete(additionalProperties, "signature")
 		o.AdditionalProperties = additionalProperties
 	}

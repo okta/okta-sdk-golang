@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **DeviceSecret** | Pointer to **string** | An opaque device secret. This is returned if the &#x60;device_sso&#x60; scope is granted. | [optional] 
 **ExpiresIn** | Pointer to **int32** | The expiration time of the access token in seconds. | [optional] 
 **IdToken** | Pointer to **string** | An ID token. This is returned if the &#x60;openid&#x60; scope is granted. | [optional] 
-**IssuedTokenType** | Pointer to **string** | The type of token for token exchange. | [optional] 
+**IssuedTokenType** | Pointer to **string** | The type of token for token exchange. &#x60;urn:okta:params:oauth:token-type:interclient_token&#x60; is EA. | [optional] 
 **RefreshToken** | Pointer to **string** | An opaque refresh token. This is returned if the &#x60;offline_access&#x60; scope is granted. | [optional] 
 **Scope** | Pointer to **string** | The scopes contained in the access token. | [optional] 
 **TokenType** | Pointer to **string** | The token type in a &#x60;/token&#x60; response. The value is generally &#x60;Bearer&#x60; except for a few instances of token exchange. | [optional] 

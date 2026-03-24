@@ -30,7 +30,7 @@ import (
 // checks if the IdentitySourceUserProfileForUpsert type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &IdentitySourceUserProfileForUpsert{}
 
-// IdentitySourceUserProfileForUpsert Contains a set of external user attributes and their values that are mapped to Okta standard and custom profile properties. See the [`profile` object](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/User/#tag/User/operation/getUser!c=200&path=profile&t=response) and Declaration of a Custom Identity Source Schema in [Using anything as a source](https://help.okta.com/okta_help.htm?type=oie&id=ext-anything-as-a-source). > **Note:** Profile attributes can only be of the string type.
+// IdentitySourceUserProfileForUpsert Contains a set of external user attributes and their values that are mapped to Okta standard and custom profile properties. See the [`profile` object](https://developer.okta.com/docs/api/openapi/okta-management/management/user/getuser#user/getuser/t=response&c=200&path=profile) and Declaration of a Custom Identity Source Schema in [Using anything as a source](https://help.okta.com/okta_help.htm?type=oie&id=ext-anything-as-a-source). > **Note:** Profile attributes can only be of the string type.
 type IdentitySourceUserProfileForUpsert struct {
 	// Email address of the user
 	Email *string `json:"email,omitempty"`

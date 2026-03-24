@@ -45,11 +45,10 @@ type _WorkflowActionProvider WorkflowActionProvider
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewWorkflowActionProvider(externalId string, type_ string, url string) *WorkflowActionProvider {
+func NewWorkflowActionProvider(externalId string, type_ string) *WorkflowActionProvider {
 	this := WorkflowActionProvider{}
 	this.ExternalId = externalId
 	this.Type = type_
-	this.Url = url
 	return &this
 }
 
@@ -94,7 +93,6 @@ func (o *WorkflowActionProvider) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"externalId",
 		"type",
-		"url",
 	}
 
 	allProperties := make(map[string]interface{})

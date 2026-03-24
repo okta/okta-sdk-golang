@@ -155,7 +155,7 @@ type SchemaAPI interface {
 			Updates a user schema. Use this request to update, add, or remove one or more profile properties in a user schema. If you specify `default` for the `schemaId`, updates will apply to the default user type.
 
 		Unlike custom user profile properties, limited changes are allowed to base user profile properties (permissions, nullability of the `firstName` and `lastName` properties, or pattern for `login`).
-		You can't remove a property from the default schema if it's being referenced as a [`matchAttribute`](/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/createIdentityProvider!path=policy/subject/matchAttribute&t=request) in `SAML2` IdPs.
+		You can't remove a property from the default schema if it's being referenced as a [`matchAttribute`](/openapi/okta-management/management/tags/identityprovider/other/createidentityprovider#other/createidentityprovider/t=request&path=policy/subject/matchattribute) in `SAML2` IdPs.
 		Currently, all validation of SAML assertions are only performed against the default user type.
 
 		> **Note:** You must set properties explicitly to `null` to remove them from the schema; otherwise, `POST` is interpreted as a partial update.
@@ -1363,7 +1363,7 @@ UpdateUserProfile Update a user schema
 Updates a user schema. Use this request to update, add, or remove one or more profile properties in a user schema. If you specify `default` for the `schemaId`, updates will apply to the default user type.
 
 Unlike custom user profile properties, limited changes are allowed to base user profile properties (permissions, nullability of the `firstName` and `lastName` properties, or pattern for `login`).
-You can't remove a property from the default schema if it's being referenced as a [`matchAttribute`](/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/createIdentityProvider!path=policy/subject/matchAttribute&t=request) in `SAML2` IdPs.
+You can't remove a property from the default schema if it's being referenced as a [`matchAttribute`](/openapi/okta-management/management/tags/identityprovider/other/createidentityprovider#other/createidentityprovider/t=request&path=policy/subject/matchattribute) in `SAML2` IdPs.
 Currently, all validation of SAML assertions are only performed against the default user type.
 
 > **Note:** You must set properties explicitly to `null` to remove them from the schema; otherwise, `POST` is interpreted as a partial update.

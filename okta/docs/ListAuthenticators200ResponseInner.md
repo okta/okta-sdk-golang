@@ -5,11 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Created** | Pointer to **time.Time** | Timestamp when the authenticator was created | [optional] [readonly] 
+**Description** | Pointer to **string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;The description of the authenticator. This setting is only available for the &#x60;webauthn&#x60; authenticator type (Passkeys). | [optional] 
 **Id** | Pointer to **string** | A unique identifier for the authenticator | [optional] [readonly] 
 **Key** | Pointer to **string** | A human-readable string that identifies the authenticator | [optional] 
 **LastUpdated** | Pointer to **time.Time** | Timestamp when the authenticator was last modified | [optional] [readonly] 
 **Name** | Pointer to **string** | Display name of the authenticator | [optional] 
-**Status** | Pointer to **string** |  | [optional] 
+**Status** | Pointer to **string** | Status of the authenticator | [optional] 
 **Type** | Pointer to **string** | The type of authenticator | [optional] 
 **Links** | Pointer to [**AuthenticatorLinks**](AuthenticatorLinks.md) |  | [optional] 
 **Provider** | Pointer to [**AuthenticatorKeyTacAllOfProvider**](AuthenticatorKeyTacAllOfProvider.md) |  | [optional] 
@@ -58,6 +59,31 @@ SetCreated sets Created field to given value.
 `func (o *ListAuthenticators200ResponseInner) HasCreated() bool`
 
 HasCreated returns a boolean if a field has been set.
+
+### GetDescription
+
+`func (o *ListAuthenticators200ResponseInner) GetDescription() string`
+
+GetDescription returns the Description field if non-nil, zero value otherwise.
+
+### GetDescriptionOk
+
+`func (o *ListAuthenticators200ResponseInner) GetDescriptionOk() (*string, bool)`
+
+GetDescriptionOk returns a tuple with the Description field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDescription
+
+`func (o *ListAuthenticators200ResponseInner) SetDescription(v string)`
+
+SetDescription sets Description field to given value.
+
+### HasDescription
+
+`func (o *ListAuthenticators200ResponseInner) HasDescription() bool`
+
+HasDescription returns a boolean if a field has been set.
 
 ### GetId
 

@@ -40,7 +40,7 @@ type OrgSettingSupportAPI interface {
 
 			Extends the length of time that Okta Support can access your org by 24 hours. This means that 24 hours are added to the remaining access time.
 
-		> **Note:** This resource is deprecated. Use the [Update an Okta Support case](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/updateOktaSupportCase) resource to extend Okta Support access for a support case.
+		> **Note:** This resource is deprecated. Use the [Update an Okta Support case](/openapi/okta-management/management/tags/orgsettingsupport/other/updateoktasupportcase) resource to extend Okta Support access for a support case.
 		> For the corresponding Okta Admin Console feature, see [Give access to Okta Support](https://help.okta.com/okta_help.htm?type=oie&id=settings-support-access).
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -101,7 +101,7 @@ type OrgSettingSupportAPI interface {
 
 			Grants Okta Support temporary access to your org as an administrator for eight hours
 
-		> **Note:** This resource is deprecated. Use the [Update an Okta Support case](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/updateOktaSupportCase) resource to grant Okta Support access for a support case.
+		> **Note:** This resource is deprecated. Use the [Update an Okta Support case](/openapi/okta-management/management/tags/orgsettingsupport/other/updateoktasupportcase) resource to grant Okta Support access for a support case.
 		> For the corresponding Okta Admin Console feature, see [Give access to Okta Support](https://help.okta.com/okta_help.htm?type=oie&id=settings-support-access).
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -148,7 +148,7 @@ type OrgSettingSupportAPI interface {
 
 			Revokes Okta Support access to your org
 
-		> **Note:** This resource is deprecated. Use the [Update an Okta Support case](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/updateOktaSupportCase) resource to revoke Okta Support access for a support case.
+		> **Note:** This resource is deprecated. Use the [Update an Okta Support case](/openapi/okta-management/management/tags/orgsettingsupport/other/updateoktasupportcase) resource to revoke Okta Support access for a support case.
 		> For the corresponding Okta Admin Console feature, see [Give access to Okta Support](https://help.okta.com/okta_help.htm?type=oie&id=settings-support-access).
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -200,7 +200,7 @@ ExtendOktaSupport Extend Okta Support access
 
 Extends the length of time that Okta Support can access your org by 24 hours. This means that 24 hours are added to the remaining access time.
 
-> **Note:** This resource is deprecated. Use the [Update an Okta Support case](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/updateOktaSupportCase) resource to extend Okta Support access for a support case.
+> **Note:** This resource is deprecated. Use the [Update an Okta Support case](/openapi/okta-management/management/tags/orgsettingsupport/other/updateoktasupportcase) resource to extend Okta Support access for a support case.
 > For the corresponding Okta Admin Console feature, see [Give access to Okta Support](https://help.okta.com/okta_help.htm?type=oie&id=settings-support-access).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -815,7 +815,7 @@ GrantOktaSupport Grant Okta Support access
 
 # Grants Okta Support temporary access to your org as an administrator for eight hours
 
-> **Note:** This resource is deprecated. Use the [Update an Okta Support case](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/updateOktaSupportCase) resource to grant Okta Support access for a support case.
+> **Note:** This resource is deprecated. Use the [Update an Okta Support case](/openapi/okta-management/management/tags/orgsettingsupport/other/updateoktasupportcase) resource to grant Okta Support access for a support case.
 > For the corresponding Okta Admin Console feature, see [Give access to Okta Support](https://help.okta.com/okta_help.htm?type=oie&id=settings-support-access).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -1256,7 +1256,7 @@ RevokeOktaSupport Revoke Okta Support access
 
 # Revokes Okta Support access to your org
 
-> **Note:** This resource is deprecated. Use the [Update an Okta Support case](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/updateOktaSupportCase) resource to revoke Okta Support access for a support case.
+> **Note:** This resource is deprecated. Use the [Update an Okta Support case](/openapi/okta-management/management/tags/orgsettingsupport/other/updateoktasupportcase) resource to revoke Okta Support access for a support case.
 > For the corresponding Okta Admin Console feature, see [Give access to Okta Support](https://help.okta.com/okta_help.htm?type=oie&id=settings-support-access).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().

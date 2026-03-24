@@ -7,12 +7,13 @@ Name | Type | Description | Notes
 **Dictionary** | Pointer to [**PasswordDictionary**](PasswordDictionary.md) |  | [optional] 
 **ExcludeAttributes** | Pointer to **[]string** | The User profile attributes whose values must be excluded from the password: currently only supports &#x60;firstName&#x60; and &#x60;lastName&#x60; | [optional] [default to []]
 **ExcludeUsername** | Pointer to **bool** | Indicates if the Username must be excluded from the password | [optional] [default to true]
+**MaxConsecutiveCharacters** | Pointer to **int32** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;Specifies the maximum number of consecutive repeating characters that can be used in a password | [optional] 
 **MinLength** | Pointer to **int32** | Minimum password length | [optional] [default to 8]
 **MinLowerCase** | Pointer to **int32** | Indicates if a password must contain at least one lower case letter: &#x60;0&#x60; indicates no, &#x60;1&#x60; indicates yes | [optional] [default to 1]
 **MinNumber** | Pointer to **int32** | Indicates if a password must contain at least one number: &#x60;0&#x60; indicates no, &#x60;1&#x60; indicates yes | [optional] [default to 1]
 **MinSymbol** | Pointer to **int32** | Indicates if a password must contain at least one symbol (For example: !@#$%^&amp;*): &#x60;0&#x60; indicates no, &#x60;1&#x60; indicates yes | [optional] [default to 1]
 **MinUpperCase** | Pointer to **int32** | Indicates if a password must contain at least one upper case letter: &#x60;0&#x60; indicates no, &#x60;1&#x60; indicates yes | [optional] [default to 1]
-**OelStatement** | Pointer to **string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;Use an [Expression Language](https://developer.okta.com/docs/reference/okta-expression-language-in-identity-engine/) expression to block a word from being used in a password. You can only block one word per expression. Use the &#x60;OR&#x60; operator to connect multiple expressions to block multiple words. | [optional] 
+**OelStatement** | Pointer to **string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;Use an [Expression Language](https://developer.okta.com/docs/reference/okta-expression-language-in-identity-engine/) expression to block a word from being used in a password. You can only block one word per expression. Use the &#x60;OR&#x60; operator to connect multiple expressions to block multiple words. | [optional] 
 
 ## Methods
 
@@ -107,6 +108,31 @@ SetExcludeUsername sets ExcludeUsername field to given value.
 `func (o *PasswordPolicyPasswordSettingsComplexity) HasExcludeUsername() bool`
 
 HasExcludeUsername returns a boolean if a field has been set.
+
+### GetMaxConsecutiveCharacters
+
+`func (o *PasswordPolicyPasswordSettingsComplexity) GetMaxConsecutiveCharacters() int32`
+
+GetMaxConsecutiveCharacters returns the MaxConsecutiveCharacters field if non-nil, zero value otherwise.
+
+### GetMaxConsecutiveCharactersOk
+
+`func (o *PasswordPolicyPasswordSettingsComplexity) GetMaxConsecutiveCharactersOk() (*int32, bool)`
+
+GetMaxConsecutiveCharactersOk returns a tuple with the MaxConsecutiveCharacters field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetMaxConsecutiveCharacters
+
+`func (o *PasswordPolicyPasswordSettingsComplexity) SetMaxConsecutiveCharacters(v int32)`
+
+SetMaxConsecutiveCharacters sets MaxConsecutiveCharacters field to given value.
+
+### HasMaxConsecutiveCharacters
+
+`func (o *PasswordPolicyPasswordSettingsComplexity) HasMaxConsecutiveCharacters() bool`
+
+HasMaxConsecutiveCharacters returns a boolean if a field has been set.
 
 ### GetMinLength
 

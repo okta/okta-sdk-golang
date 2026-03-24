@@ -30,7 +30,7 @@ import (
 // checks if the SecurityEventTokenError type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SecurityEventTokenError{}
 
-// SecurityEventTokenError Error object thrown when parsing the Security Event Token
+// SecurityEventTokenError Error object thrown when parsing the security event token
 type SecurityEventTokenError struct {
 	// Describes the error > **Note:** SET claim fields with underscores (snake case) are presented in camelcase. For example, `previous_status` appears as `previousStatus`.
 	Description *string `json:"description,omitempty"`

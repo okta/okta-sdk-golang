@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the TestInfo type satisfies the MappedNullable interface at compile time
@@ -33,8 +32,9 @@ var _ MappedNullable = &TestInfo{}
 
 // TestInfo Integration Testing Information
 type TestInfo struct {
+	ApiServiceTestConfiguration *TestInfoApiServiceTestConfiguration `json:"apiServiceTestConfiguration,omitempty"`
 	// An email for Okta to contact your company about your integration. This email isn't shared with customers.
-	EscalationSupportContact string                         `json:"escalationSupportContact"`
+	EscalationSupportContact *string                        `json:"escalationSupportContact,omitempty"`
 	OidcTestConfiguration    *TestInfoOidcTestConfiguration `json:"oidcTestConfiguration,omitempty"`
 	SamlTestConfiguration    *TestInfoSamlTestConfiguration `json:"samlTestConfiguration,omitempty"`
 	ScimTestConfiguration    *TestInfoScimTestConfiguration `json:"scimTestConfiguration,omitempty"`
@@ -48,9 +48,8 @@ type _TestInfo TestInfo
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTestInfo(escalationSupportContact string) *TestInfo {
+func NewTestInfo() *TestInfo {
 	this := TestInfo{}
-	this.EscalationSupportContact = escalationSupportContact
 	return &this
 }
 
@@ -62,28 +61,68 @@ func NewTestInfoWithDefaults() *TestInfo {
 	return &this
 }
 
-// GetEscalationSupportContact returns the EscalationSupportContact field value
+// GetApiServiceTestConfiguration returns the ApiServiceTestConfiguration field value if set, zero value otherwise.
+func (o *TestInfo) GetApiServiceTestConfiguration() TestInfoApiServiceTestConfiguration {
+	if o == nil || IsNil(o.ApiServiceTestConfiguration) {
+		var ret TestInfoApiServiceTestConfiguration
+		return ret
+	}
+	return *o.ApiServiceTestConfiguration
+}
+
+// GetApiServiceTestConfigurationOk returns a tuple with the ApiServiceTestConfiguration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *TestInfo) GetApiServiceTestConfigurationOk() (*TestInfoApiServiceTestConfiguration, bool) {
+	if o == nil || IsNil(o.ApiServiceTestConfiguration) {
+		return nil, false
+	}
+	return o.ApiServiceTestConfiguration, true
+}
+
+// HasApiServiceTestConfiguration returns a boolean if a field has been set.
+func (o *TestInfo) HasApiServiceTestConfiguration() bool {
+	if o != nil && !IsNil(o.ApiServiceTestConfiguration) {
+		return true
+	}
+
+	return false
+}
+
+// SetApiServiceTestConfiguration gets a reference to the given TestInfoApiServiceTestConfiguration and assigns it to the ApiServiceTestConfiguration field.
+func (o *TestInfo) SetApiServiceTestConfiguration(v TestInfoApiServiceTestConfiguration) {
+	o.ApiServiceTestConfiguration = &v
+}
+
+// GetEscalationSupportContact returns the EscalationSupportContact field value if set, zero value otherwise.
 func (o *TestInfo) GetEscalationSupportContact() string {
-	if o == nil {
+	if o == nil || IsNil(o.EscalationSupportContact) {
 		var ret string
 		return ret
 	}
-
-	return o.EscalationSupportContact
+	return *o.EscalationSupportContact
 }
 
-// GetEscalationSupportContactOk returns a tuple with the EscalationSupportContact field value
+// GetEscalationSupportContactOk returns a tuple with the EscalationSupportContact field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TestInfo) GetEscalationSupportContactOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.EscalationSupportContact) {
 		return nil, false
 	}
-	return &o.EscalationSupportContact, true
+	return o.EscalationSupportContact, true
 }
 
-// SetEscalationSupportContact sets field value
+// HasEscalationSupportContact returns a boolean if a field has been set.
+func (o *TestInfo) HasEscalationSupportContact() bool {
+	if o != nil && !IsNil(o.EscalationSupportContact) {
+		return true
+	}
+
+	return false
+}
+
+// SetEscalationSupportContact gets a reference to the given string and assigns it to the EscalationSupportContact field.
 func (o *TestInfo) SetEscalationSupportContact(v string) {
-	o.EscalationSupportContact = v
+	o.EscalationSupportContact = &v
 }
 
 // GetOidcTestConfiguration returns the OidcTestConfiguration field value if set, zero value otherwise.
@@ -224,7 +263,12 @@ func (o TestInfo) MarshalJSON() ([]byte, error) {
 
 func (o TestInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["escalationSupportContact"] = o.EscalationSupportContact
+	if !IsNil(o.ApiServiceTestConfiguration) {
+		toSerialize["apiServiceTestConfiguration"] = o.ApiServiceTestConfiguration
+	}
+	if !IsNil(o.EscalationSupportContact) {
+		toSerialize["escalationSupportContact"] = o.EscalationSupportContact
+	}
 	if !IsNil(o.OidcTestConfiguration) {
 		toSerialize["oidcTestConfiguration"] = o.OidcTestConfiguration
 	}
@@ -246,27 +290,6 @@ func (o TestInfo) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *TestInfo) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"escalationSupportContact",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varTestInfo := _TestInfo{}
 
 	err = json.Unmarshal(data, &varTestInfo)
@@ -280,6 +303,7 @@ func (o *TestInfo) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "apiServiceTestConfiguration")
 		delete(additionalProperties, "escalationSupportContact")
 		delete(additionalProperties, "oidcTestConfiguration")
 		delete(additionalProperties, "samlTestConfiguration")

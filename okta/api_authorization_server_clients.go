@@ -57,7 +57,7 @@ type AuthorizationServerClientsAPI interface {
 
 			Lists all client resources for which the specified authorization server has tokens.
 
-		> **Note:** To list a specific user's client resources for which they have tokens or grants, use the [List all clients endpoint in the User Resources API](/openapi/okta-management/management/tag/UserResources/#tag/UserResources/operation/listUserClients).
+		> **Note:** To list a specific user's client resources for which they have tokens or grants, use the [List all clients endpoint in the User Resources API](/openapi/okta-management/management/userresources/listuserclients).
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param authServerId `id` of the Authorization Server
@@ -320,7 +320,7 @@ ListOAuth2ClientsForAuthorizationServer List all client resources for an authori
 
 Lists all client resources for which the specified authorization server has tokens.
 
-> **Note:** To list a specific user's client resources for which they have tokens or grants, use the [List all clients endpoint in the User Resources API](/openapi/okta-management/management/tag/UserResources/#tag/UserResources/operation/listUserClients).
+> **Note:** To list a specific user's client resources for which they have tokens or grants, use the [List all clients endpoint in the User Resources API](/openapi/okta-management/management/userresources/listuserclients).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param authServerId `id` of the Authorization Server

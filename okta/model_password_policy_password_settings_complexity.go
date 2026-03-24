@@ -37,6 +37,8 @@ type PasswordPolicyPasswordSettingsComplexity struct {
 	ExcludeAttributes []string `json:"excludeAttributes,omitempty"`
 	// Indicates if the Username must be excluded from the password
 	ExcludeUsername *bool `json:"excludeUsername,omitempty"`
+	// <x-lifecycle-container><x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>Specifies the maximum number of consecutive repeating characters that can be used in a password
+	MaxConsecutiveCharacters *int32 `json:"maxConsecutiveCharacters,omitempty"`
 	// Minimum password length
 	MinLength *int32 `json:"minLength,omitempty"`
 	// Indicates if a password must contain at least one lower case letter: `0` indicates no, `1` indicates yes
@@ -47,7 +49,7 @@ type PasswordPolicyPasswordSettingsComplexity struct {
 	MinSymbol *int32 `json:"minSymbol,omitempty"`
 	// Indicates if a password must contain at least one upper case letter: `0` indicates no, `1` indicates yes
 	MinUpperCase *int32 `json:"minUpperCase,omitempty"`
-	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle> <x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>Use an [Expression Language](https://developer.okta.com/docs/reference/okta-expression-language-in-identity-engine/) expression to block a word from being used in a password. You can only block one word per expression. Use the `OR` operator to connect multiple expressions to block multiple words.
+	// <x-lifecycle-container><x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>Use an [Expression Language](https://developer.okta.com/docs/reference/okta-expression-language-in-identity-engine/) expression to block a word from being used in a password. You can only block one word per expression. Use the `OR` operator to connect multiple expressions to block multiple words.
 	OelStatement         *string `json:"oelStatement,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -189,6 +191,38 @@ func (o *PasswordPolicyPasswordSettingsComplexity) HasExcludeUsername() bool {
 // SetExcludeUsername gets a reference to the given bool and assigns it to the ExcludeUsername field.
 func (o *PasswordPolicyPasswordSettingsComplexity) SetExcludeUsername(v bool) {
 	o.ExcludeUsername = &v
+}
+
+// GetMaxConsecutiveCharacters returns the MaxConsecutiveCharacters field value if set, zero value otherwise.
+func (o *PasswordPolicyPasswordSettingsComplexity) GetMaxConsecutiveCharacters() int32 {
+	if o == nil || IsNil(o.MaxConsecutiveCharacters) {
+		var ret int32
+		return ret
+	}
+	return *o.MaxConsecutiveCharacters
+}
+
+// GetMaxConsecutiveCharactersOk returns a tuple with the MaxConsecutiveCharacters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PasswordPolicyPasswordSettingsComplexity) GetMaxConsecutiveCharactersOk() (*int32, bool) {
+	if o == nil || IsNil(o.MaxConsecutiveCharacters) {
+		return nil, false
+	}
+	return o.MaxConsecutiveCharacters, true
+}
+
+// HasMaxConsecutiveCharacters returns a boolean if a field has been set.
+func (o *PasswordPolicyPasswordSettingsComplexity) HasMaxConsecutiveCharacters() bool {
+	if o != nil && !IsNil(o.MaxConsecutiveCharacters) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxConsecutiveCharacters gets a reference to the given int32 and assigns it to the MaxConsecutiveCharacters field.
+func (o *PasswordPolicyPasswordSettingsComplexity) SetMaxConsecutiveCharacters(v int32) {
+	o.MaxConsecutiveCharacters = &v
 }
 
 // GetMinLength returns the MinLength field value if set, zero value otherwise.
@@ -402,6 +436,9 @@ func (o PasswordPolicyPasswordSettingsComplexity) ToMap() (map[string]interface{
 	if !IsNil(o.ExcludeUsername) {
 		toSerialize["excludeUsername"] = o.ExcludeUsername
 	}
+	if !IsNil(o.MaxConsecutiveCharacters) {
+		toSerialize["maxConsecutiveCharacters"] = o.MaxConsecutiveCharacters
+	}
 	if !IsNil(o.MinLength) {
 		toSerialize["minLength"] = o.MinLength
 	}
@@ -445,6 +482,7 @@ func (o *PasswordPolicyPasswordSettingsComplexity) UnmarshalJSON(data []byte) (e
 		delete(additionalProperties, "dictionary")
 		delete(additionalProperties, "excludeAttributes")
 		delete(additionalProperties, "excludeUsername")
+		delete(additionalProperties, "maxConsecutiveCharacters")
 		delete(additionalProperties, "minLength")
 		delete(additionalProperties, "minLowerCase")
 		delete(additionalProperties, "minNumber")

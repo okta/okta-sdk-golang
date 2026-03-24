@@ -42,7 +42,7 @@ type AuthorizationServerPoliciesAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param authServerId `id` of the Authorization Server
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@return ApiActivateAuthorizationServerPolicyRequest
 	*/
 	ActivateAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) ApiActivateAuthorizationServerPolicyRequest
@@ -72,7 +72,7 @@ type AuthorizationServerPoliciesAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param authServerId `id` of the Authorization Server
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@return ApiDeactivateAuthorizationServerPolicyRequest
 	*/
 	DeactivateAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) ApiDeactivateAuthorizationServerPolicyRequest
@@ -87,7 +87,7 @@ type AuthorizationServerPoliciesAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param authServerId `id` of the Authorization Server
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@return ApiDeleteAuthorizationServerPolicyRequest
 	*/
 	DeleteAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) ApiDeleteAuthorizationServerPolicyRequest
@@ -102,7 +102,7 @@ type AuthorizationServerPoliciesAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param authServerId `id` of the Authorization Server
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@return ApiGetAuthorizationServerPolicyRequest
 	*/
 	GetAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) ApiGetAuthorizationServerPolicyRequest
@@ -133,7 +133,7 @@ type AuthorizationServerPoliciesAPI interface {
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param authServerId `id` of the Authorization Server
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@return ApiReplaceAuthorizationServerPolicyRequest
 	*/
 	ReplaceAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) ApiReplaceAuthorizationServerPolicyRequest
@@ -165,7 +165,7 @@ Activates an authorization server policy
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param authServerId `id` of the Authorization Server
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@return ApiActivateAuthorizationServerPolicyRequest
 */
 func (a *AuthorizationServerPoliciesAPIService) ActivateAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) ApiActivateAuthorizationServerPolicyRequest {
@@ -511,7 +511,7 @@ Deactivates an authorization server policy
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param authServerId `id` of the Authorization Server
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@return ApiDeactivateAuthorizationServerPolicyRequest
 */
 func (a *AuthorizationServerPoliciesAPIService) DeactivateAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) ApiDeactivateAuthorizationServerPolicyRequest {
@@ -668,7 +668,7 @@ Deletes a policy
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param authServerId `id` of the Authorization Server
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@return ApiDeleteAuthorizationServerPolicyRequest
 */
 func (a *AuthorizationServerPoliciesAPIService) DeleteAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) ApiDeleteAuthorizationServerPolicyRequest {
@@ -825,7 +825,7 @@ Retrieves a policy
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param authServerId `id` of the Authorization Server
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@return ApiGetAuthorizationServerPolicyRequest
 */
 func (a *AuthorizationServerPoliciesAPIService) GetAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) ApiGetAuthorizationServerPolicyRequest {
@@ -1167,7 +1167,7 @@ Replaces a policy
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param authServerId `id` of the Authorization Server
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@return ApiReplaceAuthorizationServerPolicyRequest
 */
 func (a *AuthorizationServerPoliciesAPIService) ReplaceAuthorizationServerPolicy(ctx context.Context, authServerId string, policyId string) ApiReplaceAuthorizationServerPolicyRequest {

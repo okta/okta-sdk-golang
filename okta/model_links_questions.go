@@ -32,7 +32,7 @@ var _ MappedNullable = &LinksQuestions{}
 
 // LinksQuestions struct for LinksQuestions
 type LinksQuestions struct {
-	// Lists all supported security questions. See [List all supported security questions](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/listSupportedSecurityQuestions).
+	// Lists all supported security questions. See [List all supported security questions](/openapi/okta-management/management/userfactor/listsupportedsecurityquestions).
 	Question             *HrefObject `json:"question,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

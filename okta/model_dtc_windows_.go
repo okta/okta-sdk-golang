@@ -32,7 +32,7 @@ var _ MappedNullable = &DTCWindows{}
 
 // DTCWindows Google Chrome Device Trust Connector provider
 type DTCWindows struct {
-	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Indicates whether antivirus software is enabled
+	// Indicates whether antivirus software is enabled
 	AntivirusEnabled *bool                 `json:"antivirusEnabled,omitempty"`
 	BrowserVersion   *ChromeBrowserVersion `json:"browserVersion,omitempty"`
 	// Indicates if a software stack is used to communicate with the DNS server

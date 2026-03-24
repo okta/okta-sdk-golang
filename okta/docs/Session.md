@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Amr** | Pointer to **[]string** | Authentication method reference | [optional] [readonly] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] [readonly] 
-**ExpiresAt** | Pointer to **time.Time** | A timestamp when the Session expires | [optional] [readonly] 
-**Id** | Pointer to **string** | A unique key for the Session | [optional] [readonly] 
+**ExpiresAt** | Pointer to **time.Time** | A timestamp when the session expires | [optional] [readonly] 
+**Id** | Pointer to **string** | A unique key for the session | [optional] [readonly] 
 **Idp** | Pointer to [**SessionIdentityProvider**](SessionIdentityProvider.md) |  | [optional] 
 **LastFactorVerification** | Pointer to **time.Time** | A timestamp when the user last performed multifactor authentication | [optional] [readonly] 
 **LastPasswordVerification** | Pointer to **time.Time** | A timestamp when the user last performed the primary or step-up authentication with a password | [optional] [readonly] 

@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateSsfStream**](SSFTransmitterAPI.md#CreateSsfStream) | **Post** /api/v1/ssf/stream | Create an SSF stream
 [**DeleteSsfStream**](SSFTransmitterAPI.md#DeleteSsfStream) | **Delete** /api/v1/ssf/stream | Delete an SSF stream
-[**GetSsfStreamStatus**](SSFTransmitterAPI.md#GetSsfStreamStatus) | **Get** /api/v1/ssf/stream/status | Retrieve the SSF Stream status
+[**GetSsfStreamStatus**](SSFTransmitterAPI.md#GetSsfStreamStatus) | **Get** /api/v1/ssf/stream/status | Retrieve the SSF stream status
 [**GetSsfStreams**](SSFTransmitterAPI.md#GetSsfStreams) | **Get** /api/v1/ssf/stream | Retrieve the SSF stream configuration(s)
 [**GetWellknownSsfMetadata**](SSFTransmitterAPI.md#GetWellknownSsfMetadata) | **Get** /.well-known/ssf-configuration | Retrieve the SSF transmitter metadata
 [**ReplaceSsfStream**](SSFTransmitterAPI.md#ReplaceSsfStream) | **Put** /api/v1/ssf/stream | Replace an SSF stream
@@ -149,7 +149,7 @@ Name | Type | Description  | Notes
 
 > StreamStatus GetSsfStreamStatus(ctx).StreamId(streamId).Execute()
 
-Retrieve the SSF Stream status
+Retrieve the SSF stream status
 
 
 
@@ -166,7 +166,7 @@ import (
 )
 
 func main() {
-	streamId := "esc1k235GIIztAuGK0g5" // string | The ID of the specified SSF Stream configuration
+	streamId := "esc1k235GIIztAuGK0g5" // string | The ID of the specified SSF stream configuration
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -191,7 +191,7 @@ Other parameters are passed through a pointer to a apiGetSsfStreamStatusRequest 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **streamId** | **string** | The ID of the specified SSF Stream configuration | 
+ **streamId** | **string** | The ID of the specified SSF stream configuration | 
 
 ### Return type
 
@@ -232,7 +232,7 @@ import (
 )
 
 func main() {
-	streamId := "esc1k235GIIztAuGK0g5" // string | The ID of the specified SSF Stream configuration (optional)
+	streamId := "esc1k235GIIztAuGK0g5" // string | The ID of the specified SSF stream configuration (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -257,7 +257,7 @@ Other parameters are passed through a pointer to a apiGetSsfStreamsRequest struc
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **streamId** | **string** | The ID of the specified SSF Stream configuration | 
+ **streamId** | **string** | The ID of the specified SSF stream configuration | 
 
 ### Return type
 

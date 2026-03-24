@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Name** | **string** | The name of the Security Events Provider instance | 
+**Name** | **string** | The name of the security events provider instance | 
 **Settings** | [**SecurityEventsProviderRequestSettings**](SecurityEventsProviderRequestSettings.md) |  | 
-**Type** | **string** | The application type of the Security Events Provider | 
+**Type** | **string** | The app type of the security events provider | 
 
 ## Methods
 

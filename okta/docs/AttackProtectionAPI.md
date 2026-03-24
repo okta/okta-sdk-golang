@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 ## GetAuthenticatorSettings
 
-> []AttackProtectionAuthenticatorSettings GetAuthenticatorSettings(ctx).Execute()
+> AttackProtectionAuthenticatorSettings GetAuthenticatorSettings(ctx).Execute()
 
 Retrieve the authenticator settings
 
@@ -40,7 +40,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AttackProtectionAPI.GetAuthenticatorSettings``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAuthenticatorSettings`: []AttackProtectionAuthenticatorSettings
+	// response from `GetAuthenticatorSettings`: AttackProtectionAuthenticatorSettings
 	fmt.Fprintf(os.Stdout, "Response from `AttackProtectionAPI.GetAuthenticatorSettings`: %v\n", resp)
 }
 ```
@@ -56,7 +56,7 @@ Other parameters are passed through a pointer to a apiGetAuthenticatorSettingsRe
 
 ### Return type
 
-[**[]AttackProtectionAuthenticatorSettings**](AttackProtectionAuthenticatorSettings.md)
+[**AttackProtectionAuthenticatorSettings**](AttackProtectionAuthenticatorSettings.md)
 
 ### Authorization
 
@@ -74,7 +74,7 @@ Other parameters are passed through a pointer to a apiGetAuthenticatorSettingsRe
 
 ## GetUserLockoutSettings
 
-> []UserLockoutSettings GetUserLockoutSettings(ctx).Execute()
+> UserLockoutSettings GetUserLockoutSettings(ctx).Execute()
 
 Retrieve the user lockout settings
 
@@ -101,7 +101,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AttackProtectionAPI.GetUserLockoutSettings``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetUserLockoutSettings`: []UserLockoutSettings
+	// response from `GetUserLockoutSettings`: UserLockoutSettings
 	fmt.Fprintf(os.Stdout, "Response from `AttackProtectionAPI.GetUserLockoutSettings`: %v\n", resp)
 }
 ```
@@ -117,7 +117,7 @@ Other parameters are passed through a pointer to a apiGetUserLockoutSettingsRequ
 
 ### Return type
 
-[**[]UserLockoutSettings**](UserLockoutSettings.md)
+[**UserLockoutSettings**](UserLockoutSettings.md)
 
 ### Authorization
 

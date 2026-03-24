@@ -111,6 +111,8 @@ type APIClient struct {
 
 	ApplicationGroupsAPI ApplicationGroupsAPI
 
+	ApplicationInterclientTrustMappingsAPI ApplicationInterclientTrustMappingsAPI
+
 	ApplicationLogosAPI ApplicationLogosAPI
 
 	ApplicationPoliciesAPI ApplicationPoliciesAPI
@@ -151,6 +153,8 @@ type APIClient struct {
 
 	BehaviorAPI BehaviorAPI
 
+	BotProtectionAPI BotProtectionAPI
+
 	BrandsAPI BrandsAPI
 
 	CAPTCHAAPI CAPTCHAAPI
@@ -158,6 +162,8 @@ type APIClient struct {
 	CustomDomainAPI CustomDomainAPI
 
 	CustomPagesAPI CustomPagesAPI
+
+	CustomTelephonyProviderAPI CustomTelephonyProviderAPI
 
 	CustomTemplatesAPI CustomTemplatesAPI
 
@@ -170,6 +176,8 @@ type APIClient struct {
 	DevicePostureCheckAPI DevicePostureCheckAPI
 
 	DirectoriesIntegrationAPI DirectoriesIntegrationAPI
+
+	DisasterRecoveryAPI DisasterRecoveryAPI
 
 	EmailCustomizationAPI EmailCustomizationAPI
 
@@ -930,6 +938,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ApplicationFeaturesAPI = (*ApplicationFeaturesAPIService)(&c.common)
 	c.ApplicationGrantsAPI = (*ApplicationGrantsAPIService)(&c.common)
 	c.ApplicationGroupsAPI = (*ApplicationGroupsAPIService)(&c.common)
+	c.ApplicationInterclientTrustMappingsAPI = (*ApplicationInterclientTrustMappingsAPIService)(&c.common)
 	c.ApplicationLogosAPI = (*ApplicationLogosAPIService)(&c.common)
 	c.ApplicationPoliciesAPI = (*ApplicationPoliciesAPIService)(&c.common)
 	c.ApplicationSSOAPI = (*ApplicationSSOAPIService)(&c.common)
@@ -950,16 +959,19 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.AuthorizationServerRulesAPI = (*AuthorizationServerRulesAPIService)(&c.common)
 	c.AuthorizationServerScopesAPI = (*AuthorizationServerScopesAPIService)(&c.common)
 	c.BehaviorAPI = (*BehaviorAPIService)(&c.common)
+	c.BotProtectionAPI = (*BotProtectionAPIService)(&c.common)
 	c.BrandsAPI = (*BrandsAPIService)(&c.common)
 	c.CAPTCHAAPI = (*CAPTCHAAPIService)(&c.common)
 	c.CustomDomainAPI = (*CustomDomainAPIService)(&c.common)
 	c.CustomPagesAPI = (*CustomPagesAPIService)(&c.common)
+	c.CustomTelephonyProviderAPI = (*CustomTelephonyProviderAPIService)(&c.common)
 	c.CustomTemplatesAPI = (*CustomTemplatesAPIService)(&c.common)
 	c.DeviceAPI = (*DeviceAPIService)(&c.common)
 	c.DeviceAssuranceAPI = (*DeviceAssuranceAPIService)(&c.common)
 	c.DeviceIntegrationsAPI = (*DeviceIntegrationsAPIService)(&c.common)
 	c.DevicePostureCheckAPI = (*DevicePostureCheckAPIService)(&c.common)
 	c.DirectoriesIntegrationAPI = (*DirectoriesIntegrationAPIService)(&c.common)
+	c.DisasterRecoveryAPI = (*DisasterRecoveryAPIService)(&c.common)
 	c.EmailCustomizationAPI = (*EmailCustomizationAPIService)(&c.common)
 	c.EmailDomainAPI = (*EmailDomainAPIService)(&c.common)
 	c.EmailServerAPI = (*EmailServerAPIService)(&c.common)

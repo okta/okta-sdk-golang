@@ -4,18 +4,21 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Actions** | Pointer to [**[]SubmissionAction**](SubmissionAction.md) | List of actions supported by this integration | [optional] 
+**AppContactDetails** | Pointer to [**[]SubmissionResponseAppContactDetailsInner**](SubmissionResponseAppContactDetailsInner.md) | List of contact details for the app integration | [optional] 
 **AuthSettings** | Pointer to [**AuthSettings**](AuthSettings.md) |  | [optional] 
-**Capabilities** | Pointer to [**[]SubmissionCapability**](SubmissionCapability.md) | List of capabilities supported by this integration | [optional] 
+**Capabilities** | Pointer to [**[]SubmissionCapabilityEnhanced**](SubmissionCapabilityEnhanced.md) | List of capabilities supported by this integration with embedded protocol configurations | [optional] 
+**CaseLastUpdated** | Pointer to **string** | The most recent date and time when a Salesforce case associated with the OIN integration was updated | [optional] [readonly] 
 **Config** | Pointer to [**[]SubmissionResponseConfigInner**](SubmissionResponseConfigInner.md) | List of org-level variables for the customer per-tenant configuration. For example, a &#x60;subdomain&#x60; variable can be used in the ACS URL: &#x60;https://${org.subdomain}.example.com/saml/login&#x60; | [optional] 
+**DefaultLogo** | Pointer to **bool** | Indicates whether the app submission uses a default logo or a custom-uploaded logo: * If &#x60;true&#x60;: Uses the default Okta-provided placeholder logo. * If &#x60;false&#x60;: Uses a custom logo type other than the default logo.  | [optional] [default to false]
 **Description** | **string** | A general description of your application and the benefits provided to your customers | 
-**GlobalTokenRevocation** | Pointer to [**SubmissionResponseGlobalTokenRevocation**](SubmissionResponseGlobalTokenRevocation.md) |  | [optional] 
+**GlobalTokenRevocation** | Pointer to [**GlobalTokenRevocation**](GlobalTokenRevocation.md) |  | [optional] 
 **Id** | Pointer to **string** | OIN Integration ID | [optional] [readonly] 
 **LastPublished** | Pointer to **string** | Timestamp when the OIN Integration was last published | [optional] [readonly] 
 **LastUpdated** | Pointer to **string** | Timestamp when the OIN Integration instance was last updated | [optional] [readonly] 
 **LastUpdatedBy** | Pointer to **string** | ID of the user who made the last update | [optional] [readonly] 
 **Logo** | **string** | URL to an uploaded application logo. This logo appears next to your app integration name in the OIN catalog. You must first [Upload an OIN Integration logo](/openapi/okta-management/management/tag/YourOinIntegrations/#tag/YourOinIntegrations/operation/uploadSubmissionLogo) to obtain the logo URL before you can specify this value. | 
 **Name** | **string** | The app integration name. This is the main title used for your integration in the OIN catalog. | 
+**OinFeatures** | Pointer to **string** | Type of feature supported by the OIN integration | [optional] [readonly] 
 **Provisioning** | Pointer to [**ProvisioningDetails**](ProvisioningDetails.md) |  | [optional] 
 **Sso** | Pointer to [**Sso**](Sso.md) |  | [optional] 
 **Status** | Pointer to **string** | Status of the OIN Integration submission | [optional] [readonly] 
@@ -39,30 +42,30 @@ NewSubmissionRequestWithDefaults instantiates a new SubmissionRequest object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetActions
+### GetAppContactDetails
 
-`func (o *SubmissionRequest) GetActions() []SubmissionAction`
+`func (o *SubmissionRequest) GetAppContactDetails() []SubmissionResponseAppContactDetailsInner`
 
-GetActions returns the Actions field if non-nil, zero value otherwise.
+GetAppContactDetails returns the AppContactDetails field if non-nil, zero value otherwise.
 
-### GetActionsOk
+### GetAppContactDetailsOk
 
-`func (o *SubmissionRequest) GetActionsOk() (*[]SubmissionAction, bool)`
+`func (o *SubmissionRequest) GetAppContactDetailsOk() (*[]SubmissionResponseAppContactDetailsInner, bool)`
 
-GetActionsOk returns a tuple with the Actions field if it's non-nil, zero value otherwise
+GetAppContactDetailsOk returns a tuple with the AppContactDetails field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetActions
+### SetAppContactDetails
 
-`func (o *SubmissionRequest) SetActions(v []SubmissionAction)`
+`func (o *SubmissionRequest) SetAppContactDetails(v []SubmissionResponseAppContactDetailsInner)`
 
-SetActions sets Actions field to given value.
+SetAppContactDetails sets AppContactDetails field to given value.
 
-### HasActions
+### HasAppContactDetails
 
-`func (o *SubmissionRequest) HasActions() bool`
+`func (o *SubmissionRequest) HasAppContactDetails() bool`
 
-HasActions returns a boolean if a field has been set.
+HasAppContactDetails returns a boolean if a field has been set.
 
 ### GetAuthSettings
 
@@ -91,20 +94,20 @@ HasAuthSettings returns a boolean if a field has been set.
 
 ### GetCapabilities
 
-`func (o *SubmissionRequest) GetCapabilities() []SubmissionCapability`
+`func (o *SubmissionRequest) GetCapabilities() []SubmissionCapabilityEnhanced`
 
 GetCapabilities returns the Capabilities field if non-nil, zero value otherwise.
 
 ### GetCapabilitiesOk
 
-`func (o *SubmissionRequest) GetCapabilitiesOk() (*[]SubmissionCapability, bool)`
+`func (o *SubmissionRequest) GetCapabilitiesOk() (*[]SubmissionCapabilityEnhanced, bool)`
 
 GetCapabilitiesOk returns a tuple with the Capabilities field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCapabilities
 
-`func (o *SubmissionRequest) SetCapabilities(v []SubmissionCapability)`
+`func (o *SubmissionRequest) SetCapabilities(v []SubmissionCapabilityEnhanced)`
 
 SetCapabilities sets Capabilities field to given value.
 
@@ -113,6 +116,31 @@ SetCapabilities sets Capabilities field to given value.
 `func (o *SubmissionRequest) HasCapabilities() bool`
 
 HasCapabilities returns a boolean if a field has been set.
+
+### GetCaseLastUpdated
+
+`func (o *SubmissionRequest) GetCaseLastUpdated() string`
+
+GetCaseLastUpdated returns the CaseLastUpdated field if non-nil, zero value otherwise.
+
+### GetCaseLastUpdatedOk
+
+`func (o *SubmissionRequest) GetCaseLastUpdatedOk() (*string, bool)`
+
+GetCaseLastUpdatedOk returns a tuple with the CaseLastUpdated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCaseLastUpdated
+
+`func (o *SubmissionRequest) SetCaseLastUpdated(v string)`
+
+SetCaseLastUpdated sets CaseLastUpdated field to given value.
+
+### HasCaseLastUpdated
+
+`func (o *SubmissionRequest) HasCaseLastUpdated() bool`
+
+HasCaseLastUpdated returns a boolean if a field has been set.
 
 ### GetConfig
 
@@ -139,6 +167,31 @@ SetConfig sets Config field to given value.
 
 HasConfig returns a boolean if a field has been set.
 
+### GetDefaultLogo
+
+`func (o *SubmissionRequest) GetDefaultLogo() bool`
+
+GetDefaultLogo returns the DefaultLogo field if non-nil, zero value otherwise.
+
+### GetDefaultLogoOk
+
+`func (o *SubmissionRequest) GetDefaultLogoOk() (*bool, bool)`
+
+GetDefaultLogoOk returns a tuple with the DefaultLogo field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDefaultLogo
+
+`func (o *SubmissionRequest) SetDefaultLogo(v bool)`
+
+SetDefaultLogo sets DefaultLogo field to given value.
+
+### HasDefaultLogo
+
+`func (o *SubmissionRequest) HasDefaultLogo() bool`
+
+HasDefaultLogo returns a boolean if a field has been set.
+
 ### GetDescription
 
 `func (o *SubmissionRequest) GetDescription() string`
@@ -161,20 +214,20 @@ SetDescription sets Description field to given value.
 
 ### GetGlobalTokenRevocation
 
-`func (o *SubmissionRequest) GetGlobalTokenRevocation() SubmissionResponseGlobalTokenRevocation`
+`func (o *SubmissionRequest) GetGlobalTokenRevocation() GlobalTokenRevocation`
 
 GetGlobalTokenRevocation returns the GlobalTokenRevocation field if non-nil, zero value otherwise.
 
 ### GetGlobalTokenRevocationOk
 
-`func (o *SubmissionRequest) GetGlobalTokenRevocationOk() (*SubmissionResponseGlobalTokenRevocation, bool)`
+`func (o *SubmissionRequest) GetGlobalTokenRevocationOk() (*GlobalTokenRevocation, bool)`
 
 GetGlobalTokenRevocationOk returns a tuple with the GlobalTokenRevocation field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetGlobalTokenRevocation
 
-`func (o *SubmissionRequest) SetGlobalTokenRevocation(v SubmissionResponseGlobalTokenRevocation)`
+`func (o *SubmissionRequest) SetGlobalTokenRevocation(v GlobalTokenRevocation)`
 
 SetGlobalTokenRevocation sets GlobalTokenRevocation field to given value.
 
@@ -323,6 +376,31 @@ and a boolean to check if the value has been set.
 
 SetName sets Name field to given value.
 
+
+### GetOinFeatures
+
+`func (o *SubmissionRequest) GetOinFeatures() string`
+
+GetOinFeatures returns the OinFeatures field if non-nil, zero value otherwise.
+
+### GetOinFeaturesOk
+
+`func (o *SubmissionRequest) GetOinFeaturesOk() (*string, bool)`
+
+GetOinFeaturesOk returns a tuple with the OinFeatures field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOinFeatures
+
+`func (o *SubmissionRequest) SetOinFeatures(v string)`
+
+SetOinFeatures sets OinFeatures field to given value.
+
+### HasOinFeatures
+
+`func (o *SubmissionRequest) HasOinFeatures() bool`
+
+HasOinFeatures returns a boolean if a field has been set.
 
 ### GetProvisioning
 

@@ -30,7 +30,7 @@ import (
 // checks if the GracePeriod type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GracePeriod{}
 
-// GracePeriod <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Represents the Grace Period configuration for the device assurance policy
+// GracePeriod Represents the Grace Period configuration for the device assurance policy
 type GracePeriod struct {
 	Expiry *GracePeriodExpiry `json:"expiry,omitempty"`
 	// Represents the type of Grace Period configured for the device assurance policy

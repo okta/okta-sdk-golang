@@ -56,9 +56,9 @@ type AppServiceAccount struct {
 	OwnerUserIds []string `json:"ownerUserIds,omitempty"`
 	// The app service account password. Required for apps that don't have provisioning enabled or don't support password synchronization.
 	Password *string `json:"password,omitempty"`
-	// Describes the current status of an app service account
+	// Describes the current status of a service account
 	Status *string `json:"status,omitempty"`
-	// Describes the detailed status of an app service account
+	// Describes the detailed status of a service account
 	StatusDetail *string `json:"statusDetail,omitempty"`
 	// The username that serves as the direct link to your managed app account. Ensure that this value precisely matches the identifier of the target app account.
 	Username             string `json:"username"`

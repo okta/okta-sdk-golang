@@ -6,13 +6,12 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ExternalId** | **string** | The unique identifier of the action flow in the provider system | 
 **Type** | **string** | Type of action provider | 
-**Url** | **string** | The URL to the action flow | 
 
 ## Methods
 
 ### NewActionProvider
 
-`func NewActionProvider(externalId string, type_ string, url string, ) *ActionProvider`
+`func NewActionProvider(externalId string, type_ string, ) *ActionProvider`
 
 NewActionProvider instantiates a new ActionProvider object
 This constructor will assign default values to properties that have it defined,
@@ -65,26 +64,6 @@ and a boolean to check if the value has been set.
 `func (o *ActionProvider) SetType(v string)`
 
 SetType sets Type field to given value.
-
-
-### GetUrl
-
-`func (o *ActionProvider) GetUrl() string`
-
-GetUrl returns the Url field if non-nil, zero value otherwise.
-
-### GetUrlOk
-
-`func (o *ActionProvider) GetUrlOk() (*string, bool)`
-
-GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUrl
-
-`func (o *ActionProvider) SetUrl(v string)`
-
-SetUrl sets Url field to given value.
 
 
 

@@ -6,10 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AsNumber** | Pointer to **NullableInt32** | The [Autonomous system](https://docs.telemetry.mozilla.org/datasets/other/asn_aggregates/reference) number that&#39;s associated with the autonomous system the event request was sourced to | [optional] [readonly] 
 **AsOrg** | Pointer to **NullableString** | The organization that is associated with the autonomous system that the event request is sourced to | [optional] [readonly] 
+**BotProtection** | Pointer to [**NullableLogBotProtection**](LogBotProtection.md) |  | [optional] 
 **Domain** | Pointer to **NullableString** | The domain name that&#39;s associated with the IP address of the inbound event request | [optional] [readonly] 
+**IpDetails** | Pointer to [**NullableLogIpDetails**](LogIpDetails.md) |  | [optional] 
 **Isp** | Pointer to **NullableString** | The Internet service provider that&#39;s used to send the event&#39;s request | [optional] [readonly] 
 **IsProxy** | Pointer to **NullableBool** | Specifies whether an event&#39;s request is from a known proxy | [optional] [readonly] 
-**UserBehaviors** | Pointer to **[]string** | The result of the user behavior detection models associated with the event | [optional] [readonly] 
+**Risk** | Pointer to [**NullableLogRisk**](LogRisk.md) |  | [optional] 
+**UserBehaviors** | Pointer to [**[]LogUserBehavior**](LogUserBehavior.md) | The result of the user behavior detection models associated with the event | [optional] [readonly] 
 
 ## Methods
 
@@ -100,6 +103,41 @@ HasAsOrg returns a boolean if a field has been set.
 `func (o *LogSecurityContext) UnsetAsOrg()`
 
 UnsetAsOrg ensures that no value is present for AsOrg, not even an explicit nil
+### GetBotProtection
+
+`func (o *LogSecurityContext) GetBotProtection() LogBotProtection`
+
+GetBotProtection returns the BotProtection field if non-nil, zero value otherwise.
+
+### GetBotProtectionOk
+
+`func (o *LogSecurityContext) GetBotProtectionOk() (*LogBotProtection, bool)`
+
+GetBotProtectionOk returns a tuple with the BotProtection field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBotProtection
+
+`func (o *LogSecurityContext) SetBotProtection(v LogBotProtection)`
+
+SetBotProtection sets BotProtection field to given value.
+
+### HasBotProtection
+
+`func (o *LogSecurityContext) HasBotProtection() bool`
+
+HasBotProtection returns a boolean if a field has been set.
+
+### SetBotProtectionNil
+
+`func (o *LogSecurityContext) SetBotProtectionNil(b bool)`
+
+ SetBotProtectionNil sets the value for BotProtection to be an explicit nil
+
+### UnsetBotProtection
+`func (o *LogSecurityContext) UnsetBotProtection()`
+
+UnsetBotProtection ensures that no value is present for BotProtection, not even an explicit nil
 ### GetDomain
 
 `func (o *LogSecurityContext) GetDomain() string`
@@ -135,6 +173,41 @@ HasDomain returns a boolean if a field has been set.
 `func (o *LogSecurityContext) UnsetDomain()`
 
 UnsetDomain ensures that no value is present for Domain, not even an explicit nil
+### GetIpDetails
+
+`func (o *LogSecurityContext) GetIpDetails() LogIpDetails`
+
+GetIpDetails returns the IpDetails field if non-nil, zero value otherwise.
+
+### GetIpDetailsOk
+
+`func (o *LogSecurityContext) GetIpDetailsOk() (*LogIpDetails, bool)`
+
+GetIpDetailsOk returns a tuple with the IpDetails field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIpDetails
+
+`func (o *LogSecurityContext) SetIpDetails(v LogIpDetails)`
+
+SetIpDetails sets IpDetails field to given value.
+
+### HasIpDetails
+
+`func (o *LogSecurityContext) HasIpDetails() bool`
+
+HasIpDetails returns a boolean if a field has been set.
+
+### SetIpDetailsNil
+
+`func (o *LogSecurityContext) SetIpDetailsNil(b bool)`
+
+ SetIpDetailsNil sets the value for IpDetails to be an explicit nil
+
+### UnsetIpDetails
+`func (o *LogSecurityContext) UnsetIpDetails()`
+
+UnsetIpDetails ensures that no value is present for IpDetails, not even an explicit nil
 ### GetIsp
 
 `func (o *LogSecurityContext) GetIsp() string`
@@ -205,22 +278,57 @@ HasIsProxy returns a boolean if a field has been set.
 `func (o *LogSecurityContext) UnsetIsProxy()`
 
 UnsetIsProxy ensures that no value is present for IsProxy, not even an explicit nil
+### GetRisk
+
+`func (o *LogSecurityContext) GetRisk() LogRisk`
+
+GetRisk returns the Risk field if non-nil, zero value otherwise.
+
+### GetRiskOk
+
+`func (o *LogSecurityContext) GetRiskOk() (*LogRisk, bool)`
+
+GetRiskOk returns a tuple with the Risk field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRisk
+
+`func (o *LogSecurityContext) SetRisk(v LogRisk)`
+
+SetRisk sets Risk field to given value.
+
+### HasRisk
+
+`func (o *LogSecurityContext) HasRisk() bool`
+
+HasRisk returns a boolean if a field has been set.
+
+### SetRiskNil
+
+`func (o *LogSecurityContext) SetRiskNil(b bool)`
+
+ SetRiskNil sets the value for Risk to be an explicit nil
+
+### UnsetRisk
+`func (o *LogSecurityContext) UnsetRisk()`
+
+UnsetRisk ensures that no value is present for Risk, not even an explicit nil
 ### GetUserBehaviors
 
-`func (o *LogSecurityContext) GetUserBehaviors() []string`
+`func (o *LogSecurityContext) GetUserBehaviors() []LogUserBehavior`
 
 GetUserBehaviors returns the UserBehaviors field if non-nil, zero value otherwise.
 
 ### GetUserBehaviorsOk
 
-`func (o *LogSecurityContext) GetUserBehaviorsOk() (*[]string, bool)`
+`func (o *LogSecurityContext) GetUserBehaviorsOk() (*[]LogUserBehavior, bool)`
 
 GetUserBehaviorsOk returns a tuple with the UserBehaviors field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetUserBehaviors
 
-`func (o *LogSecurityContext) SetUserBehaviors(v []string)`
+`func (o *LogSecurityContext) SetUserBehaviors(v []LogUserBehavior)`
 
 SetUserBehaviors sets UserBehaviors field to given value.
 

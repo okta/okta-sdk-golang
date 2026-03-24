@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**ListAppLinks**](UserResourcesAPI.md#ListAppLinks) | **Get** /api/v1/users/{id}/appLinks | List all assigned app links
 [**ListUserClients**](UserResourcesAPI.md#ListUserClients) | **Get** /api/v1/users/{userId}/clients | List all clients
-[**ListUserDevices**](UserResourcesAPI.md#ListUserDevices) | **Get** /api/v1/users/{userId}/devices | List all devices
+[**ListUserDevices**](UserResourcesAPI.md#ListUserDevices) | **Get** /api/v1/users/{userId}/devices | List all devices for an enrolled user
 [**ListUserGroups**](UserResourcesAPI.md#ListUserGroups) | **Get** /api/v1/users/{id}/groups | List all groups
 
 
@@ -155,7 +155,7 @@ Name | Type | Description  | Notes
 
 > []UserDevice ListUserDevices(ctx, userId).Execute()
 
-List all devices
+List all devices for an enrolled user
 
 
 

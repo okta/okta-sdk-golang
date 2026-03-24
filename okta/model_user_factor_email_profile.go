@@ -32,7 +32,7 @@ var _ MappedNullable = &UserFactorEmailProfile{}
 
 // UserFactorEmailProfile struct for UserFactorEmailProfile
 type UserFactorEmailProfile struct {
-	// Email address of the user. This must be either the primary or secondary email address associated with the Okta user account.
+	// Email address of the user. This must be either the primary or secondary email address associated with the Okta user account.  > **Note:** For Identity Engine orgs, you can only enroll the primary email address of the user.
 	Email                *string `json:"email,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

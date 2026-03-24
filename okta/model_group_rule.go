@@ -46,7 +46,8 @@ type GroupRule struct {
 	// Status of group rule. You can't update the status of a rule from `INACTIVE` to `ACTIVE`. You must use the activate and deactivate lifecycle operations.
 	Status *string `json:"status,omitempty"`
 	// Type to indicate a group rule operation. Only `group_rule` is allowed.
-	Type                 *string `json:"type,omitempty"`
+	Type                 *string            `json:"type,omitempty"`
+	Embedded             *GroupRuleEmbedded `json:"_embedded,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -325,6 +326,38 @@ func (o *GroupRule) SetType(v string) {
 	o.Type = &v
 }
 
+// GetEmbedded returns the Embedded field value if set, zero value otherwise.
+func (o *GroupRule) GetEmbedded() GroupRuleEmbedded {
+	if o == nil || IsNil(o.Embedded) {
+		var ret GroupRuleEmbedded
+		return ret
+	}
+	return *o.Embedded
+}
+
+// GetEmbeddedOk returns a tuple with the Embedded field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GroupRule) GetEmbeddedOk() (*GroupRuleEmbedded, bool) {
+	if o == nil || IsNil(o.Embedded) {
+		return nil, false
+	}
+	return o.Embedded, true
+}
+
+// HasEmbedded returns a boolean if a field has been set.
+func (o *GroupRule) HasEmbedded() bool {
+	if o != nil && !IsNil(o.Embedded) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmbedded gets a reference to the given GroupRuleEmbedded and assigns it to the Embedded field.
+func (o *GroupRule) SetEmbedded(v GroupRuleEmbedded) {
+	o.Embedded = &v
+}
+
 func (o GroupRule) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -359,6 +392,9 @@ func (o GroupRule) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+	if !IsNil(o.Embedded) {
+		toSerialize["_embedded"] = o.Embedded
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -389,6 +425,7 @@ func (o *GroupRule) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "type")
+		delete(additionalProperties, "_embedded")
 		o.AdditionalProperties = additionalProperties
 	}
 

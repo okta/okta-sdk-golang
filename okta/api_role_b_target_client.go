@@ -130,7 +130,7 @@ type RoleBTargetClientAPI interface {
 			Unassigns an app instance target from a role assignment to a client app
 
 		> **Note:** You can't remove the last app instance target from a role assignment.
-		> If you need a role assignment that applies to all the apps, delete the role assignment with the instance target and create another one.  See [Unassign a client role](/openapi/okta-management/management/tag/RoleAssignmentClient/#tag/RoleAssignmentClient/operation/deleteRoleFromClient).
+		> If you need a role assignment that applies to all the apps, delete the role assignment with the instance target and create another one.  See [Unassign a client role](/openapi/okta-management/management/tags/roleassignmentclient/other/deleterolefromclient).
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param clientId `client_id` of the app
@@ -150,7 +150,7 @@ type RoleBTargetClientAPI interface {
 			Unassigns an OIN app target for a role assignment to a client app
 
 		> **Note:** You can't remove the last OIN app target from a role assignment.
-		> If you need a role assignment that applies to all apps, delete the role assignment with the target and create another one. See [Unassign a client role](/openapi/okta-management/management/tag/RoleAssignmentClient/#tag/RoleAssignmentClient/operation/deleteRoleFromClient).
+		> If you need a role assignment that applies to all apps, delete the role assignment with the target and create another one. See [Unassign a client role](/openapi/okta-management/management/tags/roleassignmentclient/other/deleterolefromclient).
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param clientId `client_id` of the app
@@ -168,7 +168,7 @@ type RoleBTargetClientAPI interface {
 
 			Unassigns a Group target from a `USER_ADMIN`, `HELP_DESK_ADMIN`, or `GROUP_MEMBERSHIP_ADMIN` role assignment to a client app.
 
-		> **Note:** You can't remove the last group target from a role assignment. If you need a role assignment that applies to all groups, delete the role assignment with the target and create another one. See [Unassign a client role](/openapi/okta-management/management/tag/RoleAssignmentClient/#tag/RoleAssignmentClient/operation/deleteRoleFromClient).
+		> **Note:** You can't remove the last group target from a role assignment. If you need a role assignment that applies to all groups, delete the role assignment with the target and create another one. See [Unassign a client role](/openapi/okta-management/management/tags/roleassignmentclient/other/deleterolefromclient).
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param clientId `client_id` of the app
@@ -1080,7 +1080,7 @@ RemoveAppTargetInstanceRoleForClient Unassign a client role app instance target
 # Unassigns an app instance target from a role assignment to a client app
 
 > **Note:** You can't remove the last app instance target from a role assignment.
-> If you need a role assignment that applies to all the apps, delete the role assignment with the instance target and create another one.  See [Unassign a client role](/openapi/okta-management/management/tag/RoleAssignmentClient/#tag/RoleAssignmentClient/operation/deleteRoleFromClient).
+> If you need a role assignment that applies to all the apps, delete the role assignment with the instance target and create another one.  See [Unassign a client role](/openapi/okta-management/management/tags/roleassignmentclient/other/deleterolefromclient).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param clientId `client_id` of the app
@@ -1247,7 +1247,7 @@ RemoveAppTargetRoleFromClient Unassign a client role app target
 # Unassigns an OIN app target for a role assignment to a client app
 
 > **Note:** You can't remove the last OIN app target from a role assignment.
-> If you need a role assignment that applies to all apps, delete the role assignment with the target and create another one. See [Unassign a client role](/openapi/okta-management/management/tag/RoleAssignmentClient/#tag/RoleAssignmentClient/operation/deleteRoleFromClient).
+> If you need a role assignment that applies to all apps, delete the role assignment with the target and create another one. See [Unassign a client role](/openapi/okta-management/management/tags/roleassignmentclient/other/deleterolefromclient).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param clientId `client_id` of the app
@@ -1410,7 +1410,7 @@ RemoveGroupTargetRoleFromClient Unassign a client role group target
 
 Unassigns a Group target from a `USER_ADMIN`, `HELP_DESK_ADMIN`, or `GROUP_MEMBERSHIP_ADMIN` role assignment to a client app.
 
-> **Note:** You can't remove the last group target from a role assignment. If you need a role assignment that applies to all groups, delete the role assignment with the target and create another one. See [Unassign a client role](/openapi/okta-management/management/tag/RoleAssignmentClient/#tag/RoleAssignmentClient/operation/deleteRoleFromClient).
+> **Note:** You can't remove the last group target from a role assignment. If you need a role assignment that applies to all groups, delete the role assignment with the target and create another one. See [Unassign a client role](/openapi/okta-management/management/tags/roleassignmentclient/other/deleterolefromclient).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param clientId `client_id` of the app

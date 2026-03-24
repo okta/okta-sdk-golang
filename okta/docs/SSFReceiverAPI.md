@@ -35,7 +35,7 @@ import (
 )
 
 func main() {
-	securityEventProviderId := "sse1qg25RpusjUP6m0g5" // string | `id` of the Security Events Provider instance
+	securityEventProviderId := "sse1qg25RpusjUP6m0g5" // string | `id` of the security events provider instance
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -55,7 +55,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**securityEventProviderId** | **string** | &#x60;id&#x60; of the Security Events Provider instance | 
+**securityEventProviderId** | **string** | &#x60;id&#x60; of the security events provider instance | 
 
 ### Other Parameters
 
@@ -171,7 +171,7 @@ import (
 )
 
 func main() {
-	securityEventProviderId := "sse1qg25RpusjUP6m0g5" // string | `id` of the Security Events Provider instance
+	securityEventProviderId := "sse1qg25RpusjUP6m0g5" // string | `id` of the security events provider instance
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -191,7 +191,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**securityEventProviderId** | **string** | &#x60;id&#x60; of the Security Events Provider instance | 
+**securityEventProviderId** | **string** | &#x60;id&#x60; of the security events provider instance | 
 
 ### Other Parameters
 
@@ -241,7 +241,7 @@ import (
 )
 
 func main() {
-	securityEventProviderId := "sse1qg25RpusjUP6m0g5" // string | `id` of the Security Events Provider instance
+	securityEventProviderId := "sse1qg25RpusjUP6m0g5" // string | `id` of the security events provider instance
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -259,7 +259,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**securityEventProviderId** | **string** | &#x60;id&#x60; of the Security Events Provider instance | 
+**securityEventProviderId** | **string** | &#x60;id&#x60; of the security events provider instance | 
 
 ### Other Parameters
 
@@ -309,7 +309,7 @@ import (
 )
 
 func main() {
-	securityEventProviderId := "sse1qg25RpusjUP6m0g5" // string | `id` of the Security Events Provider instance
+	securityEventProviderId := "sse1qg25RpusjUP6m0g5" // string | `id` of the security events provider instance
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -329,7 +329,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**securityEventProviderId** | **string** | &#x60;id&#x60; of the Security Events Provider instance | 
+**securityEventProviderId** | **string** | &#x60;id&#x60; of the security events provider instance | 
 
 ### Other Parameters
 
@@ -440,7 +440,7 @@ import (
 )
 
 func main() {
-	securityEventProviderId := "sse1qg25RpusjUP6m0g5" // string | `id` of the Security Events Provider instance
+	securityEventProviderId := "sse1qg25RpusjUP6m0g5" // string | `id` of the security events provider instance
 	instance := *openapiclient.NewSecurityEventsProviderRequest("Target SSF Provider", openapiclient.SecurityEventsProviderRequest_settings{SecurityEventsProviderSettingsNonSSFCompliant: openapiclient.NewSecurityEventsProviderSettingsNonSSFCompliant("example.okta.com", "https://example.okta.com/oauth2/v1/keys")}, "okta") // SecurityEventsProviderRequest | 
 
 	configuration := openapiclient.NewConfiguration()
@@ -461,7 +461,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**securityEventProviderId** | **string** | &#x60;id&#x60; of the Security Events Provider instance | 
+**securityEventProviderId** | **string** | &#x60;id&#x60; of the security events provider instance | 
 
 ### Other Parameters
 

@@ -35,7 +35,7 @@ var _ MappedNullable = &CaepCredentialChangeEvent{}
 type CaepCredentialChangeEvent struct {
 	// The type of action done towards the credential
 	ChangeType string `json:"change_type"`
-	// The credential type of the changed credential. It will one of the supported enum values or any other credential type supported mutually by the Transmitter and the Receiver.
+	// The credential type of the changed credential. It's one of the supported enum values or any other credential type supported mutually by the transmitter and the receiver.
 	CredentialType string `json:"credential_type"`
 	// The time of the event (UNIX timestamp)
 	EventTimestamp *int64 `json:"event_timestamp,omitempty"`

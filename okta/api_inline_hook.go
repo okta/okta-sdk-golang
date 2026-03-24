@@ -161,12 +161,12 @@ type InlineHookAPI interface {
 		When listing a specific inline hook, you need to specify its type. The following types are currently supported:
 		  | Type Value                         | Name                                                           |
 		  |------------------------------------|----------------------------------------------------------------|
-		  | `com.okta.import.transform`        | [User import inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createUserImportInlineHook)       |
-		  | `com.okta.oauth2.tokens.transform` | [Token inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createTokenInlineHook)               |
-		  | `com.okta.saml.tokens.transform`   | [SAML assertion inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createSAMLAssertionInlineHook)       |
-		  | `com.okta.telephony.provider`      | [Telephony inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createTelephonyInlineHook) |
-		  | `com.okta.user.credential.password.import` | [Password import inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createPasswordImportInlineHook)|
-		  | `com.okta.user.pre-registration`   | [Registration inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/create-registration-hook) |
+		  | `com.okta.import.transform`        | [User import inline hook](/openapi/okta-management/management/management/inlinehook/createuserimportinlinehook)       |
+		  | `com.okta.oauth2.tokens.transform` | [Token inline hook](/openapi/okta-management/management/management/inlinehook/createtokeninlinehook)               |
+		  | `com.okta.saml.tokens.transform`   | [SAML assertion inline hook](/openapi/okta-management/management/management/inlinehook/createsamlassertioninlinehook)       |
+		  | `com.okta.telephony.provider`      | [Telephony inline hook](/openapi/okta-management/management/management/inlinehook/createtelephonyinlinehook) |
+		  | `com.okta.user.credential.password.import` | [Password import inline hook](openapi/okta-management/management/management/inlinehook/createpasswordimportinlinehook)|
+		  | `com.okta.user.pre-registration`   | [Registration inline hook](/openapi/okta-management/management/management/inlinehook/create-registration-hook) |
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@return ApiListInlineHooksRequest
@@ -1282,12 +1282,12 @@ When listing a specific inline hook, you need to specify its type. The following
 
 	 | Type Value                         | Name                                                           |
 	 |------------------------------------|----------------------------------------------------------------|
-	 | `com.okta.import.transform`        | [User import inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createUserImportInlineHook)       |
-	 | `com.okta.oauth2.tokens.transform` | [Token inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createTokenInlineHook)               |
-	 | `com.okta.saml.tokens.transform`   | [SAML assertion inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createSAMLAssertionInlineHook)       |
-	 | `com.okta.telephony.provider`      | [Telephony inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createTelephonyInlineHook) |
-	 | `com.okta.user.credential.password.import` | [Password import inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createPasswordImportInlineHook)|
-	 | `com.okta.user.pre-registration`   | [Registration inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/create-registration-hook) |
+	 | `com.okta.import.transform`        | [User import inline hook](/openapi/okta-management/management/management/inlinehook/createuserimportinlinehook)       |
+	 | `com.okta.oauth2.tokens.transform` | [Token inline hook](/openapi/okta-management/management/management/inlinehook/createtokeninlinehook)               |
+	 | `com.okta.saml.tokens.transform`   | [SAML assertion inline hook](/openapi/okta-management/management/management/inlinehook/createsamlassertioninlinehook)       |
+	 | `com.okta.telephony.provider`      | [Telephony inline hook](/openapi/okta-management/management/management/inlinehook/createtelephonyinlinehook) |
+	 | `com.okta.user.credential.password.import` | [Password import inline hook](openapi/okta-management/management/management/inlinehook/createpasswordimportinlinehook)|
+	 | `com.okta.user.pre-registration`   | [Registration inline hook](/openapi/okta-management/management/management/inlinehook/create-registration-hook) |
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiListInlineHooksRequest

@@ -6,14 +6,14 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ActionName** | **string** | The name of the action flow | 
 **ExternalId** | **string** | The unique identifier of the action flow in the provider system | 
+**Link** | **string** | The URL to the action flow interface in Workflows platform | 
 **Type** | **string** | Type of action provider | 
-**Url** | **string** | The URL to the action flow | 
 
 ## Methods
 
 ### NewAvailableActionProvider
 
-`func NewAvailableActionProvider(actionName string, externalId string, type_ string, url string, ) *AvailableActionProvider`
+`func NewAvailableActionProvider(actionName string, externalId string, link string, type_ string, ) *AvailableActionProvider`
 
 NewAvailableActionProvider instantiates a new AvailableActionProvider object
 This constructor will assign default values to properties that have it defined,
@@ -68,6 +68,26 @@ and a boolean to check if the value has been set.
 SetExternalId sets ExternalId field to given value.
 
 
+### GetLink
+
+`func (o *AvailableActionProvider) GetLink() string`
+
+GetLink returns the Link field if non-nil, zero value otherwise.
+
+### GetLinkOk
+
+`func (o *AvailableActionProvider) GetLinkOk() (*string, bool)`
+
+GetLinkOk returns a tuple with the Link field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLink
+
+`func (o *AvailableActionProvider) SetLink(v string)`
+
+SetLink sets Link field to given value.
+
+
 ### GetType
 
 `func (o *AvailableActionProvider) GetType() string`
@@ -86,26 +106,6 @@ and a boolean to check if the value has been set.
 `func (o *AvailableActionProvider) SetType(v string)`
 
 SetType sets Type field to given value.
-
-
-### GetUrl
-
-`func (o *AvailableActionProvider) GetUrl() string`
-
-GetUrl returns the Url field if non-nil, zero value otherwise.
-
-### GetUrlOk
-
-`func (o *AvailableActionProvider) GetUrlOk() (*string, bool)`
-
-GetUrlOk returns a tuple with the Url field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUrl
-
-`func (o *AvailableActionProvider) SetUrl(v string)`
-
-SetUrl sets Url field to given value.
 
 
 

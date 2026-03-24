@@ -6,10 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Alg** | Pointer to **string** | Algorithm used in the key | [optional] 
 **E** | Pointer to **string** | RSA key value (exponent) for key binding | [optional] 
-**Kid** | Pointer to **NullableString** | Unique identifier of the JSON Web Key in the OAUth 2.0 Client&#39;s JWKS | [optional] 
+**Kid** | Pointer to **NullableString** | Unique identifier of the JSON Web Key in the OAuth 2.0 client&#39;s JWKS | [optional] 
 **Kty** | Pointer to **string** | Cryptographic algorithm family for the certificate&#39;s key pair | [optional] 
 **N** | Pointer to **string** | RSA key value (modulus) for key binding | [optional] 
-**Status** | Pointer to **string** | Status of the OAuth 2.0 Client JSON Web Key | [optional] 
+**Status** | Pointer to **string** | Status of the OAuth 2.0 client JSON Web Key | [optional] 
 **Use** | Pointer to **string** | Acceptable use of the JSON Web Key | [optional] 
 
 ## Methods

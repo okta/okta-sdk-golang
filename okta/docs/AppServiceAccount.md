@@ -15,8 +15,8 @@ Name | Type | Description | Notes
 **OwnerGroupIds** | Pointer to **[]string** | A list of IDs of the Okta groups who own the app service account | [optional] 
 **OwnerUserIds** | Pointer to **[]string** | A list of IDs of the Okta users who own the app service account | [optional] 
 **Password** | Pointer to **string** | The app service account password. Required for apps that don&#39;t have provisioning enabled or don&#39;t support password synchronization. | [optional] 
-**Status** | Pointer to **string** | Describes the current status of an app service account | [optional] [readonly] 
-**StatusDetail** | Pointer to **string** | Describes the detailed status of an app service account | [optional] [readonly] 
+**Status** | Pointer to **string** | Describes the current status of a service account | [optional] [readonly] 
+**StatusDetail** | Pointer to **string** | Describes the detailed status of a service account | [optional] [readonly] 
 **Username** | **string** | The username that serves as the direct link to your managed app account. Ensure that this value precisely matches the identifier of the target app account. | 
 
 ## Methods

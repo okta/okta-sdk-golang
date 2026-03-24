@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Credentials** | Pointer to [**UserCredentials**](UserCredentials.md) |  | [optional] 
 **Profile** | Pointer to [**UserProfile**](UserProfile.md) |  | [optional] 
-**RealmId** | Pointer to **string** | The ID of the realm in which the user is residing. See [Realms](/openapi/okta-management/management/tag/Realm/). | [optional] 
+**RealmId** | Pointer to **string** | The ID of the realm in which the user is residing. See [Realms](/openapi/okta-management/management/tags/realm). | [optional] 
 **Type** | Pointer to [**UpdateUserRequestType**](UpdateUserRequestType.md) |  | [optional] 
 
 ## Methods

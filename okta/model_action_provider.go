@@ -36,9 +36,7 @@ type ActionProvider struct {
 	// The unique identifier of the action flow in the provider system
 	ExternalId string `json:"externalId"`
 	// Type of action provider
-	Type string `json:"type"`
-	// The URL to the action flow
-	Url                  string `json:"url"`
+	Type                 string `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -48,11 +46,10 @@ type _ActionProvider ActionProvider
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewActionProvider(externalId string, type_ string, url string) *ActionProvider {
+func NewActionProvider(externalId string, type_ string) *ActionProvider {
 	this := ActionProvider{}
 	this.ExternalId = externalId
 	this.Type = type_
-	this.Url = url
 	return &this
 }
 
@@ -112,30 +109,6 @@ func (o *ActionProvider) SetType(v string) {
 	o.Type = v
 }
 
-// GetUrl returns the Url field value
-func (o *ActionProvider) GetUrl() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Url
-}
-
-// GetUrlOk returns a tuple with the Url field value
-// and a boolean to check if the value has been set.
-func (o *ActionProvider) GetUrlOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Url, true
-}
-
-// SetUrl sets field value
-func (o *ActionProvider) SetUrl(v string) {
-	o.Url = v
-}
-
 func (o ActionProvider) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -148,7 +121,6 @@ func (o ActionProvider) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["externalId"] = o.ExternalId
 	toSerialize["type"] = o.Type
-	toSerialize["url"] = o.Url
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -164,7 +136,6 @@ func (o *ActionProvider) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"externalId",
 		"type",
-		"url",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -196,7 +167,6 @@ func (o *ActionProvider) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "externalId")
 		delete(additionalProperties, "type")
-		delete(additionalProperties, "url")
 		o.AdditionalProperties = additionalProperties
 	}
 

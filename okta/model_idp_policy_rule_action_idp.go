@@ -37,7 +37,9 @@ type IdpPolicyRuleActionIdp struct {
 	// Determines whether the rule should use expression language or a specific IdP
 	IdpSelectionType *string `json:"idpSelectionType,omitempty"`
 	// Required if `idpSelectionType` is set to `DYNAMIC`
-	MatchCriteria        []IdpPolicyRuleActionMatchCriteria `json:"matchCriteria,omitempty"`
+	MatchCriteria []IdpPolicyRuleActionMatchCriteria `json:"matchCriteria,omitempty"`
+	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle> <x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>Specifies whether to fall back to `OKTA` if authentication with the configured identity provider fails
+	ShouldFallBackToOkta *bool `json:"shouldFallBackToOkta,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -49,6 +51,8 @@ type _IdpPolicyRuleActionIdp IdpPolicyRuleActionIdp
 // will change when the set of required properties is changed
 func NewIdpPolicyRuleActionIdp() *IdpPolicyRuleActionIdp {
 	this := IdpPolicyRuleActionIdp{}
+	var shouldFallBackToOkta bool = false
+	this.ShouldFallBackToOkta = &shouldFallBackToOkta
 	return &this
 }
 
@@ -57,6 +61,8 @@ func NewIdpPolicyRuleActionIdp() *IdpPolicyRuleActionIdp {
 // but it doesn't guarantee that properties required by API are set
 func NewIdpPolicyRuleActionIdpWithDefaults() *IdpPolicyRuleActionIdp {
 	this := IdpPolicyRuleActionIdp{}
+	var shouldFallBackToOkta bool = false
+	this.ShouldFallBackToOkta = &shouldFallBackToOkta
 	return &this
 }
 
@@ -156,6 +162,38 @@ func (o *IdpPolicyRuleActionIdp) SetMatchCriteria(v []IdpPolicyRuleActionMatchCr
 	o.MatchCriteria = v
 }
 
+// GetShouldFallBackToOkta returns the ShouldFallBackToOkta field value if set, zero value otherwise.
+func (o *IdpPolicyRuleActionIdp) GetShouldFallBackToOkta() bool {
+	if o == nil || IsNil(o.ShouldFallBackToOkta) {
+		var ret bool
+		return ret
+	}
+	return *o.ShouldFallBackToOkta
+}
+
+// GetShouldFallBackToOktaOk returns a tuple with the ShouldFallBackToOkta field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IdpPolicyRuleActionIdp) GetShouldFallBackToOktaOk() (*bool, bool) {
+	if o == nil || IsNil(o.ShouldFallBackToOkta) {
+		return nil, false
+	}
+	return o.ShouldFallBackToOkta, true
+}
+
+// HasShouldFallBackToOkta returns a boolean if a field has been set.
+func (o *IdpPolicyRuleActionIdp) HasShouldFallBackToOkta() bool {
+	if o != nil && !IsNil(o.ShouldFallBackToOkta) {
+		return true
+	}
+
+	return false
+}
+
+// SetShouldFallBackToOkta gets a reference to the given bool and assigns it to the ShouldFallBackToOkta field.
+func (o *IdpPolicyRuleActionIdp) SetShouldFallBackToOkta(v bool) {
+	o.ShouldFallBackToOkta = &v
+}
+
 func (o IdpPolicyRuleActionIdp) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -174,6 +212,9 @@ func (o IdpPolicyRuleActionIdp) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.MatchCriteria) {
 		toSerialize["matchCriteria"] = o.MatchCriteria
+	}
+	if !IsNil(o.ShouldFallBackToOkta) {
+		toSerialize["shouldFallBackToOkta"] = o.ShouldFallBackToOkta
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -200,6 +241,7 @@ func (o *IdpPolicyRuleActionIdp) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "providers")
 		delete(additionalProperties, "idpSelectionType")
 		delete(additionalProperties, "matchCriteria")
+		delete(additionalProperties, "shouldFallBackToOkta")
 		o.AdditionalProperties = additionalProperties
 	}
 

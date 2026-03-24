@@ -33,9 +33,9 @@ var _ MappedNullable = &StreamVerificationRequest{}
 
 // StreamVerificationRequest struct for StreamVerificationRequest
 type StreamVerificationRequest struct {
-	// An arbitrary string that Okta as a transmitter must echo back to the Event Receiver in the Verification Event's payload
+	// An arbitrary string that Okta as a transmitter must echo back to the event receiver in the verification event's payload
 	State *string `json:"state,omitempty"`
-	// The ID of the SSF Stream Configuration
+	// The ID of the SSF stream configuration
 	StreamId             string `json:"stream_id"`
 	AdditionalProperties map[string]interface{}
 }

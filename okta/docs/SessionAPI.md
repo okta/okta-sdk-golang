@@ -31,7 +31,7 @@ import (
 )
 
 func main() {
-	sessionId := "l7FbDVqS8zHSy65uJD85" // string | `id` of the Session
+	sessionId := "l7FbDVqS8zHSy65uJD85" // string | `id` of the session
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -51,7 +51,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sessionId** | **string** | &#x60;id&#x60; of the Session | 
+**sessionId** | **string** | &#x60;id&#x60; of the session | 
 
 ### Other Parameters
 
@@ -101,7 +101,7 @@ import (
 )
 
 func main() {
-	sessionId := "l7FbDVqS8zHSy65uJD85" // string | `id` of the Session
+	sessionId := "l7FbDVqS8zHSy65uJD85" // string | `id` of the session
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -121,7 +121,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sessionId** | **string** | &#x60;id&#x60; of the Session | 
+**sessionId** | **string** | &#x60;id&#x60; of the session | 
 
 ### Other Parameters
 
@@ -171,7 +171,7 @@ import (
 )
 
 func main() {
-	sessionId := "l7FbDVqS8zHSy65uJD85" // string | `id` of the Session
+	sessionId := "l7FbDVqS8zHSy65uJD85" // string | `id` of the session
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -189,7 +189,7 @@ func main() {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 **ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
-**sessionId** | **string** | &#x60;id&#x60; of the Session | 
+**sessionId** | **string** | &#x60;id&#x60; of the session | 
 
 ### Other Parameters
 

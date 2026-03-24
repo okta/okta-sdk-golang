@@ -31,7 +31,7 @@ import (
 // checks if the GroupsLink type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GroupsLink{}
 
-// GroupsLink Link to the [Application Groups](/openapi/okta-management/management/tag/ApplicationGroups/#tag/ApplicationGroups/operation/listApplicationGroupAssignments) resource
+// GroupsLink Link to the [Application Groups](/openapi/okta-management/management/tags/applicationgroups/other/listapplicationgroupassignments) resource
 type GroupsLink struct {
 	Hints *HrefHints `json:"hints,omitempty"`
 	// Link URI

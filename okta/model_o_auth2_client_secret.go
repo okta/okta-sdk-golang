@@ -34,15 +34,15 @@ var _ MappedNullable = &OAuth2ClientSecret{}
 type OAuth2ClientSecret struct {
 	// The OAuth 2.0 client secret string
 	ClientSecret *string `json:"client_secret,omitempty"`
-	// Timestamp when the OAuth Client 2.0 Secret was created
+	// Timestamp when the OAuth 2.0 client secret was created
 	Created *string `json:"created,omitempty"`
-	// The unique ID of the OAuth Client Secret
+	// The unique ID of the OAuth 2.0 client secret
 	Id *string `json:"id,omitempty"`
-	// Timestamp when the OAuth Client 2.0 Secret was updated
+	// Timestamp when the OAuth 2.0 client secret was updated
 	LastUpdated *string `json:"lastUpdated,omitempty"`
 	// OAuth 2.0 client secret string hash
 	SecretHash *string `json:"secret_hash,omitempty"`
-	// Status of the OAuth 2.0 Client Secret
+	// Status of the OAuth 2.0 client secret
 	Status               *string                 `json:"status,omitempty"`
 	Links                *OAuthClientSecretLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}

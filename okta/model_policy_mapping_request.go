@@ -32,7 +32,7 @@ var _ MappedNullable = &PolicyMappingRequest{}
 
 // PolicyMappingRequest struct for PolicyMappingRequest
 type PolicyMappingRequest struct {
-	// [Policy ID](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Policy/#tag/Policy/operation/listPolicies!c=200&path=0/id&t=response) of the app sign-in policy that you want to map
+	// [Policy ID](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/policy/#tag/Policy/operation/listPolicies!c=200&path=0/id&t=response) of the app sign-in policy that you want to map
 	ResourceId *string `json:"resourceId,omitempty"`
 	// Specifies the type of resource to map. You can only map an app sign-in policy to a device signal collection policy (the `policyId` path parameter).
 	ResourceType         *string `json:"resourceType,omitempty"`

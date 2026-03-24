@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Action** | Pointer to **string** | The update action to take | [optional] 
-**Attribute** | Pointer to **string** | The attribute that tracks group memberships in Active Directory. For Active Directory, use &#x60;member&#x60;. | [optional] 
-**Values** | Pointer to **[]string** | List of user IDs whose group memberships to update | [optional] 
+**Action** | **string** | The update action to take | 
+**Attribute** | **string** | The attribute that tracks group memberships in Active Directory or LDAP. For Active Directory, use &#x60;member&#x60;. For LDAP, use the appropriate attribute found in the LDAP server such as, but not limited to, &#x60;uniqueMember&#x60; or &#x60;member&#x60;. | 
+**Values** | **[]string** | List of user IDs whose group memberships to update | 
 
 ## Methods
 
 ### NewParameters
 
-`func NewParameters() *Parameters`
+`func NewParameters(action string, attribute string, values []string, ) *Parameters`
 
 NewParameters instantiates a new Parameters object
 This constructor will assign default values to properties that have it defined,
@@ -46,11 +46,6 @@ and a boolean to check if the value has been set.
 
 SetAction sets Action field to given value.
 
-### HasAction
-
-`func (o *Parameters) HasAction() bool`
-
-HasAction returns a boolean if a field has been set.
 
 ### GetAttribute
 
@@ -71,11 +66,6 @@ and a boolean to check if the value has been set.
 
 SetAttribute sets Attribute field to given value.
 
-### HasAttribute
-
-`func (o *Parameters) HasAttribute() bool`
-
-HasAttribute returns a boolean if a field has been set.
 
 ### GetValues
 
@@ -96,11 +86,6 @@ and a boolean to check if the value has been set.
 
 SetValues sets Values field to given value.
 
-### HasValues
-
-`func (o *Parameters) HasValues() bool`
-
-HasValues returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

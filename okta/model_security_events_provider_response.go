@@ -30,16 +30,16 @@ import (
 // checks if the SecurityEventsProviderResponse type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &SecurityEventsProviderResponse{}
 
-// SecurityEventsProviderResponse The Security Events Provider response
+// SecurityEventsProviderResponse The security events provider response
 type SecurityEventsProviderResponse struct {
 	// The unique identifier of this instance
 	Id *string `json:"id,omitempty"`
-	// The name of the Security Events Provider instance
+	// The name of the security events provider instance
 	Name     *string                                 `json:"name,omitempty"`
 	Settings *SecurityEventsProviderSettingsResponse `json:"settings,omitempty"`
-	// Indicates whether the Security Events Provider is active or not
+	// Indicates whether the security events provider is active or not
 	Status *string `json:"status,omitempty"`
-	// The application type of the Security Events Provider
+	// The app type of the security events provider
 	Type                 *string                `json:"type,omitempty"`
 	Links                *LinksSelfAndLifecycle `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}

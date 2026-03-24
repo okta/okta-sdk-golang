@@ -33,6 +33,7 @@ var _ MappedNullable = &PolicyContextRisk{}
 // PolicyContextRisk The risk rule condition level
 type PolicyContextRisk struct {
 	Level                *string `json:"level,omitempty"`
+	MinRiskLevel         *string `json:"minRiskLevel,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -87,6 +88,38 @@ func (o *PolicyContextRisk) SetLevel(v string) {
 	o.Level = &v
 }
 
+// GetMinRiskLevel returns the MinRiskLevel field value if set, zero value otherwise.
+func (o *PolicyContextRisk) GetMinRiskLevel() string {
+	if o == nil || IsNil(o.MinRiskLevel) {
+		var ret string
+		return ret
+	}
+	return *o.MinRiskLevel
+}
+
+// GetMinRiskLevelOk returns a tuple with the MinRiskLevel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PolicyContextRisk) GetMinRiskLevelOk() (*string, bool) {
+	if o == nil || IsNil(o.MinRiskLevel) {
+		return nil, false
+	}
+	return o.MinRiskLevel, true
+}
+
+// HasMinRiskLevel returns a boolean if a field has been set.
+func (o *PolicyContextRisk) HasMinRiskLevel() bool {
+	if o != nil && !IsNil(o.MinRiskLevel) {
+		return true
+	}
+
+	return false
+}
+
+// SetMinRiskLevel gets a reference to the given string and assigns it to the MinRiskLevel field.
+func (o *PolicyContextRisk) SetMinRiskLevel(v string) {
+	o.MinRiskLevel = &v
+}
+
 func (o PolicyContextRisk) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -99,6 +132,9 @@ func (o PolicyContextRisk) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Level) {
 		toSerialize["level"] = o.Level
+	}
+	if !IsNil(o.MinRiskLevel) {
+		toSerialize["minRiskLevel"] = o.MinRiskLevel
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -123,6 +159,7 @@ func (o *PolicyContextRisk) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "level")
+		delete(additionalProperties, "minRiskLevel")
 		o.AdditionalProperties = additionalProperties
 	}
 

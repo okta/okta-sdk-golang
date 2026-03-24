@@ -34,7 +34,8 @@ var _ MappedNullable = &LogIpAddress{}
 type LogIpAddress struct {
 	GeographicalContext *LogGeographicalContext `json:"geographicalContext,omitempty"`
 	// IP address
-	Ip *string `json:"ip,omitempty"`
+	Ip        *string              `json:"ip,omitempty"`
+	IpDetails NullableLogIpDetails `json:"ipDetails,omitempty"`
 	// Details regarding the source
 	Source *string `json:"source,omitempty"`
 	// IP address version
@@ -125,6 +126,49 @@ func (o *LogIpAddress) SetIp(v string) {
 	o.Ip = &v
 }
 
+// GetIpDetails returns the IpDetails field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *LogIpAddress) GetIpDetails() LogIpDetails {
+	if o == nil || IsNil(o.IpDetails.Get()) {
+		var ret LogIpDetails
+		return ret
+	}
+	return *o.IpDetails.Get()
+}
+
+// GetIpDetailsOk returns a tuple with the IpDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *LogIpAddress) GetIpDetailsOk() (*LogIpDetails, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.IpDetails.Get(), o.IpDetails.IsSet()
+}
+
+// HasIpDetails returns a boolean if a field has been set.
+func (o *LogIpAddress) HasIpDetails() bool {
+	if o != nil && o.IpDetails.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetIpDetails gets a reference to the given NullableLogIpDetails and assigns it to the IpDetails field.
+func (o *LogIpAddress) SetIpDetails(v LogIpDetails) {
+	o.IpDetails.Set(&v)
+}
+
+// SetIpDetailsNil sets the value for IpDetails to be an explicit nil
+func (o *LogIpAddress) SetIpDetailsNil() {
+	o.IpDetails.Set(nil)
+}
+
+// UnsetIpDetails ensures that no value is present for IpDetails, not even an explicit nil
+func (o *LogIpAddress) UnsetIpDetails() {
+	o.IpDetails.Unset()
+}
+
 // GetSource returns the Source field value if set, zero value otherwise.
 func (o *LogIpAddress) GetSource() string {
 	if o == nil || IsNil(o.Source) {
@@ -205,6 +249,9 @@ func (o LogIpAddress) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Ip) {
 		toSerialize["ip"] = o.Ip
 	}
+	if o.IpDetails.IsSet() {
+		toSerialize["ipDetails"] = o.IpDetails.Get()
+	}
 	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source
 	}
@@ -235,6 +282,7 @@ func (o *LogIpAddress) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "geographicalContext")
 		delete(additionalProperties, "ip")
+		delete(additionalProperties, "ipDetails")
 		delete(additionalProperties, "source")
 		delete(additionalProperties, "version")
 		o.AdditionalProperties = additionalProperties

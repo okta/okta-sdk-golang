@@ -107,7 +107,7 @@ import (
 func main() {
 	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
 	userId := "00u13okQOVWZJGDOAUVR" // string | ID of an existing Okta user
-	expand := "user" // string | An optional query parameter to return the corresponding [User](/openapi/okta-management/management/tag/User/) object in the `_embedded` property. Valid value: `user` (optional)
+	expand := "user" // string | An optional query parameter to return the corresponding [User](/openapi/okta-management/management/tags/user) object in the `_embedded` property. Valid value: `user` (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -139,7 +139,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **expand** | **string** | An optional query parameter to return the corresponding [User](/openapi/okta-management/management/tag/User/) object in the &#x60;_embedded&#x60; property. Valid value: &#x60;user&#x60; | 
+ **expand** | **string** | An optional query parameter to return the corresponding [User](/openapi/okta-management/management/tags/user) object in the &#x60;_embedded&#x60; property. Valid value: &#x60;user&#x60; | 
 
 ### Return type
 
@@ -184,7 +184,7 @@ func main() {
 	after := "16275000448691" // string | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the next link relationship. See [Pagination](/#pagination). (optional)
 	limit := int32(56) // int32 | Specifies the number of objects to return per page. If there are multiple pages of results, the Link header contains a `next` link that you need to use as an opaque value (follow it, don't parse it). See [Pagination](/#pagination).  (optional) (default to 50)
 	q := "sam" // string | Specifies a filter for the list of application users returned based on their profile attributes. The value of `q` is matched against the beginning of the following profile attributes: `userName`, `firstName`, `lastName`, and `email`. This filter only supports the `startsWith` operation that matches the `q` string against the beginning of the attribute values. > **Note:** For OIDC apps, user profiles don't contain the `firstName` or `lastName` attributes. Therefore, the query only matches against the `userName` or `email` attributes.  (optional)
-	expand := "user" // string | An optional query parameter to return the corresponding [User](/openapi/okta-management/management/tag/User/) object in the `_embedded` property. Valid value: `user` (optional)
+	expand := "user" // string | An optional query parameter to return the corresponding [User](/openapi/okta-management/management/tags/user) object in the `_embedded` property. Valid value: `user` (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -217,7 +217,7 @@ Name | Type | Description  | Notes
  **after** | **string** | Specifies the pagination cursor for the next page of results. Treat this as an opaque value obtained through the next link relationship. See [Pagination](/#pagination). | 
  **limit** | **int32** | Specifies the number of objects to return per page. If there are multiple pages of results, the Link header contains a &#x60;next&#x60; link that you need to use as an opaque value (follow it, don&#39;t parse it). See [Pagination](/#pagination).  | [default to 50]
  **q** | **string** | Specifies a filter for the list of application users returned based on their profile attributes. The value of &#x60;q&#x60; is matched against the beginning of the following profile attributes: &#x60;userName&#x60;, &#x60;firstName&#x60;, &#x60;lastName&#x60;, and &#x60;email&#x60;. This filter only supports the &#x60;startsWith&#x60; operation that matches the &#x60;q&#x60; string against the beginning of the attribute values. &gt; **Note:** For OIDC apps, user profiles don&#39;t contain the &#x60;firstName&#x60; or &#x60;lastName&#x60; attributes. Therefore, the query only matches against the &#x60;userName&#x60; or &#x60;email&#x60; attributes.  | 
- **expand** | **string** | An optional query parameter to return the corresponding [User](/openapi/okta-management/management/tag/User/) object in the &#x60;_embedded&#x60; property. Valid value: &#x60;user&#x60; | 
+ **expand** | **string** | An optional query parameter to return the corresponding [User](/openapi/okta-management/management/tags/user) object in the &#x60;_embedded&#x60; property. Valid value: &#x60;user&#x60; | 
 
 ### Return type
 

@@ -38,9 +38,9 @@ type UserResourcesAPI interface {
 	/*
 			ListAppLinks List all assigned app links
 
-			Lists all app links for all direct or indirect (through group membership) assigned apps.
+			Lists all app links for all direct or indirect (through group membership) assigned apps
 
-		> **Note:** To list all apps in an org, use the [List all applications endpoint in the Applications API](/openapi/okta-management/management/tag/Application/#tag/Application/operation/listApplications).
+		> **Note:** To list all apps in an org, use the [List all applications endpoint in the Applications API](/openapi/okta-management/management/tags/application/other/listapplications).
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
@@ -55,9 +55,9 @@ type UserResourcesAPI interface {
 	/*
 			ListUserClients List all clients
 
-			Lists all client resources for which the specified user has grants or tokens.
+			Lists all client resources for which the specified user has grants or tokens
 
-		> **Note:** To list all client resources for which a specified authorization server has tokens, use the [List all client resources for an authorization server in the Authorization Servers API](/openapi/okta-management/management/tag/AuthorizationServerClients/#tag/AuthorizationServerClients/operation/listOAuth2ClientsForAuthorizationServer).
+		> **Note:** To list all client resources for which a specified authorization server has tokens, use the [List all client resources for an authorization server in the Authorization Servers API](/openapi/okta-management/management/authorizationserverclients/listoauth2clientsforauthorizationserver).
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param userId ID of an existing Okta user
@@ -70,11 +70,11 @@ type UserResourcesAPI interface {
 	ListUserClientsExecute(r ApiListUserClientsRequest) ([]OAuth2Client, *APIResponse, error)
 
 	/*
-			ListUserDevices List all devices
+			ListUserDevices List all devices for an enrolled user
 
-			Lists all devices enrolled by a user.
+			Lists all devices enrolled by a user
 
-		> **Note:** To list all devices registered to an org, use the [List all devices endpoint in the Devices API](/openapi/okta-management/management/tag/Device/#tag/Device/operation/listDevices).
+		> **Note:** To list all devices registered to an org, use the [List all devices endpoint in the Devices API](/openapi/okta-management/management/tags/device/other/listdevices).
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param userId ID of an existing Okta user
@@ -89,8 +89,8 @@ type UserResourcesAPI interface {
 	/*
 			ListUserGroups List all groups
 
-			Lists all groups of which the user is a member.
-		> **Note:** To list all groups in your org, use the [List all groups endpoints in the Groups API](/openapi/okta-management/management/tag/Group/#tag/Group/operation/listGroups).
+			Lists all groups of which the user is a member
+		> **Note:** To list all groups in your org, use the [List all groups endpoints in the Groups API](/openapi/okta-management/management/group/listgroups).
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
@@ -120,9 +120,9 @@ func (r ApiListAppLinksRequest) Execute() ([]AssignedAppLink, *APIResponse, erro
 /*
 ListAppLinks List all assigned app links
 
-Lists all app links for all direct or indirect (through group membership) assigned apps.
+# Lists all app links for all direct or indirect (through group membership) assigned apps
 
-> **Note:** To list all apps in an org, use the [List all applications endpoint in the Applications API](/openapi/okta-management/management/tag/Application/#tag/Application/operation/listApplications).
+> **Note:** To list all apps in an org, use the [List all applications endpoint in the Applications API](/openapi/okta-management/management/tags/application/other/listapplications).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
@@ -288,9 +288,9 @@ func (r ApiListUserClientsRequest) Execute() ([]OAuth2Client, *APIResponse, erro
 /*
 ListUserClients List all clients
 
-Lists all client resources for which the specified user has grants or tokens.
+# Lists all client resources for which the specified user has grants or tokens
 
-> **Note:** To list all client resources for which a specified authorization server has tokens, use the [List all client resources for an authorization server in the Authorization Servers API](/openapi/okta-management/management/tag/AuthorizationServerClients/#tag/AuthorizationServerClients/operation/listOAuth2ClientsForAuthorizationServer).
+> **Note:** To list all client resources for which a specified authorization server has tokens, use the [List all client resources for an authorization server in the Authorization Servers API](/openapi/okta-management/management/authorizationserverclients/listoauth2clientsforauthorizationserver).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ID of an existing Okta user
@@ -454,11 +454,11 @@ func (r ApiListUserDevicesRequest) Execute() ([]UserDevice, *APIResponse, error)
 }
 
 /*
-ListUserDevices List all devices
+ListUserDevices List all devices for an enrolled user
 
-Lists all devices enrolled by a user.
+# Lists all devices enrolled by a user
 
-> **Note:** To list all devices registered to an org, use the [List all devices endpoint in the Devices API](/openapi/okta-management/management/tag/Device/#tag/Device/operation/listDevices).
+> **Note:** To list all devices registered to an org, use the [List all devices endpoint in the Devices API](/openapi/okta-management/management/tags/device/other/listdevices).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ID of an existing Okta user
@@ -624,8 +624,8 @@ func (r ApiListUserGroupsRequest) Execute() ([]Group, *APIResponse, error) {
 /*
 ListUserGroups List all groups
 
-Lists all groups of which the user is a member.
-> **Note:** To list all groups in your org, use the [List all groups endpoints in the Groups API](/openapi/okta-management/management/tag/Group/#tag/Group/operation/listGroups).
+Lists all groups of which the user is a member
+> **Note:** To list all groups in your org, use the [List all groups endpoints in the Groups API](/openapi/okta-management/management/group/listgroups).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user

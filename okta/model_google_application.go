@@ -31,7 +31,7 @@ import (
 // checks if the GoogleApplication type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GoogleApplication{}
 
-// GoogleApplication Schema for the Google Workspace app (key name: `google`)  To create a Google Workspace app, use the [Create an Application](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication) request with the following parameters in the request body. > **Note:** The Google Workspace app only supports `BROWSER_PLUGIN` and `SAML_2_0` sign-on modes.
+// GoogleApplication Schema for the Google Workspace app (key name: `google`)  To create a Google Workspace app, use the [Create an Application](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/application/other/createapplication) request with the following parameters in the request body. > **Note:** The Google Workspace app only supports `BROWSER_PLUGIN` and `SAML_2_0` sign-on modes.
 type GoogleApplication struct {
 	Accessibility *ApplicationAccessibility     `json:"accessibility,omitempty"`
 	Credentials   *SchemeApplicationCredentials `json:"credentials,omitempty"`

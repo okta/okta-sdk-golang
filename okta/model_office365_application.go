@@ -31,7 +31,7 @@ import (
 // checks if the Office365Application type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Office365Application{}
 
-// Office365Application Schema for the Microsoft Office 365 app (key name: `office365`)  To create a Microsoft Office 365 app, use the [Create an Application](/openapi/okta-management/management/tag/Application/#tag/Application/operation/createApplication) request with the following parameters in the request body. > **Note:** The Office 365 app only supports `BROWSER_PLUGIN` and `SAML_1_1` sign-on modes.
+// Office365Application Schema for the Microsoft Office 365 app (key name: `office365`)  To create a Microsoft Office 365 app, use the [Create an Application](/openapi/okta-management/management/tags/application/other/createapplication) request with the following parameters in the request body. > **Note:** The Office 365 app only supports `BROWSER_PLUGIN` and `SAML_1_1` sign-on modes.
 type Office365Application struct {
 	Accessibility *ApplicationAccessibility     `json:"accessibility,omitempty"`
 	Credentials   *SchemeApplicationCredentials `json:"credentials,omitempty"`

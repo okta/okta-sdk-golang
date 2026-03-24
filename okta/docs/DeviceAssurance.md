@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **CreatedBy** | Pointer to **string** |  | [optional] [readonly] 
 **CreatedDate** | Pointer to **string** |  | [optional] [readonly] 
 **DevicePostureChecks** | Pointer to [**DevicePostureChecks**](DevicePostureChecks.md) |  | [optional] 
-**DisplayRemediationMode** | Pointer to **string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;Represents the remediation mode of this device assurance policy when users are denied access due to device noncompliance | [optional] 
+**DisplayRemediationMode** | Pointer to **string** | Represents the remediation mode of this device assurance policy when users are denied access due to device noncompliance | [optional] 
 **GracePeriod** | Pointer to [**GracePeriod**](GracePeriod.md) |  | [optional] 
 **Id** | Pointer to **string** |  | [optional] [readonly] 
 **LastUpdate** | Pointer to **string** |  | [optional] [readonly] 

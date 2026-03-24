@@ -492,12 +492,18 @@ func (a *ApplicationCrossAppAccessConnectionsAPIService) DeleteCrossAppAccessCon
 }
 
 type ApiGetAllCrossAppAccessConnectionsRequest struct {
-	ctx        context.Context
-	ApiService ApplicationCrossAppAccessConnectionsAPI
-	appId      string
-	after      *string
-	limit      *int32
-	retryCount int32
+	ctx               context.Context
+	ApiService        ApplicationCrossAppAccessConnectionsAPI
+	appId             string
+	after             *string
+	limit             *int32
+	status            *string
+	requestingAppId   *string
+	resourceAppId     *string
+	activeAppsOnly    *bool
+	requestingAppName *string
+	resourceAppName   *string
+	retryCount        int32
 }
 
 // Specifies the pagination cursor for the next page of connection results
@@ -509,6 +515,42 @@ func (r ApiGetAllCrossAppAccessConnectionsRequest) After(after string) ApiGetAll
 // Specifies the number of results to return per page. The values:   * -1: Return all results (up to system maximum)   * 0: Return an empty result set   * Positive integer: Return up to that many results (capped at system maximum)
 func (r ApiGetAllCrossAppAccessConnectionsRequest) Limit(limit int32) ApiGetAllCrossAppAccessConnectionsRequest {
 	r.limit = &limit
+	return r
+}
+
+// Filters connections by their lifecycle status. When specified, only connections that match the specified status are returned.
+func (r ApiGetAllCrossAppAccessConnectionsRequest) Status(status string) ApiGetAllCrossAppAccessConnectionsRequest {
+	r.status = &status
+	return r
+}
+
+// Filters only connections where the app with the specified ID is the requesting app
+func (r ApiGetAllCrossAppAccessConnectionsRequest) RequestingAppId(requestingAppId string) ApiGetAllCrossAppAccessConnectionsRequest {
+	r.requestingAppId = &requestingAppId
+	return r
+}
+
+// Filters only connections where the app with the specified ID is the requesting app
+func (r ApiGetAllCrossAppAccessConnectionsRequest) ResourceAppId(resourceAppId string) ApiGetAllCrossAppAccessConnectionsRequest {
+	r.resourceAppId = &resourceAppId
+	return r
+}
+
+// When set to true, filters the result to include only connections where both the requesting and resource app have a status of ACTIVE
+func (r ApiGetAllCrossAppAccessConnectionsRequest) ActiveAppsOnly(activeAppsOnly bool) ApiGetAllCrossAppAccessConnectionsRequest {
+	r.activeAppsOnly = &activeAppsOnly
+	return r
+}
+
+// Filters connections where the requesting app&#39;s name matches the provided search string
+func (r ApiGetAllCrossAppAccessConnectionsRequest) RequestingAppName(requestingAppName string) ApiGetAllCrossAppAccessConnectionsRequest {
+	r.requestingAppName = &requestingAppName
+	return r
+}
+
+// Filters connections where the resource app&#39;s name matches the provided search string
+func (r ApiGetAllCrossAppAccessConnectionsRequest) ResourceAppName(resourceAppName string) ApiGetAllCrossAppAccessConnectionsRequest {
+	r.resourceAppName = &resourceAppName
 	return r
 }
 
@@ -570,6 +612,24 @@ func (a *ApplicationCrossAppAccessConnectionsAPIService) GetAllCrossAppAccessCon
 	}
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+	}
+	if r.status != nil {
+		localVarQueryParams.Add("status", parameterToString(*r.status, ""))
+	}
+	if r.requestingAppId != nil {
+		localVarQueryParams.Add("requestingAppId", parameterToString(*r.requestingAppId, ""))
+	}
+	if r.resourceAppId != nil {
+		localVarQueryParams.Add("resourceAppId", parameterToString(*r.resourceAppId, ""))
+	}
+	if r.activeAppsOnly != nil {
+		localVarQueryParams.Add("activeAppsOnly", parameterToString(*r.activeAppsOnly, ""))
+	}
+	if r.requestingAppName != nil {
+		localVarQueryParams.Add("requestingAppName", parameterToString(*r.requestingAppName, ""))
+	}
+	if r.resourceAppName != nil {
+		localVarQueryParams.Add("resourceAppName", parameterToString(*r.resourceAppName, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

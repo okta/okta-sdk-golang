@@ -145,6 +145,10 @@ Class | Method | HTTP request | Description
 *ApplicationGroupsAPI* | [**ListApplicationGroupAssignments**](docs/ApplicationGroupsAPI.md#listapplicationgroupassignments) | **Get** /api/v1/apps/{appId}/groups | List all application groups
 *ApplicationGroupsAPI* | [**UnassignApplicationFromGroup**](docs/ApplicationGroupsAPI.md#unassignapplicationfromgroup) | **Delete** /api/v1/apps/{appId}/groups/{groupId} | Unassign an application group
 *ApplicationGroupsAPI* | [**UpdateGroupAssignmentToApplication**](docs/ApplicationGroupsAPI.md#updategroupassignmenttoapplication) | **Patch** /api/v1/apps/{appId}/groups/{groupId} | Update an application group
+*ApplicationInterclientTrustMappingsAPI* | [**CreateInterclientTrustMapping**](docs/ApplicationInterclientTrustMappingsAPI.md#createinterclienttrustmapping) | **Post** /api/v1/apps/{appId}/interclient-allowed-apps | Create an allowed app mapping for a target app
+*ApplicationInterclientTrustMappingsAPI* | [**DeleteInterclientTrustMapping**](docs/ApplicationInterclientTrustMappingsAPI.md#deleteinterclienttrustmapping) | **Delete** /api/v1/apps/{appId}/interclient-allowed-apps/{allowedAppId} | Delete an interclient trust mapping
+*ApplicationInterclientTrustMappingsAPI* | [**ListInterclientAllowedApplications**](docs/ApplicationInterclientTrustMappingsAPI.md#listinterclientallowedapplications) | **Get** /api/v1/apps/{appId}/interclient-allowed-apps | List all allowed apps for a target app
+*ApplicationInterclientTrustMappingsAPI* | [**ListInterclientTargetApplications**](docs/ApplicationInterclientTrustMappingsAPI.md#listinterclienttargetapplications) | **Get** /api/v1/apps/{appId}/interclient-target-apps | List all target apps for an allowed app
 *ApplicationLogosAPI* | [**UploadApplicationLogo**](docs/ApplicationLogosAPI.md#uploadapplicationlogo) | **Post** /api/v1/apps/{appId}/logo | Upload an application logo
 *ApplicationPoliciesAPI* | [**AssignApplicationPolicy**](docs/ApplicationPoliciesAPI.md#assignapplicationpolicy) | **Put** /api/v1/apps/{appId}/policies/{policyId} | Assign an app sign-in policy
 *ApplicationSSOAPI* | [**PreviewSAMLmetadataForApplication**](docs/ApplicationSSOAPI.md#previewsamlmetadataforapplication) | **Get** /api/v1/apps/{appId}/sso/saml/metadata | Preview the application SAML metadata
@@ -262,6 +266,8 @@ Class | Method | HTTP request | Description
 *BehaviorAPI* | [**GetBehaviorDetectionRule**](docs/BehaviorAPI.md#getbehaviordetectionrule) | **Get** /api/v1/behaviors/{behaviorId} | Retrieve a behavior detection rule
 *BehaviorAPI* | [**ListBehaviorDetectionRules**](docs/BehaviorAPI.md#listbehaviordetectionrules) | **Get** /api/v1/behaviors | List all behavior detection rules
 *BehaviorAPI* | [**ReplaceBehaviorDetectionRule**](docs/BehaviorAPI.md#replacebehaviordetectionrule) | **Put** /api/v1/behaviors/{behaviorId} | Replace a behavior detection rule
+*BotProtectionAPI* | [**GetBotProtectionConfiguration**](docs/BotProtectionAPI.md#getbotprotectionconfiguration) | **Get** /api/v1/bot-protection/configuration | Retrieve the bot protection configuration
+*BotProtectionAPI* | [**UpdateBotProtectionConfiguration**](docs/BotProtectionAPI.md#updatebotprotectionconfiguration) | **Post** /api/v1/bot-protection/configuration | Update the bot protection configuration
 *BrandsAPI* | [**CreateBrand**](docs/BrandsAPI.md#createbrand) | **Post** /api/v1/brands | Create a brand
 *BrandsAPI* | [**DeleteBrand**](docs/BrandsAPI.md#deletebrand) | **Delete** /api/v1/brands/{brandId} | Delete a brand
 *BrandsAPI* | [**GetBrand**](docs/BrandsAPI.md#getbrand) | **Get** /api/v1/brands/{brandId} | Retrieve a brand
@@ -303,6 +309,15 @@ Class | Method | HTTP request | Description
 *CustomPagesAPI* | [**ReplacePreviewErrorPage**](docs/CustomPagesAPI.md#replacepreviewerrorpage) | **Put** /api/v1/brands/{brandId}/pages/error/preview | Replace the preview error page
 *CustomPagesAPI* | [**ReplacePreviewSignInPage**](docs/CustomPagesAPI.md#replacepreviewsigninpage) | **Put** /api/v1/brands/{brandId}/pages/sign-in/preview | Replace the preview sign-in page
 *CustomPagesAPI* | [**ReplaceSignOutPageSettings**](docs/CustomPagesAPI.md#replacesignoutpagesettings) | **Put** /api/v1/brands/{brandId}/pages/sign-out/customized | Replace the sign-out page settings
+*CustomTelephonyProviderAPI* | [**ActivateCustomTelephonyCredential**](docs/CustomTelephonyProviderAPI.md#activatecustomtelephonycredential) | **Post** /api/v1/telephony-providers/{customTelephonyProviderId}/lifecycle/activate | Activate a custom telephony provider
+*CustomTelephonyProviderAPI* | [**CreateCustomTelephonyProviderCredentials**](docs/CustomTelephonyProviderAPI.md#createcustomtelephonyprovidercredentials) | **Post** /api/v1/telephony-providers | Create a custom telephony provider
+*CustomTelephonyProviderAPI* | [**DeactivateCustomTelephonyCredential**](docs/CustomTelephonyProviderAPI.md#deactivatecustomtelephonycredential) | **Post** /api/v1/telephony-providers/{customTelephonyProviderId}/lifecycle/deactivate | Deactivate a custom telephony provider
+*CustomTelephonyProviderAPI* | [**DeleteCustomTelephonyProviderCredential**](docs/CustomTelephonyProviderAPI.md#deletecustomtelephonyprovidercredential) | **Delete** /api/v1/telephony-providers/{customTelephonyProviderId} | Delete a custom telephony provider
+*CustomTelephonyProviderAPI* | [**GetCustomTelephonyProviderCredential**](docs/CustomTelephonyProviderAPI.md#getcustomtelephonyprovidercredential) | **Get** /api/v1/telephony-providers/{customTelephonyProviderId} | Retrieve a custom telephony provider
+*CustomTelephonyProviderAPI* | [**ListAllCustomTelephonyProviderCredentials**](docs/CustomTelephonyProviderAPI.md#listallcustomtelephonyprovidercredentials) | **Get** /api/v1/telephony-providers | List all custom telephony providers
+*CustomTelephonyProviderAPI* | [**SendTestCustomTelephonyProviderCredential**](docs/CustomTelephonyProviderAPI.md#sendtestcustomtelephonyprovidercredential) | **Post** /api/v1/telephony-providers/{customTelephonyProviderId}/test | Send a test message from a custom telephony provider
+*CustomTelephonyProviderAPI* | [**SetAsPrimaryCustomTelephonyCredential**](docs/CustomTelephonyProviderAPI.md#setasprimarycustomtelephonycredential) | **Post** /api/v1/telephony-providers/{customTelephonyProviderId}/setAsPrimary | Set a custom telephony provider as a primary telephony provider
+*CustomTelephonyProviderAPI* | [**UpdateCustomTelephonyProviderCredential**](docs/CustomTelephonyProviderAPI.md#updatecustomtelephonyprovidercredential) | **Patch** /api/v1/telephony-providers/{customTelephonyProviderId} | Update a custom telephony provider credential
 *CustomTemplatesAPI* | [**CreateEmailCustomization**](docs/CustomTemplatesAPI.md#createemailcustomization) | **Post** /api/v1/brands/{brandId}/templates/email/{templateName}/customizations | Create an email customization
 *CustomTemplatesAPI* | [**DeleteAllCustomizations**](docs/CustomTemplatesAPI.md#deleteallcustomizations) | **Delete** /api/v1/brands/{brandId}/templates/email/{templateName}/customizations | Delete all email customizations
 *CustomTemplatesAPI* | [**DeleteEmailCustomization**](docs/CustomTemplatesAPI.md#deleteemailcustomization) | **Delete** /api/v1/brands/{brandId}/templates/email/{templateName}/customizations/{customizationId} | Delete an email customization
@@ -340,7 +355,13 @@ Class | Method | HTTP request | Description
 *DevicePostureCheckAPI* | [**ListDefaultDevicePostureChecks**](docs/DevicePostureCheckAPI.md#listdefaultdeviceposturechecks) | **Get** /api/v1/device-posture-checks/default | List all default device posture checks
 *DevicePostureCheckAPI* | [**ListDevicePostureChecks**](docs/DevicePostureCheckAPI.md#listdeviceposturechecks) | **Get** /api/v1/device-posture-checks | List all device posture checks
 *DevicePostureCheckAPI* | [**ReplaceDevicePostureCheck**](docs/DevicePostureCheckAPI.md#replacedeviceposturecheck) | **Put** /api/v1/device-posture-checks/{postureCheckId} | Replace a device posture check
-*DirectoriesIntegrationAPI* | [**UpdateADGroupMembership**](docs/DirectoriesIntegrationAPI.md#updateadgroupmembership) | **Post** /api/v1/directories/{appInstanceId}/groups/modify | Update an Active Directory group membership
+*DirectoriesIntegrationAPI* | [**GetGroupAttributeQueryResult**](docs/DirectoriesIntegrationAPI.md#getgroupattributequeryresult) | **Get** /api/v1/directories/{appInstanceId}/groups/{groupId}/query/{resultId} | Retrieve the results of an AD group query
+*DirectoriesIntegrationAPI* | [**SubmitGroupAttributeQuery**](docs/DirectoriesIntegrationAPI.md#submitgroupattributequery) | **Post** /api/v1/directories/{appInstanceId}/groups/{groupId}/query | Submit a query for AD Group
+*DirectoriesIntegrationAPI* | [**UpdateGroupMembership**](docs/DirectoriesIntegrationAPI.md#updategroupmembership) | **Post** /api/v1/directories/{appInstanceId}/groups/modify | Update an external directory group membership
+*DisasterRecoveryAPI* | [**GetDRStatus**](docs/DisasterRecoveryAPI.md#getdrstatus) | **Get** /api/v1/dr/status | Retrieve the disaster recovery status for all domains
+*DisasterRecoveryAPI* | [**GetDRStatusForDomain**](docs/DisasterRecoveryAPI.md#getdrstatusfordomain) | **Get** /api/v1/dr/status/{domain} | Retrieve the disaster recovery status for a domain
+*DisasterRecoveryAPI* | [**StartOrgFailback**](docs/DisasterRecoveryAPI.md#startorgfailback) | **Post** /api/v1/dr/failback | Start the failback of your org
+*DisasterRecoveryAPI* | [**StartOrgFailover**](docs/DisasterRecoveryAPI.md#startorgfailover) | **Post** /api/v1/dr/failover | Start the failover of your org
 *EmailCustomizationAPI* | [**BulkRemoveEmailAddressBounces**](docs/EmailCustomizationAPI.md#bulkremoveemailaddressbounces) | **Post** /api/v1/org/email/bounces/remove-list | Remove bounced emails
 *EmailDomainAPI* | [**CreateEmailDomain**](docs/EmailDomainAPI.md#createemaildomain) | **Post** /api/v1/email-domains | Create an email domain
 *EmailDomainAPI* | [**DeleteEmailDomain**](docs/EmailDomainAPI.md#deleteemaildomain) | **Delete** /api/v1/email-domains/{emailDomainId} | Delete an email domain
@@ -435,11 +456,23 @@ Class | Method | HTTP request | Description
 *IdentityProviderUsersAPI* | [**ListSocialAuthTokens**](docs/IdentityProviderUsersAPI.md#listsocialauthtokens) | **Get** /api/v1/idps/{idpId}/users/{userId}/credentials/tokens | List all tokens from OIDC IdP
 *IdentityProviderUsersAPI* | [**ListUserIdentityProviders**](docs/IdentityProviderUsersAPI.md#listuseridentityproviders) | **Get** /api/v1/users/{id}/idps | List all IdPs for user
 *IdentityProviderUsersAPI* | [**UnlinkUserFromIdentityProvider**](docs/IdentityProviderUsersAPI.md#unlinkuserfromidentityprovider) | **Delete** /api/v1/idps/{idpId}/users/{userId} | Unlink a user from IdP
+*IdentitySourceAPI* | [**CreateIdentitySourceGroups**](docs/IdentitySourceAPI.md#createidentitysourcegroups) | **Post** /api/v1/identity-sources/{identitySourceId}/groups | Create an identity source group
+*IdentitySourceAPI* | [**CreateIdentitySourceGroupsMemberships**](docs/IdentitySourceAPI.md#createidentitysourcegroupsmemberships) | **Post** /api/v1/identity-sources/{identitySourceId}/groups/{groupOrExternalId}/membership | Create the memberships for the given identity source group
 *IdentitySourceAPI* | [**CreateIdentitySourceSession**](docs/IdentitySourceAPI.md#createidentitysourcesession) | **Post** /api/v1/identity-sources/{identitySourceId}/sessions | Create an identity source session
+*IdentitySourceAPI* | [**CreateIdentitySourceUser**](docs/IdentitySourceAPI.md#createidentitysourceuser) | **Post** /api/v1/identity-sources/{identitySourceId}/users | Create an identity source user
+*IdentitySourceAPI* | [**DeleteIdentitySourceGroup**](docs/IdentitySourceAPI.md#deleteidentitysourcegroup) | **Delete** /api/v1/identity-sources/{identitySourceId}/groups/{groupOrExternalId} | Delete an identity source group
+*IdentitySourceAPI* | [**DeleteIdentitySourceGroupMemberships**](docs/IdentitySourceAPI.md#deleteidentitysourcegroupmemberships) | **Delete** /api/v1/identity-sources/{identitySourceId}/groups/{groupOrExternalId}/membership/{memberExternalId} | Delete the memberships for the specified identity source group
 *IdentitySourceAPI* | [**DeleteIdentitySourceSession**](docs/IdentitySourceAPI.md#deleteidentitysourcesession) | **Delete** /api/v1/identity-sources/{identitySourceId}/sessions/{sessionId} | Delete an identity source session
+*IdentitySourceAPI* | [**DeleteIdentitySourceUser**](docs/IdentitySourceAPI.md#deleteidentitysourceuser) | **Delete** /api/v1/identity-sources/{identitySourceId}/users/{externalId} | Delete an identity source user
+*IdentitySourceAPI* | [**GetIdentitySourceGroup**](docs/IdentitySourceAPI.md#getidentitysourcegroup) | **Get** /api/v1/identity-sources/{identitySourceId}/groups/{groupOrExternalId} | Retrieve an identity source group
+*IdentitySourceAPI* | [**GetIdentitySourceGroupMemberships**](docs/IdentitySourceAPI.md#getidentitysourcegroupmemberships) | **Get** /api/v1/identity-sources/{identitySourceId}/groups/{groupOrExternalId}/membership | Retrieve the memberships for the given identity source group
 *IdentitySourceAPI* | [**GetIdentitySourceSession**](docs/IdentitySourceAPI.md#getidentitysourcesession) | **Get** /api/v1/identity-sources/{identitySourceId}/sessions/{sessionId} | Retrieve an identity source session
+*IdentitySourceAPI* | [**GetIdentitySourceUser**](docs/IdentitySourceAPI.md#getidentitysourceuser) | **Get** /api/v1/identity-sources/{identitySourceId}/users/{externalId} | Retrieve an identity source user
 *IdentitySourceAPI* | [**ListIdentitySourceSessions**](docs/IdentitySourceAPI.md#listidentitysourcesessions) | **Get** /api/v1/identity-sources/{identitySourceId}/sessions | List all identity source sessions
+*IdentitySourceAPI* | [**ReplaceExistingIdentitySourceUser**](docs/IdentitySourceAPI.md#replaceexistingidentitysourceuser) | **Put** /api/v1/identity-sources/{identitySourceId}/users/{externalId} | Replace an existing identity source user
 *IdentitySourceAPI* | [**StartImportFromIdentitySource**](docs/IdentitySourceAPI.md#startimportfromidentitysource) | **Post** /api/v1/identity-sources/{identitySourceId}/sessions/{sessionId}/start-import | Start the import from the identity source
+*IdentitySourceAPI* | [**UpdateIdentitySourceGroups**](docs/IdentitySourceAPI.md#updateidentitysourcegroups) | **Post** /api/v1/identity-sources/{identitySourceId}/groups/{groupOrExternalId} | Update an identity source group
+*IdentitySourceAPI* | [**UpdateIdentitySourceUsers**](docs/IdentitySourceAPI.md#updateidentitysourceusers) | **Patch** /api/v1/identity-sources/{identitySourceId}/users/{externalId} | Update an identity source user
 *IdentitySourceAPI* | [**UploadIdentitySourceDataForDelete**](docs/IdentitySourceAPI.md#uploadidentitysourcedatafordelete) | **Post** /api/v1/identity-sources/{identitySourceId}/sessions/{sessionId}/bulk-delete | Upload the data to be deleted in Okta
 *IdentitySourceAPI* | [**UploadIdentitySourceDataForUpsert**](docs/IdentitySourceAPI.md#uploadidentitysourcedataforupsert) | **Post** /api/v1/identity-sources/{identitySourceId}/sessions/{sessionId}/bulk-upsert | Upload the data to be upserted in Okta
 *IdentitySourceAPI* | [**UploadIdentitySourceGroupMembershipsForDelete**](docs/IdentitySourceAPI.md#uploadidentitysourcegroupmembershipsfordelete) | **Post** /api/v1/identity-sources/{identitySourceId}/sessions/{sessionId}/bulk-group-memberships-delete | Upload the group memberships to be deleted in Okta
@@ -647,7 +680,7 @@ Class | Method | HTTP request | Description
 *SSFSecurityEventTokenAPI* | [**PublishSecurityEventTokens**](docs/SSFSecurityEventTokenAPI.md#publishsecurityeventtokens) | **Post** /security/api/v1/security-events | Publish a security event token
 *SSFTransmitterAPI* | [**CreateSsfStream**](docs/SSFTransmitterAPI.md#createssfstream) | **Post** /api/v1/ssf/stream | Create an SSF stream
 *SSFTransmitterAPI* | [**DeleteSsfStream**](docs/SSFTransmitterAPI.md#deletessfstream) | **Delete** /api/v1/ssf/stream | Delete an SSF stream
-*SSFTransmitterAPI* | [**GetSsfStreamStatus**](docs/SSFTransmitterAPI.md#getssfstreamstatus) | **Get** /api/v1/ssf/stream/status | Retrieve the SSF Stream status
+*SSFTransmitterAPI* | [**GetSsfStreamStatus**](docs/SSFTransmitterAPI.md#getssfstreamstatus) | **Get** /api/v1/ssf/stream/status | Retrieve the SSF stream status
 *SSFTransmitterAPI* | [**GetSsfStreams**](docs/SSFTransmitterAPI.md#getssfstreams) | **Get** /api/v1/ssf/stream | Retrieve the SSF stream configuration(s)
 *SSFTransmitterAPI* | [**GetWellknownSsfMetadata**](docs/SSFTransmitterAPI.md#getwellknownssfmetadata) | **Get** /.well-known/ssf-configuration | Retrieve the SSF transmitter metadata
 *SSFTransmitterAPI* | [**ReplaceSsfStream**](docs/SSFTransmitterAPI.md#replacessfstream) | **Put** /api/v1/ssf/stream | Replace an SSF stream
@@ -763,7 +796,7 @@ Class | Method | HTTP request | Description
 *UserOAuthAPI* | [**RevokeTokensForUserAndClient**](docs/UserOAuthAPI.md#revoketokensforuserandclient) | **Delete** /api/v1/users/{userId}/clients/{clientId}/tokens | Revoke all refresh tokens for a client
 *UserResourcesAPI* | [**ListAppLinks**](docs/UserResourcesAPI.md#listapplinks) | **Get** /api/v1/users/{id}/appLinks | List all assigned app links
 *UserResourcesAPI* | [**ListUserClients**](docs/UserResourcesAPI.md#listuserclients) | **Get** /api/v1/users/{userId}/clients | List all clients
-*UserResourcesAPI* | [**ListUserDevices**](docs/UserResourcesAPI.md#listuserdevices) | **Get** /api/v1/users/{userId}/devices | List all devices
+*UserResourcesAPI* | [**ListUserDevices**](docs/UserResourcesAPI.md#listuserdevices) | **Get** /api/v1/users/{userId}/devices | List all devices for an enrolled user
 *UserResourcesAPI* | [**ListUserGroups**](docs/UserResourcesAPI.md#listusergroups) | **Get** /api/v1/users/{id}/groups | List all groups
 *UserRiskAPI* | [**GetUserRisk**](docs/UserRiskAPI.md#getuserrisk) | **Get** /api/v1/users/{userId}/risk | Retrieve the user&#39;s risk
 *UserRiskAPI* | [**UpsertUserRisk**](docs/UserRiskAPI.md#upsertuserrisk) | **Put** /api/v1/users/{userId}/risk | Upsert the user&#39;s risk
@@ -787,12 +820,6 @@ Class | Method | HTTP request | Description
 
  - [AAGUIDAuthenticatorCharacteristics](docs/AAGUIDAuthenticatorCharacteristics.md)
  - [AAGUIDGroupObject](docs/AAGUIDGroupObject.md)
- - [AIAgent](docs/AIAgent.md)
- - [AIAgentOperationListResponse](docs/AIAgentOperationListResponse.md)
- - [AIAgentOperationListResponseLinks](docs/AIAgentOperationListResponseLinks.md)
- - [AIAgentOperationResponse](docs/AIAgentOperationResponse.md)
- - [AIAgentProfile](docs/AIAgentProfile.md)
- - [AIAgentResource](docs/AIAgentResource.md)
  - [APIServiceIntegrationInstance](docs/APIServiceIntegrationInstance.md)
  - [APIServiceIntegrationInstanceSecret](docs/APIServiceIntegrationInstanceSecret.md)
  - [APIServiceIntegrationLinks](docs/APIServiceIntegrationLinks.md)
@@ -814,25 +841,17 @@ Class | Method | HTTP request | Description
  - [Actions](docs/Actions.md)
  - [ActivateFactor200Response](docs/ActivateFactor200Response.md)
  - [AddGroupRequest](docs/AddGroupRequest.md)
- - [AddJwk201Response](docs/AddJwk201Response.md)
  - [AddJwkRequest](docs/AddJwkRequest.md)
  - [AdminConsoleSettings](docs/AdminConsoleSettings.md)
  - [Agent](docs/Agent.md)
  - [AgentAction](docs/AgentAction.md)
- - [AgentJsonSigningKeyCommon](docs/AgentJsonSigningKeyCommon.md)
- - [AgentJsonSigningKeyRequest](docs/AgentJsonSigningKeyRequest.md)
- - [AgentJsonSigningKeyResponse](docs/AgentJsonSigningKeyResponse.md)
- - [AgentJsonWebKeyECRequest](docs/AgentJsonWebKeyECRequest.md)
- - [AgentJsonWebKeyECResponse](docs/AgentJsonWebKeyECResponse.md)
- - [AgentJsonWebKeyRequestBase](docs/AgentJsonWebKeyRequestBase.md)
- - [AgentJsonWebKeyResponseBase](docs/AgentJsonWebKeyResponseBase.md)
- - [AgentJsonWebKeyRsaRequest](docs/AgentJsonWebKeyRsaRequest.md)
- - [AgentJsonWebKeyRsaResponse](docs/AgentJsonWebKeyRsaResponse.md)
  - [AgentPool](docs/AgentPool.md)
  - [AgentPoolUpdate](docs/AgentPoolUpdate.md)
- - [AgentPoolUpdateSetting](docs/AgentPoolUpdateSetting.md)
- - [AgentSecretLinks](docs/AgentSecretLinks.md)
+ - [AgentPoolUpdateSettingRequest](docs/AgentPoolUpdateSettingRequest.md)
+ - [AgentPoolUpdateSettingResponse](docs/AgentPoolUpdateSettingResponse.md)
  - [AndroidDeviceTrust](docs/AndroidDeviceTrust.md)
+ - [ApiService](docs/ApiService.md)
+ - [ApiServiceCapability](docs/ApiServiceCapability.md)
  - [ApiToken](docs/ApiToken.md)
  - [ApiTokenNetwork](docs/ApiTokenNetwork.md)
  - [ApiTokenUpdate](docs/ApiTokenUpdate.md)
@@ -936,6 +955,7 @@ Class | Method | HTTP request | Description
  - [AuthenticatorKeyCustomAppAllOfProviderConfigurationApns](docs/AuthenticatorKeyCustomAppAllOfProviderConfigurationApns.md)
  - [AuthenticatorKeyCustomAppAllOfProviderConfigurationFcm](docs/AuthenticatorKeyCustomAppAllOfProviderConfigurationFcm.md)
  - [AuthenticatorKeyCustomAppAllOfSettings](docs/AuthenticatorKeyCustomAppAllOfSettings.md)
+ - [AuthenticatorKeyCustomOtp](docs/AuthenticatorKeyCustomOtp.md)
  - [AuthenticatorKeyDuo](docs/AuthenticatorKeyDuo.md)
  - [AuthenticatorKeyDuoAllOfProvider](docs/AuthenticatorKeyDuoAllOfProvider.md)
  - [AuthenticatorKeyDuoAllOfProviderConfiguration](docs/AuthenticatorKeyDuoAllOfProviderConfiguration.md)
@@ -1002,6 +1022,7 @@ Class | Method | HTTP request | Description
  - [AvailableAction](docs/AvailableAction.md)
  - [AvailableActionProvider](docs/AvailableActionProvider.md)
  - [AvailableActions](docs/AvailableActions.md)
+ - [BASICSMTPAUTHREQ](docs/BASICSMTPAUTHREQ.md)
  - [BaseContext](docs/BaseContext.md)
  - [BaseContextSession](docs/BaseContextSession.md)
  - [BaseContextUser](docs/BaseContextUser.md)
@@ -1031,6 +1052,7 @@ Class | Method | HTTP request | Description
  - [BookmarkApplication](docs/BookmarkApplication.md)
  - [BookmarkApplicationSettings](docs/BookmarkApplicationSettings.md)
  - [BookmarkApplicationSettingsApplication](docs/BookmarkApplicationSettingsApplication.md)
+ - [BotProtectionConfiguration](docs/BotProtectionConfiguration.md)
  - [BouncesRemoveListError](docs/BouncesRemoveListError.md)
  - [BouncesRemoveListObj](docs/BouncesRemoveListObj.md)
  - [BouncesRemoveListResult](docs/BouncesRemoveListResult.md)
@@ -1053,6 +1075,7 @@ Class | Method | HTTP request | Description
  - [BundleEntitlementsResponseLinks](docs/BundleEntitlementsResponseLinks.md)
  - [BundleLink](docs/BundleLink.md)
  - [ByDateTimeAuthenticatorGracePeriodExpiry](docs/ByDateTimeAuthenticatorGracePeriodExpiry.md)
+ - [BySkipCountAuthenticatorGracePeriod](docs/BySkipCountAuthenticatorGracePeriod.md)
  - [CAPTCHAInstance](docs/CAPTCHAInstance.md)
  - [CSRLinks](docs/CSRLinks.md)
  - [CaepCredentialChangeEvent](docs/CaepCredentialChangeEvent.md)
@@ -1082,12 +1105,17 @@ Class | Method | HTTP request | Description
  - [Client](docs/Client.md)
  - [ClientPolicyCondition](docs/ClientPolicyCondition.md)
  - [ClientPrivilegesSetting](docs/ClientPrivilegesSetting.md)
+ - [ClientUpdatePolicy](docs/ClientUpdatePolicy.md)
+ - [ClientUpdatePolicyRule](docs/ClientUpdatePolicyRule.md)
+ - [ClientUpdatePolicyRuleActionsObject](docs/ClientUpdatePolicyRuleActionsObject.md)
+ - [ClientUpdatePolicyRuleAllOfActions](docs/ClientUpdatePolicyRuleAllOfActions.md)
+ - [ClientUpdatePolicyRuleAllOfActionsUpdateControls](docs/ClientUpdatePolicyRuleAllOfActionsUpdateControls.md)
  - [Compliance](docs/Compliance.md)
  - [Conditions](docs/Conditions.md)
  - [ContentSecurityPolicySetting](docs/ContentSecurityPolicySetting.md)
  - [ContextPolicyRuleCondition](docs/ContextPolicyRuleCondition.md)
- - [CreateAIAgentRequest](docs/CreateAIAgentRequest.md)
  - [CreateBrandRequest](docs/CreateBrandRequest.md)
+ - [CreateEmailServerRequest](docs/CreateEmailServerRequest.md)
  - [CreateGroupPushMappingRequest](docs/CreateGroupPushMappingRequest.md)
  - [CreateGroupRuleRequest](docs/CreateGroupRuleRequest.md)
  - [CreateIamRoleRequest](docs/CreateIamRoleRequest.md)
@@ -1112,10 +1140,21 @@ Class | Method | HTTP request | Description
  - [CustomAAGUIDResponseObject](docs/CustomAAGUIDResponseObject.md)
  - [CustomAAGUIDUpdateRequestObject](docs/CustomAAGUIDUpdateRequestObject.md)
  - [CustomAuthSettings](docs/CustomAuthSettings.md)
- - [CustomAuthorizationServer](docs/CustomAuthorizationServer.md)
- - [CustomAuthorizationServerLinks](docs/CustomAuthorizationServerLinks.md)
  - [CustomRole](docs/CustomRole.md)
  - [CustomRoleAssignmentSchema](docs/CustomRoleAssignmentSchema.md)
+ - [CustomTelephonyProviderCredentialCreateRequest](docs/CustomTelephonyProviderCredentialCreateRequest.md)
+ - [CustomTelephonyProviderCredentialResponse](docs/CustomTelephonyProviderCredentialResponse.md)
+ - [CustomTelephonyProviderCredentialSendTestRequest](docs/CustomTelephonyProviderCredentialSendTestRequest.md)
+ - [CustomTelephonyProviderCredentialUpdateRequest](docs/CustomTelephonyProviderCredentialUpdateRequest.md)
+ - [CustomTelephonyProviderSettings](docs/CustomTelephonyProviderSettings.md)
+ - [CustomTelephonyProviderSettingsCall](docs/CustomTelephonyProviderSettingsCall.md)
+ - [CustomTelephonyProviderSettingsSms](docs/CustomTelephonyProviderSettingsSms.md)
+ - [CustomTelephonyProviderSettingsTelesignServiceCall](docs/CustomTelephonyProviderSettingsTelesignServiceCall.md)
+ - [CustomTelephonyProviderSettingsTelesignServiceSms](docs/CustomTelephonyProviderSettingsTelesignServiceSms.md)
+ - [CustomTelephonyProviderSettingsTwilioCallerId](docs/CustomTelephonyProviderSettingsTwilioCallerId.md)
+ - [CustomTelephonyProviderSettingsTwilioMessagingService](docs/CustomTelephonyProviderSettingsTwilioMessagingService.md)
+ - [CustomTelephonyProviderSettingsTwilioPhoneNumber](docs/CustomTelephonyProviderSettingsTwilioPhoneNumber.md)
+ - [CustomTelephonyProviderSettingsTwilioVerify](docs/CustomTelephonyProviderSettingsTwilioVerify.md)
  - [CustomizablePage](docs/CustomizablePage.md)
  - [DNSRecordAuthenticators](docs/DNSRecordAuthenticators.md)
  - [DNSRecordDomains](docs/DNSRecordDomains.md)
@@ -1123,6 +1162,11 @@ Class | Method | HTTP request | Description
  - [DTCChromeOS](docs/DTCChromeOS.md)
  - [DTCMacOS](docs/DTCMacOS.md)
  - [DTCWindows](docs/DTCWindows.md)
+ - [DbscCredential](docs/DbscCredential.md)
+ - [DbscRefreshResponse](docs/DbscRefreshResponse.md)
+ - [DbscScope](docs/DbscScope.md)
+ - [DbscStartResponse](docs/DbscStartResponse.md)
+ - [DeactivateOAuth2ClientJsonWebKey200Response](docs/DeactivateOAuth2ClientJsonWebKey200Response.md)
  - [DefaultApp](docs/DefaultApp.md)
  - [DesktopMFAEnforceNumberMatchingChallengeOrgSetting](docs/DesktopMFAEnforceNumberMatchingChallengeOrgSetting.md)
  - [DesktopMFARecoveryPinOrgSetting](docs/DesktopMFARecoveryPinOrgSetting.md)
@@ -1157,11 +1201,15 @@ Class | Method | HTTP request | Description
  - [DevicePolicyRuleConditionPlatform](docs/DevicePolicyRuleConditionPlatform.md)
  - [DevicePostureCheck](docs/DevicePostureCheck.md)
  - [DevicePostureChecks](docs/DevicePostureChecks.md)
+ - [DevicePostureChecksIncludeInner](docs/DevicePostureChecksIncludeInner.md)
  - [DevicePostureChecksRemediationSettings](docs/DevicePostureChecksRemediationSettings.md)
  - [DevicePostureChecksRemediationSettingsLink](docs/DevicePostureChecksRemediationSettingsLink.md)
  - [DevicePostureChecksRemediationSettingsMessage](docs/DevicePostureChecksRemediationSettingsMessage.md)
  - [DevicePostureIdP](docs/DevicePostureIdP.md)
  - [DeviceProfile](docs/DeviceProfile.md)
+ - [DeviceSignalCollectionPlatformConditionEvaluatorPlatform](docs/DeviceSignalCollectionPlatformConditionEvaluatorPlatform.md)
+ - [DeviceSignalCollectionPlatformConditionEvaluatorPlatformOperatingSystem](docs/DeviceSignalCollectionPlatformConditionEvaluatorPlatformOperatingSystem.md)
+ - [DeviceSignalCollectionPlatformPolicyRuleCondition](docs/DeviceSignalCollectionPlatformPolicyRuleCondition.md)
  - [DeviceSignalCollectionPolicy](docs/DeviceSignalCollectionPolicy.md)
  - [DeviceSignalCollectionPolicyRule](docs/DeviceSignalCollectionPolicyRule.md)
  - [DeviceSignalCollectionPolicyRuleActions](docs/DeviceSignalCollectionPolicyRuleActions.md)
@@ -1190,9 +1238,6 @@ Class | Method | HTTP request | Description
  - [EmailPreview](docs/EmailPreview.md)
  - [EmailPreviewLinks](docs/EmailPreviewLinks.md)
  - [EmailServerListResponse](docs/EmailServerListResponse.md)
- - [EmailServerPost](docs/EmailServerPost.md)
- - [EmailServerRequest](docs/EmailServerRequest.md)
- - [EmailServerResponse](docs/EmailServerResponse.md)
  - [EmailSettings](docs/EmailSettings.md)
  - [EmailSettingsResponse](docs/EmailSettingsResponse.md)
  - [EmailSettingsResponseLinks](docs/EmailSettingsResponseLinks.md)
@@ -1217,6 +1262,7 @@ Class | Method | HTTP request | Description
  - [EntitlementValueLinks](docs/EntitlementValueLinks.md)
  - [EntitlementValuesResponse](docs/EntitlementValuesResponse.md)
  - [EntitlementValuesResponseLinks](docs/EntitlementValuesResponseLinks.md)
+ - [EntitlementsCapability](docs/EntitlementsCapability.md)
  - [EntitlementsLink](docs/EntitlementsLink.md)
  - [EntityRiskPolicy](docs/EntityRiskPolicy.md)
  - [EntityRiskPolicyRule](docs/EntityRiskPolicyRule.md)
@@ -1231,7 +1277,6 @@ Class | Method | HTTP request | Description
  - [Error](docs/Error.md)
  - [Error409](docs/Error409.md)
  - [ErrorCause](docs/ErrorCause.md)
- - [ErrorDetails](docs/ErrorDetails.md)
  - [ErrorPage](docs/ErrorPage.md)
  - [EventHook](docs/EventHook.md)
  - [EventHookChannel](docs/EventHookChannel.md)
@@ -1245,6 +1290,7 @@ Class | Method | HTTP request | Description
  - [EventSubscriptions](docs/EventSubscriptions.md)
  - [ExecuteInlineHook200Response](docs/ExecuteInlineHook200Response.md)
  - [ExecuteInlineHookRequest](docs/ExecuteInlineHookRequest.md)
+ - [ExpressConfiguration](docs/ExpressConfiguration.md)
  - [Expression](docs/Expression.md)
  - [FCMConfiguration](docs/FCMConfiguration.md)
  - [FCMPushProvider](docs/FCMPushProvider.md)
@@ -1260,10 +1306,12 @@ Class | Method | HTTP request | Description
  - [ForgotPasswordResponse](docs/ForgotPasswordResponse.md)
  - [FulfillmentDataOrderDetails](docs/FulfillmentDataOrderDetails.md)
  - [FulfillmentRequest](docs/FulfillmentRequest.md)
+ - [GetDRStatus200Response](docs/GetDRStatus200Response.md)
  - [GetFactorTransactionStatus200Response](docs/GetFactorTransactionStatus200Response.md)
  - [GetJwk200Response](docs/GetJwk200Response.md)
  - [GetSsfStreams200Response](docs/GetSsfStreams200Response.md)
  - [GetUserRisk200Response](docs/GetUserRisk200Response.md)
+ - [GlobalTokenRevocation](docs/GlobalTokenRevocation.md)
  - [GoogleApplication](docs/GoogleApplication.md)
  - [GoogleApplicationSettings](docs/GoogleApplicationSettings.md)
  - [GoogleApplicationSettingsApplication](docs/GoogleApplicationSettingsApplication.md)
@@ -1275,6 +1323,7 @@ Class | Method | HTTP request | Description
  - [GovernanceBundlesResponseLinks](docs/GovernanceBundlesResponseLinks.md)
  - [GracePeriod](docs/GracePeriod.md)
  - [GracePeriodExpiry](docs/GracePeriodExpiry.md)
+ - [GracePeriodRequiredSoon](docs/GracePeriodRequiredSoon.md)
  - [GrantResourcesHrefObject](docs/GrantResourcesHrefObject.md)
  - [GrantTypePolicyRuleCondition](docs/GrantTypePolicyRuleCondition.md)
  - [Group](docs/Group.md)
@@ -1288,11 +1337,15 @@ Class | Method | HTTP request | Description
  - [GroupOwner](docs/GroupOwner.md)
  - [GroupPolicyRuleCondition](docs/GroupPolicyRuleCondition.md)
  - [GroupProfile](docs/GroupProfile.md)
+ - [GroupProfileResult](docs/GroupProfileResult.md)
  - [GroupPushMapping](docs/GroupPushMapping.md)
  - [GroupPushMappingLinks](docs/GroupPushMappingLinks.md)
+ - [GroupQueryRequest](docs/GroupQueryRequest.md)
+ - [GroupQueryResponse](docs/GroupQueryResponse.md)
  - [GroupRule](docs/GroupRule.md)
  - [GroupRuleAction](docs/GroupRuleAction.md)
  - [GroupRuleConditions](docs/GroupRuleConditions.md)
+ - [GroupRuleEmbedded](docs/GroupRuleEmbedded.md)
  - [GroupRuleExpression](docs/GroupRuleExpression.md)
  - [GroupRuleGroupAssignment](docs/GroupRuleGroupAssignment.md)
  - [GroupRuleGroupCondition](docs/GroupRuleGroupCondition.md)
@@ -1345,6 +1398,7 @@ Class | Method | HTTP request | Description
  - [HrefObjectSuspendLink](docs/HrefObjectSuspendLink.md)
  - [HrefObjectUnsuspendLink](docs/HrefObjectUnsuspendLink.md)
  - [HrefObjectUserLink](docs/HrefObjectUserLink.md)
+ - [HrefObjectWebLink](docs/HrefObjectWebLink.md)
  - [IAMBundleEntitlement](docs/IAMBundleEntitlement.md)
  - [IDVAuthorizationEndpoint](docs/IDVAuthorizationEndpoint.md)
  - [IDVCredentials](docs/IDVCredentials.md)
@@ -1362,13 +1416,6 @@ Class | Method | HTTP request | Description
  - [IdPCsrLinks](docs/IdPCsrLinks.md)
  - [IdPKeyCredential](docs/IdPKeyCredential.md)
  - [IdProofingMethod](docs/IdProofingMethod.md)
- - [IdentityAssertionAppInstanceConnection](docs/IdentityAssertionAppInstanceConnection.md)
- - [IdentityAssertionAppInstanceConnectionCreatable](docs/IdentityAssertionAppInstanceConnectionCreatable.md)
- - [IdentityAssertionAppInstanceConnectionCreatableApp](docs/IdentityAssertionAppInstanceConnectionCreatableApp.md)
- - [IdentityAssertionAppInstanceConnectionCreatableAuthorizationServer](docs/IdentityAssertionAppInstanceConnectionCreatableAuthorizationServer.md)
- - [IdentityAssertionCustomASConnection](docs/IdentityAssertionCustomASConnection.md)
- - [IdentityAssertionCustomASConnectionCreatable](docs/IdentityAssertionCustomASConnectionCreatable.md)
- - [IdentityAssertionCustomASConnectionCreatableAuthorizationServer](docs/IdentityAssertionCustomASConnectionCreatableAuthorizationServer.md)
  - [IdentityProvider](docs/IdentityProvider.md)
  - [IdentityProviderApplicationUser](docs/IdentityProviderApplicationUser.md)
  - [IdentityProviderApplicationUserLinks](docs/IdentityProviderApplicationUserLinks.md)
@@ -1384,6 +1431,10 @@ Class | Method | HTTP request | Description
  - [IdentitySourceSession](docs/IdentitySourceSession.md)
  - [IdentitySourceUserProfileForDelete](docs/IdentitySourceUserProfileForDelete.md)
  - [IdentitySourceUserProfileForUpsert](docs/IdentitySourceUserProfileForUpsert.md)
+ - [IdentitySourceUserProfileForUpsertRequired](docs/IdentitySourceUserProfileForUpsertRequired.md)
+ - [IdpDiscoveryPlatformConditionEvaluatorPlatform](docs/IdpDiscoveryPlatformConditionEvaluatorPlatform.md)
+ - [IdpDiscoveryPlatformConditionEvaluatorPlatformOperatingSystem](docs/IdpDiscoveryPlatformConditionEvaluatorPlatformOperatingSystem.md)
+ - [IdpDiscoveryPlatformPolicyRuleCondition](docs/IdpDiscoveryPlatformPolicyRuleCondition.md)
  - [IdpDiscoveryPolicy](docs/IdpDiscoveryPolicy.md)
  - [IdpDiscoveryPolicyRule](docs/IdpDiscoveryPolicyRule.md)
  - [IdpDiscoveryPolicyRuleCondition](docs/IdpDiscoveryPolicyRuleCondition.md)
@@ -1428,11 +1479,9 @@ Class | Method | HTTP request | Description
  - [InlineHookResponse](docs/InlineHookResponse.md)
  - [InlineHookResponseCommandValue](docs/InlineHookResponseCommandValue.md)
  - [InlineHookResponseCommands](docs/InlineHookResponseCommands.md)
- - [InlineObject](docs/InlineObject.md)
- - [InlineObject1](docs/InlineObject1.md)
- - [InlineObject1ResultsInner](docs/InlineObject1ResultsInner.md)
- - [InlineObject2](docs/InlineObject2.md)
- - [InlineObjectResultsInner](docs/InlineObjectResultsInner.md)
+ - [IntegrationCapability](docs/IntegrationCapability.md)
+ - [InterclientTrustMapping](docs/InterclientTrustMapping.md)
+ - [InterclientTrustMappingRequestBody](docs/InterclientTrustMappingRequestBody.md)
  - [JsonPatchOperation](docs/JsonPatchOperation.md)
  - [JsonWebKey](docs/JsonWebKey.md)
  - [JwkUse](docs/JwkUse.md)
@@ -1485,10 +1534,11 @@ Class | Method | HTTP request | Description
  - [ListFactors200ResponseInner](docs/ListFactors200ResponseInner.md)
  - [ListFeaturesForApplication200ResponseInner](docs/ListFeaturesForApplication200ResponseInner.md)
  - [ListGroupAssignedRoles200ResponseInner](docs/ListGroupAssignedRoles200ResponseInner.md)
+ - [ListJwk200ResponseInner](docs/ListJwk200ResponseInner.md)
  - [ListLogStreams200ResponseInner](docs/ListLogStreams200ResponseInner.md)
  - [ListNetworkZones200ResponseInner](docs/ListNetworkZones200ResponseInner.md)
  - [ListOrgContactTypes200ResponseInner](docs/ListOrgContactTypes200ResponseInner.md)
- - [ListPolicies200ResponseInner](docs/ListPolicies200ResponseInner.md)
+ - [ListPolicies200Response](docs/ListPolicies200Response.md)
  - [ListPolicyRules200ResponseInner](docs/ListPolicyRules200ResponseInner.md)
  - [ListProfileMappings](docs/ListProfileMappings.md)
  - [ListPushProviders200ResponseInner](docs/ListPushProviders200ResponseInner.md)
@@ -1496,6 +1546,7 @@ Class | Method | HTTP request | Description
  - [ListSubscriptionsRoleRoleRefParameter](docs/ListSubscriptionsRoleRoleRefParameter.md)
  - [LogActor](docs/LogActor.md)
  - [LogAuthenticationContext](docs/LogAuthenticationContext.md)
+ - [LogBotProtection](docs/LogBotProtection.md)
  - [LogClient](docs/LogClient.md)
  - [LogDebugContext](docs/LogDebugContext.md)
  - [LogDevice](docs/LogDevice.md)
@@ -1503,9 +1554,12 @@ Class | Method | HTTP request | Description
  - [LogGeographicalContext](docs/LogGeographicalContext.md)
  - [LogGeolocation](docs/LogGeolocation.md)
  - [LogIpAddress](docs/LogIpAddress.md)
+ - [LogIpDetails](docs/LogIpDetails.md)
+ - [LogIpServiceCategory](docs/LogIpServiceCategory.md)
  - [LogIssuer](docs/LogIssuer.md)
  - [LogOutcome](docs/LogOutcome.md)
  - [LogRequest](docs/LogRequest.md)
+ - [LogRisk](docs/LogRisk.md)
  - [LogSecurityContext](docs/LogSecurityContext.md)
  - [LogStream](docs/LogStream.md)
  - [LogStreamActivateLink](docs/LogStreamActivateLink.md)
@@ -1526,16 +1580,9 @@ Class | Method | HTTP request | Description
  - [LogTargetChangeDetails](docs/LogTargetChangeDetails.md)
  - [LogTransaction](docs/LogTransaction.md)
  - [LogUserAgent](docs/LogUserAgent.md)
+ - [LogUserBehavior](docs/LogUserBehavior.md)
  - [MDMEnrollmentPolicyRuleCondition](docs/MDMEnrollmentPolicyRuleCondition.md)
- - [ManagedConnection](docs/ManagedConnection.md)
- - [ManagedConnectionAppInstance](docs/ManagedConnectionAppInstance.md)
- - [ManagedConnectionAuthorizationServer](docs/ManagedConnectionAuthorizationServer.md)
- - [ManagedConnectionCreatable](docs/ManagedConnectionCreatable.md)
- - [ManagedConnectionList](docs/ManagedConnectionList.md)
- - [ManagedConnectionListLinks](docs/ManagedConnectionListLinks.md)
- - [ManagedConnectionPatchable](docs/ManagedConnectionPatchable.md)
- - [ManagedConnectionServiceAccount](docs/ManagedConnectionServiceAccount.md)
- - [ManagedConnectionVaultedSecret](docs/ManagedConnectionVaultedSecret.md)
+ - [MacOSAccountProfile](docs/MacOSAccountProfile.md)
  - [MembershipRequestSchema](docs/MembershipRequestSchema.md)
  - [MetadataLink](docs/MetadataLink.md)
  - [MtlsCredentials](docs/MtlsCredentials.md)
@@ -1547,6 +1594,8 @@ Class | Method | HTTP request | Description
  - [NetworkZoneLocation](docs/NetworkZoneLocation.md)
  - [NumberFactorChallengeEmbeddedLinks](docs/NumberFactorChallengeEmbeddedLinks.md)
  - [NumberFactorChallengeEmbeddedLinksChallenge](docs/NumberFactorChallengeEmbeddedLinksChallenge.md)
+ - [OAUTH2CLIENTCREDENTIALSREQ](docs/OAUTH2CLIENTCREDENTIALSREQ.md)
+ - [OAUTH2JWTBEARERGRANTREQ](docs/OAUTH2JWTBEARERGRANTREQ.md)
  - [OAuth2Actor](docs/OAuth2Actor.md)
  - [OAuth2Claim](docs/OAuth2Claim.md)
  - [OAuth2ClaimConditions](docs/OAuth2ClaimConditions.md)
@@ -1562,7 +1611,6 @@ Class | Method | HTTP request | Description
  - [OAuth2ClientJsonWebKeyResponseBase](docs/OAuth2ClientJsonWebKeyResponseBase.md)
  - [OAuth2ClientJsonWebKeyRsaRequest](docs/OAuth2ClientJsonWebKeyRsaRequest.md)
  - [OAuth2ClientJsonWebKeyRsaResponse](docs/OAuth2ClientJsonWebKeyRsaResponse.md)
- - [OAuth2ClientJsonWebKeySet](docs/OAuth2ClientJsonWebKeySet.md)
  - [OAuth2ClientLinks](docs/OAuth2ClientLinks.md)
  - [OAuth2ClientSecret](docs/OAuth2ClientSecret.md)
  - [OAuth2ClientSecretRequestBody](docs/OAuth2ClientSecretRequestBody.md)
@@ -1582,6 +1630,7 @@ Class | Method | HTTP request | Description
  - [OAuth2ScopeConsentGrantLinks](docs/OAuth2ScopeConsentGrantLinks.md)
  - [OAuth2ScopesMediationPolicyRuleCondition](docs/OAuth2ScopesMediationPolicyRuleCondition.md)
  - [OAuth2Settings](docs/OAuth2Settings.md)
+ - [OAuth2SettingsPublicKey](docs/OAuth2SettingsPublicKey.md)
  - [OAuth2Token](docs/OAuth2Token.md)
  - [OAuthApplicationCredentials](docs/OAuthApplicationCredentials.md)
  - [OAuthAuthorizationEndpoint](docs/OAuthAuthorizationEndpoint.md)
@@ -1595,6 +1644,10 @@ Class | Method | HTTP request | Description
  - [OINApplication](docs/OINApplication.md)
  - [OINSaml11ApplicationSettingsSignOn](docs/OINSaml11ApplicationSettingsSignOn.md)
  - [OINSaml20ApplicationSettingsSignOn](docs/OINSaml20ApplicationSettingsSignOn.md)
+ - [OSAccount](docs/OSAccount.md)
+ - [OSAccountLinks](docs/OSAccountLinks.md)
+ - [OSAccountMacOS](docs/OSAccountMacOS.md)
+ - [OSAccountWindows](docs/OSAccountWindows.md)
  - [OSVersion](docs/OSVersion.md)
  - [OSVersionConstraint](docs/OSVersionConstraint.md)
  - [OSVersionConstraintDynamicVersionRequirement](docs/OSVersionConstraintDynamicVersionRequirement.md)
@@ -1617,6 +1670,9 @@ Class | Method | HTTP request | Description
  - [OktaActiveDirectoryGroupProfile](docs/OktaActiveDirectoryGroupProfile.md)
  - [OktaDeviceRiskChangeEvent](docs/OktaDeviceRiskChangeEvent.md)
  - [OktaIpChangeEvent](docs/OktaIpChangeEvent.md)
+ - [OktaManagedUserAccountForUpdate](docs/OktaManagedUserAccountForUpdate.md)
+ - [OktaManagedUserAccountRequest](docs/OktaManagedUserAccountRequest.md)
+ - [OktaManagedUserAccountResponse](docs/OktaManagedUserAccountResponse.md)
  - [OktaPersonalAdminFeatureSettings](docs/OktaPersonalAdminFeatureSettings.md)
  - [OktaSignOnPolicy](docs/OktaSignOnPolicy.md)
  - [OktaSignOnPolicyConditions](docs/OktaSignOnPolicyConditions.md)
@@ -1638,7 +1694,6 @@ Class | Method | HTTP request | Description
  - [OpenIdConnectApplicationSettings](docs/OpenIdConnectApplicationSettings.md)
  - [OpenIdConnectApplicationSettingsClient](docs/OpenIdConnectApplicationSettingsClient.md)
  - [OpenIdConnectApplicationSettingsClientKeys](docs/OpenIdConnectApplicationSettingsClientKeys.md)
- - [OpenIdConnectApplicationSettingsClientKeysKeysInner](docs/OpenIdConnectApplicationSettingsClientKeysKeysInner.md)
  - [OpenIdConnectApplicationSettingsRefreshToken](docs/OpenIdConnectApplicationSettingsRefreshToken.md)
  - [OperationRequest](docs/OperationRequest.md)
  - [OperationResponse](docs/OperationResponse.md)
@@ -1720,8 +1775,6 @@ Class | Method | HTTP request | Description
  - [PasswordPolicyRuleConditions](docs/PasswordPolicyRuleConditions.md)
  - [PasswordPolicySettings](docs/PasswordPolicySettings.md)
  - [PasswordSettingObject](docs/PasswordSettingObject.md)
- - [PatchAIAgentProfile](docs/PatchAIAgentProfile.md)
- - [PatchAIAgentRequest](docs/PatchAIAgentRequest.md)
  - [PerClientRateLimitSettings](docs/PerClientRateLimitSettings.md)
  - [PerClientRateLimitSettingsUseCaseModeOverrides](docs/PerClientRateLimitSettingsUseCaseModeOverrides.md)
  - [Permission](docs/Permission.md)
@@ -1770,9 +1823,6 @@ Class | Method | HTTP request | Description
  - [PostAuthSessionPolicyRuleAllOfConditions](docs/PostAuthSessionPolicyRuleAllOfConditions.md)
  - [PostAuthSessionPolicyRuleRunWorkflow](docs/PostAuthSessionPolicyRuleRunWorkflow.md)
  - [PostAuthSessionPolicyRuleTerminateSession](docs/PostAuthSessionPolicyRuleTerminateSession.md)
- - [PotentialConnection](docs/PotentialConnection.md)
- - [PotentialConnectionList](docs/PotentialConnectionList.md)
- - [PotentialConnectionListLinks](docs/PotentialConnectionListLinks.md)
  - [PreRegistrationInlineHook](docs/PreRegistrationInlineHook.md)
  - [PrincipalRateLimitEntity](docs/PrincipalRateLimitEntity.md)
  - [PrivilegedResource](docs/PrivilegedResource.md)
@@ -1800,6 +1850,7 @@ Class | Method | HTTP request | Description
  - [ProtocolOidc](docs/ProtocolOidc.md)
  - [ProtocolSaml](docs/ProtocolSaml.md)
  - [Provisioning](docs/Provisioning.md)
+ - [ProvisioningCapability](docs/ProvisioningCapability.md)
  - [ProvisioningConditions](docs/ProvisioningConditions.md)
  - [ProvisioningConnectionOauthRequest](docs/ProvisioningConnectionOauthRequest.md)
  - [ProvisioningConnectionOauthRequestProfile](docs/ProvisioningConnectionOauthRequestProfile.md)
@@ -1891,6 +1942,7 @@ Class | Method | HTTP request | Description
  - [RoleGovernance](docs/RoleGovernance.md)
  - [RoleGovernanceResource](docs/RoleGovernanceResource.md)
  - [RoleGovernanceResources](docs/RoleGovernanceResources.md)
+ - [RoleGovernanceResourcesLinks](docs/RoleGovernanceResourcesLinks.md)
  - [RoleGovernanceSource](docs/RoleGovernanceSource.md)
  - [RoleGovernanceSourceLinks](docs/RoleGovernanceSourceLinks.md)
  - [RoleTarget](docs/RoleTarget.md)
@@ -1918,12 +1970,6 @@ Class | Method | HTTP request | Description
  - [SAMLPayLoadDataContextAllOfProtocol](docs/SAMLPayLoadDataContextAllOfProtocol.md)
  - [SAMLPayLoadDataContextAllOfProtocolIssuer](docs/SAMLPayLoadDataContextAllOfProtocolIssuer.md)
  - [SAMLPayloadExecute](docs/SAMLPayloadExecute.md)
- - [STSServiceAccountConnection](docs/STSServiceAccountConnection.md)
- - [STSServiceAccountConnectionCreatable](docs/STSServiceAccountConnectionCreatable.md)
- - [STSServiceAccountConnectionCreatableServiceAccount](docs/STSServiceAccountConnectionCreatableServiceAccount.md)
- - [STSVaultSecretConnection](docs/STSVaultSecretConnection.md)
- - [STSVaultSecretConnectionCreatable](docs/STSVaultSecretConnectionCreatable.md)
- - [STSVaultSecretConnectionCreatableSecret](docs/STSVaultSecretConnectionCreatableSecret.md)
  - [SalesforceApplication](docs/SalesforceApplication.md)
  - [SalesforceApplicationSettings](docs/SalesforceApplicationSettings.md)
  - [SalesforceApplicationSettingsApplication](docs/SalesforceApplicationSettingsApplication.md)
@@ -1990,6 +2036,12 @@ Class | Method | HTTP request | Description
  - [ServiceAccountForUpdate](docs/ServiceAccountForUpdate.md)
  - [Session](docs/Session.md)
  - [SessionIdentityProvider](docs/SessionIdentityProvider.md)
+ - [SessionViolationDetectionPolicy](docs/SessionViolationDetectionPolicy.md)
+ - [SessionViolationDetectionPolicyEvaluation](docs/SessionViolationDetectionPolicyEvaluation.md)
+ - [SessionViolationDetectionPolicyRule](docs/SessionViolationDetectionPolicyRule.md)
+ - [SessionViolationDetectionPolicyRuleAllOfActions](docs/SessionViolationDetectionPolicyRuleAllOfActions.md)
+ - [SessionViolationDetectionPolicyRuleAllOfActionsSessionViolationDetection](docs/SessionViolationDetectionPolicyRuleAllOfActionsSessionViolationDetection.md)
+ - [SessionViolationDetectionPolicyRuleAllOfConditions](docs/SessionViolationDetectionPolicyRuleAllOfConditions.md)
  - [SignInPage](docs/SignInPage.md)
  - [SignInPageAllOfWidgetCustomizations](docs/SignInPageAllOfWidgetCustomizations.md)
  - [SignOnInlineHook](docs/SignOnInlineHook.md)
@@ -2014,6 +2066,7 @@ Class | Method | HTTP request | Description
  - [SsfTransmitterCaepSessionRevokedEvent](docs/SsfTransmitterCaepSessionRevokedEvent.md)
  - [SsfTransmitterSecurityEventSubject](docs/SsfTransmitterSecurityEventSubject.md)
  - [Sso](docs/Sso.md)
+ - [SsoCapability](docs/SsoCapability.md)
  - [SsprPrimaryRequirement](docs/SsprPrimaryRequirement.md)
  - [SsprRequirement](docs/SsprRequirement.md)
  - [SsprStepUpRequirement](docs/SsprStepUpRequirement.md)
@@ -2022,6 +2075,12 @@ Class | Method | HTTP request | Description
  - [StandardRoleEmbedded](docs/StandardRoleEmbedded.md)
  - [StandardRoleEmbeddedTargets](docs/StandardRoleEmbeddedTargets.md)
  - [StandardRoleEmbeddedTargetsCatalog](docs/StandardRoleEmbeddedTargetsCatalog.md)
+ - [StartOrgFailback200Response](docs/StartOrgFailback200Response.md)
+ - [StartOrgFailback200ResponseResultsInner](docs/StartOrgFailback200ResponseResultsInner.md)
+ - [StartOrgFailbackRequest](docs/StartOrgFailbackRequest.md)
+ - [StartOrgFailover200Response](docs/StartOrgFailover200Response.md)
+ - [StartOrgFailover200ResponseResultsInner](docs/StartOrgFailover200ResponseResultsInner.md)
+ - [StartOrgFailoverRequest](docs/StartOrgFailoverRequest.md)
  - [StreamConfiguration](docs/StreamConfiguration.md)
  - [StreamConfigurationAud](docs/StreamConfigurationAud.md)
  - [StreamConfigurationCreateRequest](docs/StreamConfigurationCreateRequest.md)
@@ -2033,10 +2092,12 @@ Class | Method | HTTP request | Description
  - [SubmissionActions](docs/SubmissionActions.md)
  - [SubmissionCapabilities](docs/SubmissionCapabilities.md)
  - [SubmissionCapability](docs/SubmissionCapability.md)
+ - [SubmissionCapabilityEnhanced](docs/SubmissionCapabilityEnhanced.md)
  - [SubmissionRequest](docs/SubmissionRequest.md)
  - [SubmissionResponse](docs/SubmissionResponse.md)
+ - [SubmissionResponseAppContactDetailsInner](docs/SubmissionResponseAppContactDetailsInner.md)
  - [SubmissionResponseConfigInner](docs/SubmissionResponseConfigInner.md)
- - [SubmissionResponseGlobalTokenRevocation](docs/SubmissionResponseGlobalTokenRevocation.md)
+ - [SubmissionResponseWithApiResponse](docs/SubmissionResponseWithApiResponse.md)
  - [Subscription](docs/Subscription.md)
  - [SubscriptionLinks](docs/SubscriptionLinks.md)
  - [SupportedMethods](docs/SupportedMethods.md)
@@ -2055,6 +2116,7 @@ Class | Method | HTTP request | Description
  - [TempPassword](docs/TempPassword.md)
  - [TenantSettings](docs/TenantSettings.md)
  - [TestInfo](docs/TestInfo.md)
+ - [TestInfoApiServiceTestConfiguration](docs/TestInfoApiServiceTestConfiguration.md)
  - [TestInfoOidcTestConfiguration](docs/TestInfoOidcTestConfiguration.md)
  - [TestInfoSamlTestConfiguration](docs/TestInfoSamlTestConfiguration.md)
  - [TestInfoScimTestConfiguration](docs/TestInfoScimTestConfiguration.md)
@@ -2100,7 +2162,9 @@ Class | Method | HTTP request | Description
  - [UIElementOptions](docs/UIElementOptions.md)
  - [UISchemaObject](docs/UISchemaObject.md)
  - [UISchemasResponseObject](docs/UISchemasResponseObject.md)
- - [UpdateAIAgentRequest](docs/UpdateAIAgentRequest.md)
+ - [UnconfirmedUserResponseSchema](docs/UnconfirmedUserResponseSchema.md)
+ - [UnconfirmedUserResponseSchemaUsersInner](docs/UnconfirmedUserResponseSchemaUsersInner.md)
+ - [UniversalLogoutCapability](docs/UniversalLogoutCapability.md)
  - [UpdateDefaultProvisioningConnectionForApplicationRequest](docs/UpdateDefaultProvisioningConnectionForApplicationRequest.md)
  - [UpdateDomain](docs/UpdateDomain.md)
  - [UpdateEmailDomain](docs/UpdateEmailDomain.md)
@@ -2251,6 +2315,7 @@ Class | Method | HTTP request | Description
  - [WellKnownURIsRootEmbeddedAppleAppSiteAssociation](docs/WellKnownURIsRootEmbeddedAppleAppSiteAssociation.md)
  - [WellKnownURIsRootEmbeddedAssetlinksJson](docs/WellKnownURIsRootEmbeddedAssetlinksJson.md)
  - [WellKnownURIsRootLinks](docs/WellKnownURIsRootLinks.md)
+ - [WindowsOSAccountProfile](docs/WindowsOSAccountProfile.md)
  - [WorkflowActionProvider](docs/WorkflowActionProvider.md)
  - [WorkflowAvailableActionProvider](docs/WorkflowAvailableActionProvider.md)
  - [WorkflowsValidationDetailProvider](docs/WorkflowsValidationDetailProvider.md)
@@ -2287,12 +2352,12 @@ Note, each API key must be added to a map of `map[string]APIKey` where the key i
 - **Scopes**: 
  - **okta.agentPools.manage**: Allows the app to create and manage agent pools in your Okta organization
  - **okta.agentPools.read**: Allows the app to read agent pools in your Okta organization
- - **okta.aiAgents.manage**: Allows the app to manage AI agents in your Okta organization.
- - **okta.aiAgents.read**: Allows the app to read information about AI agents in your Okta organization.
  - **okta.apiTokens.manage**: Allows the app to manage API Tokens in your Okta organization
  - **okta.apiTokens.read**: Allows the app to read API Tokens in your Okta organization
  - **okta.appGrants.manage**: Allows the app to create and manage grants in your Okta organization
  - **okta.appGrants.read**: Allows the app to read grants in your Okta organization
+ - **okta.apps.interclientTrust.manage**: Allows the app to manage trusted relationship for native to web SSO
+ - **okta.apps.interclientTrust.read**: Allows the app to read configured trusted relationship for native to web SSO
  - **okta.apps.manage**: Allows the app to create and manage Apps in your Okta organization
  - **okta.apps.read**: Allows the app to read information about Apps in your Okta organization
  - **okta.authenticators.manage**: Allows the app to manage all authenticators. For example, enrollments or resets.
@@ -2301,11 +2366,15 @@ Note, each API key must be added to a map of `map[string]APIKey` where the key i
  - **okta.authorizationServers.manage**: Allows the app to create and manage Authorization Servers in your Okta organization
  - **okta.authorizationServers.read**: Allows the app to read information about Authorization Servers in your Okta organization
  - **okta.behaviors.manage**: Allows the app to create and manage behavior detection rules in your Okta organization
- - **okta.behaviors.read**: Allows the app to read behavior detection rules in your Okta organization
+ - **okta.behaviors.read**: Allows the app to read behavior detection rules in your Okta org
+ - **okta.botProtection.manage**: Allows the app to manage bot protection configuration in your Okta org
+ - **okta.botProtection.read**: Allows the app to read bot protection configuration in your Okta org
  - **okta.brands.manage**: Allows the app to create and manage Brands and Themes in your Okta organization
  - **okta.brands.read**: Allows the app to read information about Brands and Themes in your Okta organization
  - **okta.captchas.manage**: Allows the app to create and manage CAPTCHAs in your Okta organization
  - **okta.captchas.read**: Allows the app to read information about CAPTCHAs in your Okta organization
+ - **okta.customTelephonyProvider.manage**: Allows the app to create and manage custom telephony provider credentials
+ - **okta.customTelephonyProvider.read**: Allows the app to read custom telephony provider credentials
  - **okta.deviceAssurance.manage**: Allows the app to manage device assurances
  - **okta.deviceAssurance.read**: Allows the app to read device assurances
  - **okta.deviceIntegrations.manage**: Allows the app to manage device integrations
@@ -2315,6 +2384,7 @@ Note, each API key must be added to a map of `map[string]APIKey` where the key i
  - **okta.devices.manage**: Allows the app to manage device status transitions and delete a device
  - **okta.devices.read**: Allows the app to read the existing device's profile and search devices
  - **okta.directories.groups.manage**: Allows the app to manage AD/LDAP groups for your Okta organization
+ - **okta.directories.groups.read**: Allows the app to read AD/LDAP groups for your Okta organization
  - **okta.domains.manage**: Allows the app to manage custom Domains for your Okta organization
  - **okta.domains.read**: Allows the app to read information about custom Domains for your Okta organization
  - **okta.dr.manage**: Allows the app to manage disaster recovery
@@ -2371,12 +2441,14 @@ Note, each API key must be added to a map of `map[string]APIKey` where the key i
  - **okta.riskProviders.manage**: (Deprecated) Allows the app to create and manage risk provider integrations in your Okta organization
  - **okta.riskProviders.read**: (Deprecated) Allows the app to read all risk provider integrations in your Okta organization
  - **okta.roles.manage**: Allows the app to manage administrative role assignments for users in your Okta organization. Delegated admins with this permission can only manage user credential fields and not the credential values themselves.
- - **okta.roles.read**: Allows the app to read administrative role assignments for users in your Okta organization. Delegated admins with this permission can only manage user credential fields and not the credential values themselves.
+ - **okta.roles.read**: Allows the app to read administrative role assignments for users in your Okta organization. Delegated admins with this permission can only read user credential fields and not the credential values themselves.
  - **okta.schemas.manage**: Allows the app to create and manage Schemas in your Okta organization
  - **okta.schemas.read**: Allows the app to read information about Schemas in your Okta organization
  - **okta.securityEventsProviders.manage**: Allows the app to create and manage Security Events Providers in your Okta organization
  - **okta.securityEventsProviders.read**: Allows the app to read information about Security Events Providers in your Okta organization
  - **okta.serviceAccounts.manage**: Allows the app to manage service accounts in your Okta organization
+ - **okta.serviceAccounts.okta.manage**: Allows the app to manage Okta managed user accounts in your Okta org
+ - **okta.serviceAccounts.okta.read**: Allows the app to read Okta managed user accounts in your Okta org
  - **okta.serviceAccounts.read**: Allows the app to read service accounts in your Okta organization
  - **okta.sessions.manage**: Allows the app to manage all sessions in your Okta organization
  - **okta.sessions.read**: Allows the app to read all sessions in your Okta organization

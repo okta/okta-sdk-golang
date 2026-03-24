@@ -32,7 +32,7 @@ var _ MappedNullable = &UsersUpdateRequestSchema{}
 
 // UsersUpdateRequestSchema struct for UsersUpdateRequestSchema
 type UsersUpdateRequestSchema struct {
-	Profile              *IdentitySourceUserProfileForUpsert `json:"profile,omitempty"`
+	Profile              *IdentitySourceUserProfileForUpsertRequired `json:"profile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -56,9 +56,9 @@ func NewUsersUpdateRequestSchemaWithDefaults() *UsersUpdateRequestSchema {
 }
 
 // GetProfile returns the Profile field value if set, zero value otherwise.
-func (o *UsersUpdateRequestSchema) GetProfile() IdentitySourceUserProfileForUpsert {
+func (o *UsersUpdateRequestSchema) GetProfile() IdentitySourceUserProfileForUpsertRequired {
 	if o == nil || IsNil(o.Profile) {
-		var ret IdentitySourceUserProfileForUpsert
+		var ret IdentitySourceUserProfileForUpsertRequired
 		return ret
 	}
 	return *o.Profile
@@ -66,7 +66,7 @@ func (o *UsersUpdateRequestSchema) GetProfile() IdentitySourceUserProfileForUpse
 
 // GetProfileOk returns a tuple with the Profile field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *UsersUpdateRequestSchema) GetProfileOk() (*IdentitySourceUserProfileForUpsert, bool) {
+func (o *UsersUpdateRequestSchema) GetProfileOk() (*IdentitySourceUserProfileForUpsertRequired, bool) {
 	if o == nil || IsNil(o.Profile) {
 		return nil, false
 	}
@@ -82,8 +82,8 @@ func (o *UsersUpdateRequestSchema) HasProfile() bool {
 	return false
 }
 
-// SetProfile gets a reference to the given IdentitySourceUserProfileForUpsert and assigns it to the Profile field.
-func (o *UsersUpdateRequestSchema) SetProfile(v IdentitySourceUserProfileForUpsert) {
+// SetProfile gets a reference to the given IdentitySourceUserProfileForUpsertRequired and assigns it to the Profile field.
+func (o *UsersUpdateRequestSchema) SetProfile(v IdentitySourceUserProfileForUpsertRequired) {
 	o.Profile = &v
 }
 

@@ -232,7 +232,7 @@ Name | Type | Description  | Notes
 
 ## ExpirePasswordWithTempPassword
 
-> User ExpirePasswordWithTempPassword(ctx, id).RevokeSessions(revokeSessions).Execute()
+> TempPassword ExpirePasswordWithTempPassword(ctx, id).RevokeSessions(revokeSessions).Execute()
 
 Expire the password with a temporary password
 
@@ -261,7 +261,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `UserCredAPI.ExpirePasswordWithTempPassword``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ExpirePasswordWithTempPassword`: User
+	// response from `ExpirePasswordWithTempPassword`: TempPassword
 	fmt.Fprintf(os.Stdout, "Response from `UserCredAPI.ExpirePasswordWithTempPassword`: %v\n", resp)
 }
 ```
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**User**](User.md)
+[**TempPassword**](TempPassword.md)
 
 ### Authorization
 

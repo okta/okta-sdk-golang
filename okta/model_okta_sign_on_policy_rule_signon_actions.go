@@ -36,7 +36,7 @@ type OktaSignOnPolicyRuleSignonActions struct {
 	Access *string `json:"access,omitempty"`
 	// Interval of time that must elapse before the user is challenged for MFA, if the factor prompt mode is set to `SESSION`  > **Note:** Required only if `requireFactor` is `true`.
 	FactorLifetime *int32 `json:"factorLifetime,omitempty"`
-	// Indicates if the User should be challenged for a second factor (MFA) based on the device being used, a Factor session lifetime, or on every sign-in attempt  > **Note:** Required only if `requireFactor` is set to `true`.
+	// Indicates if the user is challenged for a second factor (MFA) based on the device used, a factor session lifetime expiration, or on every sign-in attempt.  If the [Behavior](https://help.okta.com/okta_help.htm?type=oie&id=behavior-detection-type) of the global session policy includes the **New Device** behavior type, then `requireFactor` must be `false` or `factorPromptMode` must be `ALWAYS`.  > **Note:** Required only if `requireFactor` is set to `true`.
 	FactorPromptMode *string `json:"factorPromptMode,omitempty"`
 	// <x-lifecycle class=\"oie\"></x-lifecycle> Indicates the primary factor used to establish a session for the org. Supported values: `PASSWORD_IDP_ANY_FACTOR` (users can use any factor required by the app's app sign-in policy to establish a session), `PASSWORD_IDP` (users must always use a password to establish a session).  > **Note:** Required only if `access` is set to `ALLOW`.
 	PrimaryFactor *string `json:"primaryFactor,omitempty"`

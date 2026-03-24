@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Include** | Pointer to **[]string** | Which clients are included in the Policy | [optional] 
+**Include** | Pointer to **[]string** | Which clients are included in the policy | [optional] 
 
 ## Methods
 

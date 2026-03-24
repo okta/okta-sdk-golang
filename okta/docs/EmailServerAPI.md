@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 ## CreateEmailServer
 
-> EmailServerResponse CreateEmailServer(ctx).EmailServerPost(emailServerPost).Execute()
+> BaseEmailServer CreateEmailServer(ctx).CreateEmailServerRequest(createEmailServerRequest).Execute()
 
 Create a custom SMTP server
 
@@ -34,16 +34,16 @@ import (
 )
 
 func main() {
-	emailServerPost := *openapiclient.NewEmailServerPost() // EmailServerPost |  (optional)
+	createEmailServerRequest := openapiclient.createEmailServer_request{BASICSMTPAUTHREQ: openapiclient.NewBASICSMTPAUTHREQ("Password_example", "CustomServer1", "AuthType_example", false, "192.168.160.1", int32(587), "some_user@domain.com")} // CreateEmailServerRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EmailServerAPI.CreateEmailServer(context.Background()).EmailServerPost(emailServerPost).Execute()
+	resp, r, err := apiClient.EmailServerAPI.CreateEmailServer(context.Background()).CreateEmailServerRequest(createEmailServerRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EmailServerAPI.CreateEmailServer``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateEmailServer`: EmailServerResponse
+	// response from `CreateEmailServer`: BaseEmailServer
 	fmt.Fprintf(os.Stdout, "Response from `EmailServerAPI.CreateEmailServer`: %v\n", resp)
 }
 ```
@@ -59,11 +59,11 @@ Other parameters are passed through a pointer to a apiCreateEmailServerRequest s
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **emailServerPost** | [**EmailServerPost**](EmailServerPost.md) |  | 
+ **createEmailServerRequest** | [**CreateEmailServerRequest**](CreateEmailServerRequest.md) |  | 
 
 ### Return type
 
-[**EmailServerResponse**](EmailServerResponse.md)
+[**BaseEmailServer**](BaseEmailServer.md)
 
 ### Authorization
 
@@ -149,7 +149,7 @@ Name | Type | Description  | Notes
 
 ## GetEmailServer
 
-> EmailServerListResponse GetEmailServer(ctx, emailServerId).Execute()
+> BaseEmailServer GetEmailServer(ctx, emailServerId).Execute()
 
 Retrieve an SMTP server configuration
 
@@ -177,7 +177,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `EmailServerAPI.GetEmailServer``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetEmailServer`: EmailServerListResponse
+	// response from `GetEmailServer`: BaseEmailServer
 	fmt.Fprintf(os.Stdout, "Response from `EmailServerAPI.GetEmailServer`: %v\n", resp)
 }
 ```
@@ -201,7 +201,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**EmailServerListResponse**](EmailServerListResponse.md)
+[**BaseEmailServer**](BaseEmailServer.md)
 
 ### Authorization
 
@@ -350,7 +350,7 @@ Name | Type | Description  | Notes
 
 ## UpdateEmailServer
 
-> EmailServerResponse UpdateEmailServer(ctx, emailServerId).EmailServerRequest(emailServerRequest).Execute()
+> BaseEmailServer UpdateEmailServer(ctx, emailServerId).CreateEmailServerRequest(createEmailServerRequest).Execute()
 
 Update an SMTP server configuration
 
@@ -370,16 +370,16 @@ import (
 
 func main() {
 	emailServerId := "emailServerId_example" // string | 
-	emailServerRequest := *openapiclient.NewEmailServerRequest() // EmailServerRequest |  (optional)
+	createEmailServerRequest := openapiclient.createEmailServer_request{BASICSMTPAUTHREQ: openapiclient.NewBASICSMTPAUTHREQ("Password_example", "CustomServer1", "AuthType_example", false, "192.168.160.1", int32(587), "some_user@domain.com")} // CreateEmailServerRequest |  (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EmailServerAPI.UpdateEmailServer(context.Background(), emailServerId).EmailServerRequest(emailServerRequest).Execute()
+	resp, r, err := apiClient.EmailServerAPI.UpdateEmailServer(context.Background(), emailServerId).CreateEmailServerRequest(createEmailServerRequest).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EmailServerAPI.UpdateEmailServer``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `UpdateEmailServer`: EmailServerResponse
+	// response from `UpdateEmailServer`: BaseEmailServer
 	fmt.Fprintf(os.Stdout, "Response from `EmailServerAPI.UpdateEmailServer`: %v\n", resp)
 }
 ```
@@ -400,11 +400,11 @@ Other parameters are passed through a pointer to a apiUpdateEmailServerRequest s
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **emailServerRequest** | [**EmailServerRequest**](EmailServerRequest.md) |  | 
+ **createEmailServerRequest** | [**CreateEmailServerRequest**](CreateEmailServerRequest.md) |  | 
 
 ### Return type
 
-[**EmailServerResponse**](EmailServerResponse.md)
+[**BaseEmailServer**](BaseEmailServer.md)
 
 ### Authorization
 

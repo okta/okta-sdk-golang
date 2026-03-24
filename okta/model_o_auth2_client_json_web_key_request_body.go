@@ -36,13 +36,13 @@ type OAuth2ClientJsonWebKeyRequestBody struct {
 	Alg *string `json:"alg,omitempty"`
 	// RSA key value (exponent) for key binding
 	E *string `json:"e,omitempty"`
-	// Unique identifier of the JSON Web Key in the OAUth 2.0 Client's JWKS
+	// Unique identifier of the JSON Web Key in the OAuth 2.0 client's JWKS
 	Kid NullableString `json:"kid,omitempty"`
 	// Cryptographic algorithm family for the certificate's key pair
 	Kty *string `json:"kty,omitempty"`
 	// RSA key value (modulus) for key binding
 	N *string `json:"n,omitempty"`
-	// Status of the OAuth 2.0 Client JSON Web Key
+	// Status of the OAuth 2.0 client JSON Web Key
 	Status *string `json:"status,omitempty"`
 	// Acceptable use of the JSON Web Key
 	Use                  *string `json:"use,omitempty"`

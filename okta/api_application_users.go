@@ -341,7 +341,7 @@ type ApiGetApplicationUserRequest struct {
 	retryCount int32
 }
 
-// An optional query parameter to return the corresponding [User](/openapi/okta-management/management/tag/User/) object in the &#x60;_embedded&#x60; property. Valid value: &#x60;user&#x60;
+// An optional query parameter to return the corresponding [User](/openapi/okta-management/management/tags/user) object in the &#x60;_embedded&#x60; property. Valid value: &#x60;user&#x60;
 func (r ApiGetApplicationUserRequest) Expand(expand string) ApiGetApplicationUserRequest {
 	r.expand = &expand
 	return r
@@ -541,7 +541,7 @@ func (r ApiListApplicationUsersRequest) Q(q string) ApiListApplicationUsersReque
 	return r
 }
 
-// An optional query parameter to return the corresponding [User](/openapi/okta-management/management/tag/User/) object in the &#x60;_embedded&#x60; property. Valid value: &#x60;user&#x60;
+// An optional query parameter to return the corresponding [User](/openapi/okta-management/management/tags/user) object in the &#x60;_embedded&#x60; property. Valid value: &#x60;user&#x60;
 func (r ApiListApplicationUsersRequest) Expand(expand string) ApiListApplicationUsersRequest {
 	r.expand = &expand
 	return r

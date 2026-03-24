@@ -31,7 +31,7 @@ import (
 // checks if the UsersLink type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &UsersLink{}
 
-// UsersLink Link to the [Application Users](/openapi/okta-management/management/tag/ApplicationUsers/#tag/ApplicationUsers/operation/listApplicationUsers) resource
+// UsersLink Link to the [Application Users](/openapi/okta-management/management/applicationusers#tag/ApplicationUsers/operation/listApplicationUsers) resource
 type UsersLink struct {
 	Hints *HrefHints `json:"hints,omitempty"`
 	// Link URI

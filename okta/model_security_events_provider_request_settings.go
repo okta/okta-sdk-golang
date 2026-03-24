@@ -28,7 +28,7 @@ import (
 	"fmt"
 )
 
-// SecurityEventsProviderRequestSettings - Information about the Security Events Provider for signal ingestion
+// SecurityEventsProviderRequestSettings - Information about the security events provider for signal ingestion
 type SecurityEventsProviderRequestSettings struct {
 	SecurityEventsProviderSettingsNonSSFCompliant *SecurityEventsProviderSettingsNonSSFCompliant
 	SecurityEventsProviderSettingsSSFCompliant    *SecurityEventsProviderSettingsSSFCompliant

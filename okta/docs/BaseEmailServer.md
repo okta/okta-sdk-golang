@@ -4,17 +4,19 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Alias** | Pointer to **string** | Human-readable name for your SMTP server | [optional] 
-**Enabled** | Pointer to **bool** | If &#x60;true&#x60;, routes all email traffic through your SMTP server | [optional] 
-**Host** | Pointer to **string** | Hostname or IP address of your SMTP server | [optional] 
-**Port** | Pointer to **int32** | Port number of your SMTP server | [optional] 
-**Username** | Pointer to **string** | Username used to access your SMTP server | [optional] 
+**Alias** | **string** | Human-readable name for your SMTP server | 
+**AuthType** | **string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;The authentication type that&#39;s used by your SMTP server | 
+**Enabled** | **bool** | If &#x60;true&#x60;, all email traffic is routed through your SMTP server | 
+**Host** | **string** | Hostname or IP address of your SMTP server | 
+**Id** | Pointer to **string** | ID of your SMTP server | [optional] [readonly] 
+**Port** | **int32** | Port number of your SMTP server | 
+**Username** | **string** | Username that&#39;s used to access your SMTP server | 
 
 ## Methods
 
 ### NewBaseEmailServer
 
-`func NewBaseEmailServer() *BaseEmailServer`
+`func NewBaseEmailServer(alias string, authType string, enabled bool, host string, port int32, username string, ) *BaseEmailServer`
 
 NewBaseEmailServer instantiates a new BaseEmailServer object
 This constructor will assign default values to properties that have it defined,
@@ -48,11 +50,26 @@ and a boolean to check if the value has been set.
 
 SetAlias sets Alias field to given value.
 
-### HasAlias
 
-`func (o *BaseEmailServer) HasAlias() bool`
+### GetAuthType
 
-HasAlias returns a boolean if a field has been set.
+`func (o *BaseEmailServer) GetAuthType() string`
+
+GetAuthType returns the AuthType field if non-nil, zero value otherwise.
+
+### GetAuthTypeOk
+
+`func (o *BaseEmailServer) GetAuthTypeOk() (*string, bool)`
+
+GetAuthTypeOk returns a tuple with the AuthType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAuthType
+
+`func (o *BaseEmailServer) SetAuthType(v string)`
+
+SetAuthType sets AuthType field to given value.
+
 
 ### GetEnabled
 
@@ -73,11 +90,6 @@ and a boolean to check if the value has been set.
 
 SetEnabled sets Enabled field to given value.
 
-### HasEnabled
-
-`func (o *BaseEmailServer) HasEnabled() bool`
-
-HasEnabled returns a boolean if a field has been set.
 
 ### GetHost
 
@@ -98,11 +110,31 @@ and a boolean to check if the value has been set.
 
 SetHost sets Host field to given value.
 
-### HasHost
 
-`func (o *BaseEmailServer) HasHost() bool`
+### GetId
 
-HasHost returns a boolean if a field has been set.
+`func (o *BaseEmailServer) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *BaseEmailServer) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *BaseEmailServer) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *BaseEmailServer) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetPort
 
@@ -123,11 +155,6 @@ and a boolean to check if the value has been set.
 
 SetPort sets Port field to given value.
 
-### HasPort
-
-`func (o *BaseEmailServer) HasPort() bool`
-
-HasPort returns a boolean if a field has been set.
 
 ### GetUsername
 
@@ -148,11 +175,6 @@ and a boolean to check if the value has been set.
 
 SetUsername sets Username field to given value.
 
-### HasUsername
-
-`func (o *BaseEmailServer) HasUsername() bool`
-
-HasUsername returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

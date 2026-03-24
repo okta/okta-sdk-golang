@@ -50,9 +50,9 @@ type ServiceAccount struct {
 	OwnerGroupIds []string `json:"ownerGroupIds,omitempty"`
 	// A list of IDs of the Okta users that own the service account
 	OwnerUserIds []string `json:"ownerUserIds,omitempty"`
-	// Describes the current status of an app service account
+	// Describes the current status of a service account
 	Status *string `json:"status,omitempty"`
-	// Describes the detailed status of an app service account
+	// Describes the detailed status of a service account
 	StatusDetail         *string `json:"statusDetail,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

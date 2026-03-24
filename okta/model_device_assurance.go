@@ -35,7 +35,7 @@ type DeviceAssurance struct {
 	CreatedBy           *string              `json:"createdBy,omitempty"`
 	CreatedDate         *string              `json:"createdDate,omitempty"`
 	DevicePostureChecks *DevicePostureChecks `json:"devicePostureChecks,omitempty"`
-	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Represents the remediation mode of this device assurance policy when users are denied access due to device noncompliance
+	// Represents the remediation mode of this device assurance policy when users are denied access due to device noncompliance
 	DisplayRemediationMode *string      `json:"displayRemediationMode,omitempty"`
 	GracePeriod            *GracePeriod `json:"gracePeriod,omitempty"`
 	Id                     *string      `json:"id,omitempty"`

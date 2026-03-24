@@ -45,8 +45,8 @@ type AttackProtectionAPI interface {
 	GetAuthenticatorSettings(ctx context.Context) ApiGetAuthenticatorSettingsRequest
 
 	// GetAuthenticatorSettingsExecute executes the request
-	//  @return []AttackProtectionAuthenticatorSettings
-	GetAuthenticatorSettingsExecute(r ApiGetAuthenticatorSettingsRequest) ([]AttackProtectionAuthenticatorSettings, *APIResponse, error)
+	//  @return AttackProtectionAuthenticatorSettings
+	GetAuthenticatorSettingsExecute(r ApiGetAuthenticatorSettingsRequest) (*AttackProtectionAuthenticatorSettings, *APIResponse, error)
 
 	/*
 		GetUserLockoutSettings Retrieve the user lockout settings
@@ -59,8 +59,8 @@ type AttackProtectionAPI interface {
 	GetUserLockoutSettings(ctx context.Context) ApiGetUserLockoutSettingsRequest
 
 	// GetUserLockoutSettingsExecute executes the request
-	//  @return []UserLockoutSettings
-	GetUserLockoutSettingsExecute(r ApiGetUserLockoutSettingsRequest) ([]UserLockoutSettings, *APIResponse, error)
+	//  @return UserLockoutSettings
+	GetUserLockoutSettingsExecute(r ApiGetUserLockoutSettingsRequest) (*UserLockoutSettings, *APIResponse, error)
 
 	/*
 		ReplaceAuthenticatorSettings Replace the authenticator settings
@@ -100,7 +100,7 @@ type ApiGetAuthenticatorSettingsRequest struct {
 	retryCount int32
 }
 
-func (r ApiGetAuthenticatorSettingsRequest) Execute() ([]AttackProtectionAuthenticatorSettings, *APIResponse, error) {
+func (r ApiGetAuthenticatorSettingsRequest) Execute() (*AttackProtectionAuthenticatorSettings, *APIResponse, error) {
 	return r.ApiService.GetAuthenticatorSettingsExecute(r)
 }
 
@@ -122,13 +122,13 @@ func (a *AttackProtectionAPIService) GetAuthenticatorSettings(ctx context.Contex
 
 // Execute executes the request
 //
-//	@return []AttackProtectionAuthenticatorSettings
-func (a *AttackProtectionAPIService) GetAuthenticatorSettingsExecute(r ApiGetAuthenticatorSettingsRequest) ([]AttackProtectionAuthenticatorSettings, *APIResponse, error) {
+//	@return AttackProtectionAuthenticatorSettings
+func (a *AttackProtectionAPIService) GetAuthenticatorSettingsExecute(r ApiGetAuthenticatorSettingsRequest) (*AttackProtectionAuthenticatorSettings, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  []AttackProtectionAuthenticatorSettings
+		localVarReturnValue  *AttackProtectionAuthenticatorSettings
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -250,7 +250,7 @@ type ApiGetUserLockoutSettingsRequest struct {
 	retryCount int32
 }
 
-func (r ApiGetUserLockoutSettingsRequest) Execute() ([]UserLockoutSettings, *APIResponse, error) {
+func (r ApiGetUserLockoutSettingsRequest) Execute() (*UserLockoutSettings, *APIResponse, error) {
 	return r.ApiService.GetUserLockoutSettingsExecute(r)
 }
 
@@ -272,13 +272,13 @@ func (a *AttackProtectionAPIService) GetUserLockoutSettings(ctx context.Context)
 
 // Execute executes the request
 //
-//	@return []UserLockoutSettings
-func (a *AttackProtectionAPIService) GetUserLockoutSettingsExecute(r ApiGetUserLockoutSettingsRequest) ([]UserLockoutSettings, *APIResponse, error) {
+//	@return UserLockoutSettings
+func (a *AttackProtectionAPIService) GetUserLockoutSettingsExecute(r ApiGetUserLockoutSettingsRequest) (*UserLockoutSettings, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  []UserLockoutSettings
+		localVarReturnValue  *UserLockoutSettings
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error

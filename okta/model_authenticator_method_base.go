@@ -32,6 +32,7 @@ var _ MappedNullable = &AuthenticatorMethodBase{}
 
 // AuthenticatorMethodBase struct for AuthenticatorMethodBase
 type AuthenticatorMethodBase struct {
+	// The status of the authenticator method
 	Status *string `json:"status,omitempty"`
 	// The type of authenticator method
 	Type                 *string                `json:"type,omitempty"`

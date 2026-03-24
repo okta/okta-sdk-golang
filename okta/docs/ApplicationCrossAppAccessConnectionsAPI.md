@@ -157,7 +157,7 @@ Name | Type | Description  | Notes
 
 ## GetAllCrossAppAccessConnections
 
-> []OrgCrossAppAccessConnection GetAllCrossAppAccessConnections(ctx, appId).After(after).Limit(limit).Execute()
+> []OrgCrossAppAccessConnection GetAllCrossAppAccessConnections(ctx, appId).After(after).Limit(limit).Status(status).RequestingAppId(requestingAppId).ResourceAppId(resourceAppId).ActiveAppsOnly(activeAppsOnly).RequestingAppName(requestingAppName).ResourceAppName(resourceAppName).Execute()
 
 Retrieve all Cross App Access connections
 
@@ -179,10 +179,16 @@ func main() {
 	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
 	after := "after_example" // string | Specifies the pagination cursor for the next page of connection results (optional)
 	limit := int32(56) // int32 | Specifies the number of results to return per page. The values:   * -1: Return all results (up to system maximum)   * 0: Return an empty result set   * Positive integer: Return up to that many results (capped at system maximum)  (optional) (default to -1)
+	status := "ACTIVE" // string | Filters connections by their lifecycle status. When specified, only connections that match the specified status are returned.  (optional)
+	requestingAppId := "0oa8mm6ktyXqkcs5t0g7" // string | Filters only connections where the app with the specified ID is the requesting app (optional)
+	resourceAppId := "0oa8mmm7ruidxWhlf0g7" // string | Filters only connections where the app with the specified ID is the requesting app (optional)
+	activeAppsOnly := true // bool | When set to true, filters the result to include only connections where both the requesting and resource app have a status of ACTIVE (optional)
+	requestingAppName := "zoom" // string | Filters connections where the requesting app's name matches the provided search string (optional)
+	resourceAppName := "box" // string | Filters connections where the resource app's name matches the provided search string (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationCrossAppAccessConnectionsAPI.GetAllCrossAppAccessConnections(context.Background(), appId).After(after).Limit(limit).Execute()
+	resp, r, err := apiClient.ApplicationCrossAppAccessConnectionsAPI.GetAllCrossAppAccessConnections(context.Background(), appId).After(after).Limit(limit).Status(status).RequestingAppId(requestingAppId).ResourceAppId(resourceAppId).ActiveAppsOnly(activeAppsOnly).RequestingAppName(requestingAppName).ResourceAppName(resourceAppName).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationCrossAppAccessConnectionsAPI.GetAllCrossAppAccessConnections``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -210,6 +216,12 @@ Name | Type | Description  | Notes
 
  **after** | **string** | Specifies the pagination cursor for the next page of connection results | 
  **limit** | **int32** | Specifies the number of results to return per page. The values:   * -1: Return all results (up to system maximum)   * 0: Return an empty result set   * Positive integer: Return up to that many results (capped at system maximum)  | [default to -1]
+ **status** | **string** | Filters connections by their lifecycle status. When specified, only connections that match the specified status are returned.  | 
+ **requestingAppId** | **string** | Filters only connections where the app with the specified ID is the requesting app | 
+ **resourceAppId** | **string** | Filters only connections where the app with the specified ID is the requesting app | 
+ **activeAppsOnly** | **bool** | When set to true, filters the result to include only connections where both the requesting and resource app have a status of ACTIVE | 
+ **requestingAppName** | **string** | Filters connections where the requesting app&#39;s name matches the provided search string | 
+ **resourceAppName** | **string** | Filters connections where the resource app&#39;s name matches the provided search string | 
 
 ### Return type
 

@@ -32,7 +32,7 @@ var _ MappedNullable = &UserFactorPushTransactionTimeoutAllOfLinks{}
 
 // UserFactorPushTransactionTimeoutAllOfLinks struct for UserFactorPushTransactionTimeoutAllOfLinks
 type UserFactorPushTransactionTimeoutAllOfLinks struct {
-	// Verifies the factor resource. See [Verify a factor](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/verifyFactor).
+	// Verifies the factor resource. See [Verify a factor](/openapi/okta-management/management/userfactor/verifyfactor).
 	Verify               *HrefObject `json:"verify,omitempty"`
 	Factor               *UserFactor `json:"factor,omitempty"`
 	AdditionalProperties map[string]interface{}

@@ -41,7 +41,7 @@ type PolicyAPI interface {
 		Activates a policy
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@return ApiActivatePolicyRequest
 	*/
 	ActivatePolicy(ctx context.Context, policyId string) ApiActivatePolicyRequest
@@ -55,7 +55,7 @@ type PolicyAPI interface {
 		Activates a policy rule identified by `policyId` and `ruleId`
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@param ruleId `id` of the policy rule
 		@return ApiActivatePolicyRuleRequest
 	*/
@@ -70,14 +70,14 @@ type PolicyAPI interface {
 		Clones an existing policy
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@return ApiClonePolicyRequest
 	*/
 	ClonePolicy(ctx context.Context, policyId string) ApiClonePolicyRequest
 
 	// ClonePolicyExecute executes the request
-	//  @return ListPolicies200ResponseInner
-	ClonePolicyExecute(r ApiClonePolicyRequest) (*ListPolicies200ResponseInner, *APIResponse, error)
+	//  @return ListPolicies200Response
+	ClonePolicyExecute(r ApiClonePolicyRequest) (*ListPolicies200Response, *APIResponse, error)
 
 	/*
 		CreatePolicy Create a policy
@@ -98,10 +98,10 @@ type PolicyAPI interface {
 
 			Creates a policy rule
 
-		> **Note:** You can't create additional rules for the `PROFILE_ENROLLMENT` or `POST_AUTH_SESSION` policies.
+		> **Note:** You can't create additional rules for the `PROFILE_ENROLLMENT`, `POST_AUTH_SESSION`, or `CLIENT_UPDATE` policies.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param policyId `id` of the Policy
+			@param policyId `id` of the policy
 			@return ApiCreatePolicyRuleRequest
 	*/
 	CreatePolicyRule(ctx context.Context, policyId string) ApiCreatePolicyRuleRequest
@@ -131,7 +131,7 @@ type PolicyAPI interface {
 		Deactivates a policy
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@return ApiDeactivatePolicyRequest
 	*/
 	DeactivatePolicy(ctx context.Context, policyId string) ApiDeactivatePolicyRequest
@@ -145,7 +145,7 @@ type PolicyAPI interface {
 		Deactivates a policy rule identified by `policyId` and `ruleId`
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@param ruleId `id` of the policy rule
 		@return ApiDeactivatePolicyRuleRequest
 	*/
@@ -160,7 +160,7 @@ type PolicyAPI interface {
 		Deletes a policy
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@return ApiDeletePolicyRequest
 	*/
 	DeletePolicy(ctx context.Context, policyId string) ApiDeletePolicyRequest
@@ -174,7 +174,7 @@ type PolicyAPI interface {
 		Deletes the resource mapping for a policy identified by `policyId` and `mappingId`
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@param mappingId `id` of the policy resource Mapping
 		@return ApiDeletePolicyResourceMappingRequest
 	*/
@@ -189,7 +189,7 @@ type PolicyAPI interface {
 		Deletes a policy rule identified by `policyId` and `ruleId`
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@param ruleId `id` of the policy rule
 		@return ApiDeletePolicyRuleRequest
 	*/
@@ -204,14 +204,14 @@ type PolicyAPI interface {
 		Retrieves a policy
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@return ApiGetPolicyRequest
 	*/
 	GetPolicy(ctx context.Context, policyId string) ApiGetPolicyRequest
 
 	// GetPolicyExecute executes the request
-	//  @return ListPolicies200ResponseInner
-	GetPolicyExecute(r ApiGetPolicyRequest) (*ListPolicies200ResponseInner, *APIResponse, error)
+	//  @return ListPolicies200Response
+	GetPolicyExecute(r ApiGetPolicyRequest) (*ListPolicies200Response, *APIResponse, error)
 
 	/*
 		GetPolicyMapping Retrieve a policy resource mapping
@@ -219,7 +219,7 @@ type PolicyAPI interface {
 		Retrieves a resource mapping for a policy identified by `policyId` and `mappingId`
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@param mappingId `id` of the policy resource Mapping
 		@return ApiGetPolicyMappingRequest
 	*/
@@ -235,7 +235,7 @@ type PolicyAPI interface {
 		Retrieves a policy rule
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@param ruleId `id` of the policy rule
 		@return ApiGetPolicyRuleRequest
 	*/
@@ -256,18 +256,18 @@ type PolicyAPI interface {
 	ListPolicies(ctx context.Context) ApiListPoliciesRequest
 
 	// ListPoliciesExecute executes the request
-	//  @return []ListPolicies200ResponseInner
-	ListPoliciesExecute(r ApiListPoliciesRequest) ([]ListPolicies200ResponseInner, *APIResponse, error)
+	//  @return ListPolicies200Response
+	ListPoliciesExecute(r ApiListPoliciesRequest) (*ListPolicies200Response, *APIResponse, error)
 
 	/*
 			ListPolicyApps List all apps mapped to a policy
 
 			Lists all applications mapped to a policy identified by `policyId`
 
-		> **Note:** Use [List all resources mapped to a Policy](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Policy/#tag/Policy/operation/listPolicyMappings) to list all applications mapped to a policy.
+		> **Note:** Use [List all resources mapped to a policy](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/policy/#tag/Policy/operation/listPolicyMappings) to list all applications mapped to a policy.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param policyId `id` of the Policy
+			@param policyId `id` of the policy
 			@return ApiListPolicyAppsRequest
 
 			Deprecated
@@ -285,7 +285,7 @@ type PolicyAPI interface {
 		Lists all resources mapped to a policy identified by `policyId`
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@return ApiListPolicyMappingsRequest
 	*/
 	ListPolicyMappings(ctx context.Context, policyId string) ApiListPolicyMappingsRequest
@@ -300,7 +300,7 @@ type PolicyAPI interface {
 		Lists all policy rules
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@return ApiListPolicyRulesRequest
 	*/
 	ListPolicyRules(ctx context.Context, policyId string) ApiListPolicyRulesRequest
@@ -317,7 +317,7 @@ type PolicyAPI interface {
 		> **Note:** Use the [Assign an app sign-in policy](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/ApplicationPolicies/#tag/ApplicationPolicies/operation/assignApplicationPolicy) endpoint to assign an app sign-in policy to an app.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param policyId `id` of the Policy
+			@param policyId `id` of the policy
 			@return ApiMapResourceToPolicyRequest
 	*/
 	MapResourceToPolicy(ctx context.Context, policyId string) ApiMapResourceToPolicyRequest
@@ -332,14 +332,14 @@ type PolicyAPI interface {
 		Replaces the properties of a policy identified by `policyId`
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@return ApiReplacePolicyRequest
 	*/
 	ReplacePolicy(ctx context.Context, policyId string) ApiReplacePolicyRequest
 
 	// ReplacePolicyExecute executes the request
-	//  @return ListPolicies200ResponseInner
-	ReplacePolicyExecute(r ApiReplacePolicyRequest) (*ListPolicies200ResponseInner, *APIResponse, error)
+	//  @return ListPolicies200Response
+	ReplacePolicyExecute(r ApiReplacePolicyRequest) (*ListPolicies200Response, *APIResponse, error)
 
 	/*
 		ReplacePolicyRule Replace a policy rule
@@ -347,7 +347,7 @@ type PolicyAPI interface {
 		Replaces the properties for a policy rule identified by `policyId` and `ruleId`
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param policyId `id` of the Policy
+		@param policyId `id` of the policy
 		@param ruleId `id` of the policy rule
 		@return ApiReplacePolicyRuleRequest
 	*/
@@ -378,7 +378,7 @@ ActivatePolicy Activate a policy
 Activates a policy
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@return ApiActivatePolicyRequest
 */
 func (a *PolicyAPIService) ActivatePolicy(ctx context.Context, policyId string) ApiActivatePolicyRequest {
@@ -532,7 +532,7 @@ ActivatePolicyRule Activate a policy rule
 Activates a policy rule identified by `policyId` and `ruleId`
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@param ruleId `id` of the policy rule
 	@return ApiActivatePolicyRuleRequest
 */
@@ -678,7 +678,7 @@ type ApiClonePolicyRequest struct {
 	retryCount int32
 }
 
-func (r ApiClonePolicyRequest) Execute() (*ListPolicies200ResponseInner, *APIResponse, error) {
+func (r ApiClonePolicyRequest) Execute() (*ListPolicies200Response, *APIResponse, error) {
 	return r.ApiService.ClonePolicyExecute(r)
 }
 
@@ -688,7 +688,7 @@ ClonePolicy Clone an existing policy
 Clones an existing policy
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@return ApiClonePolicyRequest
 */
 func (a *PolicyAPIService) ClonePolicy(ctx context.Context, policyId string) ApiClonePolicyRequest {
@@ -702,13 +702,13 @@ func (a *PolicyAPIService) ClonePolicy(ctx context.Context, policyId string) Api
 
 // Execute executes the request
 //
-//	@return ListPolicies200ResponseInner
-func (a *PolicyAPIService) ClonePolicyExecute(r ApiClonePolicyRequest) (*ListPolicies200ResponseInner, *APIResponse, error) {
+//	@return ListPolicies200Response
+func (a *PolicyAPIService) ClonePolicyExecute(r ApiClonePolicyRequest) (*ListPolicies200Response, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ListPolicies200ResponseInner
+		localVarReturnValue  *ListPolicies200Response
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -1068,10 +1068,10 @@ CreatePolicyRule Create a policy rule
 
 # Creates a policy rule
 
-> **Note:** You can't create additional rules for the `PROFILE_ENROLLMENT` or `POST_AUTH_SESSION` policies.
+> **Note:** You can't create additional rules for the `PROFILE_ENROLLMENT`, `POST_AUTH_SESSION`, or `CLIENT_UPDATE` policies.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@return ApiCreatePolicyRuleRequest
 */
 func (a *PolicyAPIService) CreatePolicyRule(ctx context.Context, policyId string) ApiCreatePolicyRuleRequest {
@@ -1444,7 +1444,7 @@ DeactivatePolicy Deactivate a policy
 Deactivates a policy
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@return ApiDeactivatePolicyRequest
 */
 func (a *PolicyAPIService) DeactivatePolicy(ctx context.Context, policyId string) ApiDeactivatePolicyRequest {
@@ -1598,7 +1598,7 @@ DeactivatePolicyRule Deactivate a policy rule
 Deactivates a policy rule identified by `policyId` and `ruleId`
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@param ruleId `id` of the policy rule
 	@return ApiDeactivatePolicyRuleRequest
 */
@@ -1754,7 +1754,7 @@ DeletePolicy Delete a policy
 Deletes a policy
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@return ApiDeletePolicyRequest
 */
 func (a *PolicyAPIService) DeletePolicy(ctx context.Context, policyId string) ApiDeletePolicyRequest {
@@ -1908,7 +1908,7 @@ DeletePolicyResourceMapping Delete a policy resource mapping
 Deletes the resource mapping for a policy identified by `policyId` and `mappingId`
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@param mappingId `id` of the policy resource Mapping
 	@return ApiDeletePolicyResourceMappingRequest
 */
@@ -2065,7 +2065,7 @@ DeletePolicyRule Delete a policy rule
 Deletes a policy rule identified by `policyId` and `ruleId`
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@param ruleId `id` of the policy rule
 	@return ApiDeletePolicyRuleRequest
 */
@@ -2217,7 +2217,7 @@ func (r ApiGetPolicyRequest) Expand(expand string) ApiGetPolicyRequest {
 	return r
 }
 
-func (r ApiGetPolicyRequest) Execute() (*ListPolicies200ResponseInner, *APIResponse, error) {
+func (r ApiGetPolicyRequest) Execute() (*ListPolicies200Response, *APIResponse, error) {
 	return r.ApiService.GetPolicyExecute(r)
 }
 
@@ -2227,7 +2227,7 @@ GetPolicy Retrieve a policy
 Retrieves a policy
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@return ApiGetPolicyRequest
 */
 func (a *PolicyAPIService) GetPolicy(ctx context.Context, policyId string) ApiGetPolicyRequest {
@@ -2241,13 +2241,13 @@ func (a *PolicyAPIService) GetPolicy(ctx context.Context, policyId string) ApiGe
 
 // Execute executes the request
 //
-//	@return ListPolicies200ResponseInner
-func (a *PolicyAPIService) GetPolicyExecute(r ApiGetPolicyRequest) (*ListPolicies200ResponseInner, *APIResponse, error) {
+//	@return ListPolicies200Response
+func (a *PolicyAPIService) GetPolicyExecute(r ApiGetPolicyRequest) (*ListPolicies200Response, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ListPolicies200ResponseInner
+		localVarReturnValue  *ListPolicies200Response
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -2397,7 +2397,7 @@ GetPolicyMapping Retrieve a policy resource mapping
 Retrieves a resource mapping for a policy identified by `policyId` and `mappingId`
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@param mappingId `id` of the policy resource Mapping
 	@return ApiGetPolicyMappingRequest
 */
@@ -2567,7 +2567,7 @@ GetPolicyRule Retrieve a policy rule
 Retrieves a policy rule
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@param ruleId `id` of the policy rule
 	@return ApiGetPolicyRuleRequest
 */
@@ -2733,7 +2733,7 @@ type ApiListPoliciesRequest struct {
 	retryCount int32
 }
 
-// Specifies the type of policy to return. The following policy types are available only with the Okta Identity Engine - &#x60;ACCESS_POLICY&#x60;, &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &#x60;DEVICE_SIGNAL_COLLECTION&#x60;, &#x60;PROFILE_ENROLLMENT&#x60;, &#x60;POST_AUTH_SESSION&#x60; and &#x60;ENTITY_RISK&#x60;.
+// Specifies the type of policy to return. The following policy types are available only with the Okta Identity Engine - &#x60;ACCESS_POLICY&#x60;, &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &#x60;DEVICE_SIGNAL_COLLECTION&#x60;, &#x60;PROFILE_ENROLLMENT&#x60;, &#x60;POST_AUTH_SESSION&#x60;, &#x60;ENTITY_RISK&#x60;, and &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &#x60;CLIENT_UPDATE&#x60;.
 func (r ApiListPoliciesRequest) Type_(type_ string) ApiListPoliciesRequest {
 	r.type_ = &type_
 	return r
@@ -2780,7 +2780,7 @@ func (r ApiListPoliciesRequest) After(after string) ApiListPoliciesRequest {
 	return r
 }
 
-func (r ApiListPoliciesRequest) Execute() ([]ListPolicies200ResponseInner, *APIResponse, error) {
+func (r ApiListPoliciesRequest) Execute() (*ListPolicies200Response, *APIResponse, error) {
 	return r.ApiService.ListPoliciesExecute(r)
 }
 
@@ -2802,13 +2802,13 @@ func (a *PolicyAPIService) ListPolicies(ctx context.Context) ApiListPoliciesRequ
 
 // Execute executes the request
 //
-//	@return []ListPolicies200ResponseInner
-func (a *PolicyAPIService) ListPoliciesExecute(r ApiListPoliciesRequest) ([]ListPolicies200ResponseInner, *APIResponse, error) {
+//	@return ListPolicies200Response
+func (a *PolicyAPIService) ListPoliciesExecute(r ApiListPoliciesRequest) (*ListPolicies200Response, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  []ListPolicies200ResponseInner
+		localVarReturnValue  *ListPolicies200Response
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -2965,10 +2965,10 @@ ListPolicyApps List all apps mapped to a policy
 
 Lists all applications mapped to a policy identified by `policyId`
 
-> **Note:** Use [List all resources mapped to a Policy](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Policy/#tag/Policy/operation/listPolicyMappings) to list all applications mapped to a policy.
+> **Note:** Use [List all resources mapped to a policy](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/policy/#tag/Policy/operation/listPolicyMappings) to list all applications mapped to a policy.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@return ApiListPolicyAppsRequest
 
 Deprecated
@@ -3138,7 +3138,7 @@ ListPolicyMappings List all resources mapped to a policy
 Lists all resources mapped to a policy identified by `policyId`
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@return ApiListPolicyMappingsRequest
 */
 func (a *PolicyAPIService) ListPolicyMappings(ctx context.Context, policyId string) ApiListPolicyMappingsRequest {
@@ -3311,7 +3311,7 @@ ListPolicyRules List all policy rules
 Lists all policy rules
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@return ApiListPolicyRulesRequest
 */
 func (a *PolicyAPIService) ListPolicyRules(ctx context.Context, policyId string) ApiListPolicyRulesRequest {
@@ -3488,7 +3488,7 @@ Maps a resource to a policy identified by `policyId`
 > **Note:** Use the [Assign an app sign-in policy](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/ApplicationPolicies/#tag/ApplicationPolicies/operation/assignApplicationPolicy) endpoint to assign an app sign-in policy to an app.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@return ApiMapResourceToPolicyRequest
 */
 func (a *PolicyAPIService) MapResourceToPolicy(ctx context.Context, policyId string) ApiMapResourceToPolicyRequest {
@@ -3667,7 +3667,7 @@ func (r ApiReplacePolicyRequest) Policy(policy CreatePolicyRequest) ApiReplacePo
 	return r
 }
 
-func (r ApiReplacePolicyRequest) Execute() (*ListPolicies200ResponseInner, *APIResponse, error) {
+func (r ApiReplacePolicyRequest) Execute() (*ListPolicies200Response, *APIResponse, error) {
 	return r.ApiService.ReplacePolicyExecute(r)
 }
 
@@ -3677,7 +3677,7 @@ ReplacePolicy Replace a policy
 Replaces the properties of a policy identified by `policyId`
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@return ApiReplacePolicyRequest
 */
 func (a *PolicyAPIService) ReplacePolicy(ctx context.Context, policyId string) ApiReplacePolicyRequest {
@@ -3691,13 +3691,13 @@ func (a *PolicyAPIService) ReplacePolicy(ctx context.Context, policyId string) A
 
 // Execute executes the request
 //
-//	@return ListPolicies200ResponseInner
-func (a *PolicyAPIService) ReplacePolicyExecute(r ApiReplacePolicyRequest) (*ListPolicies200ResponseInner, *APIResponse, error) {
+//	@return ListPolicies200Response
+func (a *PolicyAPIService) ReplacePolicyExecute(r ApiReplacePolicyRequest) (*ListPolicies200Response, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *ListPolicies200ResponseInner
+		localVarReturnValue  *ListPolicies200Response
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -3867,7 +3867,7 @@ ReplacePolicyRule Replace a policy rule
 Replaces the properties for a policy rule identified by `policyId` and `ruleId`
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param policyId `id` of the Policy
+	@param policyId `id` of the policy
 	@param ruleId `id` of the policy rule
 	@return ApiReplacePolicyRuleRequest
 */

@@ -32,7 +32,7 @@ var _ MappedNullable = &OrgTechnicalContactTypeLinks{}
 
 // OrgTechnicalContactTypeLinks Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for the org technical Contact Type object using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification
 type OrgTechnicalContactTypeLinks struct {
-	// Link to the org technical [Contact Type User](/openapi/okta-management/management/tag/OrgSettingContact/#tag/OrgSettingContact/operation/getOrgContactUser) resource
+	// Link to the org technical [Contact Type User](/openapi/okta-management/management/orgsettingcontact/#tag/OrgSettingContact/operation/getOrgContactUser) resource
 	Technical            *HrefObject `json:"technical,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

@@ -50,7 +50,7 @@ type UserLifecycleAPI interface {
 		> For example, change `subdomain.okta.com` to `custom.domain.one`. See [Multibrand and custom domains](https://developer.okta.com/docs/concepts/brands/#multibrand-and-custom-domains).
 
 		> **Note:** If you have optional password enabled, visiting the activation link is optional for users who aren't required to enroll a password.
-		> See [Create user with optional password](/openapi/okta-management/management/tag/User/#create-user-with-optional-password).
+		> See [Create user with optional password](/openapi/okta-management/management/user/create-user-with-optional-password#user/Create-user-with-optional-password).
 
 		> **Legal disclaimer**
 		> After a user is added to the Okta directory, they receive an activation email. As part of signing up for this service,
@@ -82,6 +82,8 @@ type UserLifecycleAPI interface {
 
 		You can also perform user deactivation asynchronously. To invoke asynchronous user deactivation, pass an HTTP header `Prefer: respond-async` with the request.
 
+		> **Note:** Users with the `DEPROVISIONED` status won't have their profiles updated when running the [Update a user](/openapi/okta-management/management/user/updateuser) endpoint unless you have the **Edit Deactived User Profile Updates** option turned on in the Admin Console. See [Edit deactivated user profiles](https://help.okta.com/okta_help.htm?type=oie&id=edit-deactivated-users).
+
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
 			@return ApiDeactivateUserRequest
@@ -96,10 +98,10 @@ type UserLifecycleAPI interface {
 
 			Reactivates a user.
 
-		Perform this operation only on users with a `PROVISIONED` or `RECOVERY` [status](/openapi/okta-management/management/tag/User/#tag/User/operation/listUsers!c=200&path=status&t=response).
-		This operation restarts the activation workflow if for some reason the user activation wasn't completed when using the `activationToken` from [Activate User](/openapi/okta-management/management/tag/UserLifecycle/#tag/UserLifecycle/operation/activateUser).
+		Perform this operation only on users with a `PROVISIONED` or `RECOVERY` [status](/openapi/okta-management/management/user/listusers#user/listusers/t=response&c=200&path=status).
+		This operation restarts the activation workflow if for some reason the user activation wasn't completed when using the `activationToken` from [Activate User](/openapi/okta-management/management/userlifecycle/activateuser).
 
-		Users that don't have a password must complete the flow by completing the [Reset password](/openapi/okta-management/management/tag/UserCred/#tag/UserCred/operation/resetPassword) flow and MFA enrollment steps to transition the user to `ACTIVE` status.
+		Users that don't have a password must complete the flow by completing the [Reset password](/openapi/okta-management/management/usercred/resetpassword) flow and MFA enrollment steps to transition the user to `ACTIVE` status.
 
 		If `sendEmail` is `false`, returns an activation link for the user to set up their account. The activation token can be used to create a custom activation link.
 
@@ -209,7 +211,7 @@ Users who don't have a password must complete the welcome flow by visiting the a
 > For example, change `subdomain.okta.com` to `custom.domain.one`. See [Multibrand and custom domains](https://developer.okta.com/docs/concepts/brands/#multibrand-and-custom-domains).
 
 > **Note:** If you have optional password enabled, visiting the activation link is optional for users who aren't required to enroll a password.
-> See [Create user with optional password](/openapi/okta-management/management/tag/User/#create-user-with-optional-password).
+> See [Create user with optional password](/openapi/okta-management/management/user/create-user-with-optional-password#user/Create-user-with-optional-password).
 
 > **Legal disclaimer**
 > After a user is added to the Okta directory, they receive an activation email. As part of signing up for this service,
@@ -409,6 +411,8 @@ Perform this operation only on users that do not have a `DEPROVISIONED` status.
 
 You can also perform user deactivation asynchronously. To invoke asynchronous user deactivation, pass an HTTP header `Prefer: respond-async` with the request.
 
+> **Note:** Users with the `DEPROVISIONED` status won't have their profiles updated when running the [Update a user](/openapi/okta-management/management/user/updateuser) endpoint unless you have the **Edit Deactived User Profile Updates** option turned on in the Admin Console. See [Edit deactivated user profiles](https://help.okta.com/okta_help.htm?type=oie&id=edit-deactivated-users).
+
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
 	@return ApiDeactivateUserRequest
@@ -575,10 +579,10 @@ ReactivateUser Reactivate a user
 
 Reactivates a user.
 
-Perform this operation only on users with a `PROVISIONED` or `RECOVERY` [status](/openapi/okta-management/management/tag/User/#tag/User/operation/listUsers!c=200&path=status&t=response).
-This operation restarts the activation workflow if for some reason the user activation wasn't completed when using the `activationToken` from [Activate User](/openapi/okta-management/management/tag/UserLifecycle/#tag/UserLifecycle/operation/activateUser).
+Perform this operation only on users with a `PROVISIONED` or `RECOVERY` [status](/openapi/okta-management/management/user/listusers#user/listusers/t=response&c=200&path=status).
+This operation restarts the activation workflow if for some reason the user activation wasn't completed when using the `activationToken` from [Activate User](/openapi/okta-management/management/userlifecycle/activateuser).
 
-Users that don't have a password must complete the flow by completing the [Reset password](/openapi/okta-management/management/tag/UserCred/#tag/UserCred/operation/resetPassword) flow and MFA enrollment steps to transition the user to `ACTIVE` status.
+Users that don't have a password must complete the flow by completing the [Reset password](/openapi/okta-management/management/usercred/resetpassword) flow and MFA enrollment steps to transition the user to `ACTIVE` status.
 
 If `sendEmail` is `false`, returns an activation link for the user to set up their account. The activation token can be used to create a custom activation link.
 

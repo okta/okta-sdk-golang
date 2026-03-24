@@ -33,7 +33,7 @@ var _ MappedNullable = &StreamConfigurationDelivery{}
 
 // StreamConfigurationDelivery Contains information about the intended SET delivery method by the receiver
 type StreamConfigurationDelivery struct {
-	// The HTTP Authorization header that is included for each HTTP POST request
+	// The HTTP authorization header that's included for each HTTP POST request
 	AuthorizationHeader NullableString `json:"authorization_header,omitempty"`
 	// The target endpoint URL where the transmitter delivers the SET using HTTP POST requests
 	EndpointUrl string `json:"endpoint_url"`

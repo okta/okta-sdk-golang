@@ -32,10 +32,10 @@ var _ MappedNullable = &IdpDiscoveryPolicyRuleCondition{}
 
 // IdpDiscoveryPolicyRuleCondition Specifies conditions that must be met during policy evaluation to apply the rule. All policy conditions and conditions for at least one rule must be met to apply the settings specified in the policy and the associated rule.
 type IdpDiscoveryPolicyRuleCondition struct {
-	App                  *AppAndInstancePolicyRuleCondition `json:"app,omitempty"`
-	Network              *PolicyNetworkCondition            `json:"network,omitempty"`
-	Platform             *PlatformPolicyRuleCondition       `json:"platform,omitempty"`
-	UserIdentifier       *UserIdentifierPolicyRuleCondition `json:"userIdentifier,omitempty"`
+	App                  *AppAndInstancePolicyRuleCondition       `json:"app,omitempty"`
+	Network              *PolicyNetworkCondition                  `json:"network,omitempty"`
+	Platform             *IdpDiscoveryPlatformPolicyRuleCondition `json:"platform,omitempty"`
+	UserIdentifier       *UserIdentifierPolicyRuleCondition       `json:"userIdentifier,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -123,9 +123,9 @@ func (o *IdpDiscoveryPolicyRuleCondition) SetNetwork(v PolicyNetworkCondition) {
 }
 
 // GetPlatform returns the Platform field value if set, zero value otherwise.
-func (o *IdpDiscoveryPolicyRuleCondition) GetPlatform() PlatformPolicyRuleCondition {
+func (o *IdpDiscoveryPolicyRuleCondition) GetPlatform() IdpDiscoveryPlatformPolicyRuleCondition {
 	if o == nil || IsNil(o.Platform) {
-		var ret PlatformPolicyRuleCondition
+		var ret IdpDiscoveryPlatformPolicyRuleCondition
 		return ret
 	}
 	return *o.Platform
@@ -133,7 +133,7 @@ func (o *IdpDiscoveryPolicyRuleCondition) GetPlatform() PlatformPolicyRuleCondit
 
 // GetPlatformOk returns a tuple with the Platform field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IdpDiscoveryPolicyRuleCondition) GetPlatformOk() (*PlatformPolicyRuleCondition, bool) {
+func (o *IdpDiscoveryPolicyRuleCondition) GetPlatformOk() (*IdpDiscoveryPlatformPolicyRuleCondition, bool) {
 	if o == nil || IsNil(o.Platform) {
 		return nil, false
 	}
@@ -149,8 +149,8 @@ func (o *IdpDiscoveryPolicyRuleCondition) HasPlatform() bool {
 	return false
 }
 
-// SetPlatform gets a reference to the given PlatformPolicyRuleCondition and assigns it to the Platform field.
-func (o *IdpDiscoveryPolicyRuleCondition) SetPlatform(v PlatformPolicyRuleCondition) {
+// SetPlatform gets a reference to the given IdpDiscoveryPlatformPolicyRuleCondition and assigns it to the Platform field.
+func (o *IdpDiscoveryPolicyRuleCondition) SetPlatform(v IdpDiscoveryPlatformPolicyRuleCondition) {
 	o.Platform = &v
 }
 

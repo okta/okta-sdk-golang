@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Activate** | Pointer to [**HrefObject**](HrefObject.md) | Activates an enrolled factor. See [Activate a factor](/openapi/okta-management/management/tag/UserFactor/#tag/UserFactor/operation/activateFactor). | [optional] 
+**Activate** | Pointer to [**HrefObject**](HrefObject.md) | Activates an enrolled factor. See [Activate a factor](/openapi/okta-management/management/userfactor/activatefactor). | [optional] 
 
 ## Methods
 

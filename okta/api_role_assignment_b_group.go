@@ -40,7 +40,7 @@ type RoleAssignmentBGroupAPI interface {
 
 			Assigns a [standard role](/openapi/okta-management/guides/roles/#standard-roles) to a group.
 
-		You can also assign a custom role to a group, but the preferred method to assign a custom role to a group is to create a binding between the custom role, the resource set, and the group. See [Create a role resource set binding](/openapi/okta-management/management/tag/RoleDResourceSetBinding/#tag/RoleDResourceSetBinding/operation/createResourceSetBinding).
+		You can also assign a custom role to a group, but the preferred method to assign a custom role to a group is to create a binding between the custom role, the resource set, and the group. See [Create a role resource set binding](/openapi/okta-management/management/roledresourcesetbinding/createresourcesetbinding).
 
 		> **Notes:**
 		> * The request payload is different for standard and custom role assignments.
@@ -135,7 +135,7 @@ AssignRoleToGroup Assign a role to a group
 
 Assigns a [standard role](/openapi/okta-management/guides/roles/#standard-roles) to a group.
 
-You can also assign a custom role to a group, but the preferred method to assign a custom role to a group is to create a binding between the custom role, the resource set, and the group. See [Create a role resource set binding](/openapi/okta-management/management/tag/RoleDResourceSetBinding/#tag/RoleDResourceSetBinding/operation/createResourceSetBinding).
+You can also assign a custom role to a group, but the preferred method to assign a custom role to a group is to create a binding between the custom role, the resource set, and the group. See [Create a role resource set binding](/openapi/okta-management/management/roledresourcesetbinding/createresourcesetbinding).
 
 > **Notes:**
 > * The request payload is different for standard and custom role assignments.

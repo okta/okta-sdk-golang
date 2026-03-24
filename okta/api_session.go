@@ -38,10 +38,10 @@ type SessionAPI interface {
 	/*
 		GetSession Retrieve a session
 
-		Retrieves information about the Session specified by the given session ID
+		Retrieves information about the session specified by the given session ID
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param sessionId `id` of the Session
+		@param sessionId `id` of the session
 		@return ApiGetSessionRequest
 	*/
 	GetSession(ctx context.Context, sessionId string) ApiGetSessionRequest
@@ -53,10 +53,10 @@ type SessionAPI interface {
 	/*
 		RefreshSession Refresh a session
 
-		Refreshes an existing Session using the `id` for that Session. A successful response contains the refreshed Session with an updated `expiresAt` timestamp.
+		Refreshes an existing session using the `id` for that session. A successful response contains the refreshed session with an updated `expiresAt` timestamp.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param sessionId `id` of the Session
+		@param sessionId `id` of the session
 		@return ApiRefreshSessionRequest
 	*/
 	RefreshSession(ctx context.Context, sessionId string) ApiRefreshSessionRequest
@@ -68,10 +68,10 @@ type SessionAPI interface {
 	/*
 		RevokeSession Revoke a session
 
-		Revokes the specified Session
+		Revokes the specified session
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param sessionId `id` of the Session
+		@param sessionId `id` of the session
 		@return ApiRevokeSessionRequest
 	*/
 	RevokeSession(ctx context.Context, sessionId string) ApiRevokeSessionRequest
@@ -97,10 +97,10 @@ func (r ApiGetSessionRequest) Execute() (*Session, *APIResponse, error) {
 /*
 GetSession Retrieve a session
 
-Retrieves information about the Session specified by the given session ID
+Retrieves information about the session specified by the given session ID
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param sessionId `id` of the Session
+	@param sessionId `id` of the session
 	@return ApiGetSessionRequest
 */
 func (a *SessionAPIService) GetSession(ctx context.Context, sessionId string) ApiGetSessionRequest {
@@ -251,10 +251,10 @@ func (r ApiRefreshSessionRequest) Execute() (*Session, *APIResponse, error) {
 /*
 RefreshSession Refresh a session
 
-Refreshes an existing Session using the `id` for that Session. A successful response contains the refreshed Session with an updated `expiresAt` timestamp.
+Refreshes an existing session using the `id` for that session. A successful response contains the refreshed session with an updated `expiresAt` timestamp.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param sessionId `id` of the Session
+	@param sessionId `id` of the session
 	@return ApiRefreshSessionRequest
 */
 func (a *SessionAPIService) RefreshSession(ctx context.Context, sessionId string) ApiRefreshSessionRequest {
@@ -405,10 +405,10 @@ func (r ApiRevokeSessionRequest) Execute() (*APIResponse, error) {
 /*
 RevokeSession Revoke a session
 
-Revokes the specified Session
+Revokes the specified session
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param sessionId `id` of the Session
+	@param sessionId `id` of the session
 	@return ApiRevokeSessionRequest
 */
 func (a *SessionAPIService) RevokeSession(ctx context.Context, sessionId string) ApiRevokeSessionRequest {

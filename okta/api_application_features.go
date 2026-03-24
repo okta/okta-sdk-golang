@@ -56,7 +56,7 @@ type ApplicationFeaturesAPI interface {
 
 			Lists all features for an app
 		> **Note:** This request returns an error if provisioning isn't enabled for the app.
-		> To set up provisioning, see [Update the default provisioning connection](/openapi/okta-management/management/tag/ApplicationConnections/#tag/ApplicationConnections/operation/updateDefaultProvisioningConnectionForApplication).
+		> To set up provisioning, see [Update the default provisioning connection](/openapi/okta-management/management/applicationconnections/updatedefaultprovisioningconnectionforapplication).
 
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -277,7 +277,7 @@ ListFeaturesForApplication List all features
 
 Lists all features for an app
 > **Note:** This request returns an error if provisioning isn't enabled for the app.
-> To set up provisioning, see [Update the default provisioning connection](/openapi/okta-management/management/tag/ApplicationConnections/#tag/ApplicationConnections/operation/updateDefaultProvisioningConnectionForApplication).
+> To set up provisioning, see [Update the default provisioning connection](/openapi/okta-management/management/applicationconnections/updatedefaultprovisioningconnectionforapplication).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param appId Application ID

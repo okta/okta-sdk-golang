@@ -37,10 +37,10 @@ type AvailableActionProvider struct {
 	ActionName string `json:"actionName"`
 	// The unique identifier of the action flow in the provider system
 	ExternalId string `json:"externalId"`
+	// The URL to the action flow interface in Workflows platform
+	Link string `json:"link"`
 	// Type of action provider
-	Type string `json:"type"`
-	// The URL to the action flow
-	Url                  string `json:"url"`
+	Type                 string `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -50,12 +50,12 @@ type _AvailableActionProvider AvailableActionProvider
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAvailableActionProvider(actionName string, externalId string, type_ string, url string) *AvailableActionProvider {
+func NewAvailableActionProvider(actionName string, externalId string, link string, type_ string) *AvailableActionProvider {
 	this := AvailableActionProvider{}
 	this.ActionName = actionName
 	this.ExternalId = externalId
+	this.Link = link
 	this.Type = type_
-	this.Url = url
 	return &this
 }
 
@@ -115,6 +115,30 @@ func (o *AvailableActionProvider) SetExternalId(v string) {
 	o.ExternalId = v
 }
 
+// GetLink returns the Link field value
+func (o *AvailableActionProvider) GetLink() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Link
+}
+
+// GetLinkOk returns a tuple with the Link field value
+// and a boolean to check if the value has been set.
+func (o *AvailableActionProvider) GetLinkOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Link, true
+}
+
+// SetLink sets field value
+func (o *AvailableActionProvider) SetLink(v string) {
+	o.Link = v
+}
+
 // GetType returns the Type field value
 func (o *AvailableActionProvider) GetType() string {
 	if o == nil {
@@ -139,30 +163,6 @@ func (o *AvailableActionProvider) SetType(v string) {
 	o.Type = v
 }
 
-// GetUrl returns the Url field value
-func (o *AvailableActionProvider) GetUrl() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Url
-}
-
-// GetUrlOk returns a tuple with the Url field value
-// and a boolean to check if the value has been set.
-func (o *AvailableActionProvider) GetUrlOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Url, true
-}
-
-// SetUrl sets field value
-func (o *AvailableActionProvider) SetUrl(v string) {
-	o.Url = v
-}
-
 func (o AvailableActionProvider) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -175,8 +175,8 @@ func (o AvailableActionProvider) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["actionName"] = o.ActionName
 	toSerialize["externalId"] = o.ExternalId
+	toSerialize["link"] = o.Link
 	toSerialize["type"] = o.Type
-	toSerialize["url"] = o.Url
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -192,8 +192,8 @@ func (o *AvailableActionProvider) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"actionName",
 		"externalId",
+		"link",
 		"type",
-		"url",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -225,8 +225,8 @@ func (o *AvailableActionProvider) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "actionName")
 		delete(additionalProperties, "externalId")
+		delete(additionalProperties, "link")
 		delete(additionalProperties, "type")
-		delete(additionalProperties, "url")
 		o.AdditionalProperties = additionalProperties
 	}
 

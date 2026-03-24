@@ -111,7 +111,7 @@ type FeatureAPI interface {
 
 		The following chart shows the different state transitions for a feature.
 
-		![State transitions of a feature](../../../../../images/features/update-ssfeat-flowchart.png '#width=500px;')
+		<img alt="Example" src="https://developer.okta.com/docs/api/images/features/update-ssfeat-flowchart.png" width="1000"/>
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param featureId `id` of the feature
@@ -812,7 +812,7 @@ When you use the `mode=force` parameter while disabling a feature, Okta first tr
 
 The following chart shows the different state transitions for a feature.
 
-![State transitions of a feature](../../../../../images/features/update-ssfeat-flowchart.png '#width=500px;')
+<img alt="Example" src="https://developer.okta.com/docs/api/images/features/update-ssfeat-flowchart.png" width="1000"/>
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param featureId `id` of the feature

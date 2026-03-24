@@ -39,7 +39,7 @@ type SlackApplicationSettings struct {
 	IdentityStoreId *string `json:"identityStoreId,omitempty"`
 	// Controls whether Okta automatically assigns users to the app based on the user's role or group membership.
 	ImplicitAssignment *bool `json:"implicitAssignment,omitempty"`
-	// Identifier of an inline hook. Inline hooks are outbound calls from Okta to your own custom code, triggered at specific points in Okta process flows. They allow you to integrate custom functionality into those flows. See [Inline hooks](/openapi/okta-management/management/tag/InlineHook/).
+	// Identifier of an inline hook. Inline hooks are outbound calls from Okta to your own custom code, triggered at specific points in Okta process flows. They allow you to integrate custom functionality into those flows. See [Inline hooks](/openapi/okta-management/management/tags/inlinehook/).
 	InlineHookId         *string                             `json:"inlineHookId,omitempty"`
 	Notes                *ApplicationSettingsNotes           `json:"notes,omitempty"`
 	Notifications        *ApplicationSettingsNotifications   `json:"notifications,omitempty"`

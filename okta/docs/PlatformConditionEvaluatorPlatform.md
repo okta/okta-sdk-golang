@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Os** | Pointer to [**PlatformConditionEvaluatorPlatformOperatingSystem**](PlatformConditionEvaluatorPlatformOperatingSystem.md) |  | [optional] 
-**Type** | Pointer to **string** |  | [optional] 
+**Type** | Pointer to **string** | The type of platform | [optional] 
 
 ## Methods
 

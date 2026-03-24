@@ -31,7 +31,7 @@ import (
 // checks if the OrgCreationAdminProfile type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &OrgCreationAdminProfile{}
 
-// OrgCreationAdminProfile Specifies the profile attributes for the first super admin user. The minimal set of required attributes are `email`, `firstName`, `lastName`, and `login`. See [profile](/openapi/okta-management/management/tag/User/#tag/User/operation/getUser!c=200&path=profile&t=response) for additional profile attributes.
+// OrgCreationAdminProfile Specifies the profile attributes for the first super admin user. The minimal set of required attributes are `email`, `firstName`, `lastName`, and `login`. See [profile](/openapi/okta-management/management/user/getuser#user/getuser/t=response&c=200&path=profile) for additional profile attributes.
 type OrgCreationAdminProfile struct {
 	// Given name of the User (`givenName`)
 	FirstName NullableString `json:"firstName"`

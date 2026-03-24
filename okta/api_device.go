@@ -71,7 +71,7 @@ type DeviceAPI interface {
 	/*
 			DeleteDevice Delete a device
 
-			Deletes (permanently) a device by `deviceId` if it has a status of `DEACTIVATED`. You can transition the device to `DEACTIVATED` status using the [Deactivate a Device](/openapi/okta-management/management/tag/Device/#tag/Device/operation/deactivateDevice) endpoint.
+			Deletes (permanently) a device by `deviceId` if it has a status of `DEACTIVATED`. You can transition the device to `DEACTIVATED` status using the [Deactivate a Device](/openapi/okta-management/management/tags/device/other/deactivatedevice) endpoint.
 		This request is destructive and deletes all of the profile data related to the device. Once deleted, device data can't be recovered. However, reenrollment creates a new device record.
 		> **Note:** Attempts to delete a device that isn't in a `DEACTIVATED` state raise an error.
 
@@ -119,7 +119,7 @@ type DeviceAPI interface {
 
 			Lists all devices with pagination support.
 
-		>**Note:** To list all devices enrolled by a user, use the [List all devices endpoint in the User Resources API](/openapi/okta-management/management/tag/UserResources/#tag/UserResources/operation/listUserDevices).
+		>**Note:** To list all devices enrolled by a user, use the [List all devices endpoint in the User Resources API](/openapi/okta-management/management/userresources/listuserdevices).
 
 		You can return a subset of devices that match a supported search criteria using the `search` query parameter.
 		Searches for devices based on the properties specified in the `search` parameter conforming SCIM filter specifications (case-insensitive). This data is eventually consistent. The API returns different results depending on specified queries in the request. Empty list is returned if no objects match `search` request.
@@ -503,7 +503,7 @@ func (r ApiDeleteDeviceRequest) Execute() (*APIResponse, error) {
 /*
 DeleteDevice Delete a device
 
-Deletes (permanently) a device by `deviceId` if it has a status of `DEACTIVATED`. You can transition the device to `DEACTIVATED` status using the [Deactivate a Device](/openapi/okta-management/management/tag/Device/#tag/Device/operation/deactivateDevice) endpoint.
+Deletes (permanently) a device by `deviceId` if it has a status of `DEACTIVATED`. You can transition the device to `DEACTIVATED` status using the [Deactivate a Device](/openapi/okta-management/management/tags/device/other/deactivatedevice) endpoint.
 This request is destructive and deletes all of the profile data related to the device. Once deleted, device data can't be recovered. However, reenrollment creates a new device record.
 > **Note:** Attempts to delete a device that isn't in a `DEACTIVATED` state raise an error.
 
@@ -1018,7 +1018,7 @@ ListDevices List all devices
 
 Lists all devices with pagination support.
 
->**Note:** To list all devices enrolled by a user, use the [List all devices endpoint in the User Resources API](/openapi/okta-management/management/tag/UserResources/#tag/UserResources/operation/listUserDevices).
+>**Note:** To list all devices enrolled by a user, use the [List all devices endpoint in the User Resources API](/openapi/okta-management/management/userresources/listuserdevices).
 
 You can return a subset of devices that match a supported search criteria using the `search` query parameter.
 Searches for devices based on the properties specified in the `search` parameter conforming SCIM filter specifications (case-insensitive). This data is eventually consistent. The API returns different results depending on specified queries in the request. Empty list is returned if no objects match `search` request.

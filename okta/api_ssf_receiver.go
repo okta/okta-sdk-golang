@@ -38,11 +38,11 @@ type SSFReceiverAPI interface {
 	/*
 			ActivateSecurityEventsProviderInstance Activate a security events provider
 
-			Activates a Security Events Provider instance by setting its status to `ACTIVE`.
-		This operation resumes the flow of events from the Security Events Provider to Okta.
+			Activates a security events provider instance by setting its status to `ACTIVE`.
+		This operation resumes the flow of events from the security events provider to Okta.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param securityEventProviderId `id` of the Security Events Provider instance
+			@param securityEventProviderId `id` of the security events provider instance
 			@return ApiActivateSecurityEventsProviderInstanceRequest
 	*/
 	ActivateSecurityEventsProviderInstance(ctx context.Context, securityEventProviderId string) ApiActivateSecurityEventsProviderInstanceRequest
@@ -54,7 +54,7 @@ type SSFReceiverAPI interface {
 	/*
 		CreateSecurityEventsProviderInstance Create a security events provider
 
-		Creates a Security Events Provider instance
+		Creates a security events provider instance
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return ApiCreateSecurityEventsProviderInstanceRequest
@@ -68,11 +68,11 @@ type SSFReceiverAPI interface {
 	/*
 			DeactivateSecurityEventsProviderInstance Deactivate a security events provider
 
-			Deactivates a Security Events Provider instance by setting its status to `INACTIVE`.
-		This operation stops the flow of events from the Security Events Provider to Okta.
+			Deactivates a security events provider instance by setting its status to `INACTIVE`.
+		This operation stops the flow of events from the security events provider to Okta.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-			@param securityEventProviderId `id` of the Security Events Provider instance
+			@param securityEventProviderId `id` of the security events provider instance
 			@return ApiDeactivateSecurityEventsProviderInstanceRequest
 	*/
 	DeactivateSecurityEventsProviderInstance(ctx context.Context, securityEventProviderId string) ApiDeactivateSecurityEventsProviderInstanceRequest
@@ -84,10 +84,10 @@ type SSFReceiverAPI interface {
 	/*
 		DeleteSecurityEventsProviderInstance Delete a security events provider
 
-		Deletes a Security Events Provider instance specified by `id`
+		Deletes a security events provider instance specified by `id`
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param securityEventProviderId `id` of the Security Events Provider instance
+		@param securityEventProviderId `id` of the security events provider instance
 		@return ApiDeleteSecurityEventsProviderInstanceRequest
 	*/
 	DeleteSecurityEventsProviderInstance(ctx context.Context, securityEventProviderId string) ApiDeleteSecurityEventsProviderInstanceRequest
@@ -98,10 +98,10 @@ type SSFReceiverAPI interface {
 	/*
 		GetSecurityEventsProviderInstance Retrieve the security events provider
 
-		Retrieves the Security Events Provider instance specified by `id`
+		Retrieves the security events provider instance specified by `id`
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param securityEventProviderId `id` of the Security Events Provider instance
+		@param securityEventProviderId `id` of the security events provider instance
 		@return ApiGetSecurityEventsProviderInstanceRequest
 	*/
 	GetSecurityEventsProviderInstance(ctx context.Context, securityEventProviderId string) ApiGetSecurityEventsProviderInstanceRequest
@@ -113,7 +113,7 @@ type SSFReceiverAPI interface {
 	/*
 		ListSecurityEventsProviderInstances List all security events providers
 
-		Lists all Security Events Provider instances
+		Lists all security events provider instances
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@return ApiListSecurityEventsProviderInstancesRequest
@@ -127,10 +127,10 @@ type SSFReceiverAPI interface {
 	/*
 		ReplaceSecurityEventsProviderInstance Replace a security events provider
 
-		Replaces a Security Events Provider instance specified by `id`
+		Replaces a security events provider instance specified by `id`
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param securityEventProviderId `id` of the Security Events Provider instance
+		@param securityEventProviderId `id` of the security events provider instance
 		@return ApiReplaceSecurityEventsProviderInstanceRequest
 	*/
 	ReplaceSecurityEventsProviderInstance(ctx context.Context, securityEventProviderId string) ApiReplaceSecurityEventsProviderInstanceRequest
@@ -157,11 +157,11 @@ func (r ApiActivateSecurityEventsProviderInstanceRequest) Execute() (*SecurityEv
 /*
 ActivateSecurityEventsProviderInstance Activate a security events provider
 
-Activates a Security Events Provider instance by setting its status to `ACTIVE`.
-This operation resumes the flow of events from the Security Events Provider to Okta.
+Activates a security events provider instance by setting its status to `ACTIVE`.
+This operation resumes the flow of events from the security events provider to Okta.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param securityEventProviderId `id` of the Security Events Provider instance
+	@param securityEventProviderId `id` of the security events provider instance
 	@return ApiActivateSecurityEventsProviderInstanceRequest
 */
 func (a *SSFReceiverAPIService) ActivateSecurityEventsProviderInstance(ctx context.Context, securityEventProviderId string) ApiActivateSecurityEventsProviderInstanceRequest {
@@ -341,7 +341,7 @@ func (r ApiCreateSecurityEventsProviderInstanceRequest) Execute() (*SecurityEven
 /*
 CreateSecurityEventsProviderInstance Create a security events provider
 
-Creates a Security Events Provider instance
+Creates a security events provider instance
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiCreateSecurityEventsProviderInstanceRequest
@@ -521,11 +521,11 @@ func (r ApiDeactivateSecurityEventsProviderInstanceRequest) Execute() (*Security
 /*
 DeactivateSecurityEventsProviderInstance Deactivate a security events provider
 
-Deactivates a Security Events Provider instance by setting its status to `INACTIVE`.
-This operation stops the flow of events from the Security Events Provider to Okta.
+Deactivates a security events provider instance by setting its status to `INACTIVE`.
+This operation stops the flow of events from the security events provider to Okta.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param securityEventProviderId `id` of the Security Events Provider instance
+	@param securityEventProviderId `id` of the security events provider instance
 	@return ApiDeactivateSecurityEventsProviderInstanceRequest
 */
 func (a *SSFReceiverAPIService) DeactivateSecurityEventsProviderInstance(ctx context.Context, securityEventProviderId string) ApiDeactivateSecurityEventsProviderInstanceRequest {
@@ -700,10 +700,10 @@ func (r ApiDeleteSecurityEventsProviderInstanceRequest) Execute() (*APIResponse,
 /*
 DeleteSecurityEventsProviderInstance Delete a security events provider
 
-Deletes a Security Events Provider instance specified by `id`
+Deletes a security events provider instance specified by `id`
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param securityEventProviderId `id` of the Security Events Provider instance
+	@param securityEventProviderId `id` of the security events provider instance
 	@return ApiDeleteSecurityEventsProviderInstanceRequest
 */
 func (a *SSFReceiverAPIService) DeleteSecurityEventsProviderInstance(ctx context.Context, securityEventProviderId string) ApiDeleteSecurityEventsProviderInstanceRequest {
@@ -865,10 +865,10 @@ func (r ApiGetSecurityEventsProviderInstanceRequest) Execute() (*SecurityEventsP
 /*
 GetSecurityEventsProviderInstance Retrieve the security events provider
 
-Retrieves the Security Events Provider instance specified by `id`
+Retrieves the security events provider instance specified by `id`
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param securityEventProviderId `id` of the Security Events Provider instance
+	@param securityEventProviderId `id` of the security events provider instance
 	@return ApiGetSecurityEventsProviderInstanceRequest
 */
 func (a *SSFReceiverAPIService) GetSecurityEventsProviderInstance(ctx context.Context, securityEventProviderId string) ApiGetSecurityEventsProviderInstanceRequest {
@@ -1042,7 +1042,7 @@ func (r ApiListSecurityEventsProviderInstancesRequest) Execute() ([]SecurityEven
 /*
 ListSecurityEventsProviderInstances List all security events providers
 
-Lists all Security Events Provider instances
+Lists all security events provider instances
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiListSecurityEventsProviderInstancesRequest
@@ -1211,10 +1211,10 @@ func (r ApiReplaceSecurityEventsProviderInstanceRequest) Execute() (*SecurityEve
 /*
 ReplaceSecurityEventsProviderInstance Replace a security events provider
 
-Replaces a Security Events Provider instance specified by `id`
+Replaces a security events provider instance specified by `id`
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	@param securityEventProviderId `id` of the Security Events Provider instance
+	@param securityEventProviderId `id` of the security events provider instance
 	@return ApiReplaceSecurityEventsProviderInstanceRequest
 */
 func (a *SSFReceiverAPIService) ReplaceSecurityEventsProviderInstance(ctx context.Context, securityEventProviderId string) ApiReplaceSecurityEventsProviderInstanceRequest {

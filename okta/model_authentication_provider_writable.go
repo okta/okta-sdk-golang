@@ -30,7 +30,7 @@ import (
 // checks if the AuthenticationProviderWritable type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AuthenticationProviderWritable{}
 
-// AuthenticationProviderWritable Specifies the authentication provider that validates the user password credential. The user's current provider is managed by the **Delegated Authentication** settings in your org. See [Create user with authentication provider](/openapi/okta-management/management/tag/User/#create-user-with-authentication-provider).
+// AuthenticationProviderWritable Specifies the authentication provider that validates the user password credential. The user's current provider is managed by the **Delegated Authentication** settings in your org. See [Create user with authentication provider](/openapi/okta-management/management/user/create-user-with-password-and-recovery-question#user/Create-user-with-authentication-provider).
 type AuthenticationProviderWritable struct {
 	// The name of the authentication provider
 	Name *string `json:"name,omitempty"`

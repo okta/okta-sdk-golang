@@ -30,7 +30,7 @@ import (
 // checks if the PasswordCredentialHook type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PasswordCredentialHook{}
 
-// PasswordCredentialHook Specify a [password import inline hook](/openapi/okta-management/management/tag/InlineHook/#tag/InlineHook/operation/createPasswordImportInlineHook) to trigger verification of the user's password the first time the user signs in. This allows an existing password to be imported into Okta directly from some other store.
+// PasswordCredentialHook Specify a [password import inline hook](/openapi/okta-management/management/tags/inlinehook/createpasswordimportinlinehook) to trigger verification of the user's password the first time the user signs in. This allows an existing password to be imported into Okta directly from some other store.
 type PasswordCredentialHook struct {
 	// The type of password inline hook. Currently, must be set to default.
 	Type                 *string `json:"type,omitempty"`

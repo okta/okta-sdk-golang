@@ -32,8 +32,8 @@ var _ MappedNullable = &DevicePostureChecks{}
 
 // DevicePostureChecks <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Represents the Device Posture Checks configuration for the device assurance policy
 type DevicePostureChecks struct {
-	// An array of key value pairs including Device Posture Check `variableNames`
-	Include              []string `json:"include,omitempty"`
+	// An array of key-value pairs that include the device posture check `variableName` key
+	Include              []DevicePostureChecksIncludeInner `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,9 +57,9 @@ func NewDevicePostureChecksWithDefaults() *DevicePostureChecks {
 }
 
 // GetInclude returns the Include field value if set, zero value otherwise.
-func (o *DevicePostureChecks) GetInclude() []string {
+func (o *DevicePostureChecks) GetInclude() []DevicePostureChecksIncludeInner {
 	if o == nil || IsNil(o.Include) {
-		var ret []string
+		var ret []DevicePostureChecksIncludeInner
 		return ret
 	}
 	return o.Include
@@ -67,7 +67,7 @@ func (o *DevicePostureChecks) GetInclude() []string {
 
 // GetIncludeOk returns a tuple with the Include field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DevicePostureChecks) GetIncludeOk() ([]string, bool) {
+func (o *DevicePostureChecks) GetIncludeOk() ([]DevicePostureChecksIncludeInner, bool) {
 	if o == nil || IsNil(o.Include) {
 		return nil, false
 	}
@@ -83,8 +83,8 @@ func (o *DevicePostureChecks) HasInclude() bool {
 	return false
 }
 
-// SetInclude gets a reference to the given []string and assigns it to the Include field.
-func (o *DevicePostureChecks) SetInclude(v []string) {
+// SetInclude gets a reference to the given []DevicePostureChecksIncludeInner and assigns it to the Include field.
+func (o *DevicePostureChecks) SetInclude(v []DevicePostureChecksIncludeInner) {
 	o.Include = v
 }
 

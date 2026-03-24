@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Include** | Pointer to **[]string** | An array of key value pairs including Device Posture Check &#x60;variableNames&#x60; | [optional] 
+**Include** | Pointer to [**[]DevicePostureChecksIncludeInner**](DevicePostureChecksIncludeInner.md) | An array of key-value pairs that include the device posture check &#x60;variableName&#x60; key | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetInclude
 
-`func (o *DevicePostureChecks) GetInclude() []string`
+`func (o *DevicePostureChecks) GetInclude() []DevicePostureChecksIncludeInner`
 
 GetInclude returns the Include field if non-nil, zero value otherwise.
 
 ### GetIncludeOk
 
-`func (o *DevicePostureChecks) GetIncludeOk() (*[]string, bool)`
+`func (o *DevicePostureChecks) GetIncludeOk() (*[]DevicePostureChecksIncludeInner, bool)`
 
 GetIncludeOk returns a tuple with the Include field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInclude
 
-`func (o *DevicePostureChecks) SetInclude(v []string)`
+`func (o *DevicePostureChecks) SetInclude(v []DevicePostureChecksIncludeInner)`
 
 SetInclude sets Include field to given value.
 

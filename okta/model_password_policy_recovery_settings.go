@@ -30,7 +30,7 @@ import (
 // checks if the PasswordPolicyRecoverySettings type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PasswordPolicyRecoverySettings{}
 
-// PasswordPolicyRecoverySettings Specifies the password recovery settings for the policy > **Note:** With Identity Engine, you can specify recovery factors inside the password policy rule instead of in the policy settings object. Recovery factors for the rule are defined inside the [`selfServicePasswordReset` action](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Policy/#tag/Policy/operation/createPolicyRule!path=1/actions/selfServicePasswordReset&t=request).
+// PasswordPolicyRecoverySettings Specifies the password recovery settings for the policy > **Note:** With Identity Engine, you can specify recovery factors inside the password policy rule instead of in the policy settings object. Recovery factors for the rule are defined inside the [`selfServicePasswordReset` action](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/policy/#tag/Policy/operation/createPolicyRule!path=1/actions/selfServicePasswordReset&t=request).
 type PasswordPolicyRecoverySettings struct {
 	Factors              *PasswordPolicyRecoveryFactors `json:"factors,omitempty"`
 	AdditionalProperties map[string]interface{}

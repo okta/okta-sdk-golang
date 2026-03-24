@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**State** | Pointer to **string** | An arbitrary string that Okta as a transmitter must echo back to the Event Receiver in the Verification Event&#39;s payload | [optional] 
-**StreamId** | **string** | The ID of the SSF Stream Configuration | 
+**State** | Pointer to **string** | An arbitrary string that Okta as a transmitter must echo back to the event receiver in the verification event&#39;s payload | [optional] 
+**StreamId** | **string** | The ID of the SSF stream configuration | 
 
 ## Methods
 

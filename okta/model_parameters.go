@@ -25,19 +25,20 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the Parameters type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Parameters{}
 
-// Parameters Attributes used for processing Active Directory group membership update
+// Parameters Attributes used for processing Active Directory or LDAP group membership update
 type Parameters struct {
 	// The update action to take
-	Action *string `json:"action,omitempty"`
-	// The attribute that tracks group memberships in Active Directory. For Active Directory, use `member`.
-	Attribute *string `json:"attribute,omitempty"`
+	Action string `json:"action"`
+	// The attribute that tracks group memberships in Active Directory or LDAP. For Active Directory, use `member`. For LDAP, use the appropriate attribute found in the LDAP server such as, but not limited to, `uniqueMember` or `member`.
+	Attribute string `json:"attribute"`
 	// List of user IDs whose group memberships to update
-	Values               []string `json:"values,omitempty"`
+	Values               []string `json:"values"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -47,8 +48,11 @@ type _Parameters Parameters
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewParameters() *Parameters {
+func NewParameters(action string, attribute string, values []string) *Parameters {
 	this := Parameters{}
+	this.Action = action
+	this.Attribute = attribute
+	this.Values = values
 	return &this
 }
 
@@ -60,98 +64,74 @@ func NewParametersWithDefaults() *Parameters {
 	return &this
 }
 
-// GetAction returns the Action field value if set, zero value otherwise.
+// GetAction returns the Action field value
 func (o *Parameters) GetAction() string {
-	if o == nil || IsNil(o.Action) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Action
+
+	return o.Action
 }
 
-// GetActionOk returns a tuple with the Action field value if set, nil otherwise
+// GetActionOk returns a tuple with the Action field value
 // and a boolean to check if the value has been set.
 func (o *Parameters) GetActionOk() (*string, bool) {
-	if o == nil || IsNil(o.Action) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Action, true
+	return &o.Action, true
 }
 
-// HasAction returns a boolean if a field has been set.
-func (o *Parameters) HasAction() bool {
-	if o != nil && !IsNil(o.Action) {
-		return true
-	}
-
-	return false
-}
-
-// SetAction gets a reference to the given string and assigns it to the Action field.
+// SetAction sets field value
 func (o *Parameters) SetAction(v string) {
-	o.Action = &v
+	o.Action = v
 }
 
-// GetAttribute returns the Attribute field value if set, zero value otherwise.
+// GetAttribute returns the Attribute field value
 func (o *Parameters) GetAttribute() string {
-	if o == nil || IsNil(o.Attribute) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Attribute
+
+	return o.Attribute
 }
 
-// GetAttributeOk returns a tuple with the Attribute field value if set, nil otherwise
+// GetAttributeOk returns a tuple with the Attribute field value
 // and a boolean to check if the value has been set.
 func (o *Parameters) GetAttributeOk() (*string, bool) {
-	if o == nil || IsNil(o.Attribute) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Attribute, true
+	return &o.Attribute, true
 }
 
-// HasAttribute returns a boolean if a field has been set.
-func (o *Parameters) HasAttribute() bool {
-	if o != nil && !IsNil(o.Attribute) {
-		return true
-	}
-
-	return false
-}
-
-// SetAttribute gets a reference to the given string and assigns it to the Attribute field.
+// SetAttribute sets field value
 func (o *Parameters) SetAttribute(v string) {
-	o.Attribute = &v
+	o.Attribute = v
 }
 
-// GetValues returns the Values field value if set, zero value otherwise.
+// GetValues returns the Values field value
 func (o *Parameters) GetValues() []string {
-	if o == nil || IsNil(o.Values) {
+	if o == nil {
 		var ret []string
 		return ret
 	}
+
 	return o.Values
 }
 
-// GetValuesOk returns a tuple with the Values field value if set, nil otherwise
+// GetValuesOk returns a tuple with the Values field value
 // and a boolean to check if the value has been set.
 func (o *Parameters) GetValuesOk() ([]string, bool) {
-	if o == nil || IsNil(o.Values) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Values, true
 }
 
-// HasValues returns a boolean if a field has been set.
-func (o *Parameters) HasValues() bool {
-	if o != nil && !IsNil(o.Values) {
-		return true
-	}
-
-	return false
-}
-
-// SetValues gets a reference to the given []string and assigns it to the Values field.
+// SetValues sets field value
 func (o *Parameters) SetValues(v []string) {
 	o.Values = v
 }
@@ -166,15 +146,9 @@ func (o Parameters) MarshalJSON() ([]byte, error) {
 
 func (o Parameters) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Action) {
-		toSerialize["action"] = o.Action
-	}
-	if !IsNil(o.Attribute) {
-		toSerialize["attribute"] = o.Attribute
-	}
-	if !IsNil(o.Values) {
-		toSerialize["values"] = o.Values
-	}
+	toSerialize["action"] = o.Action
+	toSerialize["attribute"] = o.Attribute
+	toSerialize["values"] = o.Values
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -184,6 +158,29 @@ func (o Parameters) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *Parameters) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"action",
+		"attribute",
+		"values",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varParameters := _Parameters{}
 
 	err = json.Unmarshal(data, &varParameters)

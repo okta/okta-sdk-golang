@@ -32,15 +32,15 @@ var _ MappedNullable = &OrgOktaSupportSettingsObjLinks{}
 
 // OrgOktaSupportSettingsObjLinks Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for the Okta Support Settings object using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification
 type OrgOktaSupportSettingsObjLinks struct {
-	// Link to [extend Okta Support Access](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/extendOktaSupport)
+	// Link to [extend Okta Support Access](/openapi/okta-management/management/tags/orgsettingsupport/other/extendoktasupport)
 	Extend *HrefObject `json:"extend,omitempty"`
-	// Link to [revoke Okta Support Access](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/revokeOktaSupport)
+	// Link to [revoke Okta Support Access](/openapi/okta-management/management/tags/orgsettingsupport/other/revokeoktasupport)
 	Revoke *HrefObject `json:"revoke,omitempty"`
-	// Link to [grant Okta Support Access](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/grantOktaSupport)
+	// Link to [grant Okta Support Access](/openapi/okta-management/management/tags/orgsettingsupport/other/grantoktasupport)
 	Grant *HrefObject `json:"grant,omitempty"`
-	// Link to [update an Okta Support case](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/updateOktaSupportCase)
+	// Link to [update an Okta Support case](/openapi/okta-management/management/tags/orgsettingsupport/other/updateoktasupportcase)
 	Case *HrefObject `json:"case,omitempty"`
-	// Link to [List all Okta Support cases](/openapi/okta-management/management/tag/OrgSettingSupport/#tag/OrgSettingSupport/operation/listOktaSupportCases)
+	// Link to [List all Okta Support cases](/openapi/okta-management/management/tags/orgsettingsupport/other/listoktasupportcases)
 	Cases                *HrefObject `json:"cases,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

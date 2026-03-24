@@ -38,6 +38,34 @@ func Test_okta_IdentitySourceAPIService(t *testing.T) {
 	require.Nil(t, err)
 	apiClient := openapiclient.NewAPIClient(configuration)
 
+	t.Run("Test IdentitySourceAPIService CreateIdentitySourceGroups", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var identitySourceId string
+
+		resp, httpRes, err := apiClient.IdentitySourceAPI.CreateIdentitySourceGroups(context.Background(), identitySourceId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test IdentitySourceAPIService CreateIdentitySourceGroupsMemberships", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var identitySourceId string
+		var groupOrExternalId string
+
+		httpRes, err := apiClient.IdentitySourceAPI.CreateIdentitySourceGroupsMemberships(context.Background(), identitySourceId, groupOrExternalId).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test IdentitySourceAPIService CreateIdentitySourceSession", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
@@ -48,6 +76,48 @@ func Test_okta_IdentitySourceAPIService(t *testing.T) {
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test IdentitySourceAPIService CreateIdentitySourceUser", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var identitySourceId string
+
+		httpRes, err := apiClient.IdentitySourceAPI.CreateIdentitySourceUser(context.Background(), identitySourceId).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test IdentitySourceAPIService DeleteIdentitySourceGroup", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var identitySourceId string
+		var groupOrExternalId string
+
+		httpRes, err := apiClient.IdentitySourceAPI.DeleteIdentitySourceGroup(context.Background(), identitySourceId, groupOrExternalId).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test IdentitySourceAPIService DeleteIdentitySourceGroupMemberships", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var identitySourceId string
+		var groupOrExternalId string
+		var memberExternalId string
+
+		httpRes, err := apiClient.IdentitySourceAPI.DeleteIdentitySourceGroupMemberships(context.Background(), identitySourceId, groupOrExternalId, memberExternalId).Execute()
+
+		require.Nil(t, err)
 		assert.Equal(t, 200, httpRes.StatusCode)
 
 	})
@@ -66,6 +136,50 @@ func Test_okta_IdentitySourceAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test IdentitySourceAPIService DeleteIdentitySourceUser", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var identitySourceId string
+		var externalId string
+
+		httpRes, err := apiClient.IdentitySourceAPI.DeleteIdentitySourceUser(context.Background(), identitySourceId, externalId).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test IdentitySourceAPIService GetIdentitySourceGroup", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var identitySourceId string
+		var groupOrExternalId string
+
+		resp, httpRes, err := apiClient.IdentitySourceAPI.GetIdentitySourceGroup(context.Background(), identitySourceId, groupOrExternalId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test IdentitySourceAPIService GetIdentitySourceGroupMemberships", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var identitySourceId string
+		var groupOrExternalId string
+
+		resp, httpRes, err := apiClient.IdentitySourceAPI.GetIdentitySourceGroupMemberships(context.Background(), identitySourceId, groupOrExternalId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test IdentitySourceAPIService GetIdentitySourceSession", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
@@ -74,6 +188,21 @@ func Test_okta_IdentitySourceAPIService(t *testing.T) {
 		var sessionId string
 
 		resp, httpRes, err := apiClient.IdentitySourceAPI.GetIdentitySourceSession(context.Background(), identitySourceId, sessionId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test IdentitySourceAPIService GetIdentitySourceUser", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var identitySourceId string
+		var externalId string
+
+		resp, httpRes, err := apiClient.IdentitySourceAPI.GetIdentitySourceUser(context.Background(), identitySourceId, externalId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -95,6 +224,21 @@ func Test_okta_IdentitySourceAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test IdentitySourceAPIService ReplaceExistingIdentitySourceUser", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var identitySourceId string
+		var externalId string
+
+		resp, httpRes, err := apiClient.IdentitySourceAPI.ReplaceExistingIdentitySourceUser(context.Background(), identitySourceId, externalId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test IdentitySourceAPIService StartImportFromIdentitySource", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test
@@ -103,6 +247,36 @@ func Test_okta_IdentitySourceAPIService(t *testing.T) {
 		var sessionId string
 
 		resp, httpRes, err := apiClient.IdentitySourceAPI.StartImportFromIdentitySource(context.Background(), identitySourceId, sessionId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test IdentitySourceAPIService UpdateIdentitySourceGroups", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var identitySourceId string
+		var groupOrExternalId string
+
+		resp, httpRes, err := apiClient.IdentitySourceAPI.UpdateIdentitySourceGroups(context.Background(), identitySourceId, groupOrExternalId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test IdentitySourceAPIService UpdateIdentitySourceUsers", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var identitySourceId string
+		var externalId string
+
+		resp, httpRes, err := apiClient.IdentitySourceAPI.UpdateIdentitySourceUsers(context.Background(), identitySourceId, externalId).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

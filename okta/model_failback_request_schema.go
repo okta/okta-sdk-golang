@@ -32,7 +32,7 @@ var _ MappedNullable = &FailbackRequestSchema{}
 
 // FailbackRequestSchema struct for FailbackRequestSchema
 type FailbackRequestSchema struct {
-	// List of Okta domains to failback
+	// The Okta domain to failback
 	Domains              []string `json:"domains,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Action** | **string** | Specifies how Okta responds to authentication requests from suspicious IP addresses | 
 **Created** | Pointer to **time.Time** | Timestamp when the ThreatInsight Configuration object was created | [optional] [readonly] 
-**ExcludeZones** | Pointer to **[]string** | Accepts a list of [Network Zone](/openapi/okta-management/management/tag/NetworkZone/) IDs. IPs in the excluded network zones aren&#39;t logged or blocked. This ensures that traffic from known, trusted IPs isn&#39;t accidentally logged or blocked. | [optional] 
+**ExcludeZones** | Pointer to **[]string** | Accepts a list of [Network Zone](/openapi/okta-management/management/networkzone/) IDs. IPs in the excluded network zones aren&#39;t logged or blocked. This ensures that traffic from known, trusted IPs isn&#39;t accidentally logged or blocked. | [optional] 
 **LastUpdated** | Pointer to **time.Time** | Timestamp when the ThreatInsight Configuration object was last updated | [optional] [readonly] 
 **Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
 
