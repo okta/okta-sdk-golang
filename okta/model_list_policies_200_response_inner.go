@@ -28,8 +28,8 @@ import (
 	"fmt"
 )
 
-// ListPolicies200Response - struct for ListPolicies200Response
-type ListPolicies200Response struct {
+// ListPolicies200ResponseInner - struct for ListPolicies200ResponseInner
+type ListPolicies200ResponseInner struct {
 	AccessPolicy                    *AccessPolicy
 	AuthenticatorEnrollmentPolicy   *AuthenticatorEnrollmentPolicy
 	ClientUpdatePolicy              *ClientUpdatePolicy
@@ -43,85 +43,85 @@ type ListPolicies200Response struct {
 	SessionViolationDetectionPolicy *SessionViolationDetectionPolicy
 }
 
-// AccessPolicyAsListPolicies200Response is a convenience function that returns AccessPolicy wrapped in ListPolicies200Response
-func AccessPolicyAsListPolicies200Response(v *AccessPolicy) ListPolicies200Response {
-	return ListPolicies200Response{
+// AccessPolicyAsListPolicies200ResponseInner is a convenience function that returns AccessPolicy wrapped in ListPolicies200ResponseInner
+func AccessPolicyAsListPolicies200ResponseInner(v *AccessPolicy) ListPolicies200ResponseInner {
+	return ListPolicies200ResponseInner{
 		AccessPolicy: v,
 	}
 }
 
-// AuthenticatorEnrollmentPolicyAsListPolicies200Response is a convenience function that returns AuthenticatorEnrollmentPolicy wrapped in ListPolicies200Response
-func AuthenticatorEnrollmentPolicyAsListPolicies200Response(v *AuthenticatorEnrollmentPolicy) ListPolicies200Response {
-	return ListPolicies200Response{
+// AuthenticatorEnrollmentPolicyAsListPolicies200ResponseInner is a convenience function that returns AuthenticatorEnrollmentPolicy wrapped in ListPolicies200ResponseInner
+func AuthenticatorEnrollmentPolicyAsListPolicies200ResponseInner(v *AuthenticatorEnrollmentPolicy) ListPolicies200ResponseInner {
+	return ListPolicies200ResponseInner{
 		AuthenticatorEnrollmentPolicy: v,
 	}
 }
 
-// ClientUpdatePolicyAsListPolicies200Response is a convenience function that returns ClientUpdatePolicy wrapped in ListPolicies200Response
-func ClientUpdatePolicyAsListPolicies200Response(v *ClientUpdatePolicy) ListPolicies200Response {
-	return ListPolicies200Response{
+// ClientUpdatePolicyAsListPolicies200ResponseInner is a convenience function that returns ClientUpdatePolicy wrapped in ListPolicies200ResponseInner
+func ClientUpdatePolicyAsListPolicies200ResponseInner(v *ClientUpdatePolicy) ListPolicies200ResponseInner {
+	return ListPolicies200ResponseInner{
 		ClientUpdatePolicy: v,
 	}
 }
 
-// DeviceSignalCollectionPolicyAsListPolicies200Response is a convenience function that returns DeviceSignalCollectionPolicy wrapped in ListPolicies200Response
-func DeviceSignalCollectionPolicyAsListPolicies200Response(v *DeviceSignalCollectionPolicy) ListPolicies200Response {
-	return ListPolicies200Response{
+// DeviceSignalCollectionPolicyAsListPolicies200ResponseInner is a convenience function that returns DeviceSignalCollectionPolicy wrapped in ListPolicies200ResponseInner
+func DeviceSignalCollectionPolicyAsListPolicies200ResponseInner(v *DeviceSignalCollectionPolicy) ListPolicies200ResponseInner {
+	return ListPolicies200ResponseInner{
 		DeviceSignalCollectionPolicy: v,
 	}
 }
 
-// EntityRiskPolicyAsListPolicies200Response is a convenience function that returns EntityRiskPolicy wrapped in ListPolicies200Response
-func EntityRiskPolicyAsListPolicies200Response(v *EntityRiskPolicy) ListPolicies200Response {
-	return ListPolicies200Response{
+// EntityRiskPolicyAsListPolicies200ResponseInner is a convenience function that returns EntityRiskPolicy wrapped in ListPolicies200ResponseInner
+func EntityRiskPolicyAsListPolicies200ResponseInner(v *EntityRiskPolicy) ListPolicies200ResponseInner {
+	return ListPolicies200ResponseInner{
 		EntityRiskPolicy: v,
 	}
 }
 
-// IdpDiscoveryPolicyAsListPolicies200Response is a convenience function that returns IdpDiscoveryPolicy wrapped in ListPolicies200Response
-func IdpDiscoveryPolicyAsListPolicies200Response(v *IdpDiscoveryPolicy) ListPolicies200Response {
-	return ListPolicies200Response{
+// IdpDiscoveryPolicyAsListPolicies200ResponseInner is a convenience function that returns IdpDiscoveryPolicy wrapped in ListPolicies200ResponseInner
+func IdpDiscoveryPolicyAsListPolicies200ResponseInner(v *IdpDiscoveryPolicy) ListPolicies200ResponseInner {
+	return ListPolicies200ResponseInner{
 		IdpDiscoveryPolicy: v,
 	}
 }
 
-// OktaSignOnPolicyAsListPolicies200Response is a convenience function that returns OktaSignOnPolicy wrapped in ListPolicies200Response
-func OktaSignOnPolicyAsListPolicies200Response(v *OktaSignOnPolicy) ListPolicies200Response {
-	return ListPolicies200Response{
+// OktaSignOnPolicyAsListPolicies200ResponseInner is a convenience function that returns OktaSignOnPolicy wrapped in ListPolicies200ResponseInner
+func OktaSignOnPolicyAsListPolicies200ResponseInner(v *OktaSignOnPolicy) ListPolicies200ResponseInner {
+	return ListPolicies200ResponseInner{
 		OktaSignOnPolicy: v,
 	}
 }
 
-// PasswordPolicyAsListPolicies200Response is a convenience function that returns PasswordPolicy wrapped in ListPolicies200Response
-func PasswordPolicyAsListPolicies200Response(v *PasswordPolicy) ListPolicies200Response {
-	return ListPolicies200Response{
+// PasswordPolicyAsListPolicies200ResponseInner is a convenience function that returns PasswordPolicy wrapped in ListPolicies200ResponseInner
+func PasswordPolicyAsListPolicies200ResponseInner(v *PasswordPolicy) ListPolicies200ResponseInner {
+	return ListPolicies200ResponseInner{
 		PasswordPolicy: v,
 	}
 }
 
-// PostAuthSessionPolicyAsListPolicies200Response is a convenience function that returns PostAuthSessionPolicy wrapped in ListPolicies200Response
-func PostAuthSessionPolicyAsListPolicies200Response(v *PostAuthSessionPolicy) ListPolicies200Response {
-	return ListPolicies200Response{
+// PostAuthSessionPolicyAsListPolicies200ResponseInner is a convenience function that returns PostAuthSessionPolicy wrapped in ListPolicies200ResponseInner
+func PostAuthSessionPolicyAsListPolicies200ResponseInner(v *PostAuthSessionPolicy) ListPolicies200ResponseInner {
+	return ListPolicies200ResponseInner{
 		PostAuthSessionPolicy: v,
 	}
 }
 
-// ProfileEnrollmentPolicyAsListPolicies200Response is a convenience function that returns ProfileEnrollmentPolicy wrapped in ListPolicies200Response
-func ProfileEnrollmentPolicyAsListPolicies200Response(v *ProfileEnrollmentPolicy) ListPolicies200Response {
-	return ListPolicies200Response{
+// ProfileEnrollmentPolicyAsListPolicies200ResponseInner is a convenience function that returns ProfileEnrollmentPolicy wrapped in ListPolicies200ResponseInner
+func ProfileEnrollmentPolicyAsListPolicies200ResponseInner(v *ProfileEnrollmentPolicy) ListPolicies200ResponseInner {
+	return ListPolicies200ResponseInner{
 		ProfileEnrollmentPolicy: v,
 	}
 }
 
-// SessionViolationDetectionPolicyAsListPolicies200Response is a convenience function that returns SessionViolationDetectionPolicy wrapped in ListPolicies200Response
-func SessionViolationDetectionPolicyAsListPolicies200Response(v *SessionViolationDetectionPolicy) ListPolicies200Response {
-	return ListPolicies200Response{
+// SessionViolationDetectionPolicyAsListPolicies200ResponseInner is a convenience function that returns SessionViolationDetectionPolicy wrapped in ListPolicies200ResponseInner
+func SessionViolationDetectionPolicyAsListPolicies200ResponseInner(v *SessionViolationDetectionPolicy) ListPolicies200ResponseInner {
+	return ListPolicies200ResponseInner{
 		SessionViolationDetectionPolicy: v,
 	}
 }
 
 // Unmarshal JSON data into one of the pointers in the struct
-func (dst *ListPolicies200Response) UnmarshalJSON(data []byte) error {
+func (dst *ListPolicies200ResponseInner) UnmarshalJSON(data []byte) error {
 	var err error
 	// use discriminator value to speed up the lookup
 	var jsonDict map[string]interface{}
@@ -141,7 +141,7 @@ func (dst *ListPolicies200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.AccessPolicy, return on the first match
 		} else {
 			dst.AccessPolicy = nil
-			return fmt.Errorf("failed to unmarshal ListPolicies200Response as AccessPolicy: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListPolicies200ResponseInner as AccessPolicy: %s", err.Error())
 		}
 	}
 
@@ -153,7 +153,7 @@ func (dst *ListPolicies200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.ClientUpdatePolicy, return on the first match
 		} else {
 			dst.ClientUpdatePolicy = nil
-			return fmt.Errorf("failed to unmarshal ListPolicies200Response as ClientUpdatePolicy: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListPolicies200ResponseInner as ClientUpdatePolicy: %s", err.Error())
 		}
 	}
 
@@ -165,7 +165,7 @@ func (dst *ListPolicies200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.DeviceSignalCollectionPolicy, return on the first match
 		} else {
 			dst.DeviceSignalCollectionPolicy = nil
-			return fmt.Errorf("failed to unmarshal ListPolicies200Response as DeviceSignalCollectionPolicy: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListPolicies200ResponseInner as DeviceSignalCollectionPolicy: %s", err.Error())
 		}
 	}
 
@@ -177,7 +177,7 @@ func (dst *ListPolicies200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.EntityRiskPolicy, return on the first match
 		} else {
 			dst.EntityRiskPolicy = nil
-			return fmt.Errorf("failed to unmarshal ListPolicies200Response as EntityRiskPolicy: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListPolicies200ResponseInner as EntityRiskPolicy: %s", err.Error())
 		}
 	}
 
@@ -189,7 +189,7 @@ func (dst *ListPolicies200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.IdpDiscoveryPolicy, return on the first match
 		} else {
 			dst.IdpDiscoveryPolicy = nil
-			return fmt.Errorf("failed to unmarshal ListPolicies200Response as IdpDiscoveryPolicy: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListPolicies200ResponseInner as IdpDiscoveryPolicy: %s", err.Error())
 		}
 	}
 
@@ -201,7 +201,7 @@ func (dst *ListPolicies200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.AuthenticatorEnrollmentPolicy, return on the first match
 		} else {
 			dst.AuthenticatorEnrollmentPolicy = nil
-			return fmt.Errorf("failed to unmarshal ListPolicies200Response as AuthenticatorEnrollmentPolicy: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListPolicies200ResponseInner as AuthenticatorEnrollmentPolicy: %s", err.Error())
 		}
 	}
 
@@ -213,7 +213,7 @@ func (dst *ListPolicies200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.OktaSignOnPolicy, return on the first match
 		} else {
 			dst.OktaSignOnPolicy = nil
-			return fmt.Errorf("failed to unmarshal ListPolicies200Response as OktaSignOnPolicy: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListPolicies200ResponseInner as OktaSignOnPolicy: %s", err.Error())
 		}
 	}
 
@@ -225,7 +225,7 @@ func (dst *ListPolicies200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.PasswordPolicy, return on the first match
 		} else {
 			dst.PasswordPolicy = nil
-			return fmt.Errorf("failed to unmarshal ListPolicies200Response as PasswordPolicy: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListPolicies200ResponseInner as PasswordPolicy: %s", err.Error())
 		}
 	}
 
@@ -237,7 +237,7 @@ func (dst *ListPolicies200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.PostAuthSessionPolicy, return on the first match
 		} else {
 			dst.PostAuthSessionPolicy = nil
-			return fmt.Errorf("failed to unmarshal ListPolicies200Response as PostAuthSessionPolicy: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListPolicies200ResponseInner as PostAuthSessionPolicy: %s", err.Error())
 		}
 	}
 
@@ -249,7 +249,7 @@ func (dst *ListPolicies200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.ProfileEnrollmentPolicy, return on the first match
 		} else {
 			dst.ProfileEnrollmentPolicy = nil
-			return fmt.Errorf("failed to unmarshal ListPolicies200Response as ProfileEnrollmentPolicy: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListPolicies200ResponseInner as ProfileEnrollmentPolicy: %s", err.Error())
 		}
 	}
 
@@ -261,7 +261,7 @@ func (dst *ListPolicies200Response) UnmarshalJSON(data []byte) error {
 			return nil // data stored in dst.SessionViolationDetectionPolicy, return on the first match
 		} else {
 			dst.SessionViolationDetectionPolicy = nil
-			return fmt.Errorf("failed to unmarshal ListPolicies200Response as SessionViolationDetectionPolicy: %s", err.Error())
+			return fmt.Errorf("failed to unmarshal ListPolicies200ResponseInner as SessionViolationDetectionPolicy: %s", err.Error())
 		}
 	}
 
@@ -279,7 +279,7 @@ func (dst *ListPolicies200Response) UnmarshalJSON(data []byte) error {
 }
 
 // Marshal data from the first non-nil pointers in the struct to JSON
-func (src ListPolicies200Response) MarshalJSON() ([]byte, error) {
+func (src ListPolicies200ResponseInner) MarshalJSON() ([]byte, error) {
 	if src.AccessPolicy != nil {
 		return json.Marshal(&src.AccessPolicy)
 	}
@@ -328,7 +328,7 @@ func (src ListPolicies200Response) MarshalJSON() ([]byte, error) {
 }
 
 // Get the actual instance
-func (obj *ListPolicies200Response) GetActualInstance() interface{} {
+func (obj *ListPolicies200ResponseInner) GetActualInstance() interface{} {
 	if obj == nil {
 		return nil
 	}
@@ -381,7 +381,7 @@ func (obj *ListPolicies200Response) GetActualInstance() interface{} {
 }
 
 // Get the actual instance value
-func (obj ListPolicies200Response) GetActualInstanceValue() interface{} {
+func (obj ListPolicies200ResponseInner) GetActualInstanceValue() interface{} {
 	if obj.AccessPolicy != nil {
 		return *obj.AccessPolicy
 	}
@@ -430,38 +430,38 @@ func (obj ListPolicies200Response) GetActualInstanceValue() interface{} {
 	return nil
 }
 
-type NullableListPolicies200Response struct {
-	value *ListPolicies200Response
+type NullableListPolicies200ResponseInner struct {
+	value *ListPolicies200ResponseInner
 	isSet bool
 }
 
-func (v NullableListPolicies200Response) Get() *ListPolicies200Response {
+func (v NullableListPolicies200ResponseInner) Get() *ListPolicies200ResponseInner {
 	return v.value
 }
 
-func (v *NullableListPolicies200Response) Set(val *ListPolicies200Response) {
+func (v *NullableListPolicies200ResponseInner) Set(val *ListPolicies200ResponseInner) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableListPolicies200Response) IsSet() bool {
+func (v NullableListPolicies200ResponseInner) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableListPolicies200Response) Unset() {
+func (v *NullableListPolicies200ResponseInner) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableListPolicies200Response(val *ListPolicies200Response) *NullableListPolicies200Response {
-	return &NullableListPolicies200Response{value: val, isSet: true}
+func NewNullableListPolicies200ResponseInner(val *ListPolicies200ResponseInner) *NullableListPolicies200ResponseInner {
+	return &NullableListPolicies200ResponseInner{value: val, isSet: true}
 }
 
-func (v NullableListPolicies200Response) MarshalJSON() ([]byte, error) {
+func (v NullableListPolicies200ResponseInner) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableListPolicies200Response) UnmarshalJSON(src []byte) error {
+func (v *NullableListPolicies200ResponseInner) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
