@@ -1,6 +1,9 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v6.1.0
+- Update the OpenAPI spec to v2026.03.0. Thanks [@pranav-okta](https://github.com/pranav-okta)
+
 ## v6.0.4
 - Fix `PolicyPeopleCondition` by making `UserCondition` and `GroupCondition` optional. Thanks [@pranav-okta](https://github.com/pranav-okta)
 
