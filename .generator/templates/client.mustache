@@ -1367,6 +1367,36 @@ type GenericOpenAPIError struct {
 
 // Error returns non-empty string if there was an error.
 func (e GenericOpenAPIError) Error() string {
+	if e.model != nil {
+		if apiErr, ok := e.model.(*Error); ok {
+			msg := e.error
+			if summary := apiErr.GetErrorSummary(); summary != "" {
+				msg = fmt.Sprintf("%s: %s", e.error, summary)
+			}
+			var meta []string
+			if code := apiErr.GetErrorCode(); code != "" {
+				meta = append(meta, fmt.Sprintf("errorCode: %s", code))
+			}
+			if id := apiErr.GetErrorId(); id != "" {
+				meta = append(meta, fmt.Sprintf("errorId: %s", id))
+			}
+			if len(meta) > 0 {
+				msg = fmt.Sprintf("%s (%s)", msg, strings.Join(meta, ", "))
+			}
+			if causes := apiErr.GetErrorCauses(); len(causes) > 0 {
+				causeMessages := make([]string, 0, len(causes))
+				for _, cause := range causes {
+					if cs := cause.GetErrorSummary(); cs != "" {
+						causeMessages = append(causeMessages, cs)
+					}
+				}
+				if len(causeMessages) > 0 {
+					msg = fmt.Sprintf("%s. Causes: %s", msg, strings.Join(causeMessages, ", "))
+				}
+			}
+			return msg
+		}
+	}
 	return e.error
 }
 
