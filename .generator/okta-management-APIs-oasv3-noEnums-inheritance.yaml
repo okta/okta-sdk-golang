@@ -30023,8 +30023,6 @@ components:
         type:
           type: string
           $ref: '#/components/schemas/AppConfigType'
-      required:
-        - type
       discriminator:
         propertyName: type
         mapping:
@@ -34324,7 +34322,6 @@ components:
       type: object
       properties:
         appConfig:
-          type: object
           $ref: '#/components/schemas/AppConfig'
         sourceGroupId:
           description: The ID of the source group for the group push mapping
