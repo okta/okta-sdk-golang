@@ -4,13 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** | The type of the app configuration | 
+**Type** | Pointer to **string** | The type of the app configuration | [optional] 
 
 ## Methods
 
 ### NewAppConfig
 
-`func NewAppConfig(type_ string, ) *AppConfig`
+`func NewAppConfig() *AppConfig`
 
 NewAppConfig instantiates a new AppConfig object
 This constructor will assign default values to properties that have it defined,
@@ -44,6 +44,11 @@ and a boolean to check if the value has been set.
 
 SetType sets Type field to given value.
 
+### HasType
+
+`func (o *AppConfig) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
