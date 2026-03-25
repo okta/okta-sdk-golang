@@ -25,6 +25,7 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AppConfig type satisfies the MappedNullable interface at compile time
@@ -33,7 +34,7 @@ var _ MappedNullable = &AppConfig{}
 // AppConfig Additional app configuration for group push mappings. Currently only required for Active Directory.
 type AppConfig struct {
 	// The type of the app configuration
-	Type                 *string `json:"type,omitempty"`
+	Type                 string `json:"type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -43,8 +44,9 @@ type _AppConfig AppConfig
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAppConfig() *AppConfig {
+func NewAppConfig(type_ string) *AppConfig {
 	this := AppConfig{}
+	this.Type = type_
 	return &this
 }
 
@@ -56,36 +58,28 @@ func NewAppConfigWithDefaults() *AppConfig {
 	return &this
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *AppConfig) GetType() string {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *AppConfig) GetTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *AppConfig) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given string and assigns it to the Type field.
+// SetType sets field value
 func (o *AppConfig) SetType(v string) {
-	o.Type = &v
+	o.Type = v
 }
 
 func (o AppConfig) MarshalJSON() ([]byte, error) {
@@ -98,9 +92,7 @@ func (o AppConfig) MarshalJSON() ([]byte, error) {
 
 func (o AppConfig) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
+	toSerialize["type"] = o.Type
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -110,6 +102,27 @@ func (o AppConfig) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *AppConfig) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varAppConfig := _AppConfig{}
 
 	err = json.Unmarshal(data, &varAppConfig)

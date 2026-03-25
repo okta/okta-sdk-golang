@@ -48363,6 +48363,8 @@ components:
           type: string
           x-okta-known-values:
           - ACTIVE_DIRECTORY
+      required:
+      - type
       type: object
     AppConfigActiveDirectory:
       allOf:

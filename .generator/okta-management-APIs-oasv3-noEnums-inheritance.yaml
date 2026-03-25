@@ -30023,6 +30023,8 @@ components:
         type:
           type: string
           $ref: '#/components/schemas/AppConfigType'
+      required:
+        - type
       discriminator:
         propertyName: type
         mapping:
