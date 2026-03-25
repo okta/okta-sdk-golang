@@ -1,6 +1,9 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v6.1.2
+- Fix AppConfig by adding required type param. Thanks [@pranav-okta](https://github.com/pranav-okta)
+
 ## v6.1.1
 - Fix ListPolicies 200 response. Thanks [@pranav-okta](https://github.com/pranav-okta)
 
