@@ -1695,6 +1695,7 @@ Class | Method | HTTP request | Description
  - [OpenIdConnectApplicationSettings](docs/OpenIdConnectApplicationSettings.md)
  - [OpenIdConnectApplicationSettingsClient](docs/OpenIdConnectApplicationSettingsClient.md)
  - [OpenIdConnectApplicationSettingsClientKeys](docs/OpenIdConnectApplicationSettingsClientKeys.md)
+ - [OpenIdConnectApplicationSettingsClientKeysKeysInner](docs/OpenIdConnectApplicationSettingsClientKeysKeysInner.md)
  - [OpenIdConnectApplicationSettingsRefreshToken](docs/OpenIdConnectApplicationSettingsRefreshToken.md)
  - [OperationRequest](docs/OperationRequest.md)
  - [OperationResponse](docs/OperationResponse.md)

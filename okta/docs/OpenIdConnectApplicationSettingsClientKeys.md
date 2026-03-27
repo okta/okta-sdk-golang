@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Keys** | Pointer to [**[]AddJwk201Response**](AddJwk201Response.md) |  | [optional] 
+**Keys** | Pointer to [**[]OpenIdConnectApplicationSettingsClientKeysKeysInner**](OpenIdConnectApplicationSettingsClientKeysKeysInner.md) |  | [optional] 
 
 ## Methods
 
@@ -27,20 +27,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetKeys
 
-`func (o *OpenIdConnectApplicationSettingsClientKeys) GetKeys() []AddJwk201Response`
+`func (o *OpenIdConnectApplicationSettingsClientKeys) GetKeys() []OpenIdConnectApplicationSettingsClientKeysKeysInner`
 
 GetKeys returns the Keys field if non-nil, zero value otherwise.
 
 ### GetKeysOk
 
-`func (o *OpenIdConnectApplicationSettingsClientKeys) GetKeysOk() (*[]AddJwk201Response, bool)`
+`func (o *OpenIdConnectApplicationSettingsClientKeys) GetKeysOk() (*[]OpenIdConnectApplicationSettingsClientKeysKeysInner, bool)`
 
 GetKeysOk returns a tuple with the Keys field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetKeys
 
-`func (o *OpenIdConnectApplicationSettingsClientKeys) SetKeys(v []AddJwk201Response)`
+`func (o *OpenIdConnectApplicationSettingsClientKeys) SetKeys(v []OpenIdConnectApplicationSettingsClientKeysKeysInner)`
 
 SetKeys sets Keys field to given value.
 

@@ -44562,9 +44562,17 @@ components:
         keys:
           type: array
           items:
-            oneOf:
-              - $ref: '#/components/schemas/OAuth2ClientJsonSigningKeyResponse'
-              - $ref: '#/components/schemas/OAuth2ClientJsonEncryptionKeyResponse'
+            $ref: '#/components/schemas/OpenIdConnectApplicationSettingsClientKeysKeysInner'
+    OpenIdConnectApplicationSettingsClientKeysKeysInner:
+      description: A JSON Web Key for an OpenID Connect application
+      oneOf:
+        - $ref: '#/components/schemas/OAuth2ClientJsonEncryptionKeyResponse'
+        - $ref: '#/components/schemas/OAuth2ClientJsonSigningKeyResponse'
+      discriminator:
+        propertyName: use
+        mapping:
+          enc: '#/components/schemas/OAuth2ClientJsonEncryptionKeyResponse'
+          sig: '#/components/schemas/OAuth2ClientJsonSigningKeyResponse'
     OpenIdConnectApplicationSettingsRefreshToken:
       description: |
         Refresh token configuration for an OAuth 2.0 client
