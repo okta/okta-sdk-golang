@@ -67247,6 +67247,8 @@ components:
       type: object
       x-okta-ignore-redocly-rules-for-sdk: true
     OAuth2ClientJsonEncryptionKeyRequest:
+      allOf:
+      - $ref: "#/components/schemas/OAuth2ClientJsonWebKeyRequestBase"
       description: "A [JSON Web Key (JWK)](https://tools.ietf.org/html/rfc7517) is\
         \ a JSON representation of a cryptographic key. Okta uses an encryption key\
         \ to encrypt an ID token JWT minted by the org authorization server or custom\
@@ -67255,100 +67257,71 @@ components:
         alg:
           description: Algorithm used in the key
           example: RSA-OAEP
+          nullable: false
           type: string
         e:
           description: RSA key value (exponent) for key binding
           example: AQAB
+          nullable: false
           type: string
         kty:
           description: Cryptographic algorithm family for the certificate's key pair
           enum:
           - RSA
           example: RSA
+          nullable: false
           type: string
         "n":
           description: RSA key value (modulus) for key binding
           example: mkC6yAJVvFwUlmM9gKjb2d-YK5qHFt-mXSsbjWKKs4EfNm-BoQeeovBZtSACyaqLc8IYFTPEURFcbDQ9DkAL04uUIRD2gaHYY7uK0jsluEaXGq2RAIsmzAwNTzkiDw4q9pDL_q7n0f_SDt1TsMaMQayB6bU5jWsmqcWJ8MCRJ1aJMjZ16un5UVx51IIeCbe4QRDxEXGAvYNczsBoZxspDt28esSpq5W0dBFxcyGVudyl54Er3FzAguhgfMVjH-bUec9j2Tl40qDTktrYgYfxz9pfjm01Hl4WYP1YQxeETpSL7cQ5Ihz4jGDtHUEOcZ4GfJrPzrGpUrak8Qp5xcwCqQ
+          nullable: false
           type: string
         use:
           description: Acceptable use of the JSON Web Key
           enum:
           - enc
           example: enc
-          type: string
-        kid:
-          description: Unique identifier of the JSON Web Key in the OAuth 2.0 client's
-            JWKS
-          example: SIMcCQNY3uwXoW3y0vf6VxiBb5n9pf8L2fK8d-FIbm4
-          nullable: true
-          type: string
-        status:
-          default: ACTIVE
-          description: Status of the OAuth 2.0 client JSON Web Key
-          enum:
-          - ACTIVE
-          - INACTIVE
-          example: ACTIVE
+          nullable: false
           type: string
       title: Encryption key
       type: object
+      x-okta-ignore-redocly-rules-for-sdk: true
       x-okta-lifecycle:
         lifecycle: GA
         isGenerallyAvailable: true
     OAuth2ClientJsonEncryptionKeyResponse:
+      allOf:
+      - $ref: "#/components/schemas/OAuth2ClientJsonWebKeyRequestBase"
+      - $ref: "#/components/schemas/OAuth2ClientJsonWebKeyResponseBase"
       description: "A [JSON Web Key (JWK)](https://tools.ietf.org/html/rfc7517) is\
         \ a JSON representation of a cryptographic key. Okta uses an encryption key\
         \ to encrypt an ID token JWT minted by the org authorization server or custom\
         \ authorization server. Okta supports only RSA keys for encrypting tokens."
       properties:
-        created:
-          description: Timestamp when the OAuth 2.0 client JSON Web Key was created
-          readOnly: true
-          type: string
         e:
           description: RSA key value (exponent) for key binding
           example: AQAB
-          type: string
-        id:
-          description: The unique ID of the OAuth Client JSON Web Key
-          readOnly: true
+          nullable: false
           type: string
         kty:
           description: Cryptographic algorithm family for the certificate's key pair
           enum:
           - RSA
           example: RSA
-          type: string
-        lastUpdated:
-          description: Timestamp when the OAuth 2.0 client JSON Web Key was updated
-          readOnly: true
+          nullable: false
           type: string
         "n":
           description: RSA key value (modulus) for key binding
           example: mkC6yAJVvFwUlmM9gKjb2d-YK5qHFt-mXSsbjWKKs4EfNm-BoQeeovBZtSACyaqLc8IYFTPEURFcbDQ9DkAL04uUIRD2gaHYY7uK0jsluEaXGq2RAIsmzAwNTzkiDw4q9pDL_q7n0f_SDt1TsMaMQayB6bU5jWsmqcWJ8MCRJ1aJMjZ16un5UVx51IIeCbe4QRDxEXGAvYNczsBoZxspDt28esSpq5W0dBFxcyGVudyl54Er3FzAguhgfMVjH-bUec9j2Tl40qDTktrYgYfxz9pfjm01Hl4WYP1YQxeETpSL7cQ5Ihz4jGDtHUEOcZ4GfJrPzrGpUrak8Qp5xcwCqQ
+          nullable: false
           type: string
         use:
           description: Acceptable use of the JSON Web Key
           enum:
           - enc
           example: enc
+          nullable: false
           type: string
-        kid:
-          description: Unique identifier of the JSON Web Key in the OAuth 2.0 client's
-            JWKS
-          example: SIMcCQNY3uwXoW3y0vf6VxiBb5n9pf8L2fK8d-FIbm4
-          nullable: true
-          type: string
-        status:
-          default: ACTIVE
-          description: Status of the OAuth 2.0 client JSON Web Key
-          enum:
-          - ACTIVE
-          - INACTIVE
-          example: ACTIVE
-          type: string
-        _links:
-          $ref: "#/components/schemas/OAuthClientSecretLinks"
       title: Encryption Key
       type: object
       x-okta-lifecycle:
@@ -67368,7 +67341,22 @@ components:
       oneOf:
       - $ref: "#/components/schemas/OAuth2ClientJsonWebKeyRsaRequest"
       - $ref: "#/components/schemas/OAuth2ClientJsonWebKeyECRequest"
+      properties:
+        alg:
+          description: Algorithm used in the key
+          example: RS256
+          nullable: false
+          type: string
+        use:
+          description: Acceptable use of the JSON Web Key
+          enum:
+          - sig
+          example: sig
+          nullable: false
+          type: string
       title: Signing Key
+      type: object
+      x-okta-ignore-redocly-rules-for-sdk: true
     OAuth2ClientJsonSigningKeyResponse:
       description: "A [JSON Web Key (JWK)](https://tools.ietf.org/html/rfc7517) is\
         \ a JSON representation of a cryptographic key. Okta uses signing keys to\
@@ -67390,81 +67378,11 @@ components:
       example:
         keys:
         - kty: RSA
-          lastUpdated: lastUpdated
           e: AQAB
-          _links:
-            activate:
-              templated: true
-              hints:
-                allow:
-                - null
-                - null
-              name: name
-              href: href
-              type: type
-            delete:
-              templated: true
-              hints:
-                allow:
-                - null
-                - null
-              name: name
-              href: href
-              type: type
-            deactivate:
-              templated: true
-              hints:
-                allow:
-                - null
-                - null
-              name: name
-              href: href
-              type: type
-          created: created
-          use: sig
-          kid: SIMcCQNY3uwXoW3y0vf6VxiBb5n9pf8L2fK8d-FIbm4
-          id: id
-          alg: RS256
           "n": mkC6yAJVvFwUlmM9gKjb2d-YK5qHFt-mXSsbjWKKs4EfNm-BoQeeovBZtSACyaqLc8IYFTPEURFcbDQ9DkAL04uUIRD2gaHYY7uK0jsluEaXGq2RAIsmzAwNTzkiDw4q9pDL_q7n0f_SDt1TsMaMQayB6bU5jWsmqcWJ8MCRJ1aJMjZ16un5UVx51IIeCbe4QRDxEXGAvYNczsBoZxspDt28esSpq5W0dBFxcyGVudyl54Er3FzAguhgfMVjH-bUec9j2Tl40qDTktrYgYfxz9pfjm01Hl4WYP1YQxeETpSL7cQ5Ihz4jGDtHUEOcZ4GfJrPzrGpUrak8Qp5xcwCqQ
-          status: ACTIVE
         - kty: RSA
-          lastUpdated: lastUpdated
           e: AQAB
-          _links:
-            activate:
-              templated: true
-              hints:
-                allow:
-                - null
-                - null
-              name: name
-              href: href
-              type: type
-            delete:
-              templated: true
-              hints:
-                allow:
-                - null
-                - null
-              name: name
-              href: href
-              type: type
-            deactivate:
-              templated: true
-              hints:
-                allow:
-                - null
-                - null
-              name: name
-              href: href
-              type: type
-          created: created
-          use: sig
-          kid: SIMcCQNY3uwXoW3y0vf6VxiBb5n9pf8L2fK8d-FIbm4
-          id: id
-          alg: RS256
           "n": mkC6yAJVvFwUlmM9gKjb2d-YK5qHFt-mXSsbjWKKs4EfNm-BoQeeovBZtSACyaqLc8IYFTPEURFcbDQ9DkAL04uUIRD2gaHYY7uK0jsluEaXGq2RAIsmzAwNTzkiDw4q9pDL_q7n0f_SDt1TsMaMQayB6bU5jWsmqcWJ8MCRJ1aJMjZ16un5UVx51IIeCbe4QRDxEXGAvYNczsBoZxspDt28esSpq5W0dBFxcyGVudyl54Er3FzAguhgfMVjH-bUec9j2Tl40qDTktrYgYfxz9pfjm01Hl4WYP1YQxeETpSL7cQ5Ihz4jGDtHUEOcZ4GfJrPzrGpUrak8Qp5xcwCqQ
-          status: ACTIVE
       properties:
         keys:
           description: The JSON Web Keys in this key set
@@ -67474,21 +67392,16 @@ components:
       title: JSON Web Key Set
       type: object
     OAuth2ClientJsonWebKeyECRequest:
+      allOf:
+      - $ref: "#/components/schemas/OAuth2ClientJsonWebKeyRequestBase"
       description: An EC signing key
       properties:
-        alg:
-          description: Algorithm used in the key
-          example: ES256
-          type: string
-        crv:
-          description: Identifies the cryptographic curve used with the key
-          example: P-256
-          type: string
         kty:
           description: Cryptographic algorithm family for the certificate's key pair
           enum:
           - EC
-          example: EC
+          example: RSA
+          nullable: false
           type: string
         x:
           description: The public x coordinate for the elliptic curve point
@@ -67496,54 +67409,21 @@ components:
         "y":
           description: The public y coordinate for the elliptic curve point
           type: string
-        kid:
-          description: Unique identifier of the JSON Web Key in the OAuth 2.0 client's
-            JWKS
-          example: SIMcCQNY3uwXoW3y0vf6VxiBb5n9pf8L2fK8d-FIbm4
-          nullable: true
-          type: string
-        status:
-          default: ACTIVE
-          description: Status of the OAuth 2.0 client JSON Web Key
-          enum:
-          - ACTIVE
-          - INACTIVE
-          example: ACTIVE
-          type: string
-        use:
-          description: Acceptable use of the JSON Web Key
-          example: sig
-          type: string
-      title: EC Signing Key
+      title: EC signing Key
       type: object
+      x-okta-ignore-redocly-rules-for-sdk: true
     OAuth2ClientJsonWebKeyECResponse:
+      allOf:
+      - $ref: "#/components/schemas/OAuth2ClientJsonWebKeyRequestBase"
+      - $ref: "#/components/schemas/OAuth2ClientJsonWebKeyResponseBase"
       description: An EC signing key
       properties:
-        alg:
-          description: Algorithm used in the key
-          example: ES256
-          type: string
-        created:
-          description: Timestamp when the OAuth 2.0 client JSON Web Key was created
-          readOnly: true
-          type: string
-        crv:
-          description: Identifies the cryptographic curve used with the key
-          example: P-256
-          type: string
-        id:
-          description: The unique ID of the OAuth Client JSON Web Key
-          readOnly: true
-          type: string
         kty:
           description: Cryptographic algorithm family for the certificate's key pair
           enum:
           - EC
           example: EC
-          type: string
-        lastUpdated:
-          description: Timestamp when the OAuth 2.0 client JSON Web Key was updated
-          readOnly: true
+          nullable: false
           type: string
         x:
           description: The public x coordinate for the elliptic curve point
@@ -67551,35 +67431,10 @@ components:
         "y":
           description: The public y coordinate for the elliptic curve point
           type: string
-        kid:
-          description: Unique identifier of the JSON Web Key in the OAuth 2.0 client's
-            JWKS
-          example: SIMcCQNY3uwXoW3y0vf6VxiBb5n9pf8L2fK8d-FIbm4
-          nullable: true
-          type: string
-        status:
-          default: ACTIVE
-          description: Status of the OAuth 2.0 client JSON Web Key
-          enum:
-          - ACTIVE
-          - INACTIVE
-          example: ACTIVE
-          type: string
-        use:
-          description: Acceptable use of the JSON Web Key
-          example: sig
-          type: string
-        _links:
-          $ref: "#/components/schemas/OAuthClientSecretLinks"
-      title: EC Signing Key
+      title: EC signing key
       type: object
     OAuth2ClientJsonWebKeyRequestBase:
       properties:
-        alg:
-          description: Algorithm used in the key
-          example: RS256
-          nullable: true
-          type: string
         kid:
           description: Unique identifier of the JSON Web Key in the OAUth 2.0 client's
             JWKS
@@ -67594,11 +67449,6 @@ components:
           - INACTIVE
           example: ACTIVE
           nullable: false
-          type: string
-        use:
-          description: Acceptable use of the JSON Web Key
-          example: sig
-          nullable: true
           type: string
       type: object
     OAuth2ClientJsonWebKeyRequestBody:
@@ -67666,139 +67516,58 @@ components:
           $ref: "#/components/schemas/OAuthClientSecretLinks"
       type: object
     OAuth2ClientJsonWebKeyRsaRequest:
+      allOf:
+      - $ref: "#/components/schemas/OAuth2ClientJsonWebKeyRequestBase"
       description: An RSA signing key
       properties:
-        alg:
-          description: Algorithm used in the key
-          example: RS256
-          type: string
         e:
           description: RSA key value (exponent) for key binding
           example: AQAB
+          nullable: false
           type: string
         kty:
           description: Cryptographic algorithm family for the certificate's key pair
           enum:
           - RSA
           example: RSA
+          nullable: false
           type: string
         "n":
           description: RSA key value (modulus) for key binding
           example: mkC6yAJVvFwUlmM9gKjb2d-YK5qHFt-mXSsbjWKKs4EfNm-BoQeeovBZtSACyaqLc8IYFTPEURFcbDQ9DkAL04uUIRD2gaHYY7uK0jsluEaXGq2RAIsmzAwNTzkiDw4q9pDL_q7n0f_SDt1TsMaMQayB6bU5jWsmqcWJ8MCRJ1aJMjZ16un5UVx51IIeCbe4QRDxEXGAvYNczsBoZxspDt28esSpq5W0dBFxcyGVudyl54Er3FzAguhgfMVjH-bUec9j2Tl40qDTktrYgYfxz9pfjm01Hl4WYP1YQxeETpSL7cQ5Ihz4jGDtHUEOcZ4GfJrPzrGpUrak8Qp5xcwCqQ
+          nullable: false
           type: string
-        kid:
-          description: Unique identifier of the JSON Web Key in the OAuth 2.0 client's
-            JWKS
-          example: SIMcCQNY3uwXoW3y0vf6VxiBb5n9pf8L2fK8d-FIbm4
-          nullable: true
-          type: string
-        status:
-          default: ACTIVE
-          description: Status of the OAuth 2.0 client JSON Web Key
-          enum:
-          - ACTIVE
-          - INACTIVE
-          example: ACTIVE
-          type: string
-        use:
-          description: Acceptable use of the JSON Web Key
-          example: sig
-          type: string
-      title: RSA Signing Key
+      title: RSA signing key
       type: object
+      x-okta-ignore-redocly-rules-for-sdk: true
     OAuth2ClientJsonWebKeyRsaResponse:
+      allOf:
+      - $ref: "#/components/schemas/OAuth2ClientJsonWebKeyRequestBase"
+      - $ref: "#/components/schemas/OAuth2ClientJsonWebKeyResponseBase"
       description: An RSA signing key
       example:
         kty: RSA
-        lastUpdated: lastUpdated
         e: AQAB
-        _links:
-          activate:
-            templated: true
-            hints:
-              allow:
-              - null
-              - null
-            name: name
-            href: href
-            type: type
-          delete:
-            templated: true
-            hints:
-              allow:
-              - null
-              - null
-            name: name
-            href: href
-            type: type
-          deactivate:
-            templated: true
-            hints:
-              allow:
-              - null
-              - null
-            name: name
-            href: href
-            type: type
-        created: created
-        use: sig
-        kid: SIMcCQNY3uwXoW3y0vf6VxiBb5n9pf8L2fK8d-FIbm4
-        id: id
-        alg: RS256
         "n": mkC6yAJVvFwUlmM9gKjb2d-YK5qHFt-mXSsbjWKKs4EfNm-BoQeeovBZtSACyaqLc8IYFTPEURFcbDQ9DkAL04uUIRD2gaHYY7uK0jsluEaXGq2RAIsmzAwNTzkiDw4q9pDL_q7n0f_SDt1TsMaMQayB6bU5jWsmqcWJ8MCRJ1aJMjZ16un5UVx51IIeCbe4QRDxEXGAvYNczsBoZxspDt28esSpq5W0dBFxcyGVudyl54Er3FzAguhgfMVjH-bUec9j2Tl40qDTktrYgYfxz9pfjm01Hl4WYP1YQxeETpSL7cQ5Ihz4jGDtHUEOcZ4GfJrPzrGpUrak8Qp5xcwCqQ
-        status: ACTIVE
       properties:
-        alg:
-          description: Algorithm used in the key
-          example: RS256
-          type: string
-        created:
-          description: Timestamp when the OAuth 2.0 client JSON Web Key was created
-          readOnly: true
-          type: string
         e:
           description: RSA key value (exponent) for key binding
           example: AQAB
-          type: string
-        id:
-          description: The unique ID of the OAuth Client JSON Web Key
-          readOnly: true
+          nullable: false
           type: string
         kty:
           description: Cryptographic algorithm family for the certificate's key pair
           enum:
           - RSA
           example: RSA
-          type: string
-        lastUpdated:
-          description: Timestamp when the OAuth 2.0 client JSON Web Key was updated
-          readOnly: true
+          nullable: false
           type: string
         "n":
           description: RSA key value (modulus) for key binding
           example: mkC6yAJVvFwUlmM9gKjb2d-YK5qHFt-mXSsbjWKKs4EfNm-BoQeeovBZtSACyaqLc8IYFTPEURFcbDQ9DkAL04uUIRD2gaHYY7uK0jsluEaXGq2RAIsmzAwNTzkiDw4q9pDL_q7n0f_SDt1TsMaMQayB6bU5jWsmqcWJ8MCRJ1aJMjZ16un5UVx51IIeCbe4QRDxEXGAvYNczsBoZxspDt28esSpq5W0dBFxcyGVudyl54Er3FzAguhgfMVjH-bUec9j2Tl40qDTktrYgYfxz9pfjm01Hl4WYP1YQxeETpSL7cQ5Ihz4jGDtHUEOcZ4GfJrPzrGpUrak8Qp5xcwCqQ
+          nullable: false
           type: string
-        kid:
-          description: Unique identifier of the JSON Web Key in the OAuth 2.0 client's
-            JWKS
-          example: SIMcCQNY3uwXoW3y0vf6VxiBb5n9pf8L2fK8d-FIbm4
-          nullable: true
-          type: string
-        status:
-          default: ACTIVE
-          description: Status of the OAuth 2.0 client JSON Web Key
-          enum:
-          - ACTIVE
-          - INACTIVE
-          example: ACTIVE
-          type: string
-        use:
-          description: Acceptable use of the JSON Web Key
-          example: sig
-          type: string
-        _links:
-          $ref: "#/components/schemas/OAuthClientSecretLinks"
-      title: RSA Signing Key
+      title: RSA signing key
       type: object
     OAuth2ClientSecret:
       example:
@@ -70318,19 +70087,9 @@ components:
       properties:
         keys:
           items:
-            $ref: "#/components/schemas/OpenIdConnectApplicationSettingsClientKeysKeysInner"
+            $ref: "#/components/schemas/addJwk_201_response"
           type: array
       type: object
-    OpenIdConnectApplicationSettingsClientKeysKeysInner:
-      description: A JSON Web Key for an OpenID Connect application
-      discriminator:
-        mapping:
-          enc: "#/components/schemas/OAuth2ClientJsonEncryptionKeyResponse"
-          sig: "#/components/schemas/OAuth2ClientJsonSigningKeyResponse"
-        propertyName: use
-      oneOf:
-      - $ref: "#/components/schemas/OAuth2ClientJsonEncryptionKeyResponse"
-      - $ref: "#/components/schemas/OAuth2ClientJsonSigningKeyResponse"
     OpenIdConnectApplicationSettingsRefreshToken:
       description: |
         Refresh token configuration for an OAuth 2.0 client
