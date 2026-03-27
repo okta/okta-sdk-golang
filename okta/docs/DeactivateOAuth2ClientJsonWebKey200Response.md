@@ -4,15 +4,18 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**E** | Pointer to **string** | RSA key value (exponent) for key binding | [optional] 
-**Kty** | Pointer to **string** | Cryptographic algorithm family for the certificate&#39;s key pair | [optional] 
-**N** | Pointer to **string** | RSA key value (modulus) for key binding | [optional] 
-**Kid** | Pointer to **NullableString** | Unique identifier of the JSON Web Key in the OAUth 2.0 client&#39;s JWKS | [optional] 
-**Status** | Pointer to **string** | Status of the OAuth 2.0 client JSON Web Key | [optional] [default to "ACTIVE"]
+**Alg** | Pointer to **string** | Algorithm used in the key | [optional] 
 **Created** | Pointer to **string** | Timestamp when the OAuth 2.0 client JSON Web Key was created | [optional] [readonly] 
-**Id** | Pointer to **string** | The unique ID of the OAuth client JSON Web Key | [optional] [readonly] 
+**E** | Pointer to **string** | RSA key value (exponent) for key binding | [optional] 
+**Id** | Pointer to **string** | The unique ID of the OAuth Client JSON Web Key | [optional] [readonly] 
+**Kty** | Pointer to **string** | Cryptographic algorithm family for the certificate&#39;s key pair | [optional] 
 **LastUpdated** | Pointer to **string** | Timestamp when the OAuth 2.0 client JSON Web Key was updated | [optional] [readonly] 
+**N** | Pointer to **string** | RSA key value (modulus) for key binding | [optional] 
+**Kid** | Pointer to **NullableString** | Unique identifier of the JSON Web Key in the OAuth 2.0 client&#39;s JWKS | [optional] 
+**Status** | Pointer to **string** | Status of the OAuth 2.0 client JSON Web Key | [optional] [default to "ACTIVE"]
+**Use** | Pointer to **string** | Acceptable use of the JSON Web Key | [optional] 
 **Links** | Pointer to [**OAuthClientSecretLinks**](OAuthClientSecretLinks.md) |  | [optional] 
+**Crv** | Pointer to **string** | Identifies the cryptographic curve used with the key | [optional] 
 **X** | Pointer to **string** | The public x coordinate for the elliptic curve point | [optional] 
 **Y** | Pointer to **string** | The public y coordinate for the elliptic curve point | [optional] 
 
@@ -34,6 +37,56 @@ will change when the set of required properties is changed
 NewDeactivateOAuth2ClientJsonWebKey200ResponseWithDefaults instantiates a new DeactivateOAuth2ClientJsonWebKey200Response object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAlg
+
+`func (o *DeactivateOAuth2ClientJsonWebKey200Response) GetAlg() string`
+
+GetAlg returns the Alg field if non-nil, zero value otherwise.
+
+### GetAlgOk
+
+`func (o *DeactivateOAuth2ClientJsonWebKey200Response) GetAlgOk() (*string, bool)`
+
+GetAlgOk returns a tuple with the Alg field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAlg
+
+`func (o *DeactivateOAuth2ClientJsonWebKey200Response) SetAlg(v string)`
+
+SetAlg sets Alg field to given value.
+
+### HasAlg
+
+`func (o *DeactivateOAuth2ClientJsonWebKey200Response) HasAlg() bool`
+
+HasAlg returns a boolean if a field has been set.
+
+### GetCreated
+
+`func (o *DeactivateOAuth2ClientJsonWebKey200Response) GetCreated() string`
+
+GetCreated returns the Created field if non-nil, zero value otherwise.
+
+### GetCreatedOk
+
+`func (o *DeactivateOAuth2ClientJsonWebKey200Response) GetCreatedOk() (*string, bool)`
+
+GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreated
+
+`func (o *DeactivateOAuth2ClientJsonWebKey200Response) SetCreated(v string)`
+
+SetCreated sets Created field to given value.
+
+### HasCreated
+
+`func (o *DeactivateOAuth2ClientJsonWebKey200Response) HasCreated() bool`
+
+HasCreated returns a boolean if a field has been set.
 
 ### GetE
 
@@ -60,6 +113,31 @@ SetE sets E field to given value.
 
 HasE returns a boolean if a field has been set.
 
+### GetId
+
+`func (o *DeactivateOAuth2ClientJsonWebKey200Response) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *DeactivateOAuth2ClientJsonWebKey200Response) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *DeactivateOAuth2ClientJsonWebKey200Response) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *DeactivateOAuth2ClientJsonWebKey200Response) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
 ### GetKty
 
 `func (o *DeactivateOAuth2ClientJsonWebKey200Response) GetKty() string`
@@ -84,6 +162,31 @@ SetKty sets Kty field to given value.
 `func (o *DeactivateOAuth2ClientJsonWebKey200Response) HasKty() bool`
 
 HasKty returns a boolean if a field has been set.
+
+### GetLastUpdated
+
+`func (o *DeactivateOAuth2ClientJsonWebKey200Response) GetLastUpdated() string`
+
+GetLastUpdated returns the LastUpdated field if non-nil, zero value otherwise.
+
+### GetLastUpdatedOk
+
+`func (o *DeactivateOAuth2ClientJsonWebKey200Response) GetLastUpdatedOk() (*string, bool)`
+
+GetLastUpdatedOk returns a tuple with the LastUpdated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastUpdated
+
+`func (o *DeactivateOAuth2ClientJsonWebKey200Response) SetLastUpdated(v string)`
+
+SetLastUpdated sets LastUpdated field to given value.
+
+### HasLastUpdated
+
+`func (o *DeactivateOAuth2ClientJsonWebKey200Response) HasLastUpdated() bool`
+
+HasLastUpdated returns a boolean if a field has been set.
 
 ### GetN
 
@@ -170,80 +273,30 @@ SetStatus sets Status field to given value.
 
 HasStatus returns a boolean if a field has been set.
 
-### GetCreated
+### GetUse
 
-`func (o *DeactivateOAuth2ClientJsonWebKey200Response) GetCreated() string`
+`func (o *DeactivateOAuth2ClientJsonWebKey200Response) GetUse() string`
 
-GetCreated returns the Created field if non-nil, zero value otherwise.
+GetUse returns the Use field if non-nil, zero value otherwise.
 
-### GetCreatedOk
+### GetUseOk
 
-`func (o *DeactivateOAuth2ClientJsonWebKey200Response) GetCreatedOk() (*string, bool)`
+`func (o *DeactivateOAuth2ClientJsonWebKey200Response) GetUseOk() (*string, bool)`
 
-GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
+GetUseOk returns a tuple with the Use field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCreated
+### SetUse
 
-`func (o *DeactivateOAuth2ClientJsonWebKey200Response) SetCreated(v string)`
+`func (o *DeactivateOAuth2ClientJsonWebKey200Response) SetUse(v string)`
 
-SetCreated sets Created field to given value.
+SetUse sets Use field to given value.
 
-### HasCreated
+### HasUse
 
-`func (o *DeactivateOAuth2ClientJsonWebKey200Response) HasCreated() bool`
+`func (o *DeactivateOAuth2ClientJsonWebKey200Response) HasUse() bool`
 
-HasCreated returns a boolean if a field has been set.
-
-### GetId
-
-`func (o *DeactivateOAuth2ClientJsonWebKey200Response) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *DeactivateOAuth2ClientJsonWebKey200Response) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *DeactivateOAuth2ClientJsonWebKey200Response) SetId(v string)`
-
-SetId sets Id field to given value.
-
-### HasId
-
-`func (o *DeactivateOAuth2ClientJsonWebKey200Response) HasId() bool`
-
-HasId returns a boolean if a field has been set.
-
-### GetLastUpdated
-
-`func (o *DeactivateOAuth2ClientJsonWebKey200Response) GetLastUpdated() string`
-
-GetLastUpdated returns the LastUpdated field if non-nil, zero value otherwise.
-
-### GetLastUpdatedOk
-
-`func (o *DeactivateOAuth2ClientJsonWebKey200Response) GetLastUpdatedOk() (*string, bool)`
-
-GetLastUpdatedOk returns a tuple with the LastUpdated field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLastUpdated
-
-`func (o *DeactivateOAuth2ClientJsonWebKey200Response) SetLastUpdated(v string)`
-
-SetLastUpdated sets LastUpdated field to given value.
-
-### HasLastUpdated
-
-`func (o *DeactivateOAuth2ClientJsonWebKey200Response) HasLastUpdated() bool`
-
-HasLastUpdated returns a boolean if a field has been set.
+HasUse returns a boolean if a field has been set.
 
 ### GetLinks
 
@@ -269,6 +322,31 @@ SetLinks sets Links field to given value.
 `func (o *DeactivateOAuth2ClientJsonWebKey200Response) HasLinks() bool`
 
 HasLinks returns a boolean if a field has been set.
+
+### GetCrv
+
+`func (o *DeactivateOAuth2ClientJsonWebKey200Response) GetCrv() string`
+
+GetCrv returns the Crv field if non-nil, zero value otherwise.
+
+### GetCrvOk
+
+`func (o *DeactivateOAuth2ClientJsonWebKey200Response) GetCrvOk() (*string, bool)`
+
+GetCrvOk returns a tuple with the Crv field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCrv
+
+`func (o *DeactivateOAuth2ClientJsonWebKey200Response) SetCrv(v string)`
+
+SetCrv sets Crv field to given value.
+
+### HasCrv
+
+`func (o *DeactivateOAuth2ClientJsonWebKey200Response) HasCrv() bool`
+
+HasCrv returns a boolean if a field has been set.
 
 ### GetX
 

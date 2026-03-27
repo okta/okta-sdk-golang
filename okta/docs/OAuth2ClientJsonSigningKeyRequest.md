@@ -5,12 +5,13 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Alg** | Pointer to **string** | Algorithm used in the key | [optional] 
-**Use** | Pointer to **string** | Acceptable use of the JSON Web Key | [optional] 
 **E** | Pointer to **string** | RSA key value (exponent) for key binding | [optional] 
 **Kty** | Pointer to **string** | Cryptographic algorithm family for the certificate&#39;s key pair | [optional] 
 **N** | Pointer to **string** | RSA key value (modulus) for key binding | [optional] 
-**Kid** | Pointer to **NullableString** | Unique identifier of the JSON Web Key in the OAUth 2.0 client&#39;s JWKS | [optional] 
+**Kid** | Pointer to **NullableString** | Unique identifier of the JSON Web Key in the OAuth 2.0 client&#39;s JWKS | [optional] 
 **Status** | Pointer to **string** | Status of the OAuth 2.0 client JSON Web Key | [optional] [default to "ACTIVE"]
+**Use** | Pointer to **string** | Acceptable use of the JSON Web Key | [optional] 
+**Crv** | Pointer to **string** | Identifies the cryptographic curve used with the key | [optional] 
 **X** | Pointer to **string** | The public x coordinate for the elliptic curve point | [optional] 
 **Y** | Pointer to **string** | The public y coordinate for the elliptic curve point | [optional] 
 
@@ -57,31 +58,6 @@ SetAlg sets Alg field to given value.
 `func (o *OAuth2ClientJsonSigningKeyRequest) HasAlg() bool`
 
 HasAlg returns a boolean if a field has been set.
-
-### GetUse
-
-`func (o *OAuth2ClientJsonSigningKeyRequest) GetUse() string`
-
-GetUse returns the Use field if non-nil, zero value otherwise.
-
-### GetUseOk
-
-`func (o *OAuth2ClientJsonSigningKeyRequest) GetUseOk() (*string, bool)`
-
-GetUseOk returns a tuple with the Use field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetUse
-
-`func (o *OAuth2ClientJsonSigningKeyRequest) SetUse(v string)`
-
-SetUse sets Use field to given value.
-
-### HasUse
-
-`func (o *OAuth2ClientJsonSigningKeyRequest) HasUse() bool`
-
-HasUse returns a boolean if a field has been set.
 
 ### GetE
 
@@ -217,6 +193,56 @@ SetStatus sets Status field to given value.
 `func (o *OAuth2ClientJsonSigningKeyRequest) HasStatus() bool`
 
 HasStatus returns a boolean if a field has been set.
+
+### GetUse
+
+`func (o *OAuth2ClientJsonSigningKeyRequest) GetUse() string`
+
+GetUse returns the Use field if non-nil, zero value otherwise.
+
+### GetUseOk
+
+`func (o *OAuth2ClientJsonSigningKeyRequest) GetUseOk() (*string, bool)`
+
+GetUseOk returns a tuple with the Use field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetUse
+
+`func (o *OAuth2ClientJsonSigningKeyRequest) SetUse(v string)`
+
+SetUse sets Use field to given value.
+
+### HasUse
+
+`func (o *OAuth2ClientJsonSigningKeyRequest) HasUse() bool`
+
+HasUse returns a boolean if a field has been set.
+
+### GetCrv
+
+`func (o *OAuth2ClientJsonSigningKeyRequest) GetCrv() string`
+
+GetCrv returns the Crv field if non-nil, zero value otherwise.
+
+### GetCrvOk
+
+`func (o *OAuth2ClientJsonSigningKeyRequest) GetCrvOk() (*string, bool)`
+
+GetCrvOk returns a tuple with the Crv field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCrv
+
+`func (o *OAuth2ClientJsonSigningKeyRequest) SetCrv(v string)`
+
+SetCrv sets Crv field to given value.
+
+### HasCrv
+
+`func (o *OAuth2ClientJsonSigningKeyRequest) HasCrv() bool`
+
+HasCrv returns a boolean if a field has been set.
 
 ### GetX
 

@@ -32,16 +32,20 @@ var _ MappedNullable = &OAuth2ClientJsonWebKeyRsaRequest{}
 
 // OAuth2ClientJsonWebKeyRsaRequest An RSA signing key
 type OAuth2ClientJsonWebKeyRsaRequest struct {
+	// Algorithm used in the key
+	Alg *string `json:"alg,omitempty"`
 	// RSA key value (exponent) for key binding
 	E *string `json:"e,omitempty"`
 	// Cryptographic algorithm family for the certificate's key pair
 	Kty *string `json:"kty,omitempty"`
 	// RSA key value (modulus) for key binding
 	N *string `json:"n,omitempty"`
-	// Unique identifier of the JSON Web Key in the OAUth 2.0 client's JWKS
+	// Unique identifier of the JSON Web Key in the OAuth 2.0 client's JWKS
 	Kid NullableString `json:"kid,omitempty"`
 	// Status of the OAuth 2.0 client JSON Web Key
-	Status               *string `json:"status,omitempty"`
+	Status *string `json:"status,omitempty"`
+	// Acceptable use of the JSON Web Key
+	Use                  *string `json:"use,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -66,6 +70,38 @@ func NewOAuth2ClientJsonWebKeyRsaRequestWithDefaults() *OAuth2ClientJsonWebKeyRs
 	var status string = "ACTIVE"
 	this.Status = &status
 	return &this
+}
+
+// GetAlg returns the Alg field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonWebKeyRsaRequest) GetAlg() string {
+	if o == nil || IsNil(o.Alg) {
+		var ret string
+		return ret
+	}
+	return *o.Alg
+}
+
+// GetAlgOk returns a tuple with the Alg field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OAuth2ClientJsonWebKeyRsaRequest) GetAlgOk() (*string, bool) {
+	if o == nil || IsNil(o.Alg) {
+		return nil, false
+	}
+	return o.Alg, true
+}
+
+// HasAlg returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonWebKeyRsaRequest) HasAlg() bool {
+	if o != nil && !IsNil(o.Alg) {
+		return true
+	}
+
+	return false
+}
+
+// SetAlg gets a reference to the given string and assigns it to the Alg field.
+func (o *OAuth2ClientJsonWebKeyRsaRequest) SetAlg(v string) {
+	o.Alg = &v
 }
 
 // GetE returns the E field value if set, zero value otherwise.
@@ -239,6 +275,38 @@ func (o *OAuth2ClientJsonWebKeyRsaRequest) SetStatus(v string) {
 	o.Status = &v
 }
 
+// GetUse returns the Use field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonWebKeyRsaRequest) GetUse() string {
+	if o == nil || IsNil(o.Use) {
+		var ret string
+		return ret
+	}
+	return *o.Use
+}
+
+// GetUseOk returns a tuple with the Use field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OAuth2ClientJsonWebKeyRsaRequest) GetUseOk() (*string, bool) {
+	if o == nil || IsNil(o.Use) {
+		return nil, false
+	}
+	return o.Use, true
+}
+
+// HasUse returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonWebKeyRsaRequest) HasUse() bool {
+	if o != nil && !IsNil(o.Use) {
+		return true
+	}
+
+	return false
+}
+
+// SetUse gets a reference to the given string and assigns it to the Use field.
+func (o *OAuth2ClientJsonWebKeyRsaRequest) SetUse(v string) {
+	o.Use = &v
+}
+
 func (o OAuth2ClientJsonWebKeyRsaRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -249,6 +317,9 @@ func (o OAuth2ClientJsonWebKeyRsaRequest) MarshalJSON() ([]byte, error) {
 
 func (o OAuth2ClientJsonWebKeyRsaRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Alg) {
+		toSerialize["alg"] = o.Alg
+	}
 	if !IsNil(o.E) {
 		toSerialize["e"] = o.E
 	}
@@ -263,6 +334,9 @@ func (o OAuth2ClientJsonWebKeyRsaRequest) ToMap() (map[string]interface{}, error
 	}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.Use) {
+		toSerialize["use"] = o.Use
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -286,11 +360,13 @@ func (o *OAuth2ClientJsonWebKeyRsaRequest) UnmarshalJSON(data []byte) (err error
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "alg")
 		delete(additionalProperties, "e")
 		delete(additionalProperties, "kty")
 		delete(additionalProperties, "n")
 		delete(additionalProperties, "kid")
 		delete(additionalProperties, "status")
+		delete(additionalProperties, "use")
 		o.AdditionalProperties = additionalProperties
 	}
 

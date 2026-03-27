@@ -32,10 +32,14 @@ var _ MappedNullable = &OAuth2ClientJsonWebKeyRequestBase{}
 
 // OAuth2ClientJsonWebKeyRequestBase struct for OAuth2ClientJsonWebKeyRequestBase
 type OAuth2ClientJsonWebKeyRequestBase struct {
+	// Algorithm used in the key
+	Alg NullableString `json:"alg,omitempty"`
 	// Unique identifier of the JSON Web Key in the OAUth 2.0 client's JWKS
 	Kid NullableString `json:"kid,omitempty"`
 	// Status of the OAuth 2.0 client JSON Web Key
-	Status               *string `json:"status,omitempty"`
+	Status *string `json:"status,omitempty"`
+	// Acceptable use of the JSON Web Key
+	Use                  NullableString `json:"use,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -60,6 +64,49 @@ func NewOAuth2ClientJsonWebKeyRequestBaseWithDefaults() *OAuth2ClientJsonWebKeyR
 	var status string = "ACTIVE"
 	this.Status = &status
 	return &this
+}
+
+// GetAlg returns the Alg field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *OAuth2ClientJsonWebKeyRequestBase) GetAlg() string {
+	if o == nil || IsNil(o.Alg.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Alg.Get()
+}
+
+// GetAlgOk returns a tuple with the Alg field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *OAuth2ClientJsonWebKeyRequestBase) GetAlgOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Alg.Get(), o.Alg.IsSet()
+}
+
+// HasAlg returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonWebKeyRequestBase) HasAlg() bool {
+	if o != nil && o.Alg.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetAlg gets a reference to the given NullableString and assigns it to the Alg field.
+func (o *OAuth2ClientJsonWebKeyRequestBase) SetAlg(v string) {
+	o.Alg.Set(&v)
+}
+
+// SetAlgNil sets the value for Alg to be an explicit nil
+func (o *OAuth2ClientJsonWebKeyRequestBase) SetAlgNil() {
+	o.Alg.Set(nil)
+}
+
+// UnsetAlg ensures that no value is present for Alg, not even an explicit nil
+func (o *OAuth2ClientJsonWebKeyRequestBase) UnsetAlg() {
+	o.Alg.Unset()
 }
 
 // GetKid returns the Kid field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -137,6 +184,49 @@ func (o *OAuth2ClientJsonWebKeyRequestBase) SetStatus(v string) {
 	o.Status = &v
 }
 
+// GetUse returns the Use field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *OAuth2ClientJsonWebKeyRequestBase) GetUse() string {
+	if o == nil || IsNil(o.Use.Get()) {
+		var ret string
+		return ret
+	}
+	return *o.Use.Get()
+}
+
+// GetUseOk returns a tuple with the Use field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *OAuth2ClientJsonWebKeyRequestBase) GetUseOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Use.Get(), o.Use.IsSet()
+}
+
+// HasUse returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonWebKeyRequestBase) HasUse() bool {
+	if o != nil && o.Use.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetUse gets a reference to the given NullableString and assigns it to the Use field.
+func (o *OAuth2ClientJsonWebKeyRequestBase) SetUse(v string) {
+	o.Use.Set(&v)
+}
+
+// SetUseNil sets the value for Use to be an explicit nil
+func (o *OAuth2ClientJsonWebKeyRequestBase) SetUseNil() {
+	o.Use.Set(nil)
+}
+
+// UnsetUse ensures that no value is present for Use, not even an explicit nil
+func (o *OAuth2ClientJsonWebKeyRequestBase) UnsetUse() {
+	o.Use.Unset()
+}
+
 func (o OAuth2ClientJsonWebKeyRequestBase) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -147,11 +237,17 @@ func (o OAuth2ClientJsonWebKeyRequestBase) MarshalJSON() ([]byte, error) {
 
 func (o OAuth2ClientJsonWebKeyRequestBase) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if o.Alg.IsSet() {
+		toSerialize["alg"] = o.Alg.Get()
+	}
 	if o.Kid.IsSet() {
 		toSerialize["kid"] = o.Kid.Get()
 	}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
+	}
+	if o.Use.IsSet() {
+		toSerialize["use"] = o.Use.Get()
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -175,8 +271,10 @@ func (o *OAuth2ClientJsonWebKeyRequestBase) UnmarshalJSON(data []byte) (err erro
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "alg")
 		delete(additionalProperties, "kid")
 		delete(additionalProperties, "status")
+		delete(additionalProperties, "use")
 		o.AdditionalProperties = additionalProperties
 	}
 

@@ -4,14 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Alg** | Pointer to **string** | Algorithm used in the key | [optional] 
+**Created** | Pointer to **string** | Timestamp when the OAuth 2.0 client JSON Web Key was created | [optional] [readonly] 
+**Crv** | Pointer to **string** | Identifies the cryptographic curve used with the key | [optional] 
+**Id** | Pointer to **string** | The unique ID of the OAuth Client JSON Web Key | [optional] [readonly] 
 **Kty** | Pointer to **string** | Cryptographic algorithm family for the certificate&#39;s key pair | [optional] 
+**LastUpdated** | Pointer to **string** | Timestamp when the OAuth 2.0 client JSON Web Key was updated | [optional] [readonly] 
 **X** | Pointer to **string** | The public x coordinate for the elliptic curve point | [optional] 
 **Y** | Pointer to **string** | The public y coordinate for the elliptic curve point | [optional] 
-**Kid** | Pointer to **NullableString** | Unique identifier of the JSON Web Key in the OAUth 2.0 client&#39;s JWKS | [optional] 
+**Kid** | Pointer to **NullableString** | Unique identifier of the JSON Web Key in the OAuth 2.0 client&#39;s JWKS | [optional] 
 **Status** | Pointer to **string** | Status of the OAuth 2.0 client JSON Web Key | [optional] [default to "ACTIVE"]
-**Created** | Pointer to **string** | Timestamp when the OAuth 2.0 client JSON Web Key was created | [optional] [readonly] 
-**Id** | Pointer to **string** | The unique ID of the OAuth client JSON Web Key | [optional] [readonly] 
-**LastUpdated** | Pointer to **string** | Timestamp when the OAuth 2.0 client JSON Web Key was updated | [optional] [readonly] 
+**Use** | Pointer to **string** | Acceptable use of the JSON Web Key | [optional] 
 **Links** | Pointer to [**OAuthClientSecretLinks**](OAuthClientSecretLinks.md) |  | [optional] 
 
 ## Methods
@@ -32,6 +35,106 @@ will change when the set of required properties is changed
 NewOAuth2ClientJsonWebKeyECResponseWithDefaults instantiates a new OAuth2ClientJsonWebKeyECResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetAlg
+
+`func (o *OAuth2ClientJsonWebKeyECResponse) GetAlg() string`
+
+GetAlg returns the Alg field if non-nil, zero value otherwise.
+
+### GetAlgOk
+
+`func (o *OAuth2ClientJsonWebKeyECResponse) GetAlgOk() (*string, bool)`
+
+GetAlgOk returns a tuple with the Alg field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetAlg
+
+`func (o *OAuth2ClientJsonWebKeyECResponse) SetAlg(v string)`
+
+SetAlg sets Alg field to given value.
+
+### HasAlg
+
+`func (o *OAuth2ClientJsonWebKeyECResponse) HasAlg() bool`
+
+HasAlg returns a boolean if a field has been set.
+
+### GetCreated
+
+`func (o *OAuth2ClientJsonWebKeyECResponse) GetCreated() string`
+
+GetCreated returns the Created field if non-nil, zero value otherwise.
+
+### GetCreatedOk
+
+`func (o *OAuth2ClientJsonWebKeyECResponse) GetCreatedOk() (*string, bool)`
+
+GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCreated
+
+`func (o *OAuth2ClientJsonWebKeyECResponse) SetCreated(v string)`
+
+SetCreated sets Created field to given value.
+
+### HasCreated
+
+`func (o *OAuth2ClientJsonWebKeyECResponse) HasCreated() bool`
+
+HasCreated returns a boolean if a field has been set.
+
+### GetCrv
+
+`func (o *OAuth2ClientJsonWebKeyECResponse) GetCrv() string`
+
+GetCrv returns the Crv field if non-nil, zero value otherwise.
+
+### GetCrvOk
+
+`func (o *OAuth2ClientJsonWebKeyECResponse) GetCrvOk() (*string, bool)`
+
+GetCrvOk returns a tuple with the Crv field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCrv
+
+`func (o *OAuth2ClientJsonWebKeyECResponse) SetCrv(v string)`
+
+SetCrv sets Crv field to given value.
+
+### HasCrv
+
+`func (o *OAuth2ClientJsonWebKeyECResponse) HasCrv() bool`
+
+HasCrv returns a boolean if a field has been set.
+
+### GetId
+
+`func (o *OAuth2ClientJsonWebKeyECResponse) GetId() string`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *OAuth2ClientJsonWebKeyECResponse) GetIdOk() (*string, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *OAuth2ClientJsonWebKeyECResponse) SetId(v string)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *OAuth2ClientJsonWebKeyECResponse) HasId() bool`
+
+HasId returns a boolean if a field has been set.
 
 ### GetKty
 
@@ -57,6 +160,31 @@ SetKty sets Kty field to given value.
 `func (o *OAuth2ClientJsonWebKeyECResponse) HasKty() bool`
 
 HasKty returns a boolean if a field has been set.
+
+### GetLastUpdated
+
+`func (o *OAuth2ClientJsonWebKeyECResponse) GetLastUpdated() string`
+
+GetLastUpdated returns the LastUpdated field if non-nil, zero value otherwise.
+
+### GetLastUpdatedOk
+
+`func (o *OAuth2ClientJsonWebKeyECResponse) GetLastUpdatedOk() (*string, bool)`
+
+GetLastUpdatedOk returns a tuple with the LastUpdated field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLastUpdated
+
+`func (o *OAuth2ClientJsonWebKeyECResponse) SetLastUpdated(v string)`
+
+SetLastUpdated sets LastUpdated field to given value.
+
+### HasLastUpdated
+
+`func (o *OAuth2ClientJsonWebKeyECResponse) HasLastUpdated() bool`
+
+HasLastUpdated returns a boolean if a field has been set.
 
 ### GetX
 
@@ -168,80 +296,30 @@ SetStatus sets Status field to given value.
 
 HasStatus returns a boolean if a field has been set.
 
-### GetCreated
+### GetUse
 
-`func (o *OAuth2ClientJsonWebKeyECResponse) GetCreated() string`
+`func (o *OAuth2ClientJsonWebKeyECResponse) GetUse() string`
 
-GetCreated returns the Created field if non-nil, zero value otherwise.
+GetUse returns the Use field if non-nil, zero value otherwise.
 
-### GetCreatedOk
+### GetUseOk
 
-`func (o *OAuth2ClientJsonWebKeyECResponse) GetCreatedOk() (*string, bool)`
+`func (o *OAuth2ClientJsonWebKeyECResponse) GetUseOk() (*string, bool)`
 
-GetCreatedOk returns a tuple with the Created field if it's non-nil, zero value otherwise
+GetUseOk returns a tuple with the Use field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetCreated
+### SetUse
 
-`func (o *OAuth2ClientJsonWebKeyECResponse) SetCreated(v string)`
+`func (o *OAuth2ClientJsonWebKeyECResponse) SetUse(v string)`
 
-SetCreated sets Created field to given value.
+SetUse sets Use field to given value.
 
-### HasCreated
+### HasUse
 
-`func (o *OAuth2ClientJsonWebKeyECResponse) HasCreated() bool`
+`func (o *OAuth2ClientJsonWebKeyECResponse) HasUse() bool`
 
-HasCreated returns a boolean if a field has been set.
-
-### GetId
-
-`func (o *OAuth2ClientJsonWebKeyECResponse) GetId() string`
-
-GetId returns the Id field if non-nil, zero value otherwise.
-
-### GetIdOk
-
-`func (o *OAuth2ClientJsonWebKeyECResponse) GetIdOk() (*string, bool)`
-
-GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetId
-
-`func (o *OAuth2ClientJsonWebKeyECResponse) SetId(v string)`
-
-SetId sets Id field to given value.
-
-### HasId
-
-`func (o *OAuth2ClientJsonWebKeyECResponse) HasId() bool`
-
-HasId returns a boolean if a field has been set.
-
-### GetLastUpdated
-
-`func (o *OAuth2ClientJsonWebKeyECResponse) GetLastUpdated() string`
-
-GetLastUpdated returns the LastUpdated field if non-nil, zero value otherwise.
-
-### GetLastUpdatedOk
-
-`func (o *OAuth2ClientJsonWebKeyECResponse) GetLastUpdatedOk() (*string, bool)`
-
-GetLastUpdatedOk returns a tuple with the LastUpdated field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetLastUpdated
-
-`func (o *OAuth2ClientJsonWebKeyECResponse) SetLastUpdated(v string)`
-
-SetLastUpdated sets LastUpdated field to given value.
-
-### HasLastUpdated
-
-`func (o *OAuth2ClientJsonWebKeyECResponse) HasLastUpdated() bool`
-
-HasLastUpdated returns a boolean if a field has been set.
+HasUse returns a boolean if a field has been set.
 
 ### GetLinks
 

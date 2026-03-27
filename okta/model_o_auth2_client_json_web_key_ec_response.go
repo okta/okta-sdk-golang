@@ -32,22 +32,28 @@ var _ MappedNullable = &OAuth2ClientJsonWebKeyECResponse{}
 
 // OAuth2ClientJsonWebKeyECResponse An EC signing key
 type OAuth2ClientJsonWebKeyECResponse struct {
+	// Algorithm used in the key
+	Alg *string `json:"alg,omitempty"`
+	// Timestamp when the OAuth 2.0 client JSON Web Key was created
+	Created *string `json:"created,omitempty"`
+	// Identifies the cryptographic curve used with the key
+	Crv *string `json:"crv,omitempty"`
+	// The unique ID of the OAuth Client JSON Web Key
+	Id *string `json:"id,omitempty"`
 	// Cryptographic algorithm family for the certificate's key pair
 	Kty *string `json:"kty,omitempty"`
+	// Timestamp when the OAuth 2.0 client JSON Web Key was updated
+	LastUpdated *string `json:"lastUpdated,omitempty"`
 	// The public x coordinate for the elliptic curve point
 	X *string `json:"x,omitempty"`
 	// The public y coordinate for the elliptic curve point
 	Y *string `json:"y,omitempty"`
-	// Unique identifier of the JSON Web Key in the OAUth 2.0 client's JWKS
+	// Unique identifier of the JSON Web Key in the OAuth 2.0 client's JWKS
 	Kid NullableString `json:"kid,omitempty"`
 	// Status of the OAuth 2.0 client JSON Web Key
 	Status *string `json:"status,omitempty"`
-	// Timestamp when the OAuth 2.0 client JSON Web Key was created
-	Created *string `json:"created,omitempty"`
-	// The unique ID of the OAuth client JSON Web Key
-	Id *string `json:"id,omitempty"`
-	// Timestamp when the OAuth 2.0 client JSON Web Key was updated
-	LastUpdated          *string                 `json:"lastUpdated,omitempty"`
+	// Acceptable use of the JSON Web Key
+	Use                  *string                 `json:"use,omitempty"`
 	Links                *OAuthClientSecretLinks `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -73,6 +79,134 @@ func NewOAuth2ClientJsonWebKeyECResponseWithDefaults() *OAuth2ClientJsonWebKeyEC
 	var status string = "ACTIVE"
 	this.Status = &status
 	return &this
+}
+
+// GetAlg returns the Alg field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonWebKeyECResponse) GetAlg() string {
+	if o == nil || IsNil(o.Alg) {
+		var ret string
+		return ret
+	}
+	return *o.Alg
+}
+
+// GetAlgOk returns a tuple with the Alg field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OAuth2ClientJsonWebKeyECResponse) GetAlgOk() (*string, bool) {
+	if o == nil || IsNil(o.Alg) {
+		return nil, false
+	}
+	return o.Alg, true
+}
+
+// HasAlg returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonWebKeyECResponse) HasAlg() bool {
+	if o != nil && !IsNil(o.Alg) {
+		return true
+	}
+
+	return false
+}
+
+// SetAlg gets a reference to the given string and assigns it to the Alg field.
+func (o *OAuth2ClientJsonWebKeyECResponse) SetAlg(v string) {
+	o.Alg = &v
+}
+
+// GetCreated returns the Created field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonWebKeyECResponse) GetCreated() string {
+	if o == nil || IsNil(o.Created) {
+		var ret string
+		return ret
+	}
+	return *o.Created
+}
+
+// GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OAuth2ClientJsonWebKeyECResponse) GetCreatedOk() (*string, bool) {
+	if o == nil || IsNil(o.Created) {
+		return nil, false
+	}
+	return o.Created, true
+}
+
+// HasCreated returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonWebKeyECResponse) HasCreated() bool {
+	if o != nil && !IsNil(o.Created) {
+		return true
+	}
+
+	return false
+}
+
+// SetCreated gets a reference to the given string and assigns it to the Created field.
+func (o *OAuth2ClientJsonWebKeyECResponse) SetCreated(v string) {
+	o.Created = &v
+}
+
+// GetCrv returns the Crv field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonWebKeyECResponse) GetCrv() string {
+	if o == nil || IsNil(o.Crv) {
+		var ret string
+		return ret
+	}
+	return *o.Crv
+}
+
+// GetCrvOk returns a tuple with the Crv field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OAuth2ClientJsonWebKeyECResponse) GetCrvOk() (*string, bool) {
+	if o == nil || IsNil(o.Crv) {
+		return nil, false
+	}
+	return o.Crv, true
+}
+
+// HasCrv returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonWebKeyECResponse) HasCrv() bool {
+	if o != nil && !IsNil(o.Crv) {
+		return true
+	}
+
+	return false
+}
+
+// SetCrv gets a reference to the given string and assigns it to the Crv field.
+func (o *OAuth2ClientJsonWebKeyECResponse) SetCrv(v string) {
+	o.Crv = &v
+}
+
+// GetId returns the Id field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonWebKeyECResponse) GetId() string {
+	if o == nil || IsNil(o.Id) {
+		var ret string
+		return ret
+	}
+	return *o.Id
+}
+
+// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OAuth2ClientJsonWebKeyECResponse) GetIdOk() (*string, bool) {
+	if o == nil || IsNil(o.Id) {
+		return nil, false
+	}
+	return o.Id, true
+}
+
+// HasId returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonWebKeyECResponse) HasId() bool {
+	if o != nil && !IsNil(o.Id) {
+		return true
+	}
+
+	return false
+}
+
+// SetId gets a reference to the given string and assigns it to the Id field.
+func (o *OAuth2ClientJsonWebKeyECResponse) SetId(v string) {
+	o.Id = &v
 }
 
 // GetKty returns the Kty field value if set, zero value otherwise.
@@ -105,6 +239,38 @@ func (o *OAuth2ClientJsonWebKeyECResponse) HasKty() bool {
 // SetKty gets a reference to the given string and assigns it to the Kty field.
 func (o *OAuth2ClientJsonWebKeyECResponse) SetKty(v string) {
 	o.Kty = &v
+}
+
+// GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonWebKeyECResponse) GetLastUpdated() string {
+	if o == nil || IsNil(o.LastUpdated) {
+		var ret string
+		return ret
+	}
+	return *o.LastUpdated
+}
+
+// GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OAuth2ClientJsonWebKeyECResponse) GetLastUpdatedOk() (*string, bool) {
+	if o == nil || IsNil(o.LastUpdated) {
+		return nil, false
+	}
+	return o.LastUpdated, true
+}
+
+// HasLastUpdated returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonWebKeyECResponse) HasLastUpdated() bool {
+	if o != nil && !IsNil(o.LastUpdated) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastUpdated gets a reference to the given string and assigns it to the LastUpdated field.
+func (o *OAuth2ClientJsonWebKeyECResponse) SetLastUpdated(v string) {
+	o.LastUpdated = &v
 }
 
 // GetX returns the X field value if set, zero value otherwise.
@@ -246,100 +412,36 @@ func (o *OAuth2ClientJsonWebKeyECResponse) SetStatus(v string) {
 	o.Status = &v
 }
 
-// GetCreated returns the Created field value if set, zero value otherwise.
-func (o *OAuth2ClientJsonWebKeyECResponse) GetCreated() string {
-	if o == nil || IsNil(o.Created) {
+// GetUse returns the Use field value if set, zero value otherwise.
+func (o *OAuth2ClientJsonWebKeyECResponse) GetUse() string {
+	if o == nil || IsNil(o.Use) {
 		var ret string
 		return ret
 	}
-	return *o.Created
+	return *o.Use
 }
 
-// GetCreatedOk returns a tuple with the Created field value if set, nil otherwise
+// GetUseOk returns a tuple with the Use field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *OAuth2ClientJsonWebKeyECResponse) GetCreatedOk() (*string, bool) {
-	if o == nil || IsNil(o.Created) {
+func (o *OAuth2ClientJsonWebKeyECResponse) GetUseOk() (*string, bool) {
+	if o == nil || IsNil(o.Use) {
 		return nil, false
 	}
-	return o.Created, true
+	return o.Use, true
 }
 
-// HasCreated returns a boolean if a field has been set.
-func (o *OAuth2ClientJsonWebKeyECResponse) HasCreated() bool {
-	if o != nil && !IsNil(o.Created) {
+// HasUse returns a boolean if a field has been set.
+func (o *OAuth2ClientJsonWebKeyECResponse) HasUse() bool {
+	if o != nil && !IsNil(o.Use) {
 		return true
 	}
 
 	return false
 }
 
-// SetCreated gets a reference to the given string and assigns it to the Created field.
-func (o *OAuth2ClientJsonWebKeyECResponse) SetCreated(v string) {
-	o.Created = &v
-}
-
-// GetId returns the Id field value if set, zero value otherwise.
-func (o *OAuth2ClientJsonWebKeyECResponse) GetId() string {
-	if o == nil || IsNil(o.Id) {
-		var ret string
-		return ret
-	}
-	return *o.Id
-}
-
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OAuth2ClientJsonWebKeyECResponse) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
-		return nil, false
-	}
-	return o.Id, true
-}
-
-// HasId returns a boolean if a field has been set.
-func (o *OAuth2ClientJsonWebKeyECResponse) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
-func (o *OAuth2ClientJsonWebKeyECResponse) SetId(v string) {
-	o.Id = &v
-}
-
-// GetLastUpdated returns the LastUpdated field value if set, zero value otherwise.
-func (o *OAuth2ClientJsonWebKeyECResponse) GetLastUpdated() string {
-	if o == nil || IsNil(o.LastUpdated) {
-		var ret string
-		return ret
-	}
-	return *o.LastUpdated
-}
-
-// GetLastUpdatedOk returns a tuple with the LastUpdated field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OAuth2ClientJsonWebKeyECResponse) GetLastUpdatedOk() (*string, bool) {
-	if o == nil || IsNil(o.LastUpdated) {
-		return nil, false
-	}
-	return o.LastUpdated, true
-}
-
-// HasLastUpdated returns a boolean if a field has been set.
-func (o *OAuth2ClientJsonWebKeyECResponse) HasLastUpdated() bool {
-	if o != nil && !IsNil(o.LastUpdated) {
-		return true
-	}
-
-	return false
-}
-
-// SetLastUpdated gets a reference to the given string and assigns it to the LastUpdated field.
-func (o *OAuth2ClientJsonWebKeyECResponse) SetLastUpdated(v string) {
-	o.LastUpdated = &v
+// SetUse gets a reference to the given string and assigns it to the Use field.
+func (o *OAuth2ClientJsonWebKeyECResponse) SetUse(v string) {
+	o.Use = &v
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.
@@ -384,8 +486,23 @@ func (o OAuth2ClientJsonWebKeyECResponse) MarshalJSON() ([]byte, error) {
 
 func (o OAuth2ClientJsonWebKeyECResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Alg) {
+		toSerialize["alg"] = o.Alg
+	}
+	if !IsNil(o.Created) {
+		toSerialize["created"] = o.Created
+	}
+	if !IsNil(o.Crv) {
+		toSerialize["crv"] = o.Crv
+	}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
 	if !IsNil(o.Kty) {
 		toSerialize["kty"] = o.Kty
+	}
+	if !IsNil(o.LastUpdated) {
+		toSerialize["lastUpdated"] = o.LastUpdated
 	}
 	if !IsNil(o.X) {
 		toSerialize["x"] = o.X
@@ -399,14 +516,8 @@ func (o OAuth2ClientJsonWebKeyECResponse) ToMap() (map[string]interface{}, error
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if !IsNil(o.Created) {
-		toSerialize["created"] = o.Created
-	}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
-	if !IsNil(o.LastUpdated) {
-		toSerialize["lastUpdated"] = o.LastUpdated
+	if !IsNil(o.Use) {
+		toSerialize["use"] = o.Use
 	}
 	if !IsNil(o.Links) {
 		toSerialize["_links"] = o.Links
@@ -433,14 +544,17 @@ func (o *OAuth2ClientJsonWebKeyECResponse) UnmarshalJSON(data []byte) (err error
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "alg")
+		delete(additionalProperties, "created")
+		delete(additionalProperties, "crv")
+		delete(additionalProperties, "id")
 		delete(additionalProperties, "kty")
+		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "x")
 		delete(additionalProperties, "y")
 		delete(additionalProperties, "kid")
 		delete(additionalProperties, "status")
-		delete(additionalProperties, "created")
-		delete(additionalProperties, "id")
-		delete(additionalProperties, "lastUpdated")
+		delete(additionalProperties, "use")
 		delete(additionalProperties, "_links")
 		o.AdditionalProperties = additionalProperties
 	}
