@@ -3573,9 +3573,7 @@ paths:
           content:
             application/json:
               schema:
-                items:
-                  $ref: "#/components/schemas/listJwk_200_response_inner"
-                type: array
+                $ref: "#/components/schemas/OAuth2ClientJsonWebKeySet"
           description: OK
         "401":
           content:
@@ -3637,7 +3635,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listJwk_200_response_inner"
+                $ref: "#/components/schemas/addJwk_201_response"
           description: Created
         "400":
           content:
@@ -3767,7 +3765,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/getJwk_200_response"
+                $ref: "#/components/schemas/OAuth2ClientJsonSigningKeyResponse"
           description: OK
         "401":
           content:
@@ -3833,7 +3831,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/listJwk_200_response_inner"
+                $ref: "#/components/schemas/addJwk_201_response"
           description: OK
         "401":
           content:
@@ -67374,7 +67372,25 @@ components:
       - $ref: "#/components/schemas/OAuth2ClientJsonWebKeyRsaResponse"
       - $ref: "#/components/schemas/OAuth2ClientJsonWebKeyECResponse"
       title: Signing Key
-      x-okta-ignore-redocly-rules-for-sdk: true
+    OAuth2ClientJsonWebKeySet:
+      description: A JSON Web Key Set (JWKS) containing the OAuth 2.0 client's JSON
+        Web Keys
+      example:
+        keys:
+        - kty: RSA
+          e: AQAB
+          "n": mkC6yAJVvFwUlmM9gKjb2d-YK5qHFt-mXSsbjWKKs4EfNm-BoQeeovBZtSACyaqLc8IYFTPEURFcbDQ9DkAL04uUIRD2gaHYY7uK0jsluEaXGq2RAIsmzAwNTzkiDw4q9pDL_q7n0f_SDt1TsMaMQayB6bU5jWsmqcWJ8MCRJ1aJMjZ16un5UVx51IIeCbe4QRDxEXGAvYNczsBoZxspDt28esSpq5W0dBFxcyGVudyl54Er3FzAguhgfMVjH-bUec9j2Tl40qDTktrYgYfxz9pfjm01Hl4WYP1YQxeETpSL7cQ5Ihz4jGDtHUEOcZ4GfJrPzrGpUrak8Qp5xcwCqQ
+        - kty: RSA
+          e: AQAB
+          "n": mkC6yAJVvFwUlmM9gKjb2d-YK5qHFt-mXSsbjWKKs4EfNm-BoQeeovBZtSACyaqLc8IYFTPEURFcbDQ9DkAL04uUIRD2gaHYY7uK0jsluEaXGq2RAIsmzAwNTzkiDw4q9pDL_q7n0f_SDt1TsMaMQayB6bU5jWsmqcWJ8MCRJ1aJMjZ16un5UVx51IIeCbe4QRDxEXGAvYNczsBoZxspDt28esSpq5W0dBFxcyGVudyl54Er3FzAguhgfMVjH-bUec9j2Tl40qDTktrYgYfxz9pfjm01Hl4WYP1YQxeETpSL7cQ5Ihz4jGDtHUEOcZ4GfJrPzrGpUrak8Qp5xcwCqQ
+      properties:
+        keys:
+          description: The JSON Web Keys in this key set
+          items:
+            $ref: "#/components/schemas/OAuth2ClientJsonWebKeySet_keys_inner"
+          type: array
+      title: JSON Web Key Set
+      type: object
     OAuth2ClientJsonWebKeyECRequest:
       allOf:
       - $ref: "#/components/schemas/OAuth2ClientJsonWebKeyRequestBase"
@@ -70071,9 +70087,19 @@ components:
       properties:
         keys:
           items:
-            $ref: "#/components/schemas/listJwk_200_response_inner"
+            $ref: "#/components/schemas/OpenIdConnectApplicationSettingsClientKeysKeysInner"
           type: array
       type: object
+    OpenIdConnectApplicationSettingsClientKeysKeysInner:
+      description: A JSON Web Key for an OpenID Connect application
+      discriminator:
+        mapping:
+          enc: "#/components/schemas/OAuth2ClientJsonEncryptionKeyResponse"
+          sig: "#/components/schemas/OAuth2ClientJsonSigningKeyResponse"
+        propertyName: use
+      oneOf:
+      - $ref: "#/components/schemas/OAuth2ClientJsonEncryptionKeyResponse"
+      - $ref: "#/components/schemas/OAuth2ClientJsonSigningKeyResponse"
     OpenIdConnectApplicationSettingsRefreshToken:
       description: |
         Refresh token configuration for an OAuth 2.0 client
@@ -85096,21 +85122,15 @@ components:
       oneOf:
       - $ref: "#/components/schemas/ProvisioningConnectionTokenRequest"
       - $ref: "#/components/schemas/ProvisioningConnectionOauthRequest"
-    listJwk_200_response_inner:
-      oneOf:
-      - $ref: "#/components/schemas/OAuth2ClientJsonSigningKeyResponse"
-      - $ref: "#/components/schemas/OAuth2ClientJsonEncryptionKeyResponse"
     addJwk_request:
       oneOf:
       - $ref: "#/components/schemas/OAuth2ClientJsonSigningKeyRequest"
       - $ref: "#/components/schemas/OAuth2ClientJsonEncryptionKeyRequest"
       x-okta-ignore-redocly-rules-for-sdk: true
-    getJwk_200_response:
+    addJwk_201_response:
       oneOf:
       - $ref: "#/components/schemas/OAuth2ClientJsonSigningKeyResponse"
       - $ref: "#/components/schemas/OAuth2ClientJsonEncryptionKeyResponse"
-      type: object
-      x-okta-ignore-redocly-rules-for-sdk: true
     deactivateOAuth2ClientJsonWebKey_200_response:
       discriminator:
         mapping:
@@ -88201,6 +88221,15 @@ components:
           href: href
           type: type
         tokens: ""
+    OAuth2ClientJsonWebKeySet_keys_inner:
+      discriminator:
+        mapping:
+          sig: "#/components/schemas/OAuth2ClientJsonSigningKeyResponse"
+          enc: "#/components/schemas/OAuth2ClientJsonEncryptionKeyResponse"
+        propertyName: use
+      oneOf:
+      - $ref: "#/components/schemas/OAuth2ClientJsonSigningKeyResponse"
+      - $ref: "#/components/schemas/OAuth2ClientJsonEncryptionKeyResponse"
     OAuth2RefreshToken__embedded:
       description: The embedded resources related to the object if the `expand` query
         parameter is specified

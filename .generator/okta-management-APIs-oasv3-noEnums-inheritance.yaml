@@ -2449,11 +2449,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  oneOf:
-                    - $ref: '#/components/schemas/OAuth2ClientJsonSigningKeyResponse'
-                    - $ref: '#/components/schemas/OAuth2ClientJsonEncryptionKeyResponse'
+                $ref: '#/components/schemas/OAuth2ClientJsonWebKeySet'
         '401':
           $ref: '#/components/responses/ErrorInvalidToken401'
         '403':
@@ -2530,11 +2526,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                x-okta-ignore-redocly-rules-for-sdk: true
-                oneOf:
-                  - $ref: '#/components/schemas/OAuth2ClientJsonSigningKeyResponse'
-                  - $ref: '#/components/schemas/OAuth2ClientJsonEncryptionKeyResponse'
+                $ref: '#/components/schemas/OAuth2ClientJsonSigningKeyResponse'
         '401':
           $ref: '#/components/responses/ErrorInvalidToken401'
         '403':
@@ -42297,13 +42289,33 @@ components:
           RSA: '#/components/schemas/OAuth2ClientJsonWebKeyRsaRequest'
           EC: '#/components/schemas/OAuth2ClientJsonWebKeyECRequest'
     OAuth2ClientJsonSigningKeyResponse:
-      x-okta-ignore-redocly-rules-for-sdk: true
       title: Signing Key
       description: A [JSON Web Key (JWK)](https://tools.ietf.org/html/rfc7517) is a JSON representation of a cryptographic key. Okta uses signing keys to verify the signature of a JWT when provided for the `private_key_jwt` client authentication method or for a signed authorize request object. Okta supports both RSA and Elliptic Curve (EC) keys for signing tokens.
       oneOf:
         - $ref: '#/components/schemas/OAuth2ClientJsonWebKeyRsaResponse'
         - $ref: '#/components/schemas/OAuth2ClientJsonWebKeyECResponse'
-      discriminator: *ref_30
+      discriminator:
+        propertyName: kty
+        mapping:
+          RSA: '#/components/schemas/OAuth2ClientJsonWebKeyRsaResponse'
+          EC: '#/components/schemas/OAuth2ClientJsonWebKeyECResponse'
+    OAuth2ClientJsonWebKeySet:
+      title: JSON Web Key Set
+      description: A JSON Web Key Set (JWKS) containing the OAuth 2.0 client's JSON Web Keys
+      type: object
+      properties:
+        keys:
+          type: array
+          description: The JSON Web Keys in this key set
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/OAuth2ClientJsonSigningKeyResponse'
+              - $ref: '#/components/schemas/OAuth2ClientJsonEncryptionKeyResponse'
+            discriminator:
+              propertyName: use
+              mapping:
+                sig: '#/components/schemas/OAuth2ClientJsonSigningKeyResponse'
+                enc: '#/components/schemas/OAuth2ClientJsonEncryptionKeyResponse'
     OAuth2ClientJsonWebKeyECRequest:
       x-okta-ignore-redocly-rules-for-sdk: true
       title: EC signing Key
@@ -44550,9 +44562,17 @@ components:
         keys:
           type: array
           items:
-            oneOf:
-              - $ref: '#/components/schemas/OAuth2ClientJsonSigningKeyResponse'
-              - $ref: '#/components/schemas/OAuth2ClientJsonEncryptionKeyResponse'
+            $ref: '#/components/schemas/OpenIdConnectApplicationSettingsClientKeysKeysInner'
+    OpenIdConnectApplicationSettingsClientKeysKeysInner:
+      description: A JSON Web Key for an OpenID Connect application
+      oneOf:
+        - $ref: '#/components/schemas/OAuth2ClientJsonEncryptionKeyResponse'
+        - $ref: '#/components/schemas/OAuth2ClientJsonSigningKeyResponse'
+      discriminator:
+        propertyName: use
+        mapping:
+          enc: '#/components/schemas/OAuth2ClientJsonEncryptionKeyResponse'
+          sig: '#/components/schemas/OAuth2ClientJsonSigningKeyResponse'
     OpenIdConnectApplicationSettingsRefreshToken:
       description: |
         Refresh token configuration for an OAuth 2.0 client
@@ -56544,4 +56564,3 @@ x-tagGroups:
       - UserSessions
       - UserType
       - ProfileMapping
-
