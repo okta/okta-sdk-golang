@@ -195,15 +195,16 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 
 	t.Run("Test PolicyAPIService DeactivatePolicy", func(t *testing.T) {
 		var testFactoryInstance okta.TestFactory
-		policyRequest := testFactoryInstance.NewValidTestCreatePolicyRequest()
+		// ACCESS_POLICY type cannot be deactivated; use PASSWORD policy type instead
+		policyRequest := testFactoryInstance.NewValidTestDeactivatablePolicyRequest()
 
 		// Create and activate a policy first
 		createdResp, _, err := apiClient.PolicyAPI.CreatePolicy(context.Background()).Policy(policyRequest).Activate(true).Execute()
 		require.Nil(t, err)
-		require.NotNil(t, createdResp.AccessPolicy)
-		require.NotNil(t, createdResp.AccessPolicy.Id)
+		require.NotNil(t, createdResp.PasswordPolicy)
+		require.NotNil(t, createdResp.PasswordPolicy.Id)
 
-		policyId := *createdResp.AccessPolicy.Id
+		policyId := *createdResp.PasswordPolicy.Id
 		testDataManager.TrackPolicy(policyId)
 
 		// Deactivate the policy
@@ -215,9 +216,9 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 		// Verify policy is deactivated by retrieving it
 		resp, _, err := apiClient.PolicyAPI.GetPolicy(context.Background(), policyId).Execute()
 		require.Nil(t, err)
-		assert.NotNil(t, resp.AccessPolicy)
-		if resp.AccessPolicy.Status != nil {
-			assert.Equal(t, "INACTIVE", *resp.AccessPolicy.Status)
+		assert.NotNil(t, resp.PasswordPolicy)
+		if resp.PasswordPolicy.Status != nil {
+			assert.Equal(t, "INACTIVE", *resp.PasswordPolicy.Status)
 		}
 	})
 
