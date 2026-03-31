@@ -75446,8 +75446,6 @@ components:
             lifecycle: LIMITED_GA
             isGenerallyAvailable: false
             SKUs: []
-      required:
-      - level
       type: object
     Role:
       properties:
