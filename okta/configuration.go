@@ -165,7 +165,7 @@ type Configuration struct {
 func NewConfiguration(conf ...ConfigSetter) (*Configuration, error) {
 	cfg := &Configuration{
 		DefaultHeader: make(map[string]string),
-		UserAgent:     fmt.Sprintf("okta-sdk-golang/%s golang/%s %s/%s", "6.1.4", runtime.Version(), runtime.GOOS, runtime.GOARCH),
+		UserAgent:     fmt.Sprintf("okta-sdk-golang/%s golang/%s %s/%s", "6.1.5", runtime.Version(), runtime.GOOS, runtime.GOARCH),
 		Debug:         false,
 		Servers: ServerConfigurations{
 			{
