@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the RiskScorePolicyRuleCondition type satisfies the MappedNullable interface at compile time
@@ -34,7 +33,7 @@ var _ MappedNullable = &RiskScorePolicyRuleCondition{}
 // RiskScorePolicyRuleCondition Specifies a particular level of risk to match on
 type RiskScorePolicyRuleCondition struct {
 	// The level to match
-	Level string `json:"level"`
+	Level *string `json:"level,omitempty"`
 	// <x-lifecycle-container><x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>The minimum risk level to match. Only used in a Session Violation Detection (`SESSION_VIOLATION_DETECTION`) policy rule.
 	MinRiskLevel         *string `json:"minRiskLevel,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -46,9 +45,8 @@ type _RiskScorePolicyRuleCondition RiskScorePolicyRuleCondition
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRiskScorePolicyRuleCondition(level string) *RiskScorePolicyRuleCondition {
+func NewRiskScorePolicyRuleCondition() *RiskScorePolicyRuleCondition {
 	this := RiskScorePolicyRuleCondition{}
-	this.Level = level
 	return &this
 }
 
@@ -60,28 +58,36 @@ func NewRiskScorePolicyRuleConditionWithDefaults() *RiskScorePolicyRuleCondition
 	return &this
 }
 
-// GetLevel returns the Level field value
+// GetLevel returns the Level field value if set, zero value otherwise.
 func (o *RiskScorePolicyRuleCondition) GetLevel() string {
-	if o == nil {
+	if o == nil || IsNil(o.Level) {
 		var ret string
 		return ret
 	}
-
-	return o.Level
+	return *o.Level
 }
 
-// GetLevelOk returns a tuple with the Level field value
+// GetLevelOk returns a tuple with the Level field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RiskScorePolicyRuleCondition) GetLevelOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Level) {
 		return nil, false
 	}
-	return &o.Level, true
+	return o.Level, true
 }
 
-// SetLevel sets field value
+// HasLevel returns a boolean if a field has been set.
+func (o *RiskScorePolicyRuleCondition) HasLevel() bool {
+	if o != nil && !IsNil(o.Level) {
+		return true
+	}
+
+	return false
+}
+
+// SetLevel gets a reference to the given string and assigns it to the Level field.
 func (o *RiskScorePolicyRuleCondition) SetLevel(v string) {
-	o.Level = v
+	o.Level = &v
 }
 
 // GetMinRiskLevel returns the MinRiskLevel field value if set, zero value otherwise.
@@ -126,7 +132,9 @@ func (o RiskScorePolicyRuleCondition) MarshalJSON() ([]byte, error) {
 
 func (o RiskScorePolicyRuleCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["level"] = o.Level
+	if !IsNil(o.Level) {
+		toSerialize["level"] = o.Level
+	}
 	if !IsNil(o.MinRiskLevel) {
 		toSerialize["minRiskLevel"] = o.MinRiskLevel
 	}
@@ -139,27 +147,6 @@ func (o RiskScorePolicyRuleCondition) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *RiskScorePolicyRuleCondition) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"level",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varRiskScorePolicyRuleCondition := _RiskScorePolicyRuleCondition{}
 
 	err = json.Unmarshal(data, &varRiskScorePolicyRuleCondition)

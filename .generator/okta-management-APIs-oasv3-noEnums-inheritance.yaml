@@ -48470,8 +48470,6 @@ components:
             lifecycle: LIMITED_GA
             isGenerallyAvailable: false
             SKUs: []
-      required:
-        - level
     Role:
       x-okta-ignore-redocly-rules-for-sdk: true
       type: object
