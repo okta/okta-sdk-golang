@@ -82507,9 +82507,6 @@ components:
         value:
           description: The regular expression or simple match string
           type: string
-      required:
-      - matchType
-      - value
       type: object
     UserIdentifierMatchType:
       description: "The type of pattern. For regex, use `EXPRESSION`."
@@ -82538,9 +82535,6 @@ components:
           x-okta-known-values:
           - ATTRIBUTE
           - IDENTIFIER
-      required:
-      - patterns
-      - type
       type: object
     UserIdentifierType:
       description: "What to match against, either user ID or an attribute in the user's\

@@ -54180,9 +54180,6 @@ components:
         value:
           type: string
           description: The regular expression or simple match string
-      required:
-        - matchType
-        - value
     UserIdentifierMatchType:
       description: The type of pattern. For regex, use `EXPRESSION`.
       type: string
@@ -54205,9 +54202,6 @@ components:
             $ref: '#/components/schemas/UserIdentifierConditionEvaluatorPattern'
         type:
           $ref: '#/components/schemas/UserIdentifierType'
-      required:
-        - patterns
-        - type
     UserIdentifierType:
       description: What to match against, either user ID or an attribute in the user's Okta profile.
       type: string
