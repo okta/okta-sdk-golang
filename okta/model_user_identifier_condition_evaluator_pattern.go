@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the UserIdentifierConditionEvaluatorPattern type satisfies the MappedNullable interface at compile time
@@ -34,9 +33,9 @@ var _ MappedNullable = &UserIdentifierConditionEvaluatorPattern{}
 // UserIdentifierConditionEvaluatorPattern Specifies the details of the patterns to match against
 type UserIdentifierConditionEvaluatorPattern struct {
 	// The type of pattern. For regex, use `EXPRESSION`.
-	MatchType string `json:"matchType"`
+	MatchType *string `json:"matchType,omitempty"`
 	// The regular expression or simple match string
-	Value                string `json:"value"`
+	Value                *string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -46,10 +45,8 @@ type _UserIdentifierConditionEvaluatorPattern UserIdentifierConditionEvaluatorPa
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUserIdentifierConditionEvaluatorPattern(matchType string, value string) *UserIdentifierConditionEvaluatorPattern {
+func NewUserIdentifierConditionEvaluatorPattern() *UserIdentifierConditionEvaluatorPattern {
 	this := UserIdentifierConditionEvaluatorPattern{}
-	this.MatchType = matchType
-	this.Value = value
 	return &this
 }
 
@@ -61,52 +58,68 @@ func NewUserIdentifierConditionEvaluatorPatternWithDefaults() *UserIdentifierCon
 	return &this
 }
 
-// GetMatchType returns the MatchType field value
+// GetMatchType returns the MatchType field value if set, zero value otherwise.
 func (o *UserIdentifierConditionEvaluatorPattern) GetMatchType() string {
-	if o == nil {
+	if o == nil || IsNil(o.MatchType) {
 		var ret string
 		return ret
 	}
-
-	return o.MatchType
+	return *o.MatchType
 }
 
-// GetMatchTypeOk returns a tuple with the MatchType field value
+// GetMatchTypeOk returns a tuple with the MatchType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserIdentifierConditionEvaluatorPattern) GetMatchTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.MatchType) {
 		return nil, false
 	}
-	return &o.MatchType, true
+	return o.MatchType, true
 }
 
-// SetMatchType sets field value
+// HasMatchType returns a boolean if a field has been set.
+func (o *UserIdentifierConditionEvaluatorPattern) HasMatchType() bool {
+	if o != nil && !IsNil(o.MatchType) {
+		return true
+	}
+
+	return false
+}
+
+// SetMatchType gets a reference to the given string and assigns it to the MatchType field.
 func (o *UserIdentifierConditionEvaluatorPattern) SetMatchType(v string) {
-	o.MatchType = v
+	o.MatchType = &v
 }
 
-// GetValue returns the Value field value
+// GetValue returns the Value field value if set, zero value otherwise.
 func (o *UserIdentifierConditionEvaluatorPattern) GetValue() string {
-	if o == nil {
+	if o == nil || IsNil(o.Value) {
 		var ret string
 		return ret
 	}
-
-	return o.Value
+	return *o.Value
 }
 
-// GetValueOk returns a tuple with the Value field value
+// GetValueOk returns a tuple with the Value field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserIdentifierConditionEvaluatorPattern) GetValueOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Value) {
 		return nil, false
 	}
-	return &o.Value, true
+	return o.Value, true
 }
 
-// SetValue sets field value
+// HasValue returns a boolean if a field has been set.
+func (o *UserIdentifierConditionEvaluatorPattern) HasValue() bool {
+	if o != nil && !IsNil(o.Value) {
+		return true
+	}
+
+	return false
+}
+
+// SetValue gets a reference to the given string and assigns it to the Value field.
 func (o *UserIdentifierConditionEvaluatorPattern) SetValue(v string) {
-	o.Value = v
+	o.Value = &v
 }
 
 func (o UserIdentifierConditionEvaluatorPattern) MarshalJSON() ([]byte, error) {
@@ -119,8 +132,12 @@ func (o UserIdentifierConditionEvaluatorPattern) MarshalJSON() ([]byte, error) {
 
 func (o UserIdentifierConditionEvaluatorPattern) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["matchType"] = o.MatchType
-	toSerialize["value"] = o.Value
+	if !IsNil(o.MatchType) {
+		toSerialize["matchType"] = o.MatchType
+	}
+	if !IsNil(o.Value) {
+		toSerialize["value"] = o.Value
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -130,28 +147,6 @@ func (o UserIdentifierConditionEvaluatorPattern) ToMap() (map[string]interface{}
 }
 
 func (o *UserIdentifierConditionEvaluatorPattern) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"matchType",
-		"value",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varUserIdentifierConditionEvaluatorPattern := _UserIdentifierConditionEvaluatorPattern{}
 
 	err = json.Unmarshal(data, &varUserIdentifierConditionEvaluatorPattern)

@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the UserIdentifierPolicyRuleCondition type satisfies the MappedNullable interface at compile time
@@ -35,9 +34,9 @@ var _ MappedNullable = &UserIdentifierPolicyRuleCondition{}
 type UserIdentifierPolicyRuleCondition struct {
 	// The name of the profile attribute to match against. Only used when type is `ATTRIBUTE`.
 	Attribute *string                                   `json:"attribute,omitempty"`
-	Patterns  []UserIdentifierConditionEvaluatorPattern `json:"patterns"`
+	Patterns  []UserIdentifierConditionEvaluatorPattern `json:"patterns,omitempty"`
 	// What to match against, either user ID or an attribute in the user's Okta profile.
-	Type                 string `json:"type"`
+	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -47,10 +46,8 @@ type _UserIdentifierPolicyRuleCondition UserIdentifierPolicyRuleCondition
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUserIdentifierPolicyRuleCondition(patterns []UserIdentifierConditionEvaluatorPattern, type_ string) *UserIdentifierPolicyRuleCondition {
+func NewUserIdentifierPolicyRuleCondition() *UserIdentifierPolicyRuleCondition {
 	this := UserIdentifierPolicyRuleCondition{}
-	this.Patterns = patterns
-	this.Type = type_
 	return &this
 }
 
@@ -94,52 +91,68 @@ func (o *UserIdentifierPolicyRuleCondition) SetAttribute(v string) {
 	o.Attribute = &v
 }
 
-// GetPatterns returns the Patterns field value
+// GetPatterns returns the Patterns field value if set, zero value otherwise.
 func (o *UserIdentifierPolicyRuleCondition) GetPatterns() []UserIdentifierConditionEvaluatorPattern {
-	if o == nil {
+	if o == nil || IsNil(o.Patterns) {
 		var ret []UserIdentifierConditionEvaluatorPattern
 		return ret
 	}
-
 	return o.Patterns
 }
 
-// GetPatternsOk returns a tuple with the Patterns field value
+// GetPatternsOk returns a tuple with the Patterns field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserIdentifierPolicyRuleCondition) GetPatternsOk() ([]UserIdentifierConditionEvaluatorPattern, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Patterns) {
 		return nil, false
 	}
 	return o.Patterns, true
 }
 
-// SetPatterns sets field value
+// HasPatterns returns a boolean if a field has been set.
+func (o *UserIdentifierPolicyRuleCondition) HasPatterns() bool {
+	if o != nil && !IsNil(o.Patterns) {
+		return true
+	}
+
+	return false
+}
+
+// SetPatterns gets a reference to the given []UserIdentifierConditionEvaluatorPattern and assigns it to the Patterns field.
 func (o *UserIdentifierPolicyRuleCondition) SetPatterns(v []UserIdentifierConditionEvaluatorPattern) {
 	o.Patterns = v
 }
 
-// GetType returns the Type field value
+// GetType returns the Type field value if set, zero value otherwise.
 func (o *UserIdentifierPolicyRuleCondition) GetType() string {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
-
-	return o.Type
+	return *o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserIdentifierPolicyRuleCondition) GetTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
-	return &o.Type, true
+	return o.Type, true
 }
 
-// SetType sets field value
+// HasType returns a boolean if a field has been set.
+func (o *UserIdentifierPolicyRuleCondition) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
 func (o *UserIdentifierPolicyRuleCondition) SetType(v string) {
-	o.Type = v
+	o.Type = &v
 }
 
 func (o UserIdentifierPolicyRuleCondition) MarshalJSON() ([]byte, error) {
@@ -155,8 +168,12 @@ func (o UserIdentifierPolicyRuleCondition) ToMap() (map[string]interface{}, erro
 	if !IsNil(o.Attribute) {
 		toSerialize["attribute"] = o.Attribute
 	}
-	toSerialize["patterns"] = o.Patterns
-	toSerialize["type"] = o.Type
+	if !IsNil(o.Patterns) {
+		toSerialize["patterns"] = o.Patterns
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -166,28 +183,6 @@ func (o UserIdentifierPolicyRuleCondition) ToMap() (map[string]interface{}, erro
 }
 
 func (o *UserIdentifierPolicyRuleCondition) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"patterns",
-		"type",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varUserIdentifierPolicyRuleCondition := _UserIdentifierPolicyRuleCondition{}
 
 	err = json.Unmarshal(data, &varUserIdentifierPolicyRuleCondition)

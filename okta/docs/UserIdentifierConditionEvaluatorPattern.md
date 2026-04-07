@@ -4,14 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**MatchType** | **string** | The type of pattern. For regex, use &#x60;EXPRESSION&#x60;. | 
-**Value** | **string** | The regular expression or simple match string | 
+**MatchType** | Pointer to **string** | The type of pattern. For regex, use &#x60;EXPRESSION&#x60;. | [optional] 
+**Value** | Pointer to **string** | The regular expression or simple match string | [optional] 
 
 ## Methods
 
 ### NewUserIdentifierConditionEvaluatorPattern
 
-`func NewUserIdentifierConditionEvaluatorPattern(matchType string, value string, ) *UserIdentifierConditionEvaluatorPattern`
+`func NewUserIdentifierConditionEvaluatorPattern() *UserIdentifierConditionEvaluatorPattern`
 
 NewUserIdentifierConditionEvaluatorPattern instantiates a new UserIdentifierConditionEvaluatorPattern object
 This constructor will assign default values to properties that have it defined,
@@ -45,6 +45,11 @@ and a boolean to check if the value has been set.
 
 SetMatchType sets MatchType field to given value.
 
+### HasMatchType
+
+`func (o *UserIdentifierConditionEvaluatorPattern) HasMatchType() bool`
+
+HasMatchType returns a boolean if a field has been set.
 
 ### GetValue
 
@@ -65,6 +70,11 @@ and a boolean to check if the value has been set.
 
 SetValue sets Value field to given value.
 
+### HasValue
+
+`func (o *UserIdentifierConditionEvaluatorPattern) HasValue() bool`
+
+HasValue returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
