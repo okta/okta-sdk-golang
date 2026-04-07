@@ -1,6 +1,18 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v6.1.6
+- Fix UserIdentifierPolicyRuleCondition by making patterns and type as optional parameters. Thanks [@pranav-okta](https://github.com/pranav-okta)
+
+## v6.1.5
+- Fix the RiskPolicyRuleConditions where level is a required parameter. Thanks [@pranav-okta](https://github.com/pranav-okta)
+
+## v6.1.4
+- Add OAuth2ClientJsonWebKeySet schema for listJwk response. Thanks [@aditya-okta](https://github.com/aditya-okta)
+
+## v6.1.3
+- Fix the CreatePushGroupMapping to accept AppConfig as a pointer. Thanks [@pranav-okta](https://github.com/pranav-okta)
+
 ## v6.1.2
 - Fix AppConfig by adding required type param. Thanks [@pranav-okta](https://github.com/pranav-okta)
 
