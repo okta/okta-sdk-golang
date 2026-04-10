@@ -549,7 +549,7 @@ func main() {
   }
   client := okta.NewAPIClient(config)
 
-  settingClient := okta.NewOpenIdConnectApplicationSettingsClient([]string{"grantTypes"})
+  settingClient := okta.NewOpenIdConnectApplicationSettingsClient()
   settingClient.SetClientUri("https://example.com/client")
   settingClient.SetLogoUri("https://example.com/assets/images/logo-new.png")
   settingClient.SetResponseTypes([]string{"token", "id_token", "code"})

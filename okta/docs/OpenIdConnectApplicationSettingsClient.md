@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **DpopBoundAccessTokens** | Pointer to **bool** | Indicates that the client application uses Demonstrating Proof-of-Possession (DPoP) for token requests. If &#x60;true&#x60;, the authorization server rejects token requests from this client that don&#39;t contain the DPoP header. &gt; **Note:** If &#x60;dpop_bound_access_tokens&#x60; is true, then &#x60;client_credentials&#x60; and &#x60;implicit&#x60; aren&#39;t allowed in &#x60;grant_types&#x60;.  | [optional] [default to false]
 **FrontchannelLogoutSessionRequired** | Pointer to **bool** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;Determines whether Okta sends &#x60;sid&#x60; and &#x60;iss&#x60; in the logout request | [optional] 
 **FrontchannelLogoutUri** | Pointer to **string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;URL where Okta sends the logout request | [optional] 
-**GrantTypes** | **[]string** |  | 
+**GrantTypes** | **[]string** |  | [optional] 
 **IdTokenEncryptedResponseAlg** | Pointer to **string** | JWE alg algorithm for encrypting the ID token issued to this client. If this is requested, the response is signed, and then encrypted with the result being a nested JWT. The default, if omitted, is that no encryption is performed. See the [Application Public Keys API](/openapi/okta-management/management/applicationssopublickeys/) for more information on encryption keys. See [Key management](https://developer.okta.com/docs/guides/key-management/main/) for more information on how encryption keys are used. | [optional] 
 **IdpInitiatedLogin** | Pointer to [**OpenIdConnectApplicationIdpInitiatedLogin**](OpenIdConnectApplicationIdpInitiatedLogin.md) |  | [optional] 
 **InitiateLoginUri** | Pointer to **string** | URL string that a third party can use to initiate the sign-in flow by the client | [optional] 
@@ -38,7 +38,7 @@ Name | Type | Description | Notes
 
 ### NewOpenIdConnectApplicationSettingsClient
 
-`func NewOpenIdConnectApplicationSettingsClient(grantTypes []string, ) *OpenIdConnectApplicationSettingsClient`
+`func NewOpenIdConnectApplicationSettingsClient() *OpenIdConnectApplicationSettingsClient`
 
 NewOpenIdConnectApplicationSettingsClient instantiates a new OpenIdConnectApplicationSettingsClient object
 This constructor will assign default values to properties that have it defined,
