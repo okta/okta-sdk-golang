@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the APIServiceIntegrationInstanceSecret type satisfies the MappedNullable interface at compile time
@@ -269,33 +268,6 @@ func (o APIServiceIntegrationInstanceSecret) ToMap() (map[string]interface{}, er
 }
 
 func (o *APIServiceIntegrationInstanceSecret) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"client_secret",
-		"created",
-		"id",
-		"lastUpdated",
-		"secret_hash",
-		"status",
-		"_links",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varAPIServiceIntegrationInstanceSecret := _APIServiceIntegrationInstanceSecret{}
 
 	err = json.Unmarshal(data, &varAPIServiceIntegrationInstanceSecret)

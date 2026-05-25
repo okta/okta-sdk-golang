@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 	"reflect"
 	"strings"
 )
@@ -178,30 +177,6 @@ func (o SecurePasswordStoreApplication) ToMap() (map[string]interface{}, error) 
 }
 
 func (o *SecurePasswordStoreApplication) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"name",
-		"settings",
-		"label",
-		"signOnMode",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	type SecurePasswordStoreApplicationWithoutEmbeddedStruct struct {
 		Credentials *SchemeApplicationCredentials `json:"credentials,omitempty"`
 		// `template_sps` is the key name for a SWA app instance that uses HTTP POST and doesn't require a browser plugin
