@@ -25,6 +25,7 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the WsFederationApplicationSettingsApplication type satisfies the MappedNullable interface at compile time
@@ -454,6 +455,33 @@ func (o WsFederationApplicationSettingsApplication) ToMap() (map[string]interfac
 }
 
 func (o *WsFederationApplicationSettingsApplication) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"audienceRestriction",
+		"authnContextClassRef",
+		"groupValueFormat",
+		"nameIDFormat",
+		"siteURL",
+		"usernameAttribute",
+		"wReplyURL",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varWsFederationApplicationSettingsApplication := _WsFederationApplicationSettingsApplication{}
 
 	err = json.Unmarshal(data, &varWsFederationApplicationSettingsApplication)

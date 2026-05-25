@@ -1140,6 +1140,12 @@ func (o OpenIdConnectApplicationSettingsClient) ToMap() (map[string]interface{},
 }
 
 func (o *OpenIdConnectApplicationSettingsClient) UnmarshalJSON(data []byte) (err error) {
+	// No required-property pre-check on read: the Okta API legitimately
+	// returns settings.oauthClient without grant_types (e.g. the
+	// preconfigured app okta_atspoke_iam_connector). Write-side safety is
+	// preserved by NewOpenIdConnectApplicationSettingsClient(grantTypes)
+	// and by server-side validation on POST/PUT.
+
 	varOpenIdConnectApplicationSettingsClient := _OpenIdConnectApplicationSettingsClient{}
 
 	err = json.Unmarshal(data, &varOpenIdConnectApplicationSettingsClient)

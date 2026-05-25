@@ -366,12 +366,64 @@ func (o *{{{classname}}}) UnmarshalJSON(data []byte) (err error) {
 func (o *{{{classname}}}) UnmarshalJSON(data []byte) (err error) {
 {{/hasRequired}}
 {{/isAdditionalPropertiesTrue}}
-{{! Required-property pre-check on UnmarshalJSON removed: the Okta API
-    legitimately returns response bodies that omit fields marked
-    "required" in the spec (e.g. settings.oauthClient.grant_types on
-    preconfigured apps like okta_atspoke_iam_connector). Write-side
-    enforcement is unaffected — the typed constructor NewX(requiredVars...)
-    and server-side validation on POST/PUT continue to guard writes. }}
+{{#hasRequired}}
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+{{#requiredVars}}
+		"{{baseName}}",
+{{/requiredVars}}
+	}
+
+{{#useDefaultValuesForRequiredVars}}
+	// defaultValueFuncMap captures the default values for required properties.
+	// These values are used when required properties are missing from the payload.
+	defaultValueFuncMap := map[string]func() interface{} {
+{{#requiredVars}}
+{{#defaultValue}}
+{{^isReadOnly}}
+		"{{baseName}}": o.GetDefault{{nameInPascalCase}},
+{{/isReadOnly}}
+{{/defaultValue}}
+{{/requiredVars}}
+	}
+	var defaultValueApplied bool
+{{/useDefaultValuesForRequiredVars}}
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err;
+	}
+
+	for _, requiredProperty := range(requiredProperties) {
+		{{#useDefaultValuesForRequiredVars}}
+		if value, exists := allProperties[requiredProperty]; !exists || value == "" {
+			if _, ok := defaultValueFuncMap[requiredProperty]; ok {
+				allProperties[requiredProperty] = defaultValueFuncMap[requiredProperty]()
+				defaultValueApplied = true
+			}
+		}
+		if value, exists := allProperties[requiredProperty]; !exists || value == ""{
+		{{/useDefaultValuesForRequiredVars}}
+		{{^useDefaultValuesForRequiredVars}}
+		if _, exists := allProperties[requiredProperty]; !exists {
+		{{/useDefaultValuesForRequiredVars}}
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	{{#useDefaultValuesForRequiredVars}}
+	if defaultValueApplied {
+		data, err = json.Marshal(allProperties)
+		if err != nil{
+			return err
+		}
+	}
+	{{/useDefaultValuesForRequiredVars}}
+{{/hasRequired}}
 {{#isAdditionalPropertiesTrue}}
 {{#parent}}
 {{^isMap}}

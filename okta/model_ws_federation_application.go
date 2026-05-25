@@ -25,6 +25,7 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 	"reflect"
 	"strings"
 )
@@ -177,6 +178,30 @@ func (o WsFederationApplication) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *WsFederationApplication) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"settings",
+		"label",
+		"signOnMode",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	type WsFederationApplicationWithoutEmbeddedStruct struct {
 		Credentials *ApplicationCredentials `json:"credentials,omitempty"`
 		// `template_wsfed` is the key name for a WS-Federated app instance with a SAML 2.0 token

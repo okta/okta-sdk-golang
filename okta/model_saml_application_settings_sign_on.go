@@ -25,6 +25,7 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the SamlApplicationSettingsSignOn type satisfies the MappedNullable interface at compile time
@@ -1044,6 +1045,41 @@ func (o SamlApplicationSettingsSignOn) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *SamlApplicationSettingsSignOn) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"allowMultipleAcsEndpoints",
+		"assertionSigned",
+		"audience",
+		"authnContextClassRef",
+		"destination",
+		"digestAlgorithm",
+		"honorForceAuthn",
+		"idpIssuer",
+		"recipient",
+		"requestCompressed",
+		"responseSigned",
+		"signatureAlgorithm",
+		"ssoAcsUrl",
+		"subjectNameIdFormat",
+		"subjectNameIdTemplate",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varSamlApplicationSettingsSignOn := _SamlApplicationSettingsSignOn{}
 
 	err = json.Unmarshal(data, &varSamlApplicationSettingsSignOn)

@@ -25,6 +25,7 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 	"reflect"
 	"strings"
 )
@@ -198,6 +199,28 @@ func (o IPNetworkZone) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *IPNetworkZone) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	type IPNetworkZoneWithoutEmbeddedStruct struct {
 		// You can **only** use this parameter when making a request to the Replace the network zone endpoint (`/api/v1/zones/{zoneId}`). Set this parameter to `true` in your request when you update the `DefaultExemptIpZone` to allow IPs through the blocklist.
 		UseAsExemptList *bool `json:"useAsExemptList,omitempty"`
