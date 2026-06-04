@@ -767,6 +767,24 @@ func createKeySigner(privateKey, privateKeyID string) (jose.Signer, error) {
 	return nil, fmt.Errorf("private key %q is not pkcs#1 or pkcs#8 format", privPem.Type)
 }
 
+// tokenEndpointError formats an error from a failed Okta /oauth2/v1/token
+// response. When the body is JSON it prefers the standard OAuth2 `error` and
+// `error_description` fields; otherwise it falls back to the raw body. The
+// HTTP status code is always included so callers can distinguish 4xx from 5xx.
+func tokenEndpointError(statusCode int, body []byte) error {
+	var parsed struct {
+		Error            string `json:"error"`
+		ErrorDescription string `json:"error_description"`
+	}
+	if jsonErr := json.Unmarshal(body, &parsed); jsonErr == nil && parsed.Error != "" {
+		if parsed.ErrorDescription != "" {
+			return fmt.Errorf("okta token endpoint returned HTTP %d: %s: %s", statusCode, parsed.Error, parsed.ErrorDescription)
+		}
+		return fmt.Errorf("okta token endpoint returned HTTP %d: %s", statusCode, parsed.Error)
+	}
+	return fmt.Errorf("okta token endpoint returned HTTP %d: %s", statusCode, strings.TrimSpace(string(body)))
+}
+
 func createClientAssertion(orgURL, clientID string, privateKeySinger jose.Signer) (clientAssertion string, err error) {
 	claims := ClientAssertionClaims{
 		Subject:  clientID,
@@ -826,7 +844,7 @@ func getAccessTokenForPrivateKey(httpClient *http.Client, orgURL, clientAssertio
 		if strings.Contains(string(respBody), "invalid_dpop_proof") {
 			return getAccessTokenForDpopPrivateKey(tokenRequest, httpClient, orgURL, "", maxRetries, maxBackoff, newClientAssertion, strings.Join(scopes, " "), clientID, signer)
 		} else {
-			return nil, "", nil, err
+			return nil, "", nil, tokenEndpointError(tokenResponse.StatusCode, respBody)
 		}
 	}
 
@@ -884,7 +902,7 @@ func getAccessTokenForDpopPrivateKey(tokenRequest *http.Request, httpClient *htt
 			newNonce := tokenResponse.Header.Get("Dpop-Nonce")
 			return getAccessTokenForDpopPrivateKey(tokenRequest, httpClient, orgURL, newNonce, maxRetries, maxBackoff, clientAssertion, scopes, clientID, signer)
 		} else {
-			return nil, "", nil, err
+			return nil, "", nil, tokenEndpointError(tokenResponse.StatusCode, respBody)
 		}
 	}
 	origResp := io.NopCloser(bytes.NewBuffer(respBody))
