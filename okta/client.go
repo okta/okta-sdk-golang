@@ -545,6 +545,10 @@ func (a *JWTAuth) Authorize(method, URL string) error {
 			}
 		}
 	} else {
+		// JWTAuth only has a caller-supplied assertion and no signer, so it cannot
+		// mint a fresh one. A use_dpop_nonce retry would replay this assertion; for
+		// a DPoP-required org, JWT mode therefore requires the caller to supply a
+		// reusable assertion. (Non-DPoP orgs are unaffected — single request.)
 		accessToken, nonce, privateKey, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, a.clientAssertion, a.userAgent, a.scopes, a.maxRetries, a.maxBackoff, "", nil)
 		if err != nil {
 			return err
@@ -666,7 +670,9 @@ func (a *JWKAuth) Authorize(method, URL string) error {
 			return err
 		}
 
-		accessToken, nonce, dpopPrivateKey, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, clientAssertion, a.userAgent, a.scopes, a.maxRetries, a.maxBackoff, "", nil)
+		// Pass the signer so a use_dpop_nonce retry can mint a fresh (single-use)
+		// client assertion rather than replaying this one.
+		accessToken, nonce, dpopPrivateKey, err := getAccessTokenForPrivateKey(a.httpClient, a.orgURL, clientAssertion, a.userAgent, a.scopes, a.maxRetries, a.maxBackoff, a.clientId, a.privateKeySigner)
 		if err != nil {
 			return err
 		}
@@ -780,118 +786,123 @@ func createClientAssertion(orgURL, clientID string, privateKeySinger jose.Signer
 	return jwtBuilder.Serialize()
 }
 
+// getAccessTokenForPrivateKey requests an access token using the private-key /
+// JWT client-credentials flow, attempting DPoP up front (DPoP-first).
+//
+// Previously this sent the first token request without a DPoP proof and only
+// retried with one after Okta rejected it with invalid_dpop_proof. For an app
+// with "Require DPoP" enabled, that proofless request is recorded as a failed
+// token grant in the org System Log on every token acquisition, and costs an
+// extra round trip. Per RFC 9449, a DPoP-capable client should attach a proof
+// proactively, so the proofless request never happens.
+//
+// The first successful response is then adapted to: if Okta issued a DPoP-bound
+// token, DPoP material is returned so the caller attaches per-request proofs; if
+// the app does not require DPoP, Okta ignores the proof and returns a Bearer
+// token, in which case the DPoP material is dropped and Bearer is used.
 func getAccessTokenForPrivateKey(httpClient *http.Client, orgURL, clientAssertion, userAgent string, scopes []string, maxRetries int32, maxBackoff int64, clientID string, signer jose.Signer) (*RequestAccessToken, string, *rsa.PrivateKey, error) {
-	query := url.Values{}
 	tokenRequestURL := orgURL + "/oauth2/v1/token"
 
-	query.Add("grant_type", "client_credentials")
-	query.Add("scope", strings.Join(scopes, " "))
-	query.Add("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
-	query.Add("client_assertion", clientAssertion)
-
-	tokenRequest, err := http.NewRequest("POST", tokenRequestURL, strings.NewReader(query.Encode()))
-	if err != nil {
-		return nil, "", nil, err
-	}
-	tokenRequest.Header.Add("Accept", "application/json")
-	tokenRequest.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-	tokenRequest.Header.Add("User-Agent", userAgent)
-	bOff := &oktaBackoff{
-		ctx:             context.Background(),
-		maxRetries:      maxRetries,
-		backoffDuration: time.Duration(maxBackoff),
-	}
-	var tokenResponse *http.Response
-	operation := func() (*http.Response, error) {
-		resp, err := httpClient.Do(tokenRequest)
-		bOff.retryCount++
-		return resp, err
-	}
-	tokenResponse, err = backoff.Retry(context.Background(), operation, backoff.WithBackOff(bOff))
+	// One DPoP key is generated and reused across the use_dpop_nonce retry.
+	dpopKey, err := generatePrivateKey(2048)
 	if err != nil {
 		return nil, "", nil, err
 	}
 
-	respBody, err := io.ReadAll(tokenResponse.Body)
-	origResp := io.NopCloser(bytes.NewBuffer(respBody))
-	tokenResponse.Body = origResp
-	var accessToken *RequestAccessToken
-
-	newClientAssertion, err := createClientAssertion(orgURL, clientID, signer)
-	if err != nil {
-		return nil, "", nil, err
-	}
-
-	if tokenResponse.StatusCode >= 300 {
-		if strings.Contains(string(respBody), "invalid_dpop_proof") {
-			return getAccessTokenForDpopPrivateKey(tokenRequest, httpClient, orgURL, "", maxRetries, maxBackoff, newClientAssertion, strings.Join(scopes, " "), clientID, signer)
-		} else {
+	// nonce is empty on the first attempt; if the app requires DPoP, Okta
+	// responds with use_dpop_nonce and a Dpop-Nonce header, and we retry once.
+	// nonceRetried bounds that to a single retry even if the server keeps
+	// asking, and we only retry when it actually supplied a nonce.
+	nonce := ""
+	nonceRetried := false
+	for {
+		dpopJWT, err := generateDpopJWT(dpopKey, http.MethodPost, tokenRequestURL, nonce, "")
+		if err != nil {
 			return nil, "", nil, err
 		}
-	}
 
-	_, err = buildResponse(tokenResponse, nil, &accessToken)
-	if err != nil {
-		return nil, "", nil, err
-	}
-	return accessToken, "", nil, nil
-}
+		// Client assertions are single-use, so mint a fresh one per attempt when
+		// a signer is available; otherwise reuse the caller-supplied assertion.
+		assertion := clientAssertion
+		if signer != nil {
+			assertion, err = createClientAssertion(orgURL, clientID, signer)
+			if err != nil {
+				return nil, "", nil, err
+			}
+		}
 
-func getAccessTokenForDpopPrivateKey(tokenRequest *http.Request, httpClient *http.Client, orgURL, nonce string, maxRetries int32, maxBackoff int64, clientAssertion string, scopes string, clientID string, signer jose.Signer) (*RequestAccessToken, string, *rsa.PrivateKey, error) {
-	privateKey, err := generatePrivateKey(2048)
-	if err != nil {
-		return nil, "", nil, err
-	}
-	dpopJWT, err := generateDpopJWT(privateKey, http.MethodPost, fmt.Sprintf("%v%v", orgURL, "/oauth2/v1/token"), nonce, "")
-	if err != nil {
-		return nil, "", nil, err
-	}
-	newClientAssertion, err := createClientAssertion(orgURL, clientID, signer)
-	if err != nil {
-		return nil, "", nil, err
-	}
+		query := url.Values{}
+		query.Add("grant_type", "client_credentials")
+		query.Add("scope", strings.Join(scopes, " "))
+		query.Add("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
+		query.Add("client_assertion", assertion)
+		body := query.Encode()
 
-	query := url.Values{}
-	query.Add("grant_type", "client_credentials")
-	query.Add("scope", scopes)
-	query.Add("client_assertion_type", "urn:ietf:params:oauth:client-assertion-type:jwt-bearer")
-	query.Add("client_assertion", newClientAssertion)
-	tokenRequest.Body = io.NopCloser(strings.NewReader(query.Encode()))
-	tokenRequest.Header.Set("DPoP", dpopJWT)
+		tokenRequest, err := http.NewRequest("POST", tokenRequestURL, strings.NewReader(body))
+		if err != nil {
+			return nil, "", nil, err
+		}
+		tokenRequest.Header.Add("Accept", "application/json")
+		tokenRequest.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+		tokenRequest.Header.Add("User-Agent", userAgent)
+		tokenRequest.Header.Set("DPoP", dpopJWT)
 
-	bOff := &oktaBackoff{
-		ctx:             context.Background(),
-		maxRetries:      maxRetries,
-		backoffDuration: time.Duration(maxBackoff),
-	}
-	var tokenResponse *http.Response
-	operation := func() (*http.Response, error) {
-		resp, err := httpClient.Do(tokenRequest)
-		bOff.retryCount++
-		return resp, err
-	}
-	tokenResponse, err = backoff.Retry(context.Background(), operation, backoff.WithBackOff(bOff))
-	if err != nil {
-		return nil, "", nil, err
-	}
-	respBody, err := io.ReadAll(tokenResponse.Body)
-	if err != nil {
-		return nil, "", nil, err
-	}
+		bOff := &oktaBackoff{
+			ctx:             context.Background(),
+			maxRetries:      maxRetries,
+			backoffDuration: time.Duration(maxBackoff),
+		}
+		var tokenResponse *http.Response
+		operation := func() (*http.Response, error) {
+			// Rewind the body so a transport-error backoff retry re-sends it.
+			// (429/5xx come back as a response with a nil error, so backoff does not retry them here.)
+			tokenRequest.Body = io.NopCloser(strings.NewReader(body))
+			resp, err := httpClient.Do(tokenRequest)
+			bOff.retryCount++
+			return resp, err
+		}
+		tokenResponse, err = backoff.Retry(context.Background(), operation, backoff.WithBackOff(bOff))
+		if err != nil {
+			return nil, "", nil, err
+		}
 
-	if tokenResponse.StatusCode >= 300 {
-		if strings.Contains(string(respBody), "use_dpop_nonce") {
+		respBody, err := io.ReadAll(tokenResponse.Body)
+		closeErr := tokenResponse.Body.Close()
+		if err != nil {
+			return nil, "", nil, err
+		}
+		if closeErr != nil {
+			return nil, "", nil, closeErr
+		}
+		tokenResponse.Body = io.NopCloser(bytes.NewBuffer(respBody))
+
+		if tokenResponse.StatusCode >= 300 {
+			// Retry exactly once, only if Okta asked for a nonce and provided one.
 			newNonce := tokenResponse.Header.Get("Dpop-Nonce")
-			return getAccessTokenForDpopPrivateKey(tokenRequest, httpClient, orgURL, newNonce, maxRetries, maxBackoff, clientAssertion, scopes, clientID, signer)
-		} else {
+			if !nonceRetried && newNonce != "" && strings.Contains(string(respBody), "use_dpop_nonce") {
+				nonce = newNonce
+				nonceRetried = true
+				continue
+			}
+			return nil, "", nil, fmt.Errorf("token request failed (%d): %s", tokenResponse.StatusCode, strings.TrimSpace(string(respBody)))
+		}
+
+		var accessToken *RequestAccessToken
+		if _, err = buildResponse(tokenResponse, nil, &accessToken); err != nil {
 			return nil, "", nil, err
 		}
+		if accessToken == nil || accessToken.AccessToken == "" {
+			return nil, "", nil, fmt.Errorf("token response did not contain an access token")
+		}
+
+		// If the app does not require DPoP, Okta ignores the proof and returns a
+		// Bearer token; drop the DPoP material so no per-request proof is attached
+		// and no key is reused on refresh.
+		if accessToken.TokenType != "DPoP" {
+			return accessToken, "", nil, nil
+		}
+		return accessToken, nonce, dpopKey, nil
 	}
-	origResp := io.NopCloser(bytes.NewBuffer(respBody))
-	tokenResponse.Body = origResp
-	var accessToken *RequestAccessToken
-	_, err = buildResponse(tokenResponse, nil, &accessToken)
-	return accessToken, nonce, privateKey, nil
 }
 
 // NewAPIClient creates a new API client. Requires a userAgent string describing your application.
