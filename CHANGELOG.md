@@ -1,6 +1,9 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## Unreleased
+- Surface real errors from the `/oauth2/v1/token` endpoint when using `PrivateKey`/`JWT` auth. Previously a 4xx/5xx token response was silently swallowed and callers saw a misleading "Empty access token" error instead of Okta's actual `error` / `error_description` (e.g. `invalid_client`, `invalid_scope`). DPoP routing on `invalid_dpop_proof` / `use_dpop_nonce` is preserved. See [#452](https://github.com/okta/okta-sdk-golang/pull/452) for prior context.
+
 ## v6.1.6
 - Fix UserIdentifierPolicyRuleCondition by making patterns and type as optional parameters. Thanks [@pranav-okta](https://github.com/pranav-okta)
 
