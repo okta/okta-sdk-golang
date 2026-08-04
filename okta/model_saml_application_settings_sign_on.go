@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the SamlApplicationSettingsSignOn type satisfies the MappedNullable interface at compile time
@@ -36,59 +35,59 @@ type SamlApplicationSettingsSignOn struct {
 	// An array of ACS endpoints. You can configure a maximum of 100 endpoints.
 	AcsEndpoints []AcsEndpoint `json:"acsEndpoints,omitempty"`
 	// Determines whether the app allows you to configure multiple ACS URIs
-	AllowMultipleAcsEndpoints bool                     `json:"allowMultipleAcsEndpoints"`
+	AllowMultipleAcsEndpoints *bool                    `json:"allowMultipleAcsEndpoints,omitempty"`
 	AssertionEncryption       *SamlAssertionEncryption `json:"assertionEncryption,omitempty"`
 	// Determines whether the SAML assertion is digitally signed
-	AssertionSigned bool `json:"assertionSigned"`
+	AssertionSigned *bool `json:"assertionSigned,omitempty"`
 	// A list of custom attribute statements for the app's SAML assertion. See [SAML 2.0 Technical Overview](https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0-cd-02.html).  There are two types of attribute statements: | Type | Description | | ---- | ----------- | | EXPRESSION | Generic attribute statement that can be dynamic and supports [Okta Expression Language](https://developer.okta.com/docs/reference/okta-expression-language/) | | GROUP | Group attribute statement |
 	AttributeStatements []SamlAttributeStatement `json:"attributeStatements,omitempty"`
 	// The entity ID of the SP. Use the entity ID value exactly as provided by the SP.
-	Audience string `json:"audience"`
+	Audience *string `json:"audience,omitempty"`
 	// Audience override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm).
 	AudienceOverride *string `json:"audienceOverride,omitempty"`
 	// Identifies the SAML authentication context class for the assertion's authentication statement
-	AuthnContextClassRef string `json:"authnContextClassRef"`
+	AuthnContextClassRef *string `json:"authnContextClassRef,omitempty"`
 	// The list of dynamic attribute statements for the SAML assertion inherited from app metadata (apps from the OIN) during app creation.  There are two types of attribute statements: `EXPRESSION` and `GROUP`.
 	ConfiguredAttributeStatements []SamlAttributeStatement `json:"configuredAttributeStatements,omitempty"`
 	// Identifies a specific application resource in an IdP-initiated SSO scenario
 	DefaultRelayState *string `json:"defaultRelayState,omitempty"`
 	// Identifies the location inside the SAML assertion where the SAML response should be sent
-	Destination string `json:"destination"`
+	Destination *string `json:"destination,omitempty"`
 	// Destination override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm).
 	DestinationOverride *string `json:"destinationOverride,omitempty"`
 	// Determines the digest algorithm used to digitally sign the SAML assertion and response
-	DigestAlgorithm string `json:"digestAlgorithm"`
+	DigestAlgorithm *string `json:"digestAlgorithm,omitempty"`
 	// Set to `true` to prompt users for their credentials when a SAML request has the `ForceAuthn` attribute set to `true`
-	HonorForceAuthn bool `json:"honorForceAuthn"`
+	HonorForceAuthn *bool `json:"honorForceAuthn,omitempty"`
 	// SAML Issuer ID
-	IdpIssuer string `json:"idpIssuer"`
+	IdpIssuer *string `json:"idpIssuer,omitempty"`
 	// Associates the app with SAML inline hooks. See [the SAML assertion inline hook reference](https://developer.okta.com/docs/reference/saml-hook/).
 	InlineHooks    []SignOnInlineHook `json:"inlineHooks,omitempty"`
 	ParticipateSlo *SloParticipate    `json:"participateSlo,omitempty"`
 	// The location where the app may present the SAML assertion
-	Recipient string `json:"recipient"`
+	Recipient *string `json:"recipient,omitempty"`
 	// Recipient override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm).
 	RecipientOverride *string `json:"recipientOverride,omitempty"`
 	// Determines whether the SAML request is expected to be compressed
-	RequestCompressed bool `json:"requestCompressed"`
+	RequestCompressed *bool `json:"requestCompressed,omitempty"`
 	// Determines whether the SAML authentication response message is digitally signed by the IdP > **Note:** Either (or both) `responseSigned` or `assertionSigned` must be `TRUE`.
-	ResponseSigned bool `json:"responseSigned"`
+	ResponseSigned *bool `json:"responseSigned,omitempty"`
 	// Determines the SAML app session lifetimes with Okta
 	SamlAssertionLifetimeSeconds *int32 `json:"samlAssertionLifetimeSeconds,omitempty"`
 	// Determines the signing algorithm used to digitally sign the SAML assertion and response
-	SignatureAlgorithm string             `json:"signatureAlgorithm"`
+	SignatureAlgorithm *string            `json:"signatureAlgorithm,omitempty"`
 	Slo                *SingleLogout      `json:"slo,omitempty"`
 	SpCertificate      *SamlSpCertificate `json:"spCertificate,omitempty"`
 	// The issuer ID for the Service Provider. This property appears when SLO is enabled.
 	SpIssuer *string `json:"spIssuer,omitempty"`
 	// Single Sign-On Assertion Consumer Service (ACS) URL
-	SsoAcsUrl string `json:"ssoAcsUrl"`
+	SsoAcsUrl *string `json:"ssoAcsUrl,omitempty"`
 	// Assertion Consumer Service (ACS) URL override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm).
 	SsoAcsUrlOverride *string `json:"ssoAcsUrlOverride,omitempty"`
 	// Identifies the SAML processing rules. Supported values:
-	SubjectNameIdFormat string `json:"subjectNameIdFormat"`
+	SubjectNameIdFormat *string `json:"subjectNameIdFormat,omitempty"`
 	// Template for app user's username when a user is assigned to the app
-	SubjectNameIdTemplate string `json:"subjectNameIdTemplate"`
+	SubjectNameIdTemplate *string `json:"subjectNameIdTemplate,omitempty"`
 	AdditionalProperties  map[string]interface{}
 }
 
@@ -98,23 +97,8 @@ type _SamlApplicationSettingsSignOn SamlApplicationSettingsSignOn
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSamlApplicationSettingsSignOn(allowMultipleAcsEndpoints bool, assertionSigned bool, audience string, authnContextClassRef string, destination string, digestAlgorithm string, honorForceAuthn bool, idpIssuer string, recipient string, requestCompressed bool, responseSigned bool, signatureAlgorithm string, ssoAcsUrl string, subjectNameIdFormat string, subjectNameIdTemplate string) *SamlApplicationSettingsSignOn {
+func NewSamlApplicationSettingsSignOn() *SamlApplicationSettingsSignOn {
 	this := SamlApplicationSettingsSignOn{}
-	this.AllowMultipleAcsEndpoints = allowMultipleAcsEndpoints
-	this.AssertionSigned = assertionSigned
-	this.Audience = audience
-	this.AuthnContextClassRef = authnContextClassRef
-	this.Destination = destination
-	this.DigestAlgorithm = digestAlgorithm
-	this.HonorForceAuthn = honorForceAuthn
-	this.IdpIssuer = idpIssuer
-	this.Recipient = recipient
-	this.RequestCompressed = requestCompressed
-	this.ResponseSigned = responseSigned
-	this.SignatureAlgorithm = signatureAlgorithm
-	this.SsoAcsUrl = ssoAcsUrl
-	this.SubjectNameIdFormat = subjectNameIdFormat
-	this.SubjectNameIdTemplate = subjectNameIdTemplate
 	return &this
 }
 
@@ -158,28 +142,36 @@ func (o *SamlApplicationSettingsSignOn) SetAcsEndpoints(v []AcsEndpoint) {
 	o.AcsEndpoints = v
 }
 
-// GetAllowMultipleAcsEndpoints returns the AllowMultipleAcsEndpoints field value
+// GetAllowMultipleAcsEndpoints returns the AllowMultipleAcsEndpoints field value if set, zero value otherwise.
 func (o *SamlApplicationSettingsSignOn) GetAllowMultipleAcsEndpoints() bool {
-	if o == nil {
+	if o == nil || IsNil(o.AllowMultipleAcsEndpoints) {
 		var ret bool
 		return ret
 	}
-
-	return o.AllowMultipleAcsEndpoints
+	return *o.AllowMultipleAcsEndpoints
 }
 
-// GetAllowMultipleAcsEndpointsOk returns a tuple with the AllowMultipleAcsEndpoints field value
+// GetAllowMultipleAcsEndpointsOk returns a tuple with the AllowMultipleAcsEndpoints field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlApplicationSettingsSignOn) GetAllowMultipleAcsEndpointsOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.AllowMultipleAcsEndpoints) {
 		return nil, false
 	}
-	return &o.AllowMultipleAcsEndpoints, true
+	return o.AllowMultipleAcsEndpoints, true
 }
 
-// SetAllowMultipleAcsEndpoints sets field value
+// HasAllowMultipleAcsEndpoints returns a boolean if a field has been set.
+func (o *SamlApplicationSettingsSignOn) HasAllowMultipleAcsEndpoints() bool {
+	if o != nil && !IsNil(o.AllowMultipleAcsEndpoints) {
+		return true
+	}
+
+	return false
+}
+
+// SetAllowMultipleAcsEndpoints gets a reference to the given bool and assigns it to the AllowMultipleAcsEndpoints field.
 func (o *SamlApplicationSettingsSignOn) SetAllowMultipleAcsEndpoints(v bool) {
-	o.AllowMultipleAcsEndpoints = v
+	o.AllowMultipleAcsEndpoints = &v
 }
 
 // GetAssertionEncryption returns the AssertionEncryption field value if set, zero value otherwise.
@@ -214,28 +206,36 @@ func (o *SamlApplicationSettingsSignOn) SetAssertionEncryption(v SamlAssertionEn
 	o.AssertionEncryption = &v
 }
 
-// GetAssertionSigned returns the AssertionSigned field value
+// GetAssertionSigned returns the AssertionSigned field value if set, zero value otherwise.
 func (o *SamlApplicationSettingsSignOn) GetAssertionSigned() bool {
-	if o == nil {
+	if o == nil || IsNil(o.AssertionSigned) {
 		var ret bool
 		return ret
 	}
-
-	return o.AssertionSigned
+	return *o.AssertionSigned
 }
 
-// GetAssertionSignedOk returns a tuple with the AssertionSigned field value
+// GetAssertionSignedOk returns a tuple with the AssertionSigned field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlApplicationSettingsSignOn) GetAssertionSignedOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.AssertionSigned) {
 		return nil, false
 	}
-	return &o.AssertionSigned, true
+	return o.AssertionSigned, true
 }
 
-// SetAssertionSigned sets field value
+// HasAssertionSigned returns a boolean if a field has been set.
+func (o *SamlApplicationSettingsSignOn) HasAssertionSigned() bool {
+	if o != nil && !IsNil(o.AssertionSigned) {
+		return true
+	}
+
+	return false
+}
+
+// SetAssertionSigned gets a reference to the given bool and assigns it to the AssertionSigned field.
 func (o *SamlApplicationSettingsSignOn) SetAssertionSigned(v bool) {
-	o.AssertionSigned = v
+	o.AssertionSigned = &v
 }
 
 // GetAttributeStatements returns the AttributeStatements field value if set, zero value otherwise.
@@ -270,28 +270,36 @@ func (o *SamlApplicationSettingsSignOn) SetAttributeStatements(v []SamlAttribute
 	o.AttributeStatements = v
 }
 
-// GetAudience returns the Audience field value
+// GetAudience returns the Audience field value if set, zero value otherwise.
 func (o *SamlApplicationSettingsSignOn) GetAudience() string {
-	if o == nil {
+	if o == nil || IsNil(o.Audience) {
 		var ret string
 		return ret
 	}
-
-	return o.Audience
+	return *o.Audience
 }
 
-// GetAudienceOk returns a tuple with the Audience field value
+// GetAudienceOk returns a tuple with the Audience field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlApplicationSettingsSignOn) GetAudienceOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Audience) {
 		return nil, false
 	}
-	return &o.Audience, true
+	return o.Audience, true
 }
 
-// SetAudience sets field value
+// HasAudience returns a boolean if a field has been set.
+func (o *SamlApplicationSettingsSignOn) HasAudience() bool {
+	if o != nil && !IsNil(o.Audience) {
+		return true
+	}
+
+	return false
+}
+
+// SetAudience gets a reference to the given string and assigns it to the Audience field.
 func (o *SamlApplicationSettingsSignOn) SetAudience(v string) {
-	o.Audience = v
+	o.Audience = &v
 }
 
 // GetAudienceOverride returns the AudienceOverride field value if set, zero value otherwise.
@@ -326,28 +334,36 @@ func (o *SamlApplicationSettingsSignOn) SetAudienceOverride(v string) {
 	o.AudienceOverride = &v
 }
 
-// GetAuthnContextClassRef returns the AuthnContextClassRef field value
+// GetAuthnContextClassRef returns the AuthnContextClassRef field value if set, zero value otherwise.
 func (o *SamlApplicationSettingsSignOn) GetAuthnContextClassRef() string {
-	if o == nil {
+	if o == nil || IsNil(o.AuthnContextClassRef) {
 		var ret string
 		return ret
 	}
-
-	return o.AuthnContextClassRef
+	return *o.AuthnContextClassRef
 }
 
-// GetAuthnContextClassRefOk returns a tuple with the AuthnContextClassRef field value
+// GetAuthnContextClassRefOk returns a tuple with the AuthnContextClassRef field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlApplicationSettingsSignOn) GetAuthnContextClassRefOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.AuthnContextClassRef) {
 		return nil, false
 	}
-	return &o.AuthnContextClassRef, true
+	return o.AuthnContextClassRef, true
 }
 
-// SetAuthnContextClassRef sets field value
+// HasAuthnContextClassRef returns a boolean if a field has been set.
+func (o *SamlApplicationSettingsSignOn) HasAuthnContextClassRef() bool {
+	if o != nil && !IsNil(o.AuthnContextClassRef) {
+		return true
+	}
+
+	return false
+}
+
+// SetAuthnContextClassRef gets a reference to the given string and assigns it to the AuthnContextClassRef field.
 func (o *SamlApplicationSettingsSignOn) SetAuthnContextClassRef(v string) {
-	o.AuthnContextClassRef = v
+	o.AuthnContextClassRef = &v
 }
 
 // GetConfiguredAttributeStatements returns the ConfiguredAttributeStatements field value if set, zero value otherwise.
@@ -414,28 +430,36 @@ func (o *SamlApplicationSettingsSignOn) SetDefaultRelayState(v string) {
 	o.DefaultRelayState = &v
 }
 
-// GetDestination returns the Destination field value
+// GetDestination returns the Destination field value if set, zero value otherwise.
 func (o *SamlApplicationSettingsSignOn) GetDestination() string {
-	if o == nil {
+	if o == nil || IsNil(o.Destination) {
 		var ret string
 		return ret
 	}
-
-	return o.Destination
+	return *o.Destination
 }
 
-// GetDestinationOk returns a tuple with the Destination field value
+// GetDestinationOk returns a tuple with the Destination field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlApplicationSettingsSignOn) GetDestinationOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Destination) {
 		return nil, false
 	}
-	return &o.Destination, true
+	return o.Destination, true
 }
 
-// SetDestination sets field value
+// HasDestination returns a boolean if a field has been set.
+func (o *SamlApplicationSettingsSignOn) HasDestination() bool {
+	if o != nil && !IsNil(o.Destination) {
+		return true
+	}
+
+	return false
+}
+
+// SetDestination gets a reference to the given string and assigns it to the Destination field.
 func (o *SamlApplicationSettingsSignOn) SetDestination(v string) {
-	o.Destination = v
+	o.Destination = &v
 }
 
 // GetDestinationOverride returns the DestinationOverride field value if set, zero value otherwise.
@@ -470,76 +494,100 @@ func (o *SamlApplicationSettingsSignOn) SetDestinationOverride(v string) {
 	o.DestinationOverride = &v
 }
 
-// GetDigestAlgorithm returns the DigestAlgorithm field value
+// GetDigestAlgorithm returns the DigestAlgorithm field value if set, zero value otherwise.
 func (o *SamlApplicationSettingsSignOn) GetDigestAlgorithm() string {
-	if o == nil {
+	if o == nil || IsNil(o.DigestAlgorithm) {
 		var ret string
 		return ret
 	}
-
-	return o.DigestAlgorithm
+	return *o.DigestAlgorithm
 }
 
-// GetDigestAlgorithmOk returns a tuple with the DigestAlgorithm field value
+// GetDigestAlgorithmOk returns a tuple with the DigestAlgorithm field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlApplicationSettingsSignOn) GetDigestAlgorithmOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.DigestAlgorithm) {
 		return nil, false
 	}
-	return &o.DigestAlgorithm, true
+	return o.DigestAlgorithm, true
 }
 
-// SetDigestAlgorithm sets field value
+// HasDigestAlgorithm returns a boolean if a field has been set.
+func (o *SamlApplicationSettingsSignOn) HasDigestAlgorithm() bool {
+	if o != nil && !IsNil(o.DigestAlgorithm) {
+		return true
+	}
+
+	return false
+}
+
+// SetDigestAlgorithm gets a reference to the given string and assigns it to the DigestAlgorithm field.
 func (o *SamlApplicationSettingsSignOn) SetDigestAlgorithm(v string) {
-	o.DigestAlgorithm = v
+	o.DigestAlgorithm = &v
 }
 
-// GetHonorForceAuthn returns the HonorForceAuthn field value
+// GetHonorForceAuthn returns the HonorForceAuthn field value if set, zero value otherwise.
 func (o *SamlApplicationSettingsSignOn) GetHonorForceAuthn() bool {
-	if o == nil {
+	if o == nil || IsNil(o.HonorForceAuthn) {
 		var ret bool
 		return ret
 	}
-
-	return o.HonorForceAuthn
+	return *o.HonorForceAuthn
 }
 
-// GetHonorForceAuthnOk returns a tuple with the HonorForceAuthn field value
+// GetHonorForceAuthnOk returns a tuple with the HonorForceAuthn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlApplicationSettingsSignOn) GetHonorForceAuthnOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.HonorForceAuthn) {
 		return nil, false
 	}
-	return &o.HonorForceAuthn, true
+	return o.HonorForceAuthn, true
 }
 
-// SetHonorForceAuthn sets field value
+// HasHonorForceAuthn returns a boolean if a field has been set.
+func (o *SamlApplicationSettingsSignOn) HasHonorForceAuthn() bool {
+	if o != nil && !IsNil(o.HonorForceAuthn) {
+		return true
+	}
+
+	return false
+}
+
+// SetHonorForceAuthn gets a reference to the given bool and assigns it to the HonorForceAuthn field.
 func (o *SamlApplicationSettingsSignOn) SetHonorForceAuthn(v bool) {
-	o.HonorForceAuthn = v
+	o.HonorForceAuthn = &v
 }
 
-// GetIdpIssuer returns the IdpIssuer field value
+// GetIdpIssuer returns the IdpIssuer field value if set, zero value otherwise.
 func (o *SamlApplicationSettingsSignOn) GetIdpIssuer() string {
-	if o == nil {
+	if o == nil || IsNil(o.IdpIssuer) {
 		var ret string
 		return ret
 	}
-
-	return o.IdpIssuer
+	return *o.IdpIssuer
 }
 
-// GetIdpIssuerOk returns a tuple with the IdpIssuer field value
+// GetIdpIssuerOk returns a tuple with the IdpIssuer field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlApplicationSettingsSignOn) GetIdpIssuerOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.IdpIssuer) {
 		return nil, false
 	}
-	return &o.IdpIssuer, true
+	return o.IdpIssuer, true
 }
 
-// SetIdpIssuer sets field value
+// HasIdpIssuer returns a boolean if a field has been set.
+func (o *SamlApplicationSettingsSignOn) HasIdpIssuer() bool {
+	if o != nil && !IsNil(o.IdpIssuer) {
+		return true
+	}
+
+	return false
+}
+
+// SetIdpIssuer gets a reference to the given string and assigns it to the IdpIssuer field.
 func (o *SamlApplicationSettingsSignOn) SetIdpIssuer(v string) {
-	o.IdpIssuer = v
+	o.IdpIssuer = &v
 }
 
 // GetInlineHooks returns the InlineHooks field value if set, zero value otherwise.
@@ -606,28 +654,36 @@ func (o *SamlApplicationSettingsSignOn) SetParticipateSlo(v SloParticipate) {
 	o.ParticipateSlo = &v
 }
 
-// GetRecipient returns the Recipient field value
+// GetRecipient returns the Recipient field value if set, zero value otherwise.
 func (o *SamlApplicationSettingsSignOn) GetRecipient() string {
-	if o == nil {
+	if o == nil || IsNil(o.Recipient) {
 		var ret string
 		return ret
 	}
-
-	return o.Recipient
+	return *o.Recipient
 }
 
-// GetRecipientOk returns a tuple with the Recipient field value
+// GetRecipientOk returns a tuple with the Recipient field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlApplicationSettingsSignOn) GetRecipientOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Recipient) {
 		return nil, false
 	}
-	return &o.Recipient, true
+	return o.Recipient, true
 }
 
-// SetRecipient sets field value
+// HasRecipient returns a boolean if a field has been set.
+func (o *SamlApplicationSettingsSignOn) HasRecipient() bool {
+	if o != nil && !IsNil(o.Recipient) {
+		return true
+	}
+
+	return false
+}
+
+// SetRecipient gets a reference to the given string and assigns it to the Recipient field.
 func (o *SamlApplicationSettingsSignOn) SetRecipient(v string) {
-	o.Recipient = v
+	o.Recipient = &v
 }
 
 // GetRecipientOverride returns the RecipientOverride field value if set, zero value otherwise.
@@ -662,52 +718,68 @@ func (o *SamlApplicationSettingsSignOn) SetRecipientOverride(v string) {
 	o.RecipientOverride = &v
 }
 
-// GetRequestCompressed returns the RequestCompressed field value
+// GetRequestCompressed returns the RequestCompressed field value if set, zero value otherwise.
 func (o *SamlApplicationSettingsSignOn) GetRequestCompressed() bool {
-	if o == nil {
+	if o == nil || IsNil(o.RequestCompressed) {
 		var ret bool
 		return ret
 	}
-
-	return o.RequestCompressed
+	return *o.RequestCompressed
 }
 
-// GetRequestCompressedOk returns a tuple with the RequestCompressed field value
+// GetRequestCompressedOk returns a tuple with the RequestCompressed field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlApplicationSettingsSignOn) GetRequestCompressedOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.RequestCompressed) {
 		return nil, false
 	}
-	return &o.RequestCompressed, true
+	return o.RequestCompressed, true
 }
 
-// SetRequestCompressed sets field value
+// HasRequestCompressed returns a boolean if a field has been set.
+func (o *SamlApplicationSettingsSignOn) HasRequestCompressed() bool {
+	if o != nil && !IsNil(o.RequestCompressed) {
+		return true
+	}
+
+	return false
+}
+
+// SetRequestCompressed gets a reference to the given bool and assigns it to the RequestCompressed field.
 func (o *SamlApplicationSettingsSignOn) SetRequestCompressed(v bool) {
-	o.RequestCompressed = v
+	o.RequestCompressed = &v
 }
 
-// GetResponseSigned returns the ResponseSigned field value
+// GetResponseSigned returns the ResponseSigned field value if set, zero value otherwise.
 func (o *SamlApplicationSettingsSignOn) GetResponseSigned() bool {
-	if o == nil {
+	if o == nil || IsNil(o.ResponseSigned) {
 		var ret bool
 		return ret
 	}
-
-	return o.ResponseSigned
+	return *o.ResponseSigned
 }
 
-// GetResponseSignedOk returns a tuple with the ResponseSigned field value
+// GetResponseSignedOk returns a tuple with the ResponseSigned field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlApplicationSettingsSignOn) GetResponseSignedOk() (*bool, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ResponseSigned) {
 		return nil, false
 	}
-	return &o.ResponseSigned, true
+	return o.ResponseSigned, true
 }
 
-// SetResponseSigned sets field value
+// HasResponseSigned returns a boolean if a field has been set.
+func (o *SamlApplicationSettingsSignOn) HasResponseSigned() bool {
+	if o != nil && !IsNil(o.ResponseSigned) {
+		return true
+	}
+
+	return false
+}
+
+// SetResponseSigned gets a reference to the given bool and assigns it to the ResponseSigned field.
 func (o *SamlApplicationSettingsSignOn) SetResponseSigned(v bool) {
-	o.ResponseSigned = v
+	o.ResponseSigned = &v
 }
 
 // GetSamlAssertionLifetimeSeconds returns the SamlAssertionLifetimeSeconds field value if set, zero value otherwise.
@@ -742,28 +814,36 @@ func (o *SamlApplicationSettingsSignOn) SetSamlAssertionLifetimeSeconds(v int32)
 	o.SamlAssertionLifetimeSeconds = &v
 }
 
-// GetSignatureAlgorithm returns the SignatureAlgorithm field value
+// GetSignatureAlgorithm returns the SignatureAlgorithm field value if set, zero value otherwise.
 func (o *SamlApplicationSettingsSignOn) GetSignatureAlgorithm() string {
-	if o == nil {
+	if o == nil || IsNil(o.SignatureAlgorithm) {
 		var ret string
 		return ret
 	}
-
-	return o.SignatureAlgorithm
+	return *o.SignatureAlgorithm
 }
 
-// GetSignatureAlgorithmOk returns a tuple with the SignatureAlgorithm field value
+// GetSignatureAlgorithmOk returns a tuple with the SignatureAlgorithm field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlApplicationSettingsSignOn) GetSignatureAlgorithmOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SignatureAlgorithm) {
 		return nil, false
 	}
-	return &o.SignatureAlgorithm, true
+	return o.SignatureAlgorithm, true
 }
 
-// SetSignatureAlgorithm sets field value
+// HasSignatureAlgorithm returns a boolean if a field has been set.
+func (o *SamlApplicationSettingsSignOn) HasSignatureAlgorithm() bool {
+	if o != nil && !IsNil(o.SignatureAlgorithm) {
+		return true
+	}
+
+	return false
+}
+
+// SetSignatureAlgorithm gets a reference to the given string and assigns it to the SignatureAlgorithm field.
 func (o *SamlApplicationSettingsSignOn) SetSignatureAlgorithm(v string) {
-	o.SignatureAlgorithm = v
+	o.SignatureAlgorithm = &v
 }
 
 // GetSlo returns the Slo field value if set, zero value otherwise.
@@ -862,28 +942,36 @@ func (o *SamlApplicationSettingsSignOn) SetSpIssuer(v string) {
 	o.SpIssuer = &v
 }
 
-// GetSsoAcsUrl returns the SsoAcsUrl field value
+// GetSsoAcsUrl returns the SsoAcsUrl field value if set, zero value otherwise.
 func (o *SamlApplicationSettingsSignOn) GetSsoAcsUrl() string {
-	if o == nil {
+	if o == nil || IsNil(o.SsoAcsUrl) {
 		var ret string
 		return ret
 	}
-
-	return o.SsoAcsUrl
+	return *o.SsoAcsUrl
 }
 
-// GetSsoAcsUrlOk returns a tuple with the SsoAcsUrl field value
+// GetSsoAcsUrlOk returns a tuple with the SsoAcsUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlApplicationSettingsSignOn) GetSsoAcsUrlOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SsoAcsUrl) {
 		return nil, false
 	}
-	return &o.SsoAcsUrl, true
+	return o.SsoAcsUrl, true
 }
 
-// SetSsoAcsUrl sets field value
+// HasSsoAcsUrl returns a boolean if a field has been set.
+func (o *SamlApplicationSettingsSignOn) HasSsoAcsUrl() bool {
+	if o != nil && !IsNil(o.SsoAcsUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetSsoAcsUrl gets a reference to the given string and assigns it to the SsoAcsUrl field.
 func (o *SamlApplicationSettingsSignOn) SetSsoAcsUrl(v string) {
-	o.SsoAcsUrl = v
+	o.SsoAcsUrl = &v
 }
 
 // GetSsoAcsUrlOverride returns the SsoAcsUrlOverride field value if set, zero value otherwise.
@@ -918,52 +1006,68 @@ func (o *SamlApplicationSettingsSignOn) SetSsoAcsUrlOverride(v string) {
 	o.SsoAcsUrlOverride = &v
 }
 
-// GetSubjectNameIdFormat returns the SubjectNameIdFormat field value
+// GetSubjectNameIdFormat returns the SubjectNameIdFormat field value if set, zero value otherwise.
 func (o *SamlApplicationSettingsSignOn) GetSubjectNameIdFormat() string {
-	if o == nil {
+	if o == nil || IsNil(o.SubjectNameIdFormat) {
 		var ret string
 		return ret
 	}
-
-	return o.SubjectNameIdFormat
+	return *o.SubjectNameIdFormat
 }
 
-// GetSubjectNameIdFormatOk returns a tuple with the SubjectNameIdFormat field value
+// GetSubjectNameIdFormatOk returns a tuple with the SubjectNameIdFormat field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlApplicationSettingsSignOn) GetSubjectNameIdFormatOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SubjectNameIdFormat) {
 		return nil, false
 	}
-	return &o.SubjectNameIdFormat, true
+	return o.SubjectNameIdFormat, true
 }
 
-// SetSubjectNameIdFormat sets field value
+// HasSubjectNameIdFormat returns a boolean if a field has been set.
+func (o *SamlApplicationSettingsSignOn) HasSubjectNameIdFormat() bool {
+	if o != nil && !IsNil(o.SubjectNameIdFormat) {
+		return true
+	}
+
+	return false
+}
+
+// SetSubjectNameIdFormat gets a reference to the given string and assigns it to the SubjectNameIdFormat field.
 func (o *SamlApplicationSettingsSignOn) SetSubjectNameIdFormat(v string) {
-	o.SubjectNameIdFormat = v
+	o.SubjectNameIdFormat = &v
 }
 
-// GetSubjectNameIdTemplate returns the SubjectNameIdTemplate field value
+// GetSubjectNameIdTemplate returns the SubjectNameIdTemplate field value if set, zero value otherwise.
 func (o *SamlApplicationSettingsSignOn) GetSubjectNameIdTemplate() string {
-	if o == nil {
+	if o == nil || IsNil(o.SubjectNameIdTemplate) {
 		var ret string
 		return ret
 	}
-
-	return o.SubjectNameIdTemplate
+	return *o.SubjectNameIdTemplate
 }
 
-// GetSubjectNameIdTemplateOk returns a tuple with the SubjectNameIdTemplate field value
+// GetSubjectNameIdTemplateOk returns a tuple with the SubjectNameIdTemplate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SamlApplicationSettingsSignOn) GetSubjectNameIdTemplateOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.SubjectNameIdTemplate) {
 		return nil, false
 	}
-	return &o.SubjectNameIdTemplate, true
+	return o.SubjectNameIdTemplate, true
 }
 
-// SetSubjectNameIdTemplate sets field value
+// HasSubjectNameIdTemplate returns a boolean if a field has been set.
+func (o *SamlApplicationSettingsSignOn) HasSubjectNameIdTemplate() bool {
+	if o != nil && !IsNil(o.SubjectNameIdTemplate) {
+		return true
+	}
+
+	return false
+}
+
+// SetSubjectNameIdTemplate gets a reference to the given string and assigns it to the SubjectNameIdTemplate field.
 func (o *SamlApplicationSettingsSignOn) SetSubjectNameIdTemplate(v string) {
-	o.SubjectNameIdTemplate = v
+	o.SubjectNameIdTemplate = &v
 }
 
 func (o SamlApplicationSettingsSignOn) MarshalJSON() ([]byte, error) {
@@ -979,48 +1083,72 @@ func (o SamlApplicationSettingsSignOn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AcsEndpoints) {
 		toSerialize["acsEndpoints"] = o.AcsEndpoints
 	}
-	toSerialize["allowMultipleAcsEndpoints"] = o.AllowMultipleAcsEndpoints
+	if !IsNil(o.AllowMultipleAcsEndpoints) {
+		toSerialize["allowMultipleAcsEndpoints"] = o.AllowMultipleAcsEndpoints
+	}
 	if !IsNil(o.AssertionEncryption) {
 		toSerialize["assertionEncryption"] = o.AssertionEncryption
 	}
-	toSerialize["assertionSigned"] = o.AssertionSigned
+	if !IsNil(o.AssertionSigned) {
+		toSerialize["assertionSigned"] = o.AssertionSigned
+	}
 	if !IsNil(o.AttributeStatements) {
 		toSerialize["attributeStatements"] = o.AttributeStatements
 	}
-	toSerialize["audience"] = o.Audience
+	if !IsNil(o.Audience) {
+		toSerialize["audience"] = o.Audience
+	}
 	if !IsNil(o.AudienceOverride) {
 		toSerialize["audienceOverride"] = o.AudienceOverride
 	}
-	toSerialize["authnContextClassRef"] = o.AuthnContextClassRef
+	if !IsNil(o.AuthnContextClassRef) {
+		toSerialize["authnContextClassRef"] = o.AuthnContextClassRef
+	}
 	if !IsNil(o.ConfiguredAttributeStatements) {
 		toSerialize["configuredAttributeStatements"] = o.ConfiguredAttributeStatements
 	}
 	if !IsNil(o.DefaultRelayState) {
 		toSerialize["defaultRelayState"] = o.DefaultRelayState
 	}
-	toSerialize["destination"] = o.Destination
+	if !IsNil(o.Destination) {
+		toSerialize["destination"] = o.Destination
+	}
 	if !IsNil(o.DestinationOverride) {
 		toSerialize["destinationOverride"] = o.DestinationOverride
 	}
-	toSerialize["digestAlgorithm"] = o.DigestAlgorithm
-	toSerialize["honorForceAuthn"] = o.HonorForceAuthn
-	toSerialize["idpIssuer"] = o.IdpIssuer
+	if !IsNil(o.DigestAlgorithm) {
+		toSerialize["digestAlgorithm"] = o.DigestAlgorithm
+	}
+	if !IsNil(o.HonorForceAuthn) {
+		toSerialize["honorForceAuthn"] = o.HonorForceAuthn
+	}
+	if !IsNil(o.IdpIssuer) {
+		toSerialize["idpIssuer"] = o.IdpIssuer
+	}
 	if !IsNil(o.InlineHooks) {
 		toSerialize["inlineHooks"] = o.InlineHooks
 	}
 	if !IsNil(o.ParticipateSlo) {
 		toSerialize["participateSlo"] = o.ParticipateSlo
 	}
-	toSerialize["recipient"] = o.Recipient
+	if !IsNil(o.Recipient) {
+		toSerialize["recipient"] = o.Recipient
+	}
 	if !IsNil(o.RecipientOverride) {
 		toSerialize["recipientOverride"] = o.RecipientOverride
 	}
-	toSerialize["requestCompressed"] = o.RequestCompressed
-	toSerialize["responseSigned"] = o.ResponseSigned
+	if !IsNil(o.RequestCompressed) {
+		toSerialize["requestCompressed"] = o.RequestCompressed
+	}
+	if !IsNil(o.ResponseSigned) {
+		toSerialize["responseSigned"] = o.ResponseSigned
+	}
 	if !IsNil(o.SamlAssertionLifetimeSeconds) {
 		toSerialize["samlAssertionLifetimeSeconds"] = o.SamlAssertionLifetimeSeconds
 	}
-	toSerialize["signatureAlgorithm"] = o.SignatureAlgorithm
+	if !IsNil(o.SignatureAlgorithm) {
+		toSerialize["signatureAlgorithm"] = o.SignatureAlgorithm
+	}
 	if !IsNil(o.Slo) {
 		toSerialize["slo"] = o.Slo
 	}
@@ -1030,12 +1158,18 @@ func (o SamlApplicationSettingsSignOn) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SpIssuer) {
 		toSerialize["spIssuer"] = o.SpIssuer
 	}
-	toSerialize["ssoAcsUrl"] = o.SsoAcsUrl
+	if !IsNil(o.SsoAcsUrl) {
+		toSerialize["ssoAcsUrl"] = o.SsoAcsUrl
+	}
 	if !IsNil(o.SsoAcsUrlOverride) {
 		toSerialize["ssoAcsUrlOverride"] = o.SsoAcsUrlOverride
 	}
-	toSerialize["subjectNameIdFormat"] = o.SubjectNameIdFormat
-	toSerialize["subjectNameIdTemplate"] = o.SubjectNameIdTemplate
+	if !IsNil(o.SubjectNameIdFormat) {
+		toSerialize["subjectNameIdFormat"] = o.SubjectNameIdFormat
+	}
+	if !IsNil(o.SubjectNameIdTemplate) {
+		toSerialize["subjectNameIdTemplate"] = o.SubjectNameIdTemplate
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -1045,41 +1179,6 @@ func (o SamlApplicationSettingsSignOn) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *SamlApplicationSettingsSignOn) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"allowMultipleAcsEndpoints",
-		"assertionSigned",
-		"audience",
-		"authnContextClassRef",
-		"destination",
-		"digestAlgorithm",
-		"honorForceAuthn",
-		"idpIssuer",
-		"recipient",
-		"requestCompressed",
-		"responseSigned",
-		"signatureAlgorithm",
-		"ssoAcsUrl",
-		"subjectNameIdFormat",
-		"subjectNameIdTemplate",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varSamlApplicationSettingsSignOn := _SamlApplicationSettingsSignOn{}
 
 	err = json.Unmarshal(data, &varSamlApplicationSettingsSignOn)

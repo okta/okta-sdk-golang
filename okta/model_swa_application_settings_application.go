@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the SwaApplicationSettingsApplication type satisfies the MappedNullable interface at compile time
@@ -34,7 +33,7 @@ var _ MappedNullable = &SwaApplicationSettingsApplication{}
 // SwaApplicationSettingsApplication struct for SwaApplicationSettingsApplication
 type SwaApplicationSettingsApplication struct {
 	// CSS selector for the **Sign-In** button in the sign-in form (for SWA apps with the `template_swa` app name definition)
-	ButtonField string `json:"buttonField"`
+	ButtonField *string `json:"buttonField,omitempty"`
 	// CSS selector for the **Sign-In**  button in the sign-in form (for three-field SWA apps with the `template_swa3field` app name definition)
 	ButtonSelector *string `json:"buttonSelector,omitempty"`
 	// Enter the CSS selector for the extra field (for three-field SWA apps with the `template_swa3field` app name definition).
@@ -44,15 +43,15 @@ type SwaApplicationSettingsApplication struct {
 	// A regular expression that further restricts targetURL to the specified regular expression
 	LoginUrlRegex *string `json:"loginUrlRegex,omitempty"`
 	// CSS selector for the **Password** field in the sign-in form (for SWA apps with the `template_swa` app name definition)
-	PasswordField string `json:"passwordField"`
+	PasswordField *string `json:"passwordField,omitempty"`
 	// CSS selector for the **Password** field in the sign-in form (for three-field SWA apps with the `template_swa3field` app name definition)
 	PasswordSelector *string `json:"passwordSelector,omitempty"`
 	// The URL of the sign-in page for this app (for three-field SWA apps with the `template_swa3field` app name definition)
 	TargetURL *string `json:"targetURL,omitempty"`
 	// The URL of the sign-in page for this app (for SWA apps with the `template_swa` app name definition)
-	Url string `json:"url"`
+	Url *string `json:"url,omitempty"`
 	// CSS selector for the **Username** field in the sign-in form (for SWA apps with the `template_swa` app name definition)
-	UsernameField string `json:"usernameField"`
+	UsernameField *string `json:"usernameField,omitempty"`
 	// CSS selector for the **Username** field in the sign-in form (for three-field SWA apps with the `template_swa3field` app name definition)
 	UserNameSelector     *string `json:"userNameSelector,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -64,12 +63,8 @@ type _SwaApplicationSettingsApplication SwaApplicationSettingsApplication
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSwaApplicationSettingsApplication(buttonField string, passwordField string, url string, usernameField string) *SwaApplicationSettingsApplication {
+func NewSwaApplicationSettingsApplication() *SwaApplicationSettingsApplication {
 	this := SwaApplicationSettingsApplication{}
-	this.ButtonField = buttonField
-	this.PasswordField = passwordField
-	this.Url = url
-	this.UsernameField = usernameField
 	return &this
 }
 
@@ -81,28 +76,36 @@ func NewSwaApplicationSettingsApplicationWithDefaults() *SwaApplicationSettingsA
 	return &this
 }
 
-// GetButtonField returns the ButtonField field value
+// GetButtonField returns the ButtonField field value if set, zero value otherwise.
 func (o *SwaApplicationSettingsApplication) GetButtonField() string {
-	if o == nil {
+	if o == nil || IsNil(o.ButtonField) {
 		var ret string
 		return ret
 	}
-
-	return o.ButtonField
+	return *o.ButtonField
 }
 
-// GetButtonFieldOk returns a tuple with the ButtonField field value
+// GetButtonFieldOk returns a tuple with the ButtonField field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SwaApplicationSettingsApplication) GetButtonFieldOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.ButtonField) {
 		return nil, false
 	}
-	return &o.ButtonField, true
+	return o.ButtonField, true
 }
 
-// SetButtonField sets field value
+// HasButtonField returns a boolean if a field has been set.
+func (o *SwaApplicationSettingsApplication) HasButtonField() bool {
+	if o != nil && !IsNil(o.ButtonField) {
+		return true
+	}
+
+	return false
+}
+
+// SetButtonField gets a reference to the given string and assigns it to the ButtonField field.
 func (o *SwaApplicationSettingsApplication) SetButtonField(v string) {
-	o.ButtonField = v
+	o.ButtonField = &v
 }
 
 // GetButtonSelector returns the ButtonSelector field value if set, zero value otherwise.
@@ -233,28 +236,36 @@ func (o *SwaApplicationSettingsApplication) SetLoginUrlRegex(v string) {
 	o.LoginUrlRegex = &v
 }
 
-// GetPasswordField returns the PasswordField field value
+// GetPasswordField returns the PasswordField field value if set, zero value otherwise.
 func (o *SwaApplicationSettingsApplication) GetPasswordField() string {
-	if o == nil {
+	if o == nil || IsNil(o.PasswordField) {
 		var ret string
 		return ret
 	}
-
-	return o.PasswordField
+	return *o.PasswordField
 }
 
-// GetPasswordFieldOk returns a tuple with the PasswordField field value
+// GetPasswordFieldOk returns a tuple with the PasswordField field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SwaApplicationSettingsApplication) GetPasswordFieldOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.PasswordField) {
 		return nil, false
 	}
-	return &o.PasswordField, true
+	return o.PasswordField, true
 }
 
-// SetPasswordField sets field value
+// HasPasswordField returns a boolean if a field has been set.
+func (o *SwaApplicationSettingsApplication) HasPasswordField() bool {
+	if o != nil && !IsNil(o.PasswordField) {
+		return true
+	}
+
+	return false
+}
+
+// SetPasswordField gets a reference to the given string and assigns it to the PasswordField field.
 func (o *SwaApplicationSettingsApplication) SetPasswordField(v string) {
-	o.PasswordField = v
+	o.PasswordField = &v
 }
 
 // GetPasswordSelector returns the PasswordSelector field value if set, zero value otherwise.
@@ -321,52 +332,68 @@ func (o *SwaApplicationSettingsApplication) SetTargetURL(v string) {
 	o.TargetURL = &v
 }
 
-// GetUrl returns the Url field value
+// GetUrl returns the Url field value if set, zero value otherwise.
 func (o *SwaApplicationSettingsApplication) GetUrl() string {
-	if o == nil {
+	if o == nil || IsNil(o.Url) {
 		var ret string
 		return ret
 	}
-
-	return o.Url
+	return *o.Url
 }
 
-// GetUrlOk returns a tuple with the Url field value
+// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SwaApplicationSettingsApplication) GetUrlOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Url) {
 		return nil, false
 	}
-	return &o.Url, true
+	return o.Url, true
 }
 
-// SetUrl sets field value
+// HasUrl returns a boolean if a field has been set.
+func (o *SwaApplicationSettingsApplication) HasUrl() bool {
+	if o != nil && !IsNil(o.Url) {
+		return true
+	}
+
+	return false
+}
+
+// SetUrl gets a reference to the given string and assigns it to the Url field.
 func (o *SwaApplicationSettingsApplication) SetUrl(v string) {
-	o.Url = v
+	o.Url = &v
 }
 
-// GetUsernameField returns the UsernameField field value
+// GetUsernameField returns the UsernameField field value if set, zero value otherwise.
 func (o *SwaApplicationSettingsApplication) GetUsernameField() string {
-	if o == nil {
+	if o == nil || IsNil(o.UsernameField) {
 		var ret string
 		return ret
 	}
-
-	return o.UsernameField
+	return *o.UsernameField
 }
 
-// GetUsernameFieldOk returns a tuple with the UsernameField field value
+// GetUsernameFieldOk returns a tuple with the UsernameField field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SwaApplicationSettingsApplication) GetUsernameFieldOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.UsernameField) {
 		return nil, false
 	}
-	return &o.UsernameField, true
+	return o.UsernameField, true
 }
 
-// SetUsernameField sets field value
+// HasUsernameField returns a boolean if a field has been set.
+func (o *SwaApplicationSettingsApplication) HasUsernameField() bool {
+	if o != nil && !IsNil(o.UsernameField) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsernameField gets a reference to the given string and assigns it to the UsernameField field.
 func (o *SwaApplicationSettingsApplication) SetUsernameField(v string) {
-	o.UsernameField = v
+	o.UsernameField = &v
 }
 
 // GetUserNameSelector returns the UserNameSelector field value if set, zero value otherwise.
@@ -411,7 +438,9 @@ func (o SwaApplicationSettingsApplication) MarshalJSON() ([]byte, error) {
 
 func (o SwaApplicationSettingsApplication) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["buttonField"] = o.ButtonField
+	if !IsNil(o.ButtonField) {
+		toSerialize["buttonField"] = o.ButtonField
+	}
 	if !IsNil(o.ButtonSelector) {
 		toSerialize["buttonSelector"] = o.ButtonSelector
 	}
@@ -424,15 +453,21 @@ func (o SwaApplicationSettingsApplication) ToMap() (map[string]interface{}, erro
 	if !IsNil(o.LoginUrlRegex) {
 		toSerialize["loginUrlRegex"] = o.LoginUrlRegex
 	}
-	toSerialize["passwordField"] = o.PasswordField
+	if !IsNil(o.PasswordField) {
+		toSerialize["passwordField"] = o.PasswordField
+	}
 	if !IsNil(o.PasswordSelector) {
 		toSerialize["passwordSelector"] = o.PasswordSelector
 	}
 	if !IsNil(o.TargetURL) {
 		toSerialize["targetURL"] = o.TargetURL
 	}
-	toSerialize["url"] = o.Url
-	toSerialize["usernameField"] = o.UsernameField
+	if !IsNil(o.Url) {
+		toSerialize["url"] = o.Url
+	}
+	if !IsNil(o.UsernameField) {
+		toSerialize["usernameField"] = o.UsernameField
+	}
 	if !IsNil(o.UserNameSelector) {
 		toSerialize["userNameSelector"] = o.UserNameSelector
 	}
@@ -445,30 +480,6 @@ func (o SwaApplicationSettingsApplication) ToMap() (map[string]interface{}, erro
 }
 
 func (o *SwaApplicationSettingsApplication) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"buttonField",
-		"passwordField",
-		"url",
-		"usernameField",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varSwaApplicationSettingsApplication := _SwaApplicationSettingsApplication{}
 
 	err = json.Unmarshal(data, &varSwaApplicationSettingsApplication)
