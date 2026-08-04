@@ -1,6 +1,9 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v6.1.7
+- Add JSON marshal support in `parameterToString` to correctly serialize types implementing `json.Marshaler` interface. [#599](https://github.com/okta/okta-sdk-golang/pull/599) Thanks [@pranav-okta](https://github.com/pranav-okta)
+
 ## v6.1.6
 - Fix UserIdentifierPolicyRuleCondition by making patterns and type as optional parameters. Thanks [@pranav-okta](https://github.com/pranav-okta)
 
