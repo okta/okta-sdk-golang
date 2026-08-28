@@ -34686,6 +34686,7 @@ components:
       properties:
         assignmentType:
           $ref: '#/components/schemas/RoleAssignmentType'
+          readOnly: true
         created:
           type: string
           description: Timestamp when the object was created
@@ -34716,6 +34717,7 @@ components:
           allOf:
             - $ref: '#/components/schemas/LifecycleStatus'
             - description: Status of the role assignment
+            - readOnly: true
         type:
           $ref: '#/components/schemas/RoleType'
         _links:
@@ -51013,6 +51015,7 @@ components:
       properties:
         assignmentType:
           $ref: '#/components/schemas/RoleAssignmentType'
+          readOnly: true
         created:
           type: string
           description: Timestamp when the object was created
@@ -51035,6 +51038,7 @@ components:
           allOf:
             - $ref: '#/components/schemas/LifecycleStatus'
             - description: Status of the role assignment
+            - readOnly: true
         type:
           $ref: '#/components/schemas/RoleType'
         _embedded:
