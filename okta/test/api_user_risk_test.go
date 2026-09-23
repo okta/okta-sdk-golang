@@ -25,6 +25,8 @@ package okta
 
 import (
 	"context"
+	"encoding/json"
+	"errors"
 	"net/http"
 	"slices"
 	"testing"
@@ -50,16 +52,36 @@ func Test_okta_UserRiskAPIService(t *testing.T) {
 
 	defer testDataManager.CleanupAllTestUsers()
 
-	// User risk is not generally available - the spec marks it isGenerallyAvailable:
-	// false - so an org without the entitlement answers 403 rather than serving the
-	// endpoint. Skip in that case instead of reporting an SDK failure, but say so loudly
-	// enough that it can't be mistaken for a pass. Risk is only ever read from or
-	// written to a user these tests created, never an existing one.
-	skipIfUserRiskUnavailable := func(t *testing.T, httpRes *okta.APIResponse) {
+	oktaErrorCode := func(err error) string {
+		var apiErr *okta.GenericOpenAPIError
+		if !errors.As(err, &apiErr) {
+			return ""
+		}
+
+		var oktaErr struct {
+			ErrorCode string `json:"errorCode"`
+		}
+		if jsonErr := json.Unmarshal(apiErr.Body(), &oktaErr); jsonErr != nil {
+			return ""
+		}
+
+		return oktaErr.ErrorCode
+	}
+
+	skipIfUserRiskUnavailable := func(t *testing.T, httpRes *okta.APIResponse, err error) {
 		t.Helper()
 
+		if oktaErrorCode(err) == "E0000015" {
+			status := "no response"
+			if httpRes != nil {
+				status = httpRes.Status
+			}
+
+			t.Skipf("User risk is not enabled for this org (%s, errorCode E0000015). It needs the Identity Threat Protection entitlement and the okta.userRisk scopes", status)
+		}
+
 		if httpRes != nil && httpRes.StatusCode == http.StatusForbidden {
-			t.Skip("User risk is not enabled for this org (403). It needs the Identity Threat Protection entitlement and the okta.userRisk scopes")
+			t.Skip("User risk is forbidden for this org (403). It needs the Identity Threat Protection entitlement and the okta.userRisk scopes")
 		}
 	}
 
@@ -83,7 +105,7 @@ func Test_okta_UserRiskAPIService(t *testing.T) {
 		riskRequest.SetRiskReason(riskReason)
 
 		resp, httpRes, err := apiClient.UserRiskAPI.UpsertUserRisk(context.Background(), userId).UserRiskRequest(*riskRequest).Execute()
-		skipIfUserRiskUnavailable(t, httpRes)
+		skipIfUserRiskUnavailable(t, httpRes, err)
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -98,7 +120,7 @@ func Test_okta_UserRiskAPIService(t *testing.T) {
 		userId := createTestUser(t)
 
 		resp, httpRes, err := apiClient.UserRiskAPI.GetUserRisk(context.Background(), userId).Execute()
-		skipIfUserRiskUnavailable(t, httpRes)
+		skipIfUserRiskUnavailable(t, httpRes, err)
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
@@ -115,13 +137,6 @@ func Test_okta_UserRiskAPIService(t *testing.T) {
 		assert.Equal(t, "NONE", *riskLevelNone.RiskLevel)
 	})
 
-	// An admin override is an input to the org's risk engine, not the last word on it:
-	// on an org with Identity Threat Protection the engine re-evaluates the user against
-	// its own signals, so a read-back can legitimately report a different level and a
-	// reason it generated itself (USER_LOGOUT, say) rather than the riskReason sent here.
-	// Assert the level and reason on the upsert response, which the SDK does control, and
-	// on the read-back only assert what's stable: the oneOf resolves to the risk-exists
-	// variant and carries one of the documented levels.
 	assertRiskExists := func(t *testing.T, userId string) {
 		t.Helper()
 
@@ -172,10 +187,6 @@ func Test_okta_UserRiskAPIService(t *testing.T) {
 		assertRiskExists(t, userId)
 	})
 
-	// NONE is a read-only risk level: the GET oneOf maps it to UserRiskLevelNone, but
-	// UserRiskRequest.riskLevel only permits HIGH/MEDIUM/LOW and there's no DELETE on
-	// the endpoint, so a risk level can be raised or lowered but never cleared. Assert
-	// the rejection so a future spec change that does allow clearing shows up here.
 	t.Run("Test UserRiskAPIService Error Handling - Upsert NONE Is Rejected", func(t *testing.T) {
 		userId := createTestUser(t)
 
@@ -184,7 +195,7 @@ func Test_okta_UserRiskAPIService(t *testing.T) {
 		riskRequest := okta.NewUserRiskRequest("NONE")
 
 		_, httpRes, err := apiClient.UserRiskAPI.UpsertUserRisk(context.Background(), userId).UserRiskRequest(*riskRequest).Execute()
-		skipIfUserRiskUnavailable(t, httpRes)
+		skipIfUserRiskUnavailable(t, httpRes, err)
 
 		assert.NotNil(t, err)
 		require.NotNil(t, httpRes)
@@ -196,7 +207,7 @@ func Test_okta_UserRiskAPIService(t *testing.T) {
 
 	t.Run("Test UserRiskAPIService Error Handling - Get Risk For Nonexistent User", func(t *testing.T) {
 		_, httpRes, err := apiClient.UserRiskAPI.GetUserRisk(context.Background(), nonExistentUserRiskUserId).Execute()
-		skipIfUserRiskUnavailable(t, httpRes)
+		skipIfUserRiskUnavailable(t, httpRes, err)
 
 		assert.NotNil(t, err)
 		assert.Equal(t, http.StatusNotFound, httpRes.StatusCode)
@@ -206,7 +217,7 @@ func Test_okta_UserRiskAPIService(t *testing.T) {
 		riskRequest := okta.NewUserRiskRequest("HIGH")
 
 		_, httpRes, err := apiClient.UserRiskAPI.UpsertUserRisk(context.Background(), nonExistentUserRiskUserId).UserRiskRequest(*riskRequest).Execute()
-		skipIfUserRiskUnavailable(t, httpRes)
+		skipIfUserRiskUnavailable(t, httpRes, err)
 
 		assert.NotNil(t, err)
 		assert.Equal(t, http.StatusNotFound, httpRes.StatusCode)
@@ -218,7 +229,7 @@ func Test_okta_UserRiskAPIService(t *testing.T) {
 		riskRequest := okta.NewUserRiskRequest("NOT_A_RISK_LEVEL")
 
 		_, httpRes, err := apiClient.UserRiskAPI.UpsertUserRisk(context.Background(), userId).UserRiskRequest(*riskRequest).Execute()
-		skipIfUserRiskUnavailable(t, httpRes)
+		skipIfUserRiskUnavailable(t, httpRes, err)
 
 		assert.NotNil(t, err)
 		assert.Equal(t, http.StatusBadRequest, httpRes.StatusCode)
