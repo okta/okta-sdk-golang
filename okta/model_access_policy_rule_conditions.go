@@ -35,6 +35,7 @@ type AccessPolicyRuleConditions struct {
 	Device               *DeviceAccessPolicyRuleCondition `json:"device,omitempty"`
 	ElCondition          *AccessPolicyRuleCustomCondition `json:"elCondition,omitempty"`
 	Network              *PolicyNetworkCondition          `json:"network,omitempty"`
+	Office365Client      *Office365ClientCondition        `json:"office365Client,omitempty"`
 	People               *PolicyPeopleCondition           `json:"people,omitempty"`
 	Platform             *PlatformPolicyRuleCondition     `json:"platform,omitempty"`
 	RiskScore            *RiskScorePolicyRuleCondition    `json:"riskScore,omitempty"`
@@ -155,6 +156,38 @@ func (o *AccessPolicyRuleConditions) HasNetwork() bool {
 // SetNetwork gets a reference to the given PolicyNetworkCondition and assigns it to the Network field.
 func (o *AccessPolicyRuleConditions) SetNetwork(v PolicyNetworkCondition) {
 	o.Network = &v
+}
+
+// GetOffice365Client returns the Office365Client field value if set, zero value otherwise.
+func (o *AccessPolicyRuleConditions) GetOffice365Client() Office365ClientCondition {
+	if o == nil || IsNil(o.Office365Client) {
+		var ret Office365ClientCondition
+		return ret
+	}
+	return *o.Office365Client
+}
+
+// GetOffice365ClientOk returns a tuple with the Office365Client field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccessPolicyRuleConditions) GetOffice365ClientOk() (*Office365ClientCondition, bool) {
+	if o == nil || IsNil(o.Office365Client) {
+		return nil, false
+	}
+	return o.Office365Client, true
+}
+
+// HasOffice365Client returns a boolean if a field has been set.
+func (o *AccessPolicyRuleConditions) HasOffice365Client() bool {
+	if o != nil && !IsNil(o.Office365Client) {
+		return true
+	}
+
+	return false
+}
+
+// SetOffice365Client gets a reference to the given Office365ClientCondition and assigns it to the Office365Client field.
+func (o *AccessPolicyRuleConditions) SetOffice365Client(v Office365ClientCondition) {
+	o.Office365Client = &v
 }
 
 // GetPeople returns the People field value if set, zero value otherwise.
@@ -304,6 +337,9 @@ func (o AccessPolicyRuleConditions) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Network) {
 		toSerialize["network"] = o.Network
 	}
+	if !IsNil(o.Office365Client) {
+		toSerialize["office365Client"] = o.Office365Client
+	}
 	if !IsNil(o.People) {
 		toSerialize["people"] = o.People
 	}
@@ -341,6 +377,7 @@ func (o *AccessPolicyRuleConditions) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "device")
 		delete(additionalProperties, "elCondition")
 		delete(additionalProperties, "network")
+		delete(additionalProperties, "office365Client")
 		delete(additionalProperties, "people")
 		delete(additionalProperties, "platform")
 		delete(additionalProperties, "riskScore")

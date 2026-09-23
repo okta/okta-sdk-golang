@@ -5,9 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Created** | Pointer to **time.Time** | Timestamp when the device was created | [optional] [readonly] 
-**Id** | Pointer to **string** | Unique key for the device | [optional] [readonly] 
+**Id** | Pointer to **string** | Unique key for the device record. This identifier must be unique across all devices. If two or more physical devices report a non-unique device profile attribute (such as a truncated &#x60;profile.udid&#x60;), Okta may map them to the same device record (shared &#x60;id&#x60;), which can cause unexpected behavior. | [optional] [readonly] 
 **LastUpdated** | Pointer to **time.Time** | Timestamp when the device record was last updated. Updates occur when Okta collects and saves device signals during authentication, and when the lifecycle state of the device changes. | [optional] [readonly] 
 **Profile** | Pointer to [**DeviceProfile**](DeviceProfile.md) |  | [optional] 
+**RegistrationGrants** | Pointer to [**[]RegistrationGrant**](RegistrationGrant.md) | Registration grants associated with this device. Present only when the device was pre-registered. Omitted (not an empty array) if no grants exist for the device. | [optional] 
 **ResourceAlternateId** | Pointer to **string** |  | [optional] [readonly] 
 **ResourceDisplayName** | Pointer to [**DeviceDisplayName**](DeviceDisplayName.md) |  | [optional] 
 **ResourceId** | Pointer to **string** | Alternate key for the &#x60;id&#x60; | [optional] [readonly] 
@@ -134,6 +135,31 @@ SetProfile sets Profile field to given value.
 `func (o *DeviceList) HasProfile() bool`
 
 HasProfile returns a boolean if a field has been set.
+
+### GetRegistrationGrants
+
+`func (o *DeviceList) GetRegistrationGrants() []RegistrationGrant`
+
+GetRegistrationGrants returns the RegistrationGrants field if non-nil, zero value otherwise.
+
+### GetRegistrationGrantsOk
+
+`func (o *DeviceList) GetRegistrationGrantsOk() (*[]RegistrationGrant, bool)`
+
+GetRegistrationGrantsOk returns a tuple with the RegistrationGrants field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRegistrationGrants
+
+`func (o *DeviceList) SetRegistrationGrants(v []RegistrationGrant)`
+
+SetRegistrationGrants sets RegistrationGrants field to given value.
+
+### HasRegistrationGrants
+
+`func (o *DeviceList) HasRegistrationGrants() bool`
+
+HasRegistrationGrants returns a boolean if a field has been set.
 
 ### GetResourceAlternateId
 

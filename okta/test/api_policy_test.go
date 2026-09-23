@@ -1,5 +1,5 @@
 /*
-Okta Admin Management
+Okta Admin Management API
 
 Allows customers to easily access the Okta Management APIs
 
@@ -50,6 +50,42 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 		testDataManager.CleanupAllTestGroups()
 	}()
 
+	// createTestAccessPolicy creates an ACCESS_POLICY and tracks it for cleanup.
+	createTestAccessPolicy := func(t *testing.T) string {
+		t.Helper()
+
+		var testFactoryInstance okta.TestFactory
+		policyRequest := testFactoryInstance.NewValidTestCreatePolicyRequest()
+
+		createdResp, _, err := apiClient.PolicyAPI.CreatePolicy(context.Background()).Policy(policyRequest).Execute()
+		require.Nil(t, err)
+		require.NotNil(t, createdResp.AccessPolicy)
+		require.NotNil(t, createdResp.AccessPolicy.Id)
+
+		policyId := *createdResp.AccessPolicy.Id
+		testDataManager.TrackPolicy(policyId)
+
+		return policyId
+	}
+
+	// createTestPolicyRule creates an ACCESS_POLICY rule on the given policy.
+	createTestPolicyRule := func(t *testing.T, policyId string) string {
+		t.Helper()
+
+		var testFactoryInstance okta.TestFactory
+		ruleRequest := testFactoryInstance.NewValidTestPolicyRule()
+
+		ruleResp, createHttpRes, createErr := apiClient.PolicyAPI.CreatePolicyRule(context.Background(), policyId).PolicyRule(ruleRequest).Execute()
+
+		require.Nil(t, createErr)
+		require.Equal(t, http.StatusOK, createHttpRes.StatusCode)
+		require.NotNil(t, ruleResp)
+		require.NotNil(t, ruleResp.AccessPolicyRule)
+		require.NotNil(t, ruleResp.AccessPolicyRule.Id)
+
+		return *ruleResp.AccessPolicyRule.Id
+	}
+
 	t.Run("Test PolicyAPIService CreatePolicy", func(t *testing.T) {
 		var testFactoryInstance okta.TestFactory
 		policyRequest := testFactoryInstance.NewValidTestCreatePolicyRequest()
@@ -74,30 +110,38 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 		}
 	})
 
-	t.Run("Test PolicyAPIService ActivatePolicyRule", func(t *testing.T) {
+	t.Run("Test PolicyAPIService ActivatePolicy", func(t *testing.T) {
 		var testFactoryInstance okta.TestFactory
-		policyRequest := testFactoryInstance.NewValidTestCreatePolicyRequest()
+		// ACCESS_POLICY type cannot be deactivated or activated; use PASSWORD policy type instead
+		policyRequest := testFactoryInstance.NewValidTestDeactivatablePolicyRequest()
 
-		// Create a policy first
-		createdResp, _, err := apiClient.PolicyAPI.CreatePolicy(context.Background()).Policy(policyRequest).Execute()
+		// Create the policy in an inactive state so it can be activated
+		createdResp, _, err := apiClient.PolicyAPI.CreatePolicy(context.Background()).Policy(policyRequest).Activate(false).Execute()
 		require.Nil(t, err)
-		require.NotNil(t, createdResp.AccessPolicy)
-		require.NotNil(t, createdResp.AccessPolicy.Id)
+		require.NotNil(t, createdResp.PasswordPolicy)
+		require.NotNil(t, createdResp.PasswordPolicy.Id)
 
-		policyId := *createdResp.AccessPolicy.Id
+		policyId := *createdResp.PasswordPolicy.Id
 		testDataManager.TrackPolicy(policyId)
 
-		// Create a policy rule first
-		ruleRequest := testFactoryInstance.NewValidTestPolicyRule()
-		ruleResp, createHttpRes, createErr := apiClient.PolicyAPI.CreatePolicyRule(context.Background(), policyId).PolicyRule(ruleRequest).Execute()
+		// Activate the policy
+		httpRes, err := apiClient.PolicyAPI.ActivatePolicy(context.Background(), policyId).Execute()
 
-		require.Nil(t, createErr)
-		require.Equal(t, http.StatusOK, createHttpRes.StatusCode)
-		require.NotNil(t, ruleResp)
-		require.NotNil(t, ruleResp.AccessPolicyRule)
-		require.NotNil(t, ruleResp.AccessPolicyRule.Id)
+		require.Nil(t, err)
+		assert.Equal(t, http.StatusNoContent, httpRes.StatusCode)
 
-		ruleId := *ruleResp.AccessPolicyRule.Id
+		// Verify policy is activated by retrieving it
+		resp, _, err := apiClient.PolicyAPI.GetPolicy(context.Background(), policyId).Execute()
+		require.Nil(t, err)
+		require.NotNil(t, resp.PasswordPolicy)
+		if resp.PasswordPolicy.Status != nil {
+			assert.Equal(t, "ACTIVE", *resp.PasswordPolicy.Status)
+		}
+	})
+
+	t.Run("Test PolicyAPIService ActivatePolicyRule", func(t *testing.T) {
+		policyId := createTestAccessPolicy(t)
+		ruleId := createTestPolicyRule(t, policyId)
 
 		// Activate the policy rule
 		httpRes, err := apiClient.PolicyAPI.ActivatePolicyRule(context.Background(), policyId, ruleId).Execute()
@@ -107,17 +151,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 	})
 
 	t.Run("Test PolicyAPIService ClonePolicy", func(t *testing.T) {
-		var testFactoryInstance okta.TestFactory
-		policyRequest := testFactoryInstance.NewValidTestCreatePolicyRequest()
-
-		// Create a policy to clone first
-		createdResp, _, err := apiClient.PolicyAPI.CreatePolicy(context.Background()).Policy(policyRequest).Execute()
-		require.Nil(t, err)
-		require.NotNil(t, createdResp.AccessPolicy)
-		require.NotNil(t, createdResp.AccessPolicy.Id)
-
-		originalPolicyId := *createdResp.AccessPolicy.Id
-		testDataManager.TrackPolicy(originalPolicyId)
+		originalPolicyId := createTestAccessPolicy(t)
 
 		// Clone the policy
 		resp, httpRes, err := apiClient.PolicyAPI.ClonePolicy(context.Background(), originalPolicyId).Execute()
@@ -148,19 +182,9 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 	})
 
 	t.Run("Test PolicyAPIService CreatePolicyRule", func(t *testing.T) {
+		policyId := createTestAccessPolicy(t)
+
 		var testFactoryInstance okta.TestFactory
-		policyRequest := testFactoryInstance.NewValidTestCreatePolicyRequest()
-
-		// Create a policy first
-		createdResp, _, err := apiClient.PolicyAPI.CreatePolicy(context.Background()).Policy(policyRequest).Execute()
-		require.Nil(t, err)
-		require.NotNil(t, createdResp.AccessPolicy)
-		require.NotNil(t, createdResp.AccessPolicy.Id)
-
-		policyId := *createdResp.AccessPolicy.Id
-		testDataManager.TrackPolicy(policyId)
-
-		// Create a policy rule
 		ruleRequest := testFactoryInstance.NewValidTestPolicyRule()
 
 		resp, httpRes, err := apiClient.PolicyAPI.CreatePolicyRule(context.Background(), policyId).PolicyRule(ruleRequest).Execute()
@@ -223,32 +247,11 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 	})
 
 	t.Run("Test PolicyAPIService DeactivatePolicyRule", func(t *testing.T) {
-		var testFactoryInstance okta.TestFactory
-		policyRequest := testFactoryInstance.NewValidTestCreatePolicyRequest()
-
-		// Create a policy first
-		createdResp, _, err := apiClient.PolicyAPI.CreatePolicy(context.Background()).Policy(policyRequest).Execute()
-		require.Nil(t, err)
-		require.NotNil(t, createdResp.AccessPolicy)
-		require.NotNil(t, createdResp.AccessPolicy.Id)
-
-		policyId := *createdResp.AccessPolicy.Id
-		testDataManager.TrackPolicy(policyId)
-
-		// Create a policy rule first
-		ruleRequest := testFactoryInstance.NewValidTestPolicyRule()
-		ruleResp, createHttpRes, createErr := apiClient.PolicyAPI.CreatePolicyRule(context.Background(), policyId).PolicyRule(ruleRequest).Execute()
-
-		require.Nil(t, createErr)
-		require.Equal(t, http.StatusOK, createHttpRes.StatusCode)
-		require.NotNil(t, ruleResp)
-		require.NotNil(t, ruleResp.AccessPolicyRule)
-		require.NotNil(t, ruleResp.AccessPolicyRule.Id)
-
-		ruleId := *ruleResp.AccessPolicyRule.Id
+		policyId := createTestAccessPolicy(t)
+		ruleId := createTestPolicyRule(t, policyId)
 
 		// Activate the rule first so we can deactivate it
-		_, err = apiClient.PolicyAPI.ActivatePolicyRule(context.Background(), policyId, ruleId).Execute()
+		_, err := apiClient.PolicyAPI.ActivatePolicyRule(context.Background(), policyId, ruleId).Execute()
 		require.Nil(t, err)
 
 		// Deactivate the policy rule
@@ -259,17 +262,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 	})
 
 	t.Run("Test PolicyAPIService DeletePolicy", func(t *testing.T) {
-		var testFactoryInstance okta.TestFactory
-		policyRequest := testFactoryInstance.NewValidTestCreatePolicyRequest()
-
-		// Create a policy first
-		createdResp, _, err := apiClient.PolicyAPI.CreatePolicy(context.Background()).Policy(policyRequest).Execute()
-		require.Nil(t, err)
-		require.NotNil(t, createdResp.AccessPolicy)
-		require.NotNil(t, createdResp.AccessPolicy.Id)
-
-		policyId := *createdResp.AccessPolicy.Id
-		testDataManager.TrackPolicy(policyId)
+		policyId := createTestAccessPolicy(t)
 
 		// Delete the policy
 		httpRes, err := apiClient.PolicyAPI.DeletePolicy(context.Background(), policyId).Execute()
@@ -293,29 +286,8 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 	})
 
 	t.Run("Test PolicyAPIService DeletePolicyRule", func(t *testing.T) {
-		var testFactoryInstance okta.TestFactory
-		policyRequest := testFactoryInstance.NewValidTestCreatePolicyRequest()
-
-		// Create a policy first
-		createdResp, _, err := apiClient.PolicyAPI.CreatePolicy(context.Background()).Policy(policyRequest).Execute()
-		require.Nil(t, err)
-		require.NotNil(t, createdResp.AccessPolicy)
-		require.NotNil(t, createdResp.AccessPolicy.Id)
-
-		policyId := *createdResp.AccessPolicy.Id
-		testDataManager.TrackPolicy(policyId)
-
-		// Create a policy rule first
-		ruleRequest := testFactoryInstance.NewValidTestPolicyRule()
-		ruleResp, createHttpRes, createErr := apiClient.PolicyAPI.CreatePolicyRule(context.Background(), policyId).PolicyRule(ruleRequest).Execute()
-
-		require.Nil(t, createErr)
-		require.Equal(t, http.StatusOK, createHttpRes.StatusCode)
-		require.NotNil(t, ruleResp)
-		require.NotNil(t, ruleResp.AccessPolicyRule)
-		require.NotNil(t, ruleResp.AccessPolicyRule.Id)
-
-		ruleId := *ruleResp.AccessPolicyRule.Id
+		policyId := createTestAccessPolicy(t)
+		ruleId := createTestPolicyRule(t, policyId)
 
 		// Delete the policy rule
 		httpRes, err := apiClient.PolicyAPI.DeletePolicyRule(context.Background(), policyId, ruleId).Execute()
@@ -362,29 +334,8 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 	})
 
 	t.Run("Test PolicyAPIService GetPolicyRule", func(t *testing.T) {
-		var testFactoryInstance okta.TestFactory
-		policyRequest := testFactoryInstance.NewValidTestCreatePolicyRequest()
-
-		// Create a policy first
-		createdResp, _, err := apiClient.PolicyAPI.CreatePolicy(context.Background()).Policy(policyRequest).Execute()
-		require.Nil(t, err)
-		require.NotNil(t, createdResp.AccessPolicy)
-		require.NotNil(t, createdResp.AccessPolicy.Id)
-
-		policyId := *createdResp.AccessPolicy.Id
-		testDataManager.TrackPolicy(policyId)
-
-		// Create a policy rule first
-		ruleRequest := testFactoryInstance.NewValidTestPolicyRule()
-		ruleResp, createHttpRes, createErr := apiClient.PolicyAPI.CreatePolicyRule(context.Background(), policyId).PolicyRule(ruleRequest).Execute()
-
-		require.Nil(t, createErr)
-		require.Equal(t, http.StatusOK, createHttpRes.StatusCode)
-		require.NotNil(t, ruleResp)
-		require.NotNil(t, ruleResp.AccessPolicyRule)
-		require.NotNil(t, ruleResp.AccessPolicyRule.Id)
-
-		ruleId := *ruleResp.AccessPolicyRule.Id
+		policyId := createTestAccessPolicy(t)
+		ruleId := createTestPolicyRule(t, policyId)
 
 		// Now get the policy rule
 		resp, httpRes, err := apiClient.PolicyAPI.GetPolicyRule(context.Background(), policyId, ruleId).Execute()
@@ -398,17 +349,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 	})
 
 	t.Run("Test PolicyAPIService ListPolicies", func(t *testing.T) {
-		var testFactoryInstance okta.TestFactory
-		policyRequest := testFactoryInstance.NewValidTestCreatePolicyRequest()
-
-		// Create a policy first
-		createdResp, _, err := apiClient.PolicyAPI.CreatePolicy(context.Background()).Policy(policyRequest).Execute()
-		require.Nil(t, err)
-		require.NotNil(t, createdResp.AccessPolicy)
-		require.NotNil(t, createdResp.AccessPolicy.Id)
-
-		policyID := *createdResp.AccessPolicy.Id
-		testDataManager.TrackPolicy(policyID)
+		policyID := createTestAccessPolicy(t)
 
 		// List policies of ACCESS_POLICY type
 		resp, httpRes, err := apiClient.PolicyAPI.ListPolicies(context.Background()).Type_("ACCESS_POLICY").Execute()
@@ -432,6 +373,16 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 			require.True(t, ok, "Response should be an AccessPolicy")
 			assert.NotNil(t, accessPolicy.Id)
 			assert.Equal(t, "ACCESS_POLICY", accessPolicy.Type)
+
+			// The created policy should appear in the list
+			foundCreatedPolicy := false
+			for _, policy := range resp {
+				if p, ok := policy.GetActualInstance().(*okta.AccessPolicy); ok && p.Id != nil && *p.Id == policyID {
+					foundCreatedPolicy = true
+					break
+				}
+			}
+			assert.True(t, foundCreatedPolicy, "Created policy should appear in the list")
 		} else {
 			// If there's an error, the HTTP call should have still succeeded
 			t.Logf("ListPolicies returned error: %v", err)
@@ -441,17 +392,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 	t.Run("Test PolicyAPIService ListPolicyApps", func(t *testing.T) {
 		// This is a deprecated endpoint
 		t.Skip()
-		var testFactoryInstance okta.TestFactory
-		policyRequest := testFactoryInstance.NewValidTestCreatePolicyRequest()
-
-		// Create a policy first
-		createdResp, _, err := apiClient.PolicyAPI.CreatePolicy(context.Background()).Policy(policyRequest).Execute()
-		require.Nil(t, err)
-		require.NotNil(t, createdResp.AccessPolicy)
-		require.NotNil(t, createdResp.AccessPolicy.Id)
-
-		policyId := *createdResp.AccessPolicy.Id
-		testDataManager.TrackPolicy(policyId)
+		policyId := createTestAccessPolicy(t)
 
 		// List policy apps
 		resp, httpRes, err := apiClient.PolicyAPI.ListPolicyApps(context.Background(), policyId).Execute()
@@ -465,17 +406,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 	})
 
 	t.Run("Test PolicyAPIService ListPolicyMappings", func(t *testing.T) {
-		var testFactoryInstance okta.TestFactory
-		policyRequest := testFactoryInstance.NewValidTestCreatePolicyRequest()
-
-		// Create a policy first
-		createdResp, _, err := apiClient.PolicyAPI.CreatePolicy(context.Background()).Policy(policyRequest).Execute()
-		require.Nil(t, err)
-		require.NotNil(t, createdResp.AccessPolicy)
-		require.NotNil(t, createdResp.AccessPolicy.Id)
-
-		policyId := *createdResp.AccessPolicy.Id
-		testDataManager.TrackPolicy(policyId)
+		policyId := createTestAccessPolicy(t)
 
 		// List policy mappings (may be empty initially)
 		resp, httpRes, err := apiClient.PolicyAPI.ListPolicyMappings(context.Background(), policyId).Execute()
@@ -489,17 +420,7 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 	})
 
 	t.Run("Test PolicyAPIService ListPolicyRules", func(t *testing.T) {
-		var testFactoryInstance okta.TestFactory
-		policyRequest := testFactoryInstance.NewValidTestCreatePolicyRequest()
-
-		// Create a policy first
-		createdResp, _, err := apiClient.PolicyAPI.CreatePolicy(context.Background()).Policy(policyRequest).Execute()
-		require.Nil(t, err)
-		require.NotNil(t, createdResp.AccessPolicy)
-		require.NotNil(t, createdResp.AccessPolicy.Id)
-
-		policyId := *createdResp.AccessPolicy.Id
-		testDataManager.TrackPolicy(policyId)
+		policyId := createTestAccessPolicy(t)
 
 		// List policy rules (should include at least the default rule)
 		resp, httpRes, err := apiClient.PolicyAPI.ListPolicyRules(context.Background(), policyId).Execute()
@@ -523,19 +444,10 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 	})
 
 	t.Run("Test PolicyAPIService ReplacePolicy", func(t *testing.T) {
-		var testFactoryInstance okta.TestFactory
-		policyRequest := testFactoryInstance.NewValidTestCreatePolicyRequest()
-
-		// Create a policy first
-		createdResp, _, err := apiClient.PolicyAPI.CreatePolicy(context.Background()).Policy(policyRequest).Execute()
-		require.Nil(t, err)
-		require.NotNil(t, createdResp.AccessPolicy)
-		require.NotNil(t, createdResp.AccessPolicy.Id)
-
-		policyId := *createdResp.AccessPolicy.Id
-		testDataManager.TrackPolicy(policyId)
+		policyId := createTestAccessPolicy(t)
 
 		// Create updated policy data
+		var testFactoryInstance okta.TestFactory
 		updateRequest := testFactoryInstance.NewTestAccessPolicyUpdate()
 		updatePolicyRequest := testFactoryInstance.NewValidTestCreatePolicyRequest()
 		updatePolicyRequest.AccessPolicy = &updateRequest
@@ -556,31 +468,11 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 	})
 
 	t.Run("Test PolicyAPIService ReplacePolicyRule", func(t *testing.T) {
-		var testFactoryInstance okta.TestFactory
-		policyRequest := testFactoryInstance.NewValidTestCreatePolicyRequest()
-
-		// Create a policy first
-		createdResp, _, err := apiClient.PolicyAPI.CreatePolicy(context.Background()).Policy(policyRequest).Execute()
-		require.Nil(t, err)
-		require.NotNil(t, createdResp.AccessPolicy)
-		require.NotNil(t, createdResp.AccessPolicy.Id)
-
-		policyId := *createdResp.AccessPolicy.Id
-		testDataManager.TrackPolicy(policyId)
-
-		// Create a policy rule first
-		ruleRequest := testFactoryInstance.NewValidTestPolicyRule()
-		ruleResp, createHttpRes, createErr := apiClient.PolicyAPI.CreatePolicyRule(context.Background(), policyId).PolicyRule(ruleRequest).Execute()
-
-		require.Nil(t, createErr)
-		require.Equal(t, http.StatusOK, createHttpRes.StatusCode)
-		require.NotNil(t, ruleResp)
-		require.NotNil(t, ruleResp.AccessPolicyRule)
-		require.NotNil(t, ruleResp.AccessPolicyRule.Id)
-
-		ruleId := *ruleResp.AccessPolicyRule.Id
+		policyId := createTestAccessPolicy(t)
+		ruleId := createTestPolicyRule(t, policyId)
 
 		// Create updated rule request
+		var testFactoryInstance okta.TestFactory
 		updateRuleRequest := testFactoryInstance.NewValidTestPolicyRule()
 
 		// Replace the policy rule
@@ -592,5 +484,4 @@ func Test_okta_PolicyAPIService(t *testing.T) {
 		assert.NotNil(t, resp.AccessPolicyRule)
 		assert.Equal(t, ruleId, *resp.AccessPolicyRule.Id)
 	})
-
 }

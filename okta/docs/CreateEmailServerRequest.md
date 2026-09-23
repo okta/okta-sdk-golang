@@ -5,7 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Alias** | **string** | Human-readable name for your SMTP server | 
-**AuthType** | **string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;The authentication type that&#39;s used by your SMTP server | 
 **Enabled** | **bool** | If &#x60;true&#x60;, all email traffic is routed through your SMTP server | 
 **Host** | **string** | Hostname or IP address of your SMTP server | 
 **Id** | Pointer to **string** | ID of your SMTP server | [optional] [readonly] 
@@ -27,7 +26,7 @@ Name | Type | Description | Notes
 
 ### NewCreateEmailServerRequest
 
-`func NewCreateEmailServerRequest(alias string, authType string, enabled bool, host string, port int32, username string, clientId string, clientSecret string, scopes []string, tokenEndpoint string, tokenEndpointAuthMethod string, audience string, issuer string, keyId string, privateKey string, signingAlgorithm string, subject string, ) *CreateEmailServerRequest`
+`func NewCreateEmailServerRequest(alias string, enabled bool, host string, port int32, username string, clientId string, clientSecret string, scopes []string, tokenEndpoint string, tokenEndpointAuthMethod string, audience string, issuer string, keyId string, privateKey string, signingAlgorithm string, subject string, ) *CreateEmailServerRequest`
 
 NewCreateEmailServerRequest instantiates a new CreateEmailServerRequest object
 This constructor will assign default values to properties that have it defined,
@@ -60,26 +59,6 @@ and a boolean to check if the value has been set.
 `func (o *CreateEmailServerRequest) SetAlias(v string)`
 
 SetAlias sets Alias field to given value.
-
-
-### GetAuthType
-
-`func (o *CreateEmailServerRequest) GetAuthType() string`
-
-GetAuthType returns the AuthType field if non-nil, zero value otherwise.
-
-### GetAuthTypeOk
-
-`func (o *CreateEmailServerRequest) GetAuthTypeOk() (*string, bool)`
-
-GetAuthTypeOk returns a tuple with the AuthType field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetAuthType
-
-`func (o *CreateEmailServerRequest) SetAuthType(v string)`
-
-SetAuthType sets AuthType field to given value.
 
 
 ### GetEnabled

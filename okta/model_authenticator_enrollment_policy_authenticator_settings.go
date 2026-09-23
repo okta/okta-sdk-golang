@@ -36,7 +36,7 @@ type AuthenticatorEnrollmentPolicyAuthenticatorSettings struct {
 	Enroll      *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll             `json:"enroll,omitempty"`
 	// The authenticator ID for `custom_app`, `custom_otp` or `external_idp`. Use this property to select a specific `custom_app`, `custom_otp` or `external_idp` authenticator.
 	Id *string `json:"id,omitempty"`
-	// A label that identifies the authenticator
+	// A label that identifies the authenticator.
 	Key                  *string `json:"key,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

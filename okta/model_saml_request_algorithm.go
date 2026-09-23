@@ -32,7 +32,7 @@ var _ MappedNullable = &SamlRequestAlgorithm{}
 
 // SamlRequestAlgorithm Algorithm settings used to secure an `<AuthnRequest>` message
 type SamlRequestAlgorithm struct {
-	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>XML Digest Algorithm setting for cryptographically hashing `<AuthnRequest>` messages sent to the IdP > **Note:**  This property is ignored when you disable request signatures (`scope` set as `NONE`).
+	// XML Digest Algorithm setting for cryptographically hashing `<AuthnRequest>` messages sent to the IdP > **Note:**  This property is ignored when you disable request signatures (`scope` set as `NONE`).
 	Digest               *string                        `json:"digest,omitempty"`
 	Signature            *SamlRequestSignatureAlgorithm `json:"signature,omitempty"`
 	AdditionalProperties map[string]interface{}

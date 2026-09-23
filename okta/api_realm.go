@@ -637,6 +637,7 @@ type ApiListRealmsRequest struct {
 	search     *string
 	sortBy     *string
 	sortOrder  *string
+	fields     *string
 	retryCount int32
 }
 
@@ -667,6 +668,12 @@ func (r ApiListRealmsRequest) SortBy(sortBy string) ApiListRealmsRequest {
 // Specifies sort order: &#x60;asc&#x60; or &#x60;desc&#x60; (for search queries only). This parameter is ignored if &#x60;sortBy&#x60; isn&#39;t present.
 func (r ApiListRealmsRequest) SortOrder(sortOrder string) ApiListRealmsRequest {
 	r.sortOrder = &sortOrder
+	return r
+}
+
+// Specifies a comma-separated list of fields to include in the response. Use the &#x60;fields&#x60; parameter to reduce the response payload size.  Supports the following top-level fields: &#x60;id&#x60;, &#x60;created&#x60;, &#x60;lastUpdated&#x60;, &#x60;profile&#x60;, &#x60;isDefault&#x60;, &#x60;_links&#x60;  Use the &#x60;profile:(fieldName)&#x60; syntax to request specific profile attributes, such as &#x60;profile:(name)&#x60; or &#x60;profile:(name,realmType)&#x60;. Bare &#x60;profile&#x60; field is also supported and returns the full profile object.  &gt; **Note:** The &#x60;id&#x60; field is always included in the response.
+func (r ApiListRealmsRequest) Fields(fields string) ApiListRealmsRequest {
+	r.fields = &fields
 	return r
 }
 
@@ -736,6 +743,9 @@ func (a *RealmAPIService) ListRealmsExecute(r ApiListRealmsRequest) ([]Realm, *A
 	}
 	if r.sortOrder != nil {
 		localVarQueryParams.Add("sortOrder", parameterToString(*r.sortOrder, ""))
+	}
+	if r.fields != nil {
+		localVarQueryParams.Add("fields", parameterToString(*r.fields, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

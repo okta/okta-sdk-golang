@@ -68,7 +68,7 @@ var (
 )
 
 const (
-	VERSION                   = "6.1.7"
+	VERSION                   = "6.1.1"
 	AccessTokenCacheKey       = "OKTA_ACCESS_TOKEN"
 	DpopAccessTokenNonce      = "DPOP_OKTA_ACCESS_TOKEN_NONCE"
 	DpopAccessTokenPrivateKey = "DPOP_OKTA_ACCESS_TOKEN_PRIVATE_KEY"
@@ -102,8 +102,6 @@ type APIClient struct {
 	ApplicationAPI ApplicationAPI
 
 	ApplicationConnectionsAPI ApplicationConnectionsAPI
-
-	ApplicationCrossAppAccessConnectionsAPI ApplicationCrossAppAccessConnectionsAPI
 
 	ApplicationFeaturesAPI ApplicationFeaturesAPI
 
@@ -157,6 +155,8 @@ type APIClient struct {
 
 	BrandsAPI BrandsAPI
 
+	BreachedCredentialProtectionAPI BreachedCredentialProtectionAPI
+
 	CAPTCHAAPI CAPTCHAAPI
 
 	CustomDomainAPI CustomDomainAPI
@@ -176,8 +176,6 @@ type APIClient struct {
 	DevicePostureCheckAPI DevicePostureCheckAPI
 
 	DirectoriesIntegrationAPI DirectoriesIntegrationAPI
-
-	DisasterRecoveryAPI DisasterRecoveryAPI
 
 	EmailCustomizationAPI EmailCustomizationAPI
 
@@ -223,7 +221,7 @@ type APIClient struct {
 
 	OktaApplicationSettingsAPI OktaApplicationSettingsAPI
 
-	OktaPersonalSettingsAPI OktaPersonalSettingsAPI
+	OktaManagedUserAccountAPI OktaManagedUserAccountAPI
 
 	OrgCreatorAPI OrgCreatorAPI
 
@@ -308,8 +306,6 @@ type APIClient struct {
 	UserAPI UserAPI
 
 	UserAuthenticatorEnrollmentsAPI UserAuthenticatorEnrollmentsAPI
-
-	UserClassificationAPI UserClassificationAPI
 
 	UserCredAPI UserCredAPI
 
@@ -934,7 +930,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ApiTokenAPI = (*ApiTokenAPIService)(&c.common)
 	c.ApplicationAPI = (*ApplicationAPIService)(&c.common)
 	c.ApplicationConnectionsAPI = (*ApplicationConnectionsAPIService)(&c.common)
-	c.ApplicationCrossAppAccessConnectionsAPI = (*ApplicationCrossAppAccessConnectionsAPIService)(&c.common)
 	c.ApplicationFeaturesAPI = (*ApplicationFeaturesAPIService)(&c.common)
 	c.ApplicationGrantsAPI = (*ApplicationGrantsAPIService)(&c.common)
 	c.ApplicationGroupsAPI = (*ApplicationGroupsAPIService)(&c.common)
@@ -961,6 +956,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.BehaviorAPI = (*BehaviorAPIService)(&c.common)
 	c.BotProtectionAPI = (*BotProtectionAPIService)(&c.common)
 	c.BrandsAPI = (*BrandsAPIService)(&c.common)
+	c.BreachedCredentialProtectionAPI = (*BreachedCredentialProtectionAPIService)(&c.common)
 	c.CAPTCHAAPI = (*CAPTCHAAPIService)(&c.common)
 	c.CustomDomainAPI = (*CustomDomainAPIService)(&c.common)
 	c.CustomPagesAPI = (*CustomPagesAPIService)(&c.common)
@@ -971,7 +967,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.DeviceIntegrationsAPI = (*DeviceIntegrationsAPIService)(&c.common)
 	c.DevicePostureCheckAPI = (*DevicePostureCheckAPIService)(&c.common)
 	c.DirectoriesIntegrationAPI = (*DirectoriesIntegrationAPIService)(&c.common)
-	c.DisasterRecoveryAPI = (*DisasterRecoveryAPIService)(&c.common)
 	c.EmailCustomizationAPI = (*EmailCustomizationAPIService)(&c.common)
 	c.EmailDomainAPI = (*EmailDomainAPIService)(&c.common)
 	c.EmailServerAPI = (*EmailServerAPIService)(&c.common)
@@ -994,7 +989,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.NetworkZoneAPI = (*NetworkZoneAPIService)(&c.common)
 	c.OAuth2ResourceServerCredentialsKeysAPI = (*OAuth2ResourceServerCredentialsKeysAPIService)(&c.common)
 	c.OktaApplicationSettingsAPI = (*OktaApplicationSettingsAPIService)(&c.common)
-	c.OktaPersonalSettingsAPI = (*OktaPersonalSettingsAPIService)(&c.common)
+	c.OktaManagedUserAccountAPI = (*OktaManagedUserAccountAPIService)(&c.common)
 	c.OrgCreatorAPI = (*OrgCreatorAPIService)(&c.common)
 	c.OrgSettingAdminAPI = (*OrgSettingAdminAPIService)(&c.common)
 	c.OrgSettingCommunicationAPI = (*OrgSettingCommunicationAPIService)(&c.common)
@@ -1037,7 +1032,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.UISchemaAPI = (*UISchemaAPIService)(&c.common)
 	c.UserAPI = (*UserAPIService)(&c.common)
 	c.UserAuthenticatorEnrollmentsAPI = (*UserAuthenticatorEnrollmentsAPIService)(&c.common)
-	c.UserClassificationAPI = (*UserClassificationAPIService)(&c.common)
 	c.UserCredAPI = (*UserCredAPIService)(&c.common)
 	c.UserFactorAPI = (*UserFactorAPIService)(&c.common)
 	c.UserGrantAPI = (*UserGrantAPIService)(&c.common)
@@ -1102,13 +1096,6 @@ func parameterToString(obj interface{}, collectionFormat string) string {
 		return strings.Trim(strings.Replace(fmt.Sprint(obj), " ", delimiter, -1), "[]")
 	} else if t, ok := obj.(time.Time); ok {
 		return t.Format(time.RFC3339)
-	} else if m, ok := obj.(json.Marshaler); ok {
-		if b, err := m.MarshalJSON(); err == nil {
-			var s string
-			if err := json.Unmarshal(b, &s); err == nil {
-				return s
-			}
-		}
 	}
 
 	return fmt.Sprintf("%v", obj)

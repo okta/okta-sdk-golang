@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Description** | Pointer to **string** | The description of the Okta managed user account | [optional] 
 **Name** | **string** | The user-defined name for the Okta managed user account | 
-**OktaUserId** | **string** | The ID of the Okta user to manage as a service account. This must be an existing user in your Okta org. | 
+**OktaUserId** | **string** | The ID of the Okta user to manage as a service account.  This must be an existing user in your Okta org. | 
 **OwnerGroupIds** | Pointer to **[]string** | A list of IDs of the Okta groups who own the Okta managed user account | [optional] 
 **OwnerUserIds** | Pointer to **[]string** | A list of IDs of the Okta users who own the Okta managed user account | [optional] 
 

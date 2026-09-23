@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Result** | Pointer to **string** | The current default action that results when Okta imports a user. The two possible values are &#x60;CREATE_USER&#x60; and &#x60;LINK_USER&#x60;. You can change the action that is taken by means of the commands object you return. | [optional] 
+**Result** | Pointer to **string** | The current default action that results when Okta imports a user. The two possible values are &#x60;CREATE_USER&#x60; and &#x60;LINK_USER&#x60;. You  can change the action that is taken by means of the commands object you return. | [optional] 
 
 ## Methods
 

@@ -35,7 +35,8 @@ type AuthenticatorMethodSignedNonceAllOfSettings struct {
 	Algorithms []string `json:"algorithms,omitempty"`
 	// Indicates whether you must use a hardware key store
 	KeyProtection *string `json:"keyProtection,omitempty"`
-	// Controls whether to show the Sign in with Okta Verify button on the Sign-In Widget
+	// (Deprecated when `USER_IDENTIFICATION_POLICY` is enabled) This field is omitted from GET responses and rejected on PUT requests while User Identification Policy is active. Configure this setting using the [User Identification Policy](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/policy) rules instead.
+	// Deprecated
 	ShowSignInWithOV     *string `json:"showSignInWithOV,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -124,6 +125,7 @@ func (o *AuthenticatorMethodSignedNonceAllOfSettings) SetKeyProtection(v string)
 }
 
 // GetShowSignInWithOV returns the ShowSignInWithOV field value if set, zero value otherwise.
+// Deprecated
 func (o *AuthenticatorMethodSignedNonceAllOfSettings) GetShowSignInWithOV() string {
 	if o == nil || IsNil(o.ShowSignInWithOV) {
 		var ret string
@@ -134,6 +136,7 @@ func (o *AuthenticatorMethodSignedNonceAllOfSettings) GetShowSignInWithOV() stri
 
 // GetShowSignInWithOVOk returns a tuple with the ShowSignInWithOV field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *AuthenticatorMethodSignedNonceAllOfSettings) GetShowSignInWithOVOk() (*string, bool) {
 	if o == nil || IsNil(o.ShowSignInWithOV) {
 		return nil, false
@@ -151,6 +154,7 @@ func (o *AuthenticatorMethodSignedNonceAllOfSettings) HasShowSignInWithOV() bool
 }
 
 // SetShowSignInWithOV gets a reference to the given string and assigns it to the ShowSignInWithOV field.
+// Deprecated
 func (o *AuthenticatorMethodSignedNonceAllOfSettings) SetShowSignInWithOV(v string) {
 	o.ShowSignInWithOV = &v
 }

@@ -165,7 +165,7 @@ type Configuration struct {
 func NewConfiguration(conf ...ConfigSetter) (*Configuration, error) {
 	cfg := &Configuration{
 		DefaultHeader: make(map[string]string),
-		UserAgent:     fmt.Sprintf("okta-sdk-golang/%s golang/%s %s/%s", "6.1.7", runtime.Version(), runtime.GOOS, runtime.GOARCH),
+		UserAgent:     fmt.Sprintf("okta-sdk-golang/%s golang/%s %s/%s", "6.1.1", runtime.Version(), runtime.GOOS, runtime.GOARCH),
 		Debug:         false,
 		Servers: ServerConfigurations{
 			{
@@ -179,32 +179,7 @@ func NewConfiguration(conf ...ConfigSetter) (*Configuration, error) {
 				},
 			},
 		},
-		OperationServers: map[string]ServerConfigurations{
-			"DisasterRecoveryAPIService.GetDRStatus": {
-				{
-					URL:         "https://drapp.yourOrgSubDomain.okta.com",
-					Description: "No description provided",
-				},
-			},
-			"DisasterRecoveryAPIService.GetDRStatusForDomain": {
-				{
-					URL:         "https://drapp.yourOktaDomain.okta.com",
-					Description: "No description provided",
-				},
-			},
-			"DisasterRecoveryAPIService.StartOrgFailback": {
-				{
-					URL:         "https://drapp.yourOrgSubDomain.okta.com",
-					Description: "No description provided",
-				},
-			},
-			"DisasterRecoveryAPIService.StartOrgFailover": {
-				{
-					URL:         "https://drapp.yourOrgSubDomain.okta.com",
-					Description: "No description provided",
-				},
-			},
-		},
+		OperationServers: map[string]ServerConfigurations{},
 	}
 
 	cfg.Okta.Testing.DisableHttpsCheck = false

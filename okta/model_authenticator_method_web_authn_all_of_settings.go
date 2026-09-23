@@ -30,30 +30,28 @@ import (
 // checks if the AuthenticatorMethodWebAuthnAllOfSettings type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AuthenticatorMethodWebAuthnAllOfSettings{}
 
-// AuthenticatorMethodWebAuthnAllOfSettings The settings for the WebAuthn authenticator method
+// AuthenticatorMethodWebAuthnAllOfSettings The settings for the Passkey (FIDO2 WebAuthn) authenticator method
 type AuthenticatorMethodWebAuthnAllOfSettings struct {
-	// The FIDO2 Authenticator Attestation Global Unique Identifiers (AAGUID) groups available to the WebAuthn authenticator
+	// The FIDO2 Authenticator Attestation Global Unique Identifiers (AAGUID) groups available to the Passkey (FIDO2 WebAuthn) authenticator
 	AaguidGroups []AAGUIDGroupObject `json:"aaguidGroups,omitempty"`
 	// User verification settings for enrollment.  This setting controls the user verification requirement during the enrollment of a new credential. It determines whether the authenticator requires verification when a user is registering their device or credential.
 	UserVerification *string `json:"userVerification,omitempty"`
-	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>User verification settings for verification. This setting controls the user verification requirement during authentication (verification). It determines whether the authenticator requires user verification when a user signs in with an already-registered credential.  For verification, the value defaults to `PREFERRED`, unless the enrollment setting is `REQUIRED`. If the enrollment setting is `REQUIRED` for the authenticator, then the verification setting is also implicitly `REQUIRED`.  > **Note:** This setting is only available when you have enabled the **Passkeys Rebrand** feature. See [Enable self-service features](https://help.okta.com/okta_help.htm?id=ext_Manage_Early_Access_features).
+	// User verification settings for verification. This setting controls the user verification requirement during authentication (verification). It determines whether the authenticator requires user verification when a user signs in with an already-registered credential.  For verification, the value defaults to `PREFERRED`, unless the enrollment setting is `REQUIRED`. If the enrollment setting is `REQUIRED` for the authenticator, then the verification setting is also implicitly `REQUIRED`.
 	UserVerificationForVerify *string `json:"userVerificationForVerify,omitempty"`
 	// Method attachment
 	Attachment *string       `json:"attachment,omitempty"`
 	RpId       *WebAuthnRpId `json:"rpId,omitempty"`
-	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Enables the passkeys autofill UI to display available WebAuthn discoverable credentials (\"resident key\") from the Sign-In Widget username field
-	EnableAutofillUI *bool `json:"enableAutofillUI,omitempty"`
-	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Resident key requirement setting. Okta recommends using only `REQUIRED` or `DISCOURAGED` to make the requirement preference explicit. Using `PREFERRED` can sometimes lead to unpredictable behavior depending on the client platform and authenticator capabilities.  > **Note:** This setting is only available when you have enabled the **Passkeys Rebrand** feature. See [Enable self-service features](https://help.okta.com/okta_help.htm?id=ext_Manage_Early_Access_features).
+	// Resident key requirement setting. Okta recommends using only `REQUIRED` or `DISCOURAGED` to make the requirement preference explicit. Using `PREFERRED` can sometimes lead to unpredictable behavior depending on the client platform and authenticator capabilities.
 	ResidentKeyRequirement *string `json:"residentKeyRequirement,omitempty"`
-	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Indicates if the **Sign in with a Passkey** button on the Sign-In Widget is shown.   > **Note:** This setting is only available when you have enabled the **Passkeys Rebrand** feature. See [Enable self-service features](https://help.okta.com/okta_help.htm?id=ext_Manage_Early_Access_features).
+	// Indicates if the **Sign in with a Passkey** button on the Sign-In Widget is shown.
 	ShowSignInWithAPasskeyButton *bool `json:"showSignInWithAPasskeyButton,omitempty"`
-	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Indicates whether certificate-based attestation validation is enabled. When enabled, the authenticator's attestation certificate is validated against known root certificates (custom AAGUIDs with associated certificates or the [FIDO Metadata Service](https://fidoalliance.org/metadata/)) to ensure its validity.  > **Note:** This setting is only available when you have enabled the **Passkeys Rebrand** feature. See [Enable self-service features](https://help.okta.com/okta_help.htm?id=ext_Manage_Early_Access_features).
+	// Indicates whether certificate-based attestation validation is enabled. When enabled, the authenticator's attestation certificate is validated against known root certificates (custom AAGUIDs with associated certificates or the [FIDO Metadata Service](https://fidoalliance.org/metadata/)) to ensure its validity.
 	CertBasedAttestationValidation *bool `json:"certBasedAttestationValidation,omitempty"`
-	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Indicates whether the authenticator is required to store the private key on a hardware component  > **Note:** This setting is only available when you have enabled the **Passkeys Rebrand** feature. See [Enable self-service features](https://help.okta.com/okta_help.htm?id=ext_Manage_Early_Access_features).
+	// Indicates whether the authenticator is required to store the private key on a hardware component
 	HardwareProtected *bool `json:"hardwareProtected,omitempty"`
-	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Indicates whether the authenticator is required to be [Federal Information Processing Standards (FIPS)](https://csrc.nist.gov/glossary/term/federal_information_processing_standard) compliant  > **Note:** This setting is only available when you have enabled the **Passkeys Rebrand** feature. See [Enable self-service features](https://help.okta.com/okta_help.htm?id=ext_Manage_Early_Access_features).
+	// Indicates whether the authenticator is required to be [Federal Information Processing Standards (FIPS)](https://csrc.nist.gov/glossary/term/federal_information_processing_standard) compliant
 	FipsCompliant *bool `json:"fipsCompliant,omitempty"`
-	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Indicates whether syncable passkeys are allowed. When enabled, users can register passkeys that are synchronized across their devices by using platform-specific mechanisms (such as iCloud Keychain for Apple devices or Google Password Manager for Android devices).  > **Note:** This setting is only available when you have enabled the **Passkeys Rebrand** feature. See [Enable self-service features](https://help.okta.com/okta_help.htm?id=ext_Manage_Early_Access_features).
+	// Indicates whether syncable passkeys are allowed. When enabled, users can register passkeys that are synchronized across their devices by using platform-specific mechanisms (such as iCloud Keychain for Apple devices or Google Password Manager for Android devices).
 	AllowSyncablePasskeys *bool `json:"allowSyncablePasskeys,omitempty"`
 	AdditionalProperties  map[string]interface{}
 }
@@ -66,8 +64,8 @@ type _AuthenticatorMethodWebAuthnAllOfSettings AuthenticatorMethodWebAuthnAllOfS
 // will change when the set of required properties is changed
 func NewAuthenticatorMethodWebAuthnAllOfSettings() *AuthenticatorMethodWebAuthnAllOfSettings {
 	this := AuthenticatorMethodWebAuthnAllOfSettings{}
-	var enableAutofillUI bool = false
-	this.EnableAutofillUI = &enableAutofillUI
+	var residentKeyRequirement string = "REQUIRED"
+	this.ResidentKeyRequirement = &residentKeyRequirement
 	var showSignInWithAPasskeyButton bool = false
 	this.ShowSignInWithAPasskeyButton = &showSignInWithAPasskeyButton
 	var certBasedAttestationValidation bool = false
@@ -86,8 +84,8 @@ func NewAuthenticatorMethodWebAuthnAllOfSettings() *AuthenticatorMethodWebAuthnA
 // but it doesn't guarantee that properties required by API are set
 func NewAuthenticatorMethodWebAuthnAllOfSettingsWithDefaults() *AuthenticatorMethodWebAuthnAllOfSettings {
 	this := AuthenticatorMethodWebAuthnAllOfSettings{}
-	var enableAutofillUI bool = false
-	this.EnableAutofillUI = &enableAutofillUI
+	var residentKeyRequirement string = "REQUIRED"
+	this.ResidentKeyRequirement = &residentKeyRequirement
 	var showSignInWithAPasskeyButton bool = false
 	this.ShowSignInWithAPasskeyButton = &showSignInWithAPasskeyButton
 	var certBasedAttestationValidation bool = false
@@ -259,38 +257,6 @@ func (o *AuthenticatorMethodWebAuthnAllOfSettings) HasRpId() bool {
 // SetRpId gets a reference to the given WebAuthnRpId and assigns it to the RpId field.
 func (o *AuthenticatorMethodWebAuthnAllOfSettings) SetRpId(v WebAuthnRpId) {
 	o.RpId = &v
-}
-
-// GetEnableAutofillUI returns the EnableAutofillUI field value if set, zero value otherwise.
-func (o *AuthenticatorMethodWebAuthnAllOfSettings) GetEnableAutofillUI() bool {
-	if o == nil || IsNil(o.EnableAutofillUI) {
-		var ret bool
-		return ret
-	}
-	return *o.EnableAutofillUI
-}
-
-// GetEnableAutofillUIOk returns a tuple with the EnableAutofillUI field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AuthenticatorMethodWebAuthnAllOfSettings) GetEnableAutofillUIOk() (*bool, bool) {
-	if o == nil || IsNil(o.EnableAutofillUI) {
-		return nil, false
-	}
-	return o.EnableAutofillUI, true
-}
-
-// HasEnableAutofillUI returns a boolean if a field has been set.
-func (o *AuthenticatorMethodWebAuthnAllOfSettings) HasEnableAutofillUI() bool {
-	if o != nil && !IsNil(o.EnableAutofillUI) {
-		return true
-	}
-
-	return false
-}
-
-// SetEnableAutofillUI gets a reference to the given bool and assigns it to the EnableAutofillUI field.
-func (o *AuthenticatorMethodWebAuthnAllOfSettings) SetEnableAutofillUI(v bool) {
-	o.EnableAutofillUI = &v
 }
 
 // GetResidentKeyRequirement returns the ResidentKeyRequirement field value if set, zero value otherwise.
@@ -510,9 +476,6 @@ func (o AuthenticatorMethodWebAuthnAllOfSettings) ToMap() (map[string]interface{
 	if !IsNil(o.RpId) {
 		toSerialize["rpId"] = o.RpId
 	}
-	if !IsNil(o.EnableAutofillUI) {
-		toSerialize["enableAutofillUI"] = o.EnableAutofillUI
-	}
 	if !IsNil(o.ResidentKeyRequirement) {
 		toSerialize["residentKeyRequirement"] = o.ResidentKeyRequirement
 	}
@@ -558,7 +521,6 @@ func (o *AuthenticatorMethodWebAuthnAllOfSettings) UnmarshalJSON(data []byte) (e
 		delete(additionalProperties, "userVerificationForVerify")
 		delete(additionalProperties, "attachment")
 		delete(additionalProperties, "rpId")
-		delete(additionalProperties, "enableAutofillUI")
 		delete(additionalProperties, "residentKeyRequirement")
 		delete(additionalProperties, "showSignInWithAPasskeyButton")
 		delete(additionalProperties, "certBasedAttestationValidation")

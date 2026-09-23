@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AuthenticatorData** | Pointer to **string** | Base64-encoded authenticator data from the WebAuthn authenticator | [optional] 
-**ClientData** | Pointer to **string** | Base64-encoded client data from the WebAuthn authenticator | [optional] 
-**SignatureData** | Pointer to **string** | Base64-encoded signature data from the WebAuthn authenticator | [optional] 
+**AuthenticatorData** | Pointer to **string** | Base64-encoded authenticator data from the Passkey (FIDO2 WebAuthn) authenticator | [optional] 
+**ClientData** | Pointer to **string** | Base64-encoded client data from the Passkey (FIDO2 WebAuthn) authenticator | [optional] 
+**SignatureData** | Pointer to **string** | Base64-encoded signature data from the Passkey (FIDO2 WebAuthn) authenticator | [optional] 
 
 ## Methods
 

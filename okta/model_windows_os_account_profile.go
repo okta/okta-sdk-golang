@@ -44,6 +44,8 @@ type WindowsOSAccountProfile struct {
 	QualifiedUsername *string `json:"qualifiedUsername,omitempty"`
 	// Windows Security Identifier (SID)
 	SecurityId *string `json:"securityId,omitempty"`
+	// Profile type discriminator
+	Type *string `json:"type,omitempty"`
 	// User principal name
 	Upn                  *string `json:"upn,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -260,6 +262,38 @@ func (o *WindowsOSAccountProfile) SetSecurityId(v string) {
 	o.SecurityId = &v
 }
 
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *WindowsOSAccountProfile) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WindowsOSAccountProfile) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *WindowsOSAccountProfile) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *WindowsOSAccountProfile) SetType(v string) {
+	o.Type = &v
+}
+
 // GetUpn returns the Upn field value if set, zero value otherwise.
 func (o *WindowsOSAccountProfile) GetUpn() string {
 	if o == nil || IsNil(o.Upn) {
@@ -320,6 +354,9 @@ func (o WindowsOSAccountProfile) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SecurityId) {
 		toSerialize["securityId"] = o.SecurityId
 	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
 	if !IsNil(o.Upn) {
 		toSerialize["upn"] = o.Upn
 	}
@@ -351,6 +388,7 @@ func (o *WindowsOSAccountProfile) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "GUID")
 		delete(additionalProperties, "qualifiedUsername")
 		delete(additionalProperties, "securityId")
+		delete(additionalProperties, "type")
 		delete(additionalProperties, "upn")
 		o.AdditionalProperties = additionalProperties
 	}

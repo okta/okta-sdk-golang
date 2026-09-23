@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Device** | Pointer to [**DeviceAccessPolicyRuleCondition**](DeviceAccessPolicyRuleCondition.md) |  | [optional] 
 **ElCondition** | Pointer to [**AccessPolicyRuleCustomCondition**](AccessPolicyRuleCustomCondition.md) |  | [optional] 
 **Network** | Pointer to [**PolicyNetworkCondition**](PolicyNetworkCondition.md) |  | [optional] 
+**Office365Client** | Pointer to [**Office365ClientCondition**](Office365ClientCondition.md) |  | [optional] 
 **People** | Pointer to [**PolicyPeopleCondition**](PolicyPeopleCondition.md) |  | [optional] 
 **Platform** | Pointer to [**PlatformPolicyRuleCondition**](PlatformPolicyRuleCondition.md) |  | [optional] 
 **RiskScore** | Pointer to [**RiskScorePolicyRuleCondition**](RiskScorePolicyRuleCondition.md) |  | [optional] 
@@ -105,6 +106,31 @@ SetNetwork sets Network field to given value.
 `func (o *AccessPolicyRuleConditions) HasNetwork() bool`
 
 HasNetwork returns a boolean if a field has been set.
+
+### GetOffice365Client
+
+`func (o *AccessPolicyRuleConditions) GetOffice365Client() Office365ClientCondition`
+
+GetOffice365Client returns the Office365Client field if non-nil, zero value otherwise.
+
+### GetOffice365ClientOk
+
+`func (o *AccessPolicyRuleConditions) GetOffice365ClientOk() (*Office365ClientCondition, bool)`
+
+GetOffice365ClientOk returns a tuple with the Office365Client field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOffice365Client
+
+`func (o *AccessPolicyRuleConditions) SetOffice365Client(v Office365ClientCondition)`
+
+SetOffice365Client sets Office365Client field to given value.
+
+### HasOffice365Client
+
+`func (o *AccessPolicyRuleConditions) HasOffice365Client() bool`
+
+HasOffice365Client returns a boolean if a field has been set.
 
 ### GetPeople
 

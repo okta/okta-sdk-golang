@@ -208,8 +208,8 @@ type CustomPagesAPI interface {
 	GetSignInPage(ctx context.Context, brandId string) ApiGetSignInPageRequest
 
 	// GetSignInPageExecute executes the request
-	//  @return PageRoot
-	GetSignInPageExecute(r ApiGetSignInPageRequest) (*PageRoot, *APIResponse, error)
+	//  @return SignInPageRoot
+	GetSignInPageExecute(r ApiGetSignInPageRequest) (*SignInPageRoot, *APIResponse, error)
 
 	/*
 		GetSignOutPageSettings Retrieve the sign-out page settings
@@ -2112,13 +2112,13 @@ type ApiGetSignInPageRequest struct {
 	retryCount int32
 }
 
-// Specifies additional metadata to be included in the response
+// Specifies additional metadata to be included in the response. &#x60;widgetConfigurationSchema&#x60; requires the SIW_CONFIG_JSON_CUSTOMIZATION feature.
 func (r ApiGetSignInPageRequest) Expand(expand []string) ApiGetSignInPageRequest {
 	r.expand = &expand
 	return r
 }
 
-func (r ApiGetSignInPageRequest) Execute() (*PageRoot, *APIResponse, error) {
+func (r ApiGetSignInPageRequest) Execute() (*SignInPageRoot, *APIResponse, error) {
 	return r.ApiService.GetSignInPageExecute(r)
 }
 
@@ -2142,13 +2142,13 @@ func (a *CustomPagesAPIService) GetSignInPage(ctx context.Context, brandId strin
 
 // Execute executes the request
 //
-//	@return PageRoot
-func (a *CustomPagesAPIService) GetSignInPageExecute(r ApiGetSignInPageRequest) (*PageRoot, *APIResponse, error) {
+//	@return SignInPageRoot
+func (a *CustomPagesAPIService) GetSignInPageExecute(r ApiGetSignInPageRequest) (*SignInPageRoot, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *PageRoot
+		localVarReturnValue  *SignInPageRoot
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error

@@ -30,14 +30,16 @@ import (
 // checks if the IdentityProviderPropertiesIdvMetadata type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &IdentityProviderPropertiesIdvMetadata{}
 
-// IdentityProviderPropertiesIdvMetadata Metadata about the IDV vendor. Available only for `IDV_STANDARD` IdPs.
+// IdentityProviderPropertiesIdvMetadata Metadata about the IDV vendor. Available for `IDV_STANDARD` IdPs and IDV vendors that are published through the Okta Integration Network (OIN).
 type IdentityProviderPropertiesIdvMetadata struct {
 	// The display name of the IDV vendor
 	VendorDisplayName *string `json:"vendorDisplayName,omitempty"`
 	// A URL that links to the terms of use for the IDV vendor
 	TermsOfUse *string `json:"termsOfUse,omitempty"`
 	// A URL that links to the privacy policy for the IDV vendor
-	PrivacyPolicy        *string `json:"privacyPolicy,omitempty"`
+	PrivacyPolicy *string `json:"privacyPolicy,omitempty"`
+	// A URL that links to the IDV vendor's own setup or configuration guide
+	ConfigUrl            *string `json:"configUrl,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -156,6 +158,38 @@ func (o *IdentityProviderPropertiesIdvMetadata) SetPrivacyPolicy(v string) {
 	o.PrivacyPolicy = &v
 }
 
+// GetConfigUrl returns the ConfigUrl field value if set, zero value otherwise.
+func (o *IdentityProviderPropertiesIdvMetadata) GetConfigUrl() string {
+	if o == nil || IsNil(o.ConfigUrl) {
+		var ret string
+		return ret
+	}
+	return *o.ConfigUrl
+}
+
+// GetConfigUrlOk returns a tuple with the ConfigUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IdentityProviderPropertiesIdvMetadata) GetConfigUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.ConfigUrl) {
+		return nil, false
+	}
+	return o.ConfigUrl, true
+}
+
+// HasConfigUrl returns a boolean if a field has been set.
+func (o *IdentityProviderPropertiesIdvMetadata) HasConfigUrl() bool {
+	if o != nil && !IsNil(o.ConfigUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetConfigUrl gets a reference to the given string and assigns it to the ConfigUrl field.
+func (o *IdentityProviderPropertiesIdvMetadata) SetConfigUrl(v string) {
+	o.ConfigUrl = &v
+}
+
 func (o IdentityProviderPropertiesIdvMetadata) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -174,6 +208,9 @@ func (o IdentityProviderPropertiesIdvMetadata) ToMap() (map[string]interface{}, 
 	}
 	if !IsNil(o.PrivacyPolicy) {
 		toSerialize["privacyPolicy"] = o.PrivacyPolicy
+	}
+	if !IsNil(o.ConfigUrl) {
+		toSerialize["configUrl"] = o.ConfigUrl
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -200,6 +237,7 @@ func (o *IdentityProviderPropertiesIdvMetadata) UnmarshalJSON(data []byte) (err 
 		delete(additionalProperties, "vendorDisplayName")
 		delete(additionalProperties, "termsOfUse")
 		delete(additionalProperties, "privacyPolicy")
+		delete(additionalProperties, "configUrl")
 		o.AdditionalProperties = additionalProperties
 	}
 

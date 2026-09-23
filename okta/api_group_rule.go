@@ -125,9 +125,7 @@ type GroupRuleAPI interface {
 			ReplaceGroupRule Replace a group rule
 
 			Replaces a group rule
-		> **Notes:** You can only update rules with a group whose status is set to `INACTIVE`.
-		>
-		> You currently can't update the `actions` section.
+		> **Note:** You can only update group rules that have their status set to `INACTIVE`.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param groupRuleId The `id` of the group rule
@@ -1173,9 +1171,7 @@ func (r ApiReplaceGroupRuleRequest) Execute() (*GroupRule, *APIResponse, error) 
 ReplaceGroupRule Replace a group rule
 
 Replaces a group rule
-> **Notes:** You can only update rules with a group whose status is set to `INACTIVE`.
->
-> You currently can't update the `actions` section.
+> **Note:** You can only update group rules that have their status set to `INACTIVE`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupRuleId The `id` of the group rule

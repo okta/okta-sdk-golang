@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Constraints** | Pointer to [**NullableAuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints**](AuthenticatorEnrollmentPolicyAuthenticatorSettingsConstraints.md) |  | [optional] 
 **Enroll** | Pointer to [**AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll**](AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll.md) |  | [optional] 
 **Id** | Pointer to **string** | The authenticator ID for &#x60;custom_app&#x60;, &#x60;custom_otp&#x60; or &#x60;external_idp&#x60;. Use this property to select a specific &#x60;custom_app&#x60;, &#x60;custom_otp&#x60; or &#x60;external_idp&#x60; authenticator. | [optional] 
-**Key** | Pointer to **string** | A label that identifies the authenticator | [optional] 
+**Key** | Pointer to **string** | A label that identifies the authenticator.  | [optional] 
 
 ## Methods
 

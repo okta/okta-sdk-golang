@@ -32,11 +32,11 @@ var _ MappedNullable = &Webauthn1{}
 
 // Webauthn1 Verifies a `webauthn` factor challenge by posting a signed assertion using the challenge `nonce`
 type Webauthn1 struct {
-	// Base64-encoded authenticator data from the WebAuthn authenticator
+	// Base64-encoded authenticator data from the Passkey (FIDO2 WebAuthn) authenticator
 	AuthenticatorData *string `json:"authenticatorData,omitempty"`
-	// Base64-encoded client data from the WebAuthn authenticator
+	// Base64-encoded client data from the Passkey (FIDO2 WebAuthn) authenticator
 	ClientData *string `json:"clientData,omitempty"`
-	// Base64-encoded signature data from the WebAuthn authenticator
+	// Base64-encoded signature data from the Passkey (FIDO2 WebAuthn) authenticator
 	SignatureData        *string `json:"signatureData,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

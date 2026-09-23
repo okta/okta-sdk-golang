@@ -41,7 +41,7 @@ type IdentityProviderApplicationUser struct {
 	Id *string `json:"id,omitempty"`
 	// Timestamp when the object was last updated
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
-	// IdP-specific profile for the user.  IdP user profiles are IdP-specific but may be customized by the Profile Editor in the Admin Console.  > **Note:** Okta variable names have reserved characters that may conflict with the name of an IdP assertion attribute. You can use the **External name** to define the attribute name as defined in an IdP assertion such as a SAML attribute name.
+	// IdP-specific profile for the user.   IdP user profiles are IdP-specific but may be customized by the Profile Editor in the Admin Console.  > **Note:** Okta variable names have reserved characters that may conflict with the name of an IdP assertion attribute. You can use the **External name** to define the attribute name as defined in an IdP assertion such as a SAML attribute name.
 	Profile map[string]map[string]interface{} `json:"profile,omitempty"`
 	// Embedded resources related to the IdP user
 	Embedded             map[string]map[string]interface{}     `json:"_embedded,omitempty"`

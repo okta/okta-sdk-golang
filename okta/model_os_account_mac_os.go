@@ -47,13 +47,14 @@ type _OSAccountMacOS OSAccountMacOS
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOSAccountMacOS(profile MacOSAccountProfile, created time.Time, deviceId string, id string, lastUpdated time.Time, platform string, links OSAccountLinks) *OSAccountMacOS {
+func NewOSAccountMacOS(profile MacOSAccountProfile, created time.Time, deviceId string, id string, lastUpdated time.Time, platform string, status string, links OSAccountLinks) *OSAccountMacOS {
 	this := OSAccountMacOS{}
 	this.Created = created
 	this.DeviceId = deviceId
 	this.Id = id
 	this.LastUpdated = lastUpdated
 	this.Platform = platform
+	this.Status = status
 	this.Links = links
 	this.Profile = profile
 	return &this
@@ -129,6 +130,7 @@ func (o *OSAccountMacOS) UnmarshalJSON(data []byte) (err error) {
 		"id",
 		"lastUpdated",
 		"platform",
+		"status",
 		"_links",
 	}
 

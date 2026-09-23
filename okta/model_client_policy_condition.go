@@ -32,6 +32,8 @@ var _ MappedNullable = &ClientPolicyCondition{}
 
 // ClientPolicyCondition Specifies which clients are included in the policy
 type ClientPolicyCondition struct {
+	// <x-lifecycle-container><x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>The CIMD-registered apps or AI agents to include in the policy, identified by type and ID
+	Cimd []CimdClientCondition `json:"cimd,omitempty"`
 	// Which clients are included in the policy
 	Include              []string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -54,6 +56,38 @@ func NewClientPolicyCondition() *ClientPolicyCondition {
 func NewClientPolicyConditionWithDefaults() *ClientPolicyCondition {
 	this := ClientPolicyCondition{}
 	return &this
+}
+
+// GetCimd returns the Cimd field value if set, zero value otherwise.
+func (o *ClientPolicyCondition) GetCimd() []CimdClientCondition {
+	if o == nil || IsNil(o.Cimd) {
+		var ret []CimdClientCondition
+		return ret
+	}
+	return o.Cimd
+}
+
+// GetCimdOk returns a tuple with the Cimd field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ClientPolicyCondition) GetCimdOk() ([]CimdClientCondition, bool) {
+	if o == nil || IsNil(o.Cimd) {
+		return nil, false
+	}
+	return o.Cimd, true
+}
+
+// HasCimd returns a boolean if a field has been set.
+func (o *ClientPolicyCondition) HasCimd() bool {
+	if o != nil && !IsNil(o.Cimd) {
+		return true
+	}
+
+	return false
+}
+
+// SetCimd gets a reference to the given []CimdClientCondition and assigns it to the Cimd field.
+func (o *ClientPolicyCondition) SetCimd(v []CimdClientCondition) {
+	o.Cimd = v
 }
 
 // GetInclude returns the Include field value if set, zero value otherwise.
@@ -98,6 +132,9 @@ func (o ClientPolicyCondition) MarshalJSON() ([]byte, error) {
 
 func (o ClientPolicyCondition) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Cimd) {
+		toSerialize["cimd"] = o.Cimd
+	}
 	if !IsNil(o.Include) {
 		toSerialize["include"] = o.Include
 	}
@@ -123,6 +160,7 @@ func (o *ClientPolicyCondition) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "cimd")
 		delete(additionalProperties, "include")
 		o.AdditionalProperties = additionalProperties
 	}

@@ -38,7 +38,7 @@ type PasswordPolicyPasswordSettingsComplexity struct {
 	// Indicates if the Username must be excluded from the password
 	ExcludeUsername *bool `json:"excludeUsername,omitempty"`
 	// <x-lifecycle-container><x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>Specifies the maximum number of consecutive repeating characters that can be used in a password
-	MaxConsecutiveCharacters *int32 `json:"maxConsecutiveCharacters,omitempty"`
+	MaxConsecutiveRepeatingCharacters *int32 `json:"maxConsecutiveRepeatingCharacters,omitempty"`
 	// Minimum password length
 	MinLength *int32 `json:"minLength,omitempty"`
 	// Indicates if a password must contain at least one lower case letter: `0` indicates no, `1` indicates yes
@@ -193,36 +193,36 @@ func (o *PasswordPolicyPasswordSettingsComplexity) SetExcludeUsername(v bool) {
 	o.ExcludeUsername = &v
 }
 
-// GetMaxConsecutiveCharacters returns the MaxConsecutiveCharacters field value if set, zero value otherwise.
-func (o *PasswordPolicyPasswordSettingsComplexity) GetMaxConsecutiveCharacters() int32 {
-	if o == nil || IsNil(o.MaxConsecutiveCharacters) {
+// GetMaxConsecutiveRepeatingCharacters returns the MaxConsecutiveRepeatingCharacters field value if set, zero value otherwise.
+func (o *PasswordPolicyPasswordSettingsComplexity) GetMaxConsecutiveRepeatingCharacters() int32 {
+	if o == nil || IsNil(o.MaxConsecutiveRepeatingCharacters) {
 		var ret int32
 		return ret
 	}
-	return *o.MaxConsecutiveCharacters
+	return *o.MaxConsecutiveRepeatingCharacters
 }
 
-// GetMaxConsecutiveCharactersOk returns a tuple with the MaxConsecutiveCharacters field value if set, nil otherwise
+// GetMaxConsecutiveRepeatingCharactersOk returns a tuple with the MaxConsecutiveRepeatingCharacters field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PasswordPolicyPasswordSettingsComplexity) GetMaxConsecutiveCharactersOk() (*int32, bool) {
-	if o == nil || IsNil(o.MaxConsecutiveCharacters) {
+func (o *PasswordPolicyPasswordSettingsComplexity) GetMaxConsecutiveRepeatingCharactersOk() (*int32, bool) {
+	if o == nil || IsNil(o.MaxConsecutiveRepeatingCharacters) {
 		return nil, false
 	}
-	return o.MaxConsecutiveCharacters, true
+	return o.MaxConsecutiveRepeatingCharacters, true
 }
 
-// HasMaxConsecutiveCharacters returns a boolean if a field has been set.
-func (o *PasswordPolicyPasswordSettingsComplexity) HasMaxConsecutiveCharacters() bool {
-	if o != nil && !IsNil(o.MaxConsecutiveCharacters) {
+// HasMaxConsecutiveRepeatingCharacters returns a boolean if a field has been set.
+func (o *PasswordPolicyPasswordSettingsComplexity) HasMaxConsecutiveRepeatingCharacters() bool {
+	if o != nil && !IsNil(o.MaxConsecutiveRepeatingCharacters) {
 		return true
 	}
 
 	return false
 }
 
-// SetMaxConsecutiveCharacters gets a reference to the given int32 and assigns it to the MaxConsecutiveCharacters field.
-func (o *PasswordPolicyPasswordSettingsComplexity) SetMaxConsecutiveCharacters(v int32) {
-	o.MaxConsecutiveCharacters = &v
+// SetMaxConsecutiveRepeatingCharacters gets a reference to the given int32 and assigns it to the MaxConsecutiveRepeatingCharacters field.
+func (o *PasswordPolicyPasswordSettingsComplexity) SetMaxConsecutiveRepeatingCharacters(v int32) {
+	o.MaxConsecutiveRepeatingCharacters = &v
 }
 
 // GetMinLength returns the MinLength field value if set, zero value otherwise.
@@ -436,8 +436,8 @@ func (o PasswordPolicyPasswordSettingsComplexity) ToMap() (map[string]interface{
 	if !IsNil(o.ExcludeUsername) {
 		toSerialize["excludeUsername"] = o.ExcludeUsername
 	}
-	if !IsNil(o.MaxConsecutiveCharacters) {
-		toSerialize["maxConsecutiveCharacters"] = o.MaxConsecutiveCharacters
+	if !IsNil(o.MaxConsecutiveRepeatingCharacters) {
+		toSerialize["maxConsecutiveRepeatingCharacters"] = o.MaxConsecutiveRepeatingCharacters
 	}
 	if !IsNil(o.MinLength) {
 		toSerialize["minLength"] = o.MinLength
@@ -482,7 +482,7 @@ func (o *PasswordPolicyPasswordSettingsComplexity) UnmarshalJSON(data []byte) (e
 		delete(additionalProperties, "dictionary")
 		delete(additionalProperties, "excludeAttributes")
 		delete(additionalProperties, "excludeUsername")
-		delete(additionalProperties, "maxConsecutiveCharacters")
+		delete(additionalProperties, "maxConsecutiveRepeatingCharacters")
 		delete(additionalProperties, "minLength")
 		delete(additionalProperties, "minLowerCase")
 		delete(additionalProperties, "minNumber")

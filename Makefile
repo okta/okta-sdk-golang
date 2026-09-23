@@ -3,8 +3,12 @@ COLOR_NONE=\x1b[0m
 COLOR_ERROR=\x1b[31;01m
 COLOR_WARNING=\x1b[33;05m
 COLOR_OKTA=\x1B[34;01m
-GOLANGCI_LINT := golangci-lint
+GOLANGCI_LINT := $(shell go env GOPATH)/bin/golangci-lint
 GOLANGCI_LINT_VERSION := v2.5.0
+GOIMPORTS := $(shell go env GOPATH)/bin/goimports
+OPENAPI_GENERATOR_VERSION := 7.15.0
+OPENAPI_GENERATOR_JAR := $(HOME)/.openapi-generator-jars/openapi-generator-cli-$(OPENAPI_GENERATOR_VERSION).jar
+OPENAPI_GENERATOR_JAR_URL := https://repo1.maven.org/maven2/org/openapitools/openapi-generator-cli/$(OPENAPI_GENERATOR_VERSION)/openapi-generator-cli-$(OPENAPI_GENERATOR_VERSION).jar
 
 help:
 	@echo "$(COLOR_OK)Okta SDK for Golang$(COLOR_NONE)"
@@ -58,7 +62,7 @@ fmt: check-golangci-lint # Format the code using `golangci-lint`
 
 .PHONY: import
 import: # Run goimports on all Go files
-	@goimports -w .
+	@$(GOIMPORTS) -w .
 
 check-golangci-lint:
 	@which $(GOLANGCI_LINT) > /dev/null || curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/HEAD/install.sh | sh -s -- -b $(shell go env GOPATH)/bin $(GOLANGCI_LINT_VERSION)
@@ -75,6 +79,16 @@ test\:integration:
 test\:unit:
 	go test -cover -coverpkg=./okta -failfast -race ./okta -test.v
 
-generate:
-	npx @openapitools/openapi-generator-cli generate -c ./.generator/config.yaml -i .generator/okta-management-APIs-oasv3-noEnums-inheritance.yaml --skip-validate-spec
+# Downloads the pinned openapi-generator jar from Maven Central; npm registry is blocked for node by the VPN/endpoint agent.
+.PHONY: openapi-generator-jar
+openapi-generator-jar:
+	@if [ ! -s "$(OPENAPI_GENERATOR_JAR)" ] || ! unzip -qt "$(OPENAPI_GENERATOR_JAR)" >/dev/null 2>&1; then \
+		echo "$(COLOR_OKTA)Downloading openapi-generator $(OPENAPI_GENERATOR_VERSION) jar...$(COLOR_NONE)"; \
+		mkdir -p "$(dir $(OPENAPI_GENERATOR_JAR))"; \
+		for i in 1 2 3 4 5; do curl -fSL -C - -o "$(OPENAPI_GENERATOR_JAR)" "$(OPENAPI_GENERATOR_JAR_URL)" && break; done; \
+	fi
+	@unzip -qt "$(OPENAPI_GENERATOR_JAR)" >/dev/null 2>&1 && echo "$(COLOR_OK)openapi-generator jar ready$(COLOR_NONE)" || (echo "$(COLOR_ERROR)openapi-generator jar download failed$(COLOR_NONE)"; exit 1)
+
+generate: openapi-generator-jar
+	java -jar "$(OPENAPI_GENERATOR_JAR)" generate -c ./.generator/config.yaml -i .generator/okta-management-APIs-oasv3-noEnums-inheritance.yaml --skip-validate-spec
 

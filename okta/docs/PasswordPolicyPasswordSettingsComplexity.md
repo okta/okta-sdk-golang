@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Dictionary** | Pointer to [**PasswordDictionary**](PasswordDictionary.md) |  | [optional] 
 **ExcludeAttributes** | Pointer to **[]string** | The User profile attributes whose values must be excluded from the password: currently only supports &#x60;firstName&#x60; and &#x60;lastName&#x60; | [optional] [default to []]
 **ExcludeUsername** | Pointer to **bool** | Indicates if the Username must be excluded from the password | [optional] [default to true]
-**MaxConsecutiveCharacters** | Pointer to **int32** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;Specifies the maximum number of consecutive repeating characters that can be used in a password | [optional] 
+**MaxConsecutiveRepeatingCharacters** | Pointer to **int32** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;Specifies the maximum number of consecutive repeating characters that can be used in a password | [optional] 
 **MinLength** | Pointer to **int32** | Minimum password length | [optional] [default to 8]
 **MinLowerCase** | Pointer to **int32** | Indicates if a password must contain at least one lower case letter: &#x60;0&#x60; indicates no, &#x60;1&#x60; indicates yes | [optional] [default to 1]
 **MinNumber** | Pointer to **int32** | Indicates if a password must contain at least one number: &#x60;0&#x60; indicates no, &#x60;1&#x60; indicates yes | [optional] [default to 1]
@@ -109,30 +109,30 @@ SetExcludeUsername sets ExcludeUsername field to given value.
 
 HasExcludeUsername returns a boolean if a field has been set.
 
-### GetMaxConsecutiveCharacters
+### GetMaxConsecutiveRepeatingCharacters
 
-`func (o *PasswordPolicyPasswordSettingsComplexity) GetMaxConsecutiveCharacters() int32`
+`func (o *PasswordPolicyPasswordSettingsComplexity) GetMaxConsecutiveRepeatingCharacters() int32`
 
-GetMaxConsecutiveCharacters returns the MaxConsecutiveCharacters field if non-nil, zero value otherwise.
+GetMaxConsecutiveRepeatingCharacters returns the MaxConsecutiveRepeatingCharacters field if non-nil, zero value otherwise.
 
-### GetMaxConsecutiveCharactersOk
+### GetMaxConsecutiveRepeatingCharactersOk
 
-`func (o *PasswordPolicyPasswordSettingsComplexity) GetMaxConsecutiveCharactersOk() (*int32, bool)`
+`func (o *PasswordPolicyPasswordSettingsComplexity) GetMaxConsecutiveRepeatingCharactersOk() (*int32, bool)`
 
-GetMaxConsecutiveCharactersOk returns a tuple with the MaxConsecutiveCharacters field if it's non-nil, zero value otherwise
+GetMaxConsecutiveRepeatingCharactersOk returns a tuple with the MaxConsecutiveRepeatingCharacters field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetMaxConsecutiveCharacters
+### SetMaxConsecutiveRepeatingCharacters
 
-`func (o *PasswordPolicyPasswordSettingsComplexity) SetMaxConsecutiveCharacters(v int32)`
+`func (o *PasswordPolicyPasswordSettingsComplexity) SetMaxConsecutiveRepeatingCharacters(v int32)`
 
-SetMaxConsecutiveCharacters sets MaxConsecutiveCharacters field to given value.
+SetMaxConsecutiveRepeatingCharacters sets MaxConsecutiveRepeatingCharacters field to given value.
 
-### HasMaxConsecutiveCharacters
+### HasMaxConsecutiveRepeatingCharacters
 
-`func (o *PasswordPolicyPasswordSettingsComplexity) HasMaxConsecutiveCharacters() bool`
+`func (o *PasswordPolicyPasswordSettingsComplexity) HasMaxConsecutiveRepeatingCharacters() bool`
 
-HasMaxConsecutiveCharacters returns a boolean if a field has been set.
+HasMaxConsecutiveRepeatingCharacters returns a boolean if a field has been set.
 
 ### GetMinLength
 

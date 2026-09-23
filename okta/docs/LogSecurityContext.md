@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **Isp** | Pointer to **NullableString** | The Internet service provider that&#39;s used to send the event&#39;s request | [optional] [readonly] 
 **IsProxy** | Pointer to **NullableBool** | Specifies whether an event&#39;s request is from a known proxy | [optional] [readonly] 
 **Risk** | Pointer to [**NullableLogRisk**](LogRisk.md) |  | [optional] 
+**TlsFingerprint** | Pointer to [**NullableLogTlsFingerprint**](LogTlsFingerprint.md) |  | [optional] 
 **UserBehaviors** | Pointer to [**[]LogUserBehavior**](LogUserBehavior.md) | The result of the user behavior detection models associated with the event | [optional] [readonly] 
 
 ## Methods
@@ -313,6 +314,41 @@ HasRisk returns a boolean if a field has been set.
 `func (o *LogSecurityContext) UnsetRisk()`
 
 UnsetRisk ensures that no value is present for Risk, not even an explicit nil
+### GetTlsFingerprint
+
+`func (o *LogSecurityContext) GetTlsFingerprint() LogTlsFingerprint`
+
+GetTlsFingerprint returns the TlsFingerprint field if non-nil, zero value otherwise.
+
+### GetTlsFingerprintOk
+
+`func (o *LogSecurityContext) GetTlsFingerprintOk() (*LogTlsFingerprint, bool)`
+
+GetTlsFingerprintOk returns a tuple with the TlsFingerprint field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTlsFingerprint
+
+`func (o *LogSecurityContext) SetTlsFingerprint(v LogTlsFingerprint)`
+
+SetTlsFingerprint sets TlsFingerprint field to given value.
+
+### HasTlsFingerprint
+
+`func (o *LogSecurityContext) HasTlsFingerprint() bool`
+
+HasTlsFingerprint returns a boolean if a field has been set.
+
+### SetTlsFingerprintNil
+
+`func (o *LogSecurityContext) SetTlsFingerprintNil(b bool)`
+
+ SetTlsFingerprintNil sets the value for TlsFingerprint to be an explicit nil
+
+### UnsetTlsFingerprint
+`func (o *LogSecurityContext) UnsetTlsFingerprint()`
+
+UnsetTlsFingerprint ensures that no value is present for TlsFingerprint, not even an explicit nil
 ### GetUserBehaviors
 
 `func (o *LogSecurityContext) GetUserBehaviors() []LogUserBehavior`

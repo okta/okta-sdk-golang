@@ -30,11 +30,11 @@ import (
 // checks if the Webauthn type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &Webauthn{}
 
-// Webauthn Activates a `webauthn` factor with the specified attestation and registration information from the WebAuthn authenticator
+// Webauthn Activates a `webauthn` factor with the specified attestation and registration information from the Passkey (FIDO2 WebAuthn) authenticator
 type Webauthn struct {
-	// Base64-encoded attestation from the WebAuthn authenticator
+	// Base64-encoded attestation from the Passkey (FIDO2 WebAuthn) authenticator
 	Attestation *string `json:"attestation,omitempty"`
-	// Base64-encoded client data from the WebAuthn authenticator
+	// Base64-encoded client data from the Passkey (FIDO2 WebAuthn) authenticator
 	ClientData           *string `json:"clientData,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

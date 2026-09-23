@@ -434,15 +434,15 @@ type ApiListGroupOwnersRequest struct {
 	ctx        context.Context
 	ApiService GroupOwnerAPI
 	groupId    string
-	search     *string
+	filter     *string
 	after      *string
 	limit      *int32
 	retryCount int32
 }
 
-// SCIM filter expression for group owners. Allows you to filter owners by type.
-func (r ApiListGroupOwnersRequest) Search(search string) ApiListGroupOwnersRequest {
-	r.search = &search
+// SCIM filter expression for group owners. You can filter by &#x60;type&#x60; (&#x60;GROUP&#x60; or &#x60;USER&#x60;) and/or &#x60;resolved&#x60; (true or false). If you don&#39;t specify a filter, only owners with a resolved status are returned, equivalent to &#x60;resolved eq true&#x60;.
+func (r ApiListGroupOwnersRequest) Filter(filter string) ApiListGroupOwnersRequest {
+	r.filter = &filter
 	return r
 }
 
@@ -511,8 +511,8 @@ func (a *GroupOwnerAPIService) ListGroupOwnersExecute(r ApiListGroupOwnersReques
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.search != nil {
-		localVarQueryParams.Add("search", parameterToString(*r.search, ""))
+	if r.filter != nil {
+		localVarQueryParams.Add("filter", parameterToString(*r.filter, ""))
 	}
 	if r.after != nil {
 		localVarQueryParams.Add("after", parameterToString(*r.after, ""))

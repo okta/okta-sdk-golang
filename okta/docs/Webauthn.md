@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Attestation** | Pointer to **string** | Base64-encoded attestation from the WebAuthn authenticator | [optional] 
-**ClientData** | Pointer to **string** | Base64-encoded client data from the WebAuthn authenticator | [optional] 
+**Attestation** | Pointer to **string** | Base64-encoded attestation from the Passkey (FIDO2 WebAuthn) authenticator | [optional] 
+**ClientData** | Pointer to **string** | Base64-encoded client data from the Passkey (FIDO2 WebAuthn) authenticator | [optional] 
 
 ## Methods
 

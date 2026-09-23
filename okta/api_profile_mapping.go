@@ -270,7 +270,7 @@ func (r ApiListProfileMappingsRequest) After(after string) ApiListProfileMapping
 	return r
 }
 
-// Specifies the number of results per page
+// Specifies the number of results per page &gt; **Note:** If you encounter timeout errors with larger values, reduce the limit (for example, &#x60;50&#x60;) and use pagination with the &#x60;after&#x60; parameter to retrieve the results.
 func (r ApiListProfileMappingsRequest) Limit(limit int32) ApiListProfileMappingsRequest {
 	r.limit = &limit
 	return r

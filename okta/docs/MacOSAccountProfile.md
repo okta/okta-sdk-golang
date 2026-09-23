@@ -4,8 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AccountUUID** | Pointer to **string** | Unique identifier for the macOS account | [optional] 
+**AccountUuid** | Pointer to **string** | Unique identifier for the macOS account | [optional] 
 **FullName** | Pointer to **string** | Full name of the account user | [optional] 
+**Type** | Pointer to **string** | Profile type discriminator | [optional] 
 **Username** | Pointer to **string** | Username of the account | [optional] 
 
 ## Methods
@@ -27,30 +28,30 @@ NewMacOSAccountProfileWithDefaults instantiates a new MacOSAccountProfile object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
-### GetAccountUUID
+### GetAccountUuid
 
-`func (o *MacOSAccountProfile) GetAccountUUID() string`
+`func (o *MacOSAccountProfile) GetAccountUuid() string`
 
-GetAccountUUID returns the AccountUUID field if non-nil, zero value otherwise.
+GetAccountUuid returns the AccountUuid field if non-nil, zero value otherwise.
 
-### GetAccountUUIDOk
+### GetAccountUuidOk
 
-`func (o *MacOSAccountProfile) GetAccountUUIDOk() (*string, bool)`
+`func (o *MacOSAccountProfile) GetAccountUuidOk() (*string, bool)`
 
-GetAccountUUIDOk returns a tuple with the AccountUUID field if it's non-nil, zero value otherwise
+GetAccountUuidOk returns a tuple with the AccountUuid field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetAccountUUID
+### SetAccountUuid
 
-`func (o *MacOSAccountProfile) SetAccountUUID(v string)`
+`func (o *MacOSAccountProfile) SetAccountUuid(v string)`
 
-SetAccountUUID sets AccountUUID field to given value.
+SetAccountUuid sets AccountUuid field to given value.
 
-### HasAccountUUID
+### HasAccountUuid
 
-`func (o *MacOSAccountProfile) HasAccountUUID() bool`
+`func (o *MacOSAccountProfile) HasAccountUuid() bool`
 
-HasAccountUUID returns a boolean if a field has been set.
+HasAccountUuid returns a boolean if a field has been set.
 
 ### GetFullName
 
@@ -76,6 +77,31 @@ SetFullName sets FullName field to given value.
 `func (o *MacOSAccountProfile) HasFullName() bool`
 
 HasFullName returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *MacOSAccountProfile) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *MacOSAccountProfile) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *MacOSAccountProfile) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *MacOSAccountProfile) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetUsername
 

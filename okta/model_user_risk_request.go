@@ -25,6 +25,7 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the UserRiskRequest type satisfies the MappedNullable interface at compile time
@@ -33,7 +34,9 @@ var _ MappedNullable = &UserRiskRequest{}
 // UserRiskRequest struct for UserRiskRequest
 type UserRiskRequest struct {
 	// The risk level associated with the user
-	RiskLevel            *string `json:"riskLevel,omitempty"`
+	RiskLevel string `json:"riskLevel"`
+	// The reason for the risk change. If not provided, the reason defaults to `override.by.admin`. Only alphanumeric characters, spaces, hyphens, commas, and periods are allowed.
+	RiskReason           *string `json:"riskReason,omitempty" validate:"regexp=^[a-zA-Z0-9\\\\s\\\\-,.]*$"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -43,8 +46,9 @@ type _UserRiskRequest UserRiskRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewUserRiskRequest() *UserRiskRequest {
+func NewUserRiskRequest(riskLevel string) *UserRiskRequest {
 	this := UserRiskRequest{}
+	this.RiskLevel = riskLevel
 	return &this
 }
 
@@ -56,36 +60,60 @@ func NewUserRiskRequestWithDefaults() *UserRiskRequest {
 	return &this
 }
 
-// GetRiskLevel returns the RiskLevel field value if set, zero value otherwise.
+// GetRiskLevel returns the RiskLevel field value
 func (o *UserRiskRequest) GetRiskLevel() string {
-	if o == nil || IsNil(o.RiskLevel) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.RiskLevel
+
+	return o.RiskLevel
 }
 
-// GetRiskLevelOk returns a tuple with the RiskLevel field value if set, nil otherwise
+// GetRiskLevelOk returns a tuple with the RiskLevel field value
 // and a boolean to check if the value has been set.
 func (o *UserRiskRequest) GetRiskLevelOk() (*string, bool) {
-	if o == nil || IsNil(o.RiskLevel) {
+	if o == nil {
 		return nil, false
 	}
-	return o.RiskLevel, true
+	return &o.RiskLevel, true
 }
 
-// HasRiskLevel returns a boolean if a field has been set.
-func (o *UserRiskRequest) HasRiskLevel() bool {
-	if o != nil && !IsNil(o.RiskLevel) {
+// SetRiskLevel sets field value
+func (o *UserRiskRequest) SetRiskLevel(v string) {
+	o.RiskLevel = v
+}
+
+// GetRiskReason returns the RiskReason field value if set, zero value otherwise.
+func (o *UserRiskRequest) GetRiskReason() string {
+	if o == nil || IsNil(o.RiskReason) {
+		var ret string
+		return ret
+	}
+	return *o.RiskReason
+}
+
+// GetRiskReasonOk returns a tuple with the RiskReason field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UserRiskRequest) GetRiskReasonOk() (*string, bool) {
+	if o == nil || IsNil(o.RiskReason) {
+		return nil, false
+	}
+	return o.RiskReason, true
+}
+
+// HasRiskReason returns a boolean if a field has been set.
+func (o *UserRiskRequest) HasRiskReason() bool {
+	if o != nil && !IsNil(o.RiskReason) {
 		return true
 	}
 
 	return false
 }
 
-// SetRiskLevel gets a reference to the given string and assigns it to the RiskLevel field.
-func (o *UserRiskRequest) SetRiskLevel(v string) {
-	o.RiskLevel = &v
+// SetRiskReason gets a reference to the given string and assigns it to the RiskReason field.
+func (o *UserRiskRequest) SetRiskReason(v string) {
+	o.RiskReason = &v
 }
 
 func (o UserRiskRequest) MarshalJSON() ([]byte, error) {
@@ -98,8 +126,9 @@ func (o UserRiskRequest) MarshalJSON() ([]byte, error) {
 
 func (o UserRiskRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.RiskLevel) {
-		toSerialize["riskLevel"] = o.RiskLevel
+	toSerialize["riskLevel"] = o.RiskLevel
+	if !IsNil(o.RiskReason) {
+		toSerialize["riskReason"] = o.RiskReason
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -110,6 +139,27 @@ func (o UserRiskRequest) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *UserRiskRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"riskLevel",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varUserRiskRequest := _UserRiskRequest{}
 
 	err = json.Unmarshal(data, &varUserRiskRequest)
@@ -124,6 +174,7 @@ func (o *UserRiskRequest) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "riskLevel")
+		delete(additionalProperties, "riskReason")
 		o.AdditionalProperties = additionalProperties
 	}
 

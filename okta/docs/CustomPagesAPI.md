@@ -792,7 +792,7 @@ Name | Type | Description  | Notes
 
 ## GetSignInPage
 
-> PageRoot GetSignInPage(ctx, brandId).Expand(expand).Execute()
+> SignInPageRoot GetSignInPage(ctx, brandId).Expand(expand).Execute()
 
 Retrieve the sign-in page sub-resources
 
@@ -812,7 +812,7 @@ import (
 
 func main() {
 	brandId := "brandId_example" // string | The ID of the brand
-	expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response (optional)
+	expand := []string{"Expand_example"} // []string | Specifies additional metadata to be included in the response. `widgetConfigurationSchema` requires the SIW_CONFIG_JSON_CUSTOMIZATION feature. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -821,7 +821,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `CustomPagesAPI.GetSignInPage``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetSignInPage`: PageRoot
+	// response from `GetSignInPage`: SignInPageRoot
 	fmt.Fprintf(os.Stdout, "Response from `CustomPagesAPI.GetSignInPage`: %v\n", resp)
 }
 ```
@@ -842,11 +842,11 @@ Other parameters are passed through a pointer to a apiGetSignInPageRequest struc
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **expand** | **[]string** | Specifies additional metadata to be included in the response | 
+ **expand** | **[]string** | Specifies additional metadata to be included in the response. &#x60;widgetConfigurationSchema&#x60; requires the SIW_CONFIG_JSON_CUSTOMIZATION feature. | 
 
 ### Return type
 
-[**PageRoot**](PageRoot.md)
+[**SignInPageRoot**](SignInPageRoot.md)
 
 ### Authorization
 
