@@ -31,7 +31,7 @@ import (
 // checks if the IDVCredentialsClient type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &IDVCredentialsClient{}
 
-// IDVCredentialsClient <x-lifecycle-container><x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>Client credentials for `IDV_CLEAR` and `IDV_INCODE` IdP types
+// IDVCredentialsClient <x-lifecycle-container><x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>Client credentials for `IDV_CLEAR`, `IDV_INCODE`, `IDV_STANDARD`, and `IDV_INTEGRATOR-7184229_PERSONAIDV_1` IdP types
 type IDVCredentialsClient struct {
 	// The client ID that you generate in your IDV vendor
 	ClientId string `json:"client_id"`

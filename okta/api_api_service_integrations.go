@@ -1594,12 +1594,33 @@ type ApiListApiServiceIntegrationInstancesRequest struct {
 	ctx        context.Context
 	ApiService ApiServiceIntegrationsAPI
 	after      *string
+	limit      *int32
+	q          *string
+	type_      *string
 	retryCount int32
 }
 
 // The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header).
 func (r ApiListApiServiceIntegrationInstancesRequest) After(after string) ApiListApiServiceIntegrationInstancesRequest {
 	r.after = &after
+	return r
+}
+
+// A limit on the number of objects to return
+func (r ApiListApiServiceIntegrationInstancesRequest) Limit(limit int32) ApiListApiServiceIntegrationInstancesRequest {
+	r.limit = &limit
+	return r
+}
+
+// Searches for API service integration instances with &#x60;name&#x60; or &#x60;type&#x60; properties that start with the &#x60;q&#x60; value, using the &#x60;startsWith&#x60; operation
+func (r ApiListApiServiceIntegrationInstancesRequest) Q(q string) ApiListApiServiceIntegrationInstancesRequest {
+	r.q = &q
+	return r
+}
+
+// Filters API Service integration instances with the specified API service integration &#x60;type&#x60;
+func (r ApiListApiServiceIntegrationInstancesRequest) Type_(type_ string) ApiListApiServiceIntegrationInstancesRequest {
+	r.type_ = &type_
 	return r
 }
 
@@ -1655,6 +1676,15 @@ func (a *ApiServiceIntegrationsAPIService) ListApiServiceIntegrationInstancesExe
 
 	if r.after != nil {
 		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
+	}
+	if r.limit != nil {
+		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+	}
+	if r.q != nil {
+		localVarQueryParams.Add("q", parameterToString(*r.q, ""))
+	}
+	if r.type_ != nil {
+		localVarQueryParams.Add("type", parameterToString(*r.type_, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

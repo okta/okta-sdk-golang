@@ -37,7 +37,7 @@ type AuthenticationMethod struct {
 	HardwareProtection *string `json:"hardwareProtection,omitempty"`
 	// An ID that identifies the authenticator
 	Id *string `json:"id,omitempty"`
-	// A label that identifies the authenticator
+	// A label that identifies the authenticator.   > <x-lifecycle class=\"ea\"></x-lifecycle> **Note:** When the Flexible Okta Verify authenticator configuration feature is enabled, `okta_verify` is no longer accepted. Use `okta_verify_totp`, `okta_verify_push`, or `okta_verify_fastpass` instead.
 	Key string `json:"key"`
 	// Specifies the method used for the authenticator
 	Method string `json:"method"`

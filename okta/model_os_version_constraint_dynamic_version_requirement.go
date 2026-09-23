@@ -30,13 +30,13 @@ import (
 // checks if the OSVersionConstraintDynamicVersionRequirement type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &OSVersionConstraintDynamicVersionRequirement{}
 
-// OSVersionConstraintDynamicVersionRequirement Contains the necessary properties for a dynamic Windows version requirement
+// OSVersionConstraintDynamicVersionRequirement Contains the necessary properties for a dynamic OS version requirement
 type OSVersionConstraintDynamicVersionRequirement struct {
-	// Indicates the type of the dynamic Windows version requirement
+	// Indicates the type of the dynamic OS version requirement
 	Type *string `json:"type,omitempty"`
-	// Indicates the distance from the latest Windows major version
+	// Indicates the distance from the latest major version
 	DistanceFromLatestMajor *int32 `json:"distanceFromLatestMajor,omitempty"`
-	// Indicates whether the policy requires Windows devices to be on the latest security patch
+	// Indicates whether the device needs to be on the latest security patch
 	LatestSecurityPatch  *bool `json:"latestSecurityPatch,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

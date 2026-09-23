@@ -53,7 +53,7 @@ type UserRiskAPI interface {
 	/*
 		UpsertUserRisk Upsert the user's risk
 
-		Upserts (creates or updates) the user risk object for a user ID
+		Upserts (creates or updates) the user risk object for a user ID. You can optionally provide a `riskReason` to describe why the risk level is being changed. If `riskReason` isn't provided, the reason defaults to `override.by.admin`.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param userId ID of an existing Okta user
@@ -255,7 +255,7 @@ func (r ApiUpsertUserRiskRequest) Execute() (*UserRiskPutResponse, *APIResponse,
 /*
 UpsertUserRisk Upsert the user's risk
 
-Upserts (creates or updates) the user risk object for a user ID
+Upserts (creates or updates) the user risk object for a user ID. You can optionally provide a `riskReason` to describe why the risk level is being changed. If `riskReason` isn't provided, the reason defaults to `override.by.admin`.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ID of an existing Okta user

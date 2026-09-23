@@ -31,7 +31,7 @@ import (
 // checks if the IDVCredentialsBearer type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &IDVCredentialsBearer{}
 
-// IDVCredentialsBearer Client credential for `IDV_PERSONA` IdP type
+// IDVCredentialsBearer Client credential for the legacy `IDV_PERSONA` IdP type
 type IDVCredentialsBearer struct {
 	// The API key that you generate in your Persona dashboard
 	ApiKey               string `json:"apiKey"`

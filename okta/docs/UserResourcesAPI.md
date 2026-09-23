@@ -223,7 +223,7 @@ Name | Type | Description  | Notes
 
 ## ListUserGroups
 
-> []Group ListUserGroups(ctx, id).Execute()
+> []Group ListUserGroups(ctx, id).After(after).Limit(limit).Execute()
 
 List all groups
 
@@ -243,10 +243,12 @@ import (
 
 func main() {
 	id := "id_example" // string | An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). (optional)
+	limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 200)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserResourcesAPI.ListUserGroups(context.Background(), id).Execute()
+	resp, r, err := apiClient.UserResourcesAPI.ListUserGroups(context.Background(), id).After(after).Limit(limit).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UserResourcesAPI.ListUserGroups``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -272,6 +274,8 @@ Other parameters are passed through a pointer to a apiListUserGroupsRequest stru
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). | 
+ **limit** | **int32** | A limit on the number of objects to return | [default to 200]
 
 ### Return type
 

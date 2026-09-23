@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **HardwareProtection** | Pointer to **string** | Indicates if any secrets or private keys used during authentication must be hardware protected and not exportable. This property is only set for &#x60;POSSESSION&#x60; constraints. | [optional] [default to "OPTIONAL"]
 **Id** | Pointer to **string** | An ID that identifies the authenticator | [optional] 
-**Key** | **string** | A label that identifies the authenticator | 
+**Key** | **string** | A label that identifies the authenticator.   &gt; &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; **Note:** When the Flexible Okta Verify authenticator configuration feature is enabled, &#x60;okta_verify&#x60; is no longer accepted. Use &#x60;okta_verify_totp&#x60;, &#x60;okta_verify_push&#x60;, or &#x60;okta_verify_fastpass&#x60; instead. | 
 **Method** | **string** | Specifies the method used for the authenticator | 
 **PhishingResistant** | Pointer to **string** | Indicates if phishing-resistant Factors are required. This property is only set for &#x60;POSSESSION&#x60; constraints | [optional] [default to "OPTIONAL"]
 **UserVerification** | Pointer to **string** | Indicates if a user is required to be verified with a verification method. | [optional] [default to "OPTIONAL"]

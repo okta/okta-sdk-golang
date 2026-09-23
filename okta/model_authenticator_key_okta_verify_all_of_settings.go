@@ -36,6 +36,9 @@ type AuthenticatorKeyOktaVerifyAllOfSettings struct {
 	Compliance     *Compliance     `json:"compliance,omitempty"`
 	// User verification settings. Possible values `DISCOURAGED` (the authenticator isn't asked to perform user verification, but may do so at its discretion), `PREFERRED` (the client uses an authenticator capable of user verification if possible), or `REQUIRED` (the client uses only an authenticator capable of user verification)
 	UserVerification *string `json:"userVerification,omitempty"`
+	// The security level required for device enrollment. `HIGH` restricts enrollment to hardware-bound keys only. `ANY` allows all enrollment channels.  > <x-lifecycle class=\"ea\"></x-lifecycle> **Note:** When the Flexible Okta Verify authenticator configuration feature is enabled, this is a common setting shared across all per-method authenticators (`okta_verify_totp`, `okta_verify_push`, `okta_verify_fastpass`). Updating this value on any one authenticator applies the change to all three.
+	EnrollmentSecurityLevel *string  `json:"enrollmentSecurityLevel,omitempty"`
+	UserVerificationMethods []string `json:"userVerificationMethods,omitempty"`
 	// The application instance ID
 	AppInstanceId        *string `json:"appInstanceId,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -156,6 +159,70 @@ func (o *AuthenticatorKeyOktaVerifyAllOfSettings) SetUserVerification(v string) 
 	o.UserVerification = &v
 }
 
+// GetEnrollmentSecurityLevel returns the EnrollmentSecurityLevel field value if set, zero value otherwise.
+func (o *AuthenticatorKeyOktaVerifyAllOfSettings) GetEnrollmentSecurityLevel() string {
+	if o == nil || IsNil(o.EnrollmentSecurityLevel) {
+		var ret string
+		return ret
+	}
+	return *o.EnrollmentSecurityLevel
+}
+
+// GetEnrollmentSecurityLevelOk returns a tuple with the EnrollmentSecurityLevel field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuthenticatorKeyOktaVerifyAllOfSettings) GetEnrollmentSecurityLevelOk() (*string, bool) {
+	if o == nil || IsNil(o.EnrollmentSecurityLevel) {
+		return nil, false
+	}
+	return o.EnrollmentSecurityLevel, true
+}
+
+// HasEnrollmentSecurityLevel returns a boolean if a field has been set.
+func (o *AuthenticatorKeyOktaVerifyAllOfSettings) HasEnrollmentSecurityLevel() bool {
+	if o != nil && !IsNil(o.EnrollmentSecurityLevel) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnrollmentSecurityLevel gets a reference to the given string and assigns it to the EnrollmentSecurityLevel field.
+func (o *AuthenticatorKeyOktaVerifyAllOfSettings) SetEnrollmentSecurityLevel(v string) {
+	o.EnrollmentSecurityLevel = &v
+}
+
+// GetUserVerificationMethods returns the UserVerificationMethods field value if set, zero value otherwise.
+func (o *AuthenticatorKeyOktaVerifyAllOfSettings) GetUserVerificationMethods() []string {
+	if o == nil || IsNil(o.UserVerificationMethods) {
+		var ret []string
+		return ret
+	}
+	return o.UserVerificationMethods
+}
+
+// GetUserVerificationMethodsOk returns a tuple with the UserVerificationMethods field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuthenticatorKeyOktaVerifyAllOfSettings) GetUserVerificationMethodsOk() ([]string, bool) {
+	if o == nil || IsNil(o.UserVerificationMethods) {
+		return nil, false
+	}
+	return o.UserVerificationMethods, true
+}
+
+// HasUserVerificationMethods returns a boolean if a field has been set.
+func (o *AuthenticatorKeyOktaVerifyAllOfSettings) HasUserVerificationMethods() bool {
+	if o != nil && !IsNil(o.UserVerificationMethods) {
+		return true
+	}
+
+	return false
+}
+
+// SetUserVerificationMethods gets a reference to the given []string and assigns it to the UserVerificationMethods field.
+func (o *AuthenticatorKeyOktaVerifyAllOfSettings) SetUserVerificationMethods(v []string) {
+	o.UserVerificationMethods = v
+}
+
 // GetAppInstanceId returns the AppInstanceId field value if set, zero value otherwise.
 func (o *AuthenticatorKeyOktaVerifyAllOfSettings) GetAppInstanceId() string {
 	if o == nil || IsNil(o.AppInstanceId) {
@@ -207,6 +274,12 @@ func (o AuthenticatorKeyOktaVerifyAllOfSettings) ToMap() (map[string]interface{}
 	if !IsNil(o.UserVerification) {
 		toSerialize["userVerification"] = o.UserVerification
 	}
+	if !IsNil(o.EnrollmentSecurityLevel) {
+		toSerialize["enrollmentSecurityLevel"] = o.EnrollmentSecurityLevel
+	}
+	if !IsNil(o.UserVerificationMethods) {
+		toSerialize["userVerificationMethods"] = o.UserVerificationMethods
+	}
 	if !IsNil(o.AppInstanceId) {
 		toSerialize["appInstanceId"] = o.AppInstanceId
 	}
@@ -235,6 +308,8 @@ func (o *AuthenticatorKeyOktaVerifyAllOfSettings) UnmarshalJSON(data []byte) (er
 		delete(additionalProperties, "channelBinding")
 		delete(additionalProperties, "compliance")
 		delete(additionalProperties, "userVerification")
+		delete(additionalProperties, "enrollmentSecurityLevel")
+		delete(additionalProperties, "userVerificationMethods")
 		delete(additionalProperties, "appInstanceId")
 		o.AdditionalProperties = additionalProperties
 	}

@@ -4,15 +4,15 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**ApplicationType** | Pointer to **string** | The type of client app Specific &#x60;grant_types&#x60; are valid for each &#x60;application_type&#x60;. See [Create a Client Application](/openapi/okta-oauth/oauth/client/createclient). | [optional] 
+**ApplicationType** | Pointer to **string** | The type of client app      Specific &#x60;grant_types&#x60; are valid for each &#x60;application_type&#x60;. See [Create a Client Application](/openapi/okta-oauth/oauth/client/createclient). | [optional] 
 **BackchannelAuthenticationRequestSigningAlg** | Pointer to **string** | The signing algorithm for Client-Initiated Backchannel Authentication (CIBA) signed requests using JWT. If this value isn&#39;t set and a JWT-signed request is sent, the request fails. &gt; **Note:** This property appears for clients with &#x60;urn:openid:params:grant-type:ciba&#x60; defined as one of the &#x60;grant_types&#x60;.  | [optional] 
 **BackchannelCustomAuthenticatorId** | Pointer to **string** | The ID of the custom authenticator that authenticates the user &gt; **Note:** This property appears for clients with &#x60;urn:openid:params:grant-type:ciba&#x60; defined as one of the &#x60;grant_types&#x60;.  | [optional] 
 **BackchannelTokenDeliveryMode** | Pointer to **string** | The delivery mode for Client-Initiated Backchannel Authentication (CIBA).  Currently, only &#x60;poll&#x60; is supported. &gt; **Note:** This property appears for clients with &#x60;urn:openid:params:grant-type:ciba&#x60; defined as one of the &#x60;grant_types&#x60;.  | [optional] 
+**CimdClient** | Pointer to **bool** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;Indicates whether Okta reads the client&#39;s configuration from a Client ID Metadata Document (CIMD) instead of using Okta-generated client credentials. If &#x60;true&#x60;, set &#x60;cimdUrl&#x60; as the URL of the CIMD. | [optional] 
+**CimdUrl** | Pointer to **string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;The HTTPS URL where the client&#39;s CIMD is hosted. Okta fetches this URL to configure the client&#39;s redirect URIs, grant types, and signing keys. This is required if &#x60;cimdClient&#x60; is &#x60;true&#x60;. | [optional] 
 **ClientUri** | Pointer to **string** | URL string of a web page providing information about the client | [optional] 
 **ConsentMethod** | Pointer to **string** | Indicates whether user consent is required or implicit. A consent dialog appears for the end user depending on the values of three elements:  * [prompt](/openapi/okta-oauth/oauth/orgas/authorize#orgas/authorize/t&#x3D;request&amp;in&#x3D;query&amp;path&#x3D;prompt): A query parameter that is used in requests to &#x60;/authorize&#x60; * &#x60;consent_method&#x60; (this property) * [consent](/openapi/okta-management/management/authorizationserverscopes/createoauth2scope#authorizationserverscopes/createoauth2scope/t&#x3D;request&amp;path&#x3D;consent): A [Scope](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/AuthorizationServerScopes/) property that allows you to enable or disable user consent for an individual scope  | &#x60;prompt&#x60; | &#x60;consent_method&#x60; | &#x60;consent&#x60; | Result | ---------- | ----------- | ---------- | ----------- | | CONSENT | TRUSTED or REQUIRED | REQUIRED | Prompted | | CONSENT | TRUSTED or REQUIRED | FLEXIBLE | Prompted | | CONSENT | TRUSTED | IMPLICIT | Not prompted | | NONE | TRUSTED | FLEXIBLE, IMPLICIT, or REQUIRED | Not prompted | | NONE | REQUIRED | FLEXIBLE or REQUIRED | Prompted | | NONE | REQUIRED | IMPLICIT | Not prompted |  &gt; **Notes:** &gt; * If you request a scope that requires consent while using the &#x60;client_credentials&#x60; flow, an error is returned because the flow doesn&#39;t support user consent. &gt; * If the &#x60;prompt&#x60; value is set to &#x60;NONE&#x60;, but the &#x60;consent_method&#x60; and the consent values are set to &#x60;REQUIRED&#x60;, then an error occurs. &gt; * When a scope is requested during a Client Credentials grant flow and &#x60;consent&#x60; is set to &#x60;FLEXIBLE&#x60;, the scope is granted in the access token with no consent prompt. This occurs because there is no user involved in a two-legged OAuth 2.0 [Client Credentials](https://developer.okta.com/docs/guides/implement-grant-type/clientcreds/main/) grant flow.  | [optional] [default to "TRUSTED"]
 **DpopBoundAccessTokens** | Pointer to **bool** | Indicates that the client application uses Demonstrating Proof-of-Possession (DPoP) for token requests. If &#x60;true&#x60;, the authorization server rejects token requests from this client that don&#39;t contain the DPoP header. &gt; **Note:** If &#x60;dpop_bound_access_tokens&#x60; is true, then &#x60;client_credentials&#x60; and &#x60;implicit&#x60; aren&#39;t allowed in &#x60;grant_types&#x60;.  | [optional] [default to false]
-**FrontchannelLogoutSessionRequired** | Pointer to **bool** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;Determines whether Okta sends &#x60;sid&#x60; and &#x60;iss&#x60; in the logout request | [optional] 
-**FrontchannelLogoutUri** | Pointer to **string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;URL where Okta sends the logout request | [optional] 
 **GrantTypes** | **[]string** |  | 
 **IdTokenEncryptedResponseAlg** | Pointer to **string** | JWE alg algorithm for encrypting the ID token issued to this client. If this is requested, the response is signed, and then encrypted with the result being a nested JWT. The default, if omitted, is that no encryption is performed. See the [Application Public Keys API](/openapi/okta-management/management/applicationssopublickeys/) for more information on encryption keys. See [Key management](https://developer.okta.com/docs/guides/key-management/main/) for more information on how encryption keys are used. | [optional] 
 **IdpInitiatedLogin** | Pointer to [**OpenIdConnectApplicationIdpInitiatedLogin**](OpenIdConnectApplicationIdpInitiatedLogin.md) |  | [optional] 
@@ -22,7 +22,6 @@ Name | Type | Description | Notes
 **JwksUri** | Pointer to **string** | URL string that references a JSON Web Key Set for validating JWTs presented to Okta or for encrypting ID tokens minted by Okta for the client | [optional] 
 **LogoUri** | Pointer to **string** | The URL string that references a logo for the client. This logo appears on the client tile in the End-User Dashboard. It also appears on the client consent dialog during the client consent flow. | [optional] 
 **Network** | Pointer to [**OpenIdConnectApplicationNetwork**](OpenIdConnectApplicationNetwork.md) |  | [optional] 
-**ParticipateSlo** | Pointer to **bool** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;Allows the app to participate in front-channel Single Logout  &gt; **Note:** You can only enable &#x60;participate_slo&#x60; for &#x60;web&#x60; and &#x60;browser&#x60; application types (&#x60;application_type&#x60;).  | [optional] 
 **PolicyUri** | Pointer to **string** | URL string of a web page providing the client&#39;s policy document | [optional] 
 **PostLogoutRedirectUris** | Pointer to **[]string** | Array of redirection URI strings for relying party-initiated logouts | [optional] 
 **RedirectUris** | Pointer to **[]string** | Array of redirection URI strings for use in redirect-based flows. &gt; **Note:** At least one &#x60;redirect_uris&#x60; and &#x60;response_types&#x60; are required for all client types, with exceptions: if the client uses the [Resource Owner Password ](https://tools.ietf.org/html/rfc6749#section-4.3)flow (&#x60;grant_types&#x60; contains &#x60;password&#x60;) or [Client Credentials](https://tools.ietf.org/html/rfc6749#section-4.4)flow (&#x60;grant_types&#x60; contains &#x60;client_credentials&#x60;), then no &#x60;redirect_uris&#x60; or &#x60;response_types&#x60; is necessary. In these cases, you can pass either null or an empty array for these attributes. | [optional] 
@@ -153,6 +152,56 @@ SetBackchannelTokenDeliveryMode sets BackchannelTokenDeliveryMode field to given
 
 HasBackchannelTokenDeliveryMode returns a boolean if a field has been set.
 
+### GetCimdClient
+
+`func (o *OpenIdConnectApplicationSettingsClient) GetCimdClient() bool`
+
+GetCimdClient returns the CimdClient field if non-nil, zero value otherwise.
+
+### GetCimdClientOk
+
+`func (o *OpenIdConnectApplicationSettingsClient) GetCimdClientOk() (*bool, bool)`
+
+GetCimdClientOk returns a tuple with the CimdClient field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCimdClient
+
+`func (o *OpenIdConnectApplicationSettingsClient) SetCimdClient(v bool)`
+
+SetCimdClient sets CimdClient field to given value.
+
+### HasCimdClient
+
+`func (o *OpenIdConnectApplicationSettingsClient) HasCimdClient() bool`
+
+HasCimdClient returns a boolean if a field has been set.
+
+### GetCimdUrl
+
+`func (o *OpenIdConnectApplicationSettingsClient) GetCimdUrl() string`
+
+GetCimdUrl returns the CimdUrl field if non-nil, zero value otherwise.
+
+### GetCimdUrlOk
+
+`func (o *OpenIdConnectApplicationSettingsClient) GetCimdUrlOk() (*string, bool)`
+
+GetCimdUrlOk returns a tuple with the CimdUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCimdUrl
+
+`func (o *OpenIdConnectApplicationSettingsClient) SetCimdUrl(v string)`
+
+SetCimdUrl sets CimdUrl field to given value.
+
+### HasCimdUrl
+
+`func (o *OpenIdConnectApplicationSettingsClient) HasCimdUrl() bool`
+
+HasCimdUrl returns a boolean if a field has been set.
+
 ### GetClientUri
 
 `func (o *OpenIdConnectApplicationSettingsClient) GetClientUri() string`
@@ -227,56 +276,6 @@ SetDpopBoundAccessTokens sets DpopBoundAccessTokens field to given value.
 `func (o *OpenIdConnectApplicationSettingsClient) HasDpopBoundAccessTokens() bool`
 
 HasDpopBoundAccessTokens returns a boolean if a field has been set.
-
-### GetFrontchannelLogoutSessionRequired
-
-`func (o *OpenIdConnectApplicationSettingsClient) GetFrontchannelLogoutSessionRequired() bool`
-
-GetFrontchannelLogoutSessionRequired returns the FrontchannelLogoutSessionRequired field if non-nil, zero value otherwise.
-
-### GetFrontchannelLogoutSessionRequiredOk
-
-`func (o *OpenIdConnectApplicationSettingsClient) GetFrontchannelLogoutSessionRequiredOk() (*bool, bool)`
-
-GetFrontchannelLogoutSessionRequiredOk returns a tuple with the FrontchannelLogoutSessionRequired field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetFrontchannelLogoutSessionRequired
-
-`func (o *OpenIdConnectApplicationSettingsClient) SetFrontchannelLogoutSessionRequired(v bool)`
-
-SetFrontchannelLogoutSessionRequired sets FrontchannelLogoutSessionRequired field to given value.
-
-### HasFrontchannelLogoutSessionRequired
-
-`func (o *OpenIdConnectApplicationSettingsClient) HasFrontchannelLogoutSessionRequired() bool`
-
-HasFrontchannelLogoutSessionRequired returns a boolean if a field has been set.
-
-### GetFrontchannelLogoutUri
-
-`func (o *OpenIdConnectApplicationSettingsClient) GetFrontchannelLogoutUri() string`
-
-GetFrontchannelLogoutUri returns the FrontchannelLogoutUri field if non-nil, zero value otherwise.
-
-### GetFrontchannelLogoutUriOk
-
-`func (o *OpenIdConnectApplicationSettingsClient) GetFrontchannelLogoutUriOk() (*string, bool)`
-
-GetFrontchannelLogoutUriOk returns a tuple with the FrontchannelLogoutUri field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetFrontchannelLogoutUri
-
-`func (o *OpenIdConnectApplicationSettingsClient) SetFrontchannelLogoutUri(v string)`
-
-SetFrontchannelLogoutUri sets FrontchannelLogoutUri field to given value.
-
-### HasFrontchannelLogoutUri
-
-`func (o *OpenIdConnectApplicationSettingsClient) HasFrontchannelLogoutUri() bool`
-
-HasFrontchannelLogoutUri returns a boolean if a field has been set.
 
 ### GetGrantTypes
 
@@ -497,31 +496,6 @@ SetNetwork sets Network field to given value.
 `func (o *OpenIdConnectApplicationSettingsClient) HasNetwork() bool`
 
 HasNetwork returns a boolean if a field has been set.
-
-### GetParticipateSlo
-
-`func (o *OpenIdConnectApplicationSettingsClient) GetParticipateSlo() bool`
-
-GetParticipateSlo returns the ParticipateSlo field if non-nil, zero value otherwise.
-
-### GetParticipateSloOk
-
-`func (o *OpenIdConnectApplicationSettingsClient) GetParticipateSloOk() (*bool, bool)`
-
-GetParticipateSloOk returns a tuple with the ParticipateSlo field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetParticipateSlo
-
-`func (o *OpenIdConnectApplicationSettingsClient) SetParticipateSlo(v bool)`
-
-SetParticipateSlo sets ParticipateSlo field to given value.
-
-### HasParticipateSlo
-
-`func (o *OpenIdConnectApplicationSettingsClient) HasParticipateSlo() bool`
-
-HasParticipateSlo returns a boolean if a field has been set.
 
 ### GetPolicyUri
 

@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **Algorithms** | Pointer to [**OidcAlgorithms**](OidcAlgorithms.md) |  | [optional] 
 **Credentials** | Pointer to [**OAuthCredentials**](OAuthCredentials.md) |  | [optional] 
 **Endpoints** | Pointer to [**OAuthEndpoints**](OAuthEndpoints.md) |  | [optional] 
+**Issuer** | Pointer to [**OidcIssuer**](OidcIssuer.md) |  | [optional] 
 **OktaIdpOrgUrl** | Pointer to **string** | URL of the IdP org | [optional] 
 **Scopes** | Pointer to **[]string** | OpenID Connect and IdP-defined permission bundles to request delegated access from the user &gt; **Note:** The [IdP type](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/createIdentityProvider!path&#x3D;type&amp;t&#x3D;request) table lists the scopes that are supported for each IdP. | [optional] 
 **Settings** | Pointer to [**OidcSettings**](OidcSettings.md) |  | [optional] 
@@ -105,6 +106,31 @@ SetEndpoints sets Endpoints field to given value.
 `func (o *ProtocolOidc) HasEndpoints() bool`
 
 HasEndpoints returns a boolean if a field has been set.
+
+### GetIssuer
+
+`func (o *ProtocolOidc) GetIssuer() OidcIssuer`
+
+GetIssuer returns the Issuer field if non-nil, zero value otherwise.
+
+### GetIssuerOk
+
+`func (o *ProtocolOidc) GetIssuerOk() (*OidcIssuer, bool)`
+
+GetIssuerOk returns a tuple with the Issuer field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIssuer
+
+`func (o *ProtocolOidc) SetIssuer(v OidcIssuer)`
+
+SetIssuer sets Issuer field to given value.
+
+### HasIssuer
+
+`func (o *ProtocolOidc) HasIssuer() bool`
+
+HasIssuer returns a boolean if a field has been set.
 
 ### GetOktaIdpOrgUrl
 

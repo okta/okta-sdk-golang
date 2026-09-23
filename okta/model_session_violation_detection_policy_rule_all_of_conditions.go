@@ -32,8 +32,8 @@ var _ MappedNullable = &SessionViolationDetectionPolicyRuleAllOfConditions{}
 
 // SessionViolationDetectionPolicyRuleAllOfConditions Specifies policy evaluation conditions required to apply the rule. All policy conditions and conditions for at least one rule must be met to apply the settings specified in the policy and the associated rule.
 type SessionViolationDetectionPolicyRuleAllOfConditions struct {
-	Network              *PolicyNetworkCondition       `json:"network,omitempty"`
-	RiskScore            *RiskScorePolicyRuleCondition `json:"riskScore,omitempty"`
+	Network              *PolicyNetworkCondition                      `json:"network,omitempty"`
+	RiskScore            *SessionViolationDetectionRiskScoreCondition `json:"riskScore,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -89,9 +89,9 @@ func (o *SessionViolationDetectionPolicyRuleAllOfConditions) SetNetwork(v Policy
 }
 
 // GetRiskScore returns the RiskScore field value if set, zero value otherwise.
-func (o *SessionViolationDetectionPolicyRuleAllOfConditions) GetRiskScore() RiskScorePolicyRuleCondition {
+func (o *SessionViolationDetectionPolicyRuleAllOfConditions) GetRiskScore() SessionViolationDetectionRiskScoreCondition {
 	if o == nil || IsNil(o.RiskScore) {
-		var ret RiskScorePolicyRuleCondition
+		var ret SessionViolationDetectionRiskScoreCondition
 		return ret
 	}
 	return *o.RiskScore
@@ -99,7 +99,7 @@ func (o *SessionViolationDetectionPolicyRuleAllOfConditions) GetRiskScore() Risk
 
 // GetRiskScoreOk returns a tuple with the RiskScore field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SessionViolationDetectionPolicyRuleAllOfConditions) GetRiskScoreOk() (*RiskScorePolicyRuleCondition, bool) {
+func (o *SessionViolationDetectionPolicyRuleAllOfConditions) GetRiskScoreOk() (*SessionViolationDetectionRiskScoreCondition, bool) {
 	if o == nil || IsNil(o.RiskScore) {
 		return nil, false
 	}
@@ -115,8 +115,8 @@ func (o *SessionViolationDetectionPolicyRuleAllOfConditions) HasRiskScore() bool
 	return false
 }
 
-// SetRiskScore gets a reference to the given RiskScorePolicyRuleCondition and assigns it to the RiskScore field.
-func (o *SessionViolationDetectionPolicyRuleAllOfConditions) SetRiskScore(v RiskScorePolicyRuleCondition) {
+// SetRiskScore gets a reference to the given SessionViolationDetectionRiskScoreCondition and assigns it to the RiskScore field.
+func (o *SessionViolationDetectionPolicyRuleAllOfConditions) SetRiskScore(v SessionViolationDetectionRiskScoreCondition) {
 	o.RiskScore = &v
 }
 

@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Created** | Pointer to **time.Time** | Timestamp when the authenticator was created | [optional] [readonly] 
-**Description** | Pointer to **string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;The description of the authenticator. This setting is only available for the &#x60;webauthn&#x60; authenticator type (Passkeys). | [optional] 
+**Description** | Pointer to **string** | The description of the authenticator. This setting is only available for the &#x60;webauthn&#x60; authenticator type (Passkeys). | [optional] 
 **Id** | Pointer to **string** | A unique identifier for the authenticator | [optional] [readonly] 
 **Key** | Pointer to **string** | A human-readable string that identifies the authenticator | [optional] 
 **LastUpdated** | Pointer to **time.Time** | Timestamp when the authenticator was last modified | [optional] [readonly] 

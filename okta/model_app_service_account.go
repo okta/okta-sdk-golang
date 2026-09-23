@@ -54,8 +54,8 @@ type AppServiceAccount struct {
 	OwnerGroupIds []string `json:"ownerGroupIds,omitempty"`
 	// A list of IDs of the Okta users who own the app service account
 	OwnerUserIds []string `json:"ownerUserIds,omitempty"`
-	// The app service account password. Required for apps that don't have provisioning enabled or don't support password synchronization.
-	Password *string `json:"password,omitempty"`
+	// The app service account password
+	Password string `json:"password"`
 	// Describes the current status of a service account
 	Status *string `json:"status,omitempty"`
 	// Describes the detailed status of a service account
@@ -71,10 +71,11 @@ type _AppServiceAccount AppServiceAccount
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAppServiceAccount(containerOrn string, name string, username string) *AppServiceAccount {
+func NewAppServiceAccount(containerOrn string, name string, password string, username string) *AppServiceAccount {
 	this := AppServiceAccount{}
 	this.ContainerOrn = containerOrn
 	this.Name = name
+	this.Password = password
 	this.Username = username
 	return &this
 }
@@ -391,36 +392,28 @@ func (o *AppServiceAccount) SetOwnerUserIds(v []string) {
 	o.OwnerUserIds = v
 }
 
-// GetPassword returns the Password field value if set, zero value otherwise.
+// GetPassword returns the Password field value
 func (o *AppServiceAccount) GetPassword() string {
-	if o == nil || IsNil(o.Password) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Password
+
+	return o.Password
 }
 
-// GetPasswordOk returns a tuple with the Password field value if set, nil otherwise
+// GetPasswordOk returns a tuple with the Password field value
 // and a boolean to check if the value has been set.
 func (o *AppServiceAccount) GetPasswordOk() (*string, bool) {
-	if o == nil || IsNil(o.Password) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Password, true
+	return &o.Password, true
 }
 
-// HasPassword returns a boolean if a field has been set.
-func (o *AppServiceAccount) HasPassword() bool {
-	if o != nil && !IsNil(o.Password) {
-		return true
-	}
-
-	return false
-}
-
-// SetPassword gets a reference to the given string and assigns it to the Password field.
+// SetPassword sets field value
 func (o *AppServiceAccount) SetPassword(v string) {
-	o.Password = &v
+	o.Password = v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
@@ -547,9 +540,7 @@ func (o AppServiceAccount) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.OwnerUserIds) {
 		toSerialize["ownerUserIds"] = o.OwnerUserIds
 	}
-	if !IsNil(o.Password) {
-		toSerialize["password"] = o.Password
-	}
+	toSerialize["password"] = o.Password
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
@@ -572,6 +563,7 @@ func (o *AppServiceAccount) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"containerOrn",
 		"name",
+		"password",
 		"username",
 	}
 

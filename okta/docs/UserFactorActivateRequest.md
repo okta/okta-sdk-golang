@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **PassCode** | Pointer to **string** | OTP for the current time window | [optional] 
 **UseNumberMatchingChallenge** | Pointer to **bool** | Select whether to use a number matching challenge for a &#x60;push&#x60; factor.  &gt; **Note:** Sending a request with a body is required when you verify a &#x60;push&#x60; factor with a number matching challenge. | [optional] 
-**ClientData** | Pointer to **string** | Base64-encoded client data from the WebAuthn authenticator | [optional] 
+**ClientData** | Pointer to **string** | Base64-encoded client data from the Passkey (FIDO2 WebAuthn) authenticator | [optional] 
 **RegistrationData** | Pointer to **string** | Base64-encoded registration data from the U2F token | [optional] 
-**Attestation** | Pointer to **string** | Base64-encoded attestation from the WebAuthn authenticator | [optional] 
+**Attestation** | Pointer to **string** | Base64-encoded attestation from the Passkey (FIDO2 WebAuthn) authenticator | [optional] 
 
 ## Methods
 

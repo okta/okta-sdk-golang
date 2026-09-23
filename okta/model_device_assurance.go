@@ -32,9 +32,8 @@ var _ MappedNullable = &DeviceAssurance{}
 
 // DeviceAssurance struct for DeviceAssurance
 type DeviceAssurance struct {
-	CreatedBy           *string              `json:"createdBy,omitempty"`
-	CreatedDate         *string              `json:"createdDate,omitempty"`
-	DevicePostureChecks *DevicePostureChecks `json:"devicePostureChecks,omitempty"`
+	CreatedBy   *string `json:"createdBy,omitempty"`
+	CreatedDate *string `json:"createdDate,omitempty"`
 	// Represents the remediation mode of this device assurance policy when users are denied access due to device noncompliance
 	DisplayRemediationMode *string      `json:"displayRemediationMode,omitempty"`
 	GracePeriod            *GracePeriod `json:"gracePeriod,omitempty"`
@@ -129,38 +128,6 @@ func (o *DeviceAssurance) HasCreatedDate() bool {
 // SetCreatedDate gets a reference to the given string and assigns it to the CreatedDate field.
 func (o *DeviceAssurance) SetCreatedDate(v string) {
 	o.CreatedDate = &v
-}
-
-// GetDevicePostureChecks returns the DevicePostureChecks field value if set, zero value otherwise.
-func (o *DeviceAssurance) GetDevicePostureChecks() DevicePostureChecks {
-	if o == nil || IsNil(o.DevicePostureChecks) {
-		var ret DevicePostureChecks
-		return ret
-	}
-	return *o.DevicePostureChecks
-}
-
-// GetDevicePostureChecksOk returns a tuple with the DevicePostureChecks field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DeviceAssurance) GetDevicePostureChecksOk() (*DevicePostureChecks, bool) {
-	if o == nil || IsNil(o.DevicePostureChecks) {
-		return nil, false
-	}
-	return o.DevicePostureChecks, true
-}
-
-// HasDevicePostureChecks returns a boolean if a field has been set.
-func (o *DeviceAssurance) HasDevicePostureChecks() bool {
-	if o != nil && !IsNil(o.DevicePostureChecks) {
-		return true
-	}
-
-	return false
-}
-
-// SetDevicePostureChecks gets a reference to the given DevicePostureChecks and assigns it to the DevicePostureChecks field.
-func (o *DeviceAssurance) SetDevicePostureChecks(v DevicePostureChecks) {
-	o.DevicePostureChecks = &v
 }
 
 // GetDisplayRemediationMode returns the DisplayRemediationMode field value if set, zero value otherwise.
@@ -435,9 +402,6 @@ func (o DeviceAssurance) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CreatedDate) {
 		toSerialize["createdDate"] = o.CreatedDate
 	}
-	if !IsNil(o.DevicePostureChecks) {
-		toSerialize["devicePostureChecks"] = o.DevicePostureChecks
-	}
 	if !IsNil(o.DisplayRemediationMode) {
 		toSerialize["displayRemediationMode"] = o.DisplayRemediationMode
 	}
@@ -486,7 +450,6 @@ func (o *DeviceAssurance) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "createdBy")
 		delete(additionalProperties, "createdDate")
-		delete(additionalProperties, "devicePostureChecks")
 		delete(additionalProperties, "displayRemediationMode")
 		delete(additionalProperties, "gracePeriod")
 		delete(additionalProperties, "id")

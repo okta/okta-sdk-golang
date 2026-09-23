@@ -30,7 +30,7 @@ import (
 // checks if the UserImportResponseError type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &UserImportResponseError{}
 
-// UserImportResponseError An object to return an error. Returning an error causes Okta to record a failure event in the Okta System Log. The string supplied in the `errorSummary` property is recorded in the System Log event.  >**Note:** If a response to an import inline hook request is not received from your external service within three seconds, a timeout occurs. In this scenario, the Okta import process continues and the user is created.
+// UserImportResponseError An object to return an error. Returning an error causes Okta to record a failure event in the Okta System Log.  The string supplied in the `errorSummary` property is recorded in the System Log event.  >**Note:** If a response to an import inline hook request is not received from your external service within three seconds, a timeout occurs. In this scenario, the Okta import process continues and the user is created.
 type UserImportResponseError struct {
 	// A human-readable summary of the error
 	ErrorSummary         *string `json:"errorSummary,omitempty"`

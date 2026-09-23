@@ -35,7 +35,7 @@ var _ MappedNullable = &BySkipCountAuthenticatorGracePeriod{}
 // BySkipCountAuthenticatorGracePeriod struct for BySkipCountAuthenticatorGracePeriod
 type BySkipCountAuthenticatorGracePeriod struct {
 	EnrollmentPolicyAuthenticatorGracePeriod
-	// The number of times the user can skip enrolling the corresponding authenticator before it becomes mandatory.
+	// The number of times the user can skip enrolling the corresponding authenticator before it becomes mandatory
 	SkipCount            *int32 `json:"skipCount,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -122,7 +122,7 @@ func (o BySkipCountAuthenticatorGracePeriod) ToMap() (map[string]interface{}, er
 
 func (o *BySkipCountAuthenticatorGracePeriod) UnmarshalJSON(data []byte) (err error) {
 	type BySkipCountAuthenticatorGracePeriodWithoutEmbeddedStruct struct {
-		// The number of times the user can skip enrolling the corresponding authenticator before it becomes mandatory.
+		// The number of times the user can skip enrolling the corresponding authenticator before it becomes mandatory
 		SkipCount *int32 `json:"skipCount,omitempty"`
 	}
 

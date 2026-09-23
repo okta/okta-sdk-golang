@@ -107,7 +107,7 @@ import (
 func main() {
 	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
 	mappingId := "gPm00000000000000000" // string | Group push mapping ID
-	deleteTargetGroup := true // bool | If set to `true`, the target group is also deleted. If set to `false`, the target group isn't deleted. (default to false)
+	deleteTargetGroup := true // bool | If set to `true`, the target group is also deleted. If set to `false`, the target group isn't deleted.
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -137,7 +137,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
 
- **deleteTargetGroup** | **bool** | If set to &#x60;true&#x60;, the target group is also deleted. If set to &#x60;false&#x60;, the target group isn&#39;t deleted. | [default to false]
+ **deleteTargetGroup** | **bool** | If set to &#x60;true&#x60;, the target group is also deleted. If set to &#x60;false&#x60;, the target group isn&#39;t deleted. | 
 
 ### Return type
 
@@ -255,7 +255,7 @@ func main() {
 	after := "after_example" // string | Specifies the pagination cursor for the next page of mappings (optional)
 	limit := int32(56) // int32 | Specifies the number of results returned (optional) (default to 100)
 	lastUpdated := "2025-01-01T00:00:00Z" // string | Filters group push mappings by last updated date. The `lastUpdated` parameter supports the following format: `YYYY-MM-DDTHH:mm:ssZ`. This filters mappings updated on or after the specified date and time in UTC.  If you don't specify a value, all group push mappings are returned. (optional)
-	sourceGroupId := "00g00000000000000000" // string | Filters group push mappings by source group ID. If you don't specify a value, all group push mappings are returned. (optional)
+	sourceGroupId := "00g00000000000000000" // string | Filters group push mappings by source group ID (optional)
 	status := "status_example" // string | Filters group push mappings by status. If you don't specify a value, all group push mappings are returned. (optional)
 
 	configuration := openapiclient.NewConfiguration()
@@ -289,7 +289,7 @@ Name | Type | Description  | Notes
  **after** | **string** | Specifies the pagination cursor for the next page of mappings | 
  **limit** | **int32** | Specifies the number of results returned | [default to 100]
  **lastUpdated** | **string** | Filters group push mappings by last updated date. The &#x60;lastUpdated&#x60; parameter supports the following format: &#x60;YYYY-MM-DDTHH:mm:ssZ&#x60;. This filters mappings updated on or after the specified date and time in UTC.  If you don&#39;t specify a value, all group push mappings are returned. | 
- **sourceGroupId** | **string** | Filters group push mappings by source group ID. If you don&#39;t specify a value, all group push mappings are returned. | 
+ **sourceGroupId** | **string** | Filters group push mappings by source group ID | 
  **status** | **string** | Filters group push mappings by status. If you don&#39;t specify a value, all group push mappings are returned. | 
 
 ### Return type

@@ -30,7 +30,7 @@ import (
 // checks if the UserImportRequestDataUser type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &UserImportRequestDataUser{}
 
-// UserImportRequestDataUser Provides information on the Okta user profile currently set to be used for the user who is being imported, based on the matching rules and attribute mappings that were applied.
+// UserImportRequestDataUser Provides information on the Okta user profile currently set to be used for the user who is being imported, based on the matching  rules and attribute mappings that were applied.
 type UserImportRequestDataUser struct {
 	// The `data.user.profile` contains the name-value pairs of the attributes in the user profile. If the user has been matched to an existing Okta user, a `data.user.id` object is included, containing the unique identifier of the Okta user profile.  You can change the values of the attributes by means of the `commands` object you return.
 	Profile              *map[string]string `json:"profile,omitempty"`

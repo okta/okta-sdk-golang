@@ -32,7 +32,7 @@ var _ MappedNullable = &UserImportRequestDataAction{}
 
 // UserImportRequestDataAction The object that specifies the default action Okta is set to take
 type UserImportRequestDataAction struct {
-	// The current default action that results when Okta imports a user. The two possible values are `CREATE_USER` and `LINK_USER`. You can change the action that is taken by means of the commands object you return.
+	// The current default action that results when Okta imports a user. The two possible values are `CREATE_USER` and `LINK_USER`. You  can change the action that is taken by means of the commands object you return.
 	Result               *string `json:"result,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

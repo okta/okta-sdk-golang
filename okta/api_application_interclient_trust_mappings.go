@@ -461,7 +461,21 @@ type ApiListInterclientAllowedApplicationsRequest struct {
 	ctx        context.Context
 	ApiService ApplicationInterclientTrustMappingsAPI
 	appId      string
+	after      *string
+	limit      *int32
 	retryCount int32
+}
+
+// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header).
+func (r ApiListInterclientAllowedApplicationsRequest) After(after string) ApiListInterclientAllowedApplicationsRequest {
+	r.after = &after
+	return r
+}
+
+// A limit on the number of objects to return
+func (r ApiListInterclientAllowedApplicationsRequest) Limit(limit int32) ApiListInterclientAllowedApplicationsRequest {
+	r.limit = &limit
+	return r
 }
 
 func (r ApiListInterclientAllowedApplicationsRequest) Execute() ([]string, *APIResponse, error) {
@@ -517,6 +531,12 @@ func (a *ApplicationInterclientTrustMappingsAPIService) ListInterclientAllowedAp
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.after != nil {
+		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
+	}
+	if r.limit != nil {
+		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -639,7 +659,21 @@ type ApiListInterclientTargetApplicationsRequest struct {
 	ctx        context.Context
 	ApiService ApplicationInterclientTrustMappingsAPI
 	appId      string
+	after      *string
+	limit      *int32
 	retryCount int32
+}
+
+// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header).
+func (r ApiListInterclientTargetApplicationsRequest) After(after string) ApiListInterclientTargetApplicationsRequest {
+	r.after = &after
+	return r
+}
+
+// A limit on the number of objects to return
+func (r ApiListInterclientTargetApplicationsRequest) Limit(limit int32) ApiListInterclientTargetApplicationsRequest {
+	r.limit = &limit
+	return r
 }
 
 func (r ApiListInterclientTargetApplicationsRequest) Execute() ([]string, *APIResponse, error) {
@@ -695,6 +729,12 @@ func (a *ApplicationInterclientTrustMappingsAPIService) ListInterclientTargetApp
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.after != nil {
+		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
+	}
+	if r.limit != nil {
+		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

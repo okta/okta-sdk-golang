@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Reason** | Pointer to **string** | Describes the risk level for the user | [optional] 
+**Reason** | Pointer to **string** | The reason for the user&#39;s current risk level. Defaults to &#x60;override.by.admin&#x60; when set by an admin without a custom reason. | [optional] 
 
 ## Methods
 

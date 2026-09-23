@@ -36,7 +36,7 @@ type TelephonyRequestDataMessageProfile struct {
 	MsgTemplate *string `json:"msgTemplate,omitempty"`
 	// The Okta's user's phone number
 	PhoneNumber *string `json:"phoneNumber,omitempty"`
-	// The time when OTP expires
+	// The time when the OTP expires
 	OtpExpires *string `json:"otpExpires,omitempty"`
 	// The channel for OTP delivery - SMS or voice
 	DeliveryChannel *string `json:"deliveryChannel,omitempty"`

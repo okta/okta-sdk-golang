@@ -113,6 +113,22 @@ type GroupAPI interface {
 	ListAssignedApplicationsForGroupExecute(r ApiListAssignedApplicationsForGroupRequest) ([]ListApplications200ResponseInner, *APIResponse, error)
 
 	/*
+		ListGroupRulesForUserInGroup List all group rules for a user
+
+		Lists the [group rules](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/grouprule) that manage the specified user's membership in the specified group. Returns an empty array when the group membership rules aren't enabled for your org or when no rules manage the user's membership.
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param groupId The `id` of the group
+		@param userId ID of an existing Okta user
+		@return ApiListGroupRulesForUserInGroupRequest
+	*/
+	ListGroupRulesForUserInGroup(ctx context.Context, groupId string, userId string) ApiListGroupRulesForUserInGroupRequest
+
+	// ListGroupRulesForUserInGroupExecute executes the request
+	//  @return []GroupMembershipRule
+	ListGroupRulesForUserInGroupExecute(r ApiListGroupRulesForUserInGroupRequest) ([]GroupMembershipRule, *APIResponse, error)
+
+	/*
 			ListGroupUsers List all member users
 
 			Lists all users that are a member of a group.
@@ -1029,59 +1045,47 @@ func (a *GroupAPIService) ListAssignedApplicationsForGroupExecute(r ApiListAssig
 	return localVarReturnValue, localAPIResponse, nil
 }
 
-type ApiListGroupUsersRequest struct {
+type ApiListGroupRulesForUserInGroupRequest struct {
 	ctx        context.Context
 	ApiService GroupAPI
 	groupId    string
-	after      *string
-	limit      *int32
+	userId     string
 	retryCount int32
 }
 
-// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header).
-func (r ApiListGroupUsersRequest) After(after string) ApiListGroupUsersRequest {
-	r.after = &after
-	return r
-}
-
-// Specifies the number of user results in a page
-func (r ApiListGroupUsersRequest) Limit(limit int32) ApiListGroupUsersRequest {
-	r.limit = &limit
-	return r
-}
-
-func (r ApiListGroupUsersRequest) Execute() ([]User, *APIResponse, error) {
-	return r.ApiService.ListGroupUsersExecute(r)
+func (r ApiListGroupRulesForUserInGroupRequest) Execute() ([]GroupMembershipRule, *APIResponse, error) {
+	return r.ApiService.ListGroupRulesForUserInGroupExecute(r)
 }
 
 /*
-ListGroupUsers List all member users
+ListGroupRulesForUserInGroup List all group rules for a user
 
-Lists all users that are a member of a group.
-The default user limit is set to a very high number due to historical reasons that are no longer valid for most orgs. This will change in a future version of this API. The recommended page limit is now `limit=200`.
+Lists the [group rules](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/grouprule) that manage the specified user's membership in the specified group. Returns an empty array when the group membership rules aren't enabled for your org or when no rules manage the user's membership.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param groupId The `id` of the group
-	@return ApiListGroupUsersRequest
+	@param userId ID of an existing Okta user
+	@return ApiListGroupRulesForUserInGroupRequest
 */
-func (a *GroupAPIService) ListGroupUsers(ctx context.Context, groupId string) ApiListGroupUsersRequest {
-	return ApiListGroupUsersRequest{
+func (a *GroupAPIService) ListGroupRulesForUserInGroup(ctx context.Context, groupId string, userId string) ApiListGroupRulesForUserInGroupRequest {
+	return ApiListGroupRulesForUserInGroupRequest{
 		ApiService: a,
 		ctx:        ctx,
 		groupId:    groupId,
+		userId:     userId,
 		retryCount: 0,
 	}
 }
 
 // Execute executes the request
 //
-//	@return []User
-func (a *GroupAPIService) ListGroupUsersExecute(r ApiListGroupUsersRequest) ([]User, *APIResponse, error) {
+//	@return []GroupMembershipRule
+func (a *GroupAPIService) ListGroupRulesForUserInGroupExecute(r ApiListGroupRulesForUserInGroupRequest) ([]GroupMembershipRule, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  []User
+		localVarReturnValue  []GroupMembershipRule
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -1092,24 +1096,19 @@ func (a *GroupAPIService) ListGroupUsersExecute(r ApiListGroupUsersRequest) ([]U
 		r.ctx = localctx
 		defer cancel()
 	}
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.ListGroupUsers")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.ListGroupRulesForUserInGroup")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/api/v1/groups/{groupId}/users"
+	localVarPath := localBasePath + "/api/v1/groups/{groupId}/users/{userId}/group-rules"
 	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterToString(r.groupId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"userId"+"}", url.PathEscape(parameterToString(r.userId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.after != nil {
-		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
-	}
-	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1216,6 +1215,225 @@ func (a *GroupAPIService) ListGroupUsersExecute(r ApiListGroupUsersRequest) ([]U
 	return localVarReturnValue, localAPIResponse, nil
 }
 
+type ApiListGroupUsersRequest struct {
+	ctx        context.Context
+	ApiService GroupAPI
+	groupId    string
+	after      *string
+	limit      *int32
+	expand     *string
+	search     *string
+	retryCount int32
+}
+
+// The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header).
+func (r ApiListGroupUsersRequest) After(after string) ApiListGroupUsersRequest {
+	r.after = &after
+	return r
+}
+
+// Specifies the number of user results in a page
+func (r ApiListGroupUsersRequest) Limit(limit int32) ApiListGroupUsersRequest {
+	r.limit = &limit
+	return r
+}
+
+// If specified, additional metadata is included in the response. Possible values are &#x60;group-rules&#x60; and &#x60;login-status-info&#x60;. You can pass multiple values as a comma-separated list. This additional metadata is listed in the [&#x60;_embedded&#x60;](openapi/okta-management/management/tags/group/other/listgroupusers#other/listgroupusers/t&#x3D;response&amp;c&#x3D;200&amp;path&#x3D;_embedded) property of each user in the response.  Use &#x60;group-rules&#x60; to return the group rules (by ID and name) that manage the user&#39;s membership in the group. Use &#x60;login-status-info&#x60; to return a label that describes the user&#39;s current login status (for example, &#x60;Active&#x60; or &#x60;Password Expired&#x60;).
+func (r ApiListGroupUsersRequest) Expand(expand string) ApiListGroupUsersRequest {
+	r.expand = &expand
+	return r
+}
+
+// Searches for group members using a SCIM-style search expression. Uses the same search semantics as [&#x60;List all users&#x60;](/openapi/okta-management/management/tag/User/#tag/User/operation/listUsers), including the same set of searchable properties (any user profile attribute including custom attributes, the top-level properties &#x60;id&#x60;, &#x60;status&#x60;, &#x60;created&#x60;, &#x60;activated&#x60;, &#x60;statusChanged&#x60;, and &#x60;lastUpdated&#x60;, the user &#x60;type.id&#x60;, and array-valued properties).  Property names in the &#x60;search&#x60; parameter are case sensitive, whereas operators (&#x60;eq&#x60;, &#x60;sw&#x60;, and so on) and string values are case insensitive. The &#x60;search&#x60; parameter requires [URL encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). See [Special characters](https://developer.okta.com/docs/api/#special-characters).  Searches for group members can be filtered by the following operators: &#x60;sw&#x60;, &#x60;eq&#x60;, and &#x60;co&#x60;. You can only use &#x60;co&#x60; with these select user profile attributes: &#x60;profile.firstName&#x60;, &#x60;profile.lastName&#x60;, &#x60;profile.email&#x60;, and &#x60;profile.login&#x60;. See [Operators](https://developer.okta.com/docs/api/#operators).  &gt; **Notes:** &gt;  * The &#x60;search&#x60; parameter is not currently supported for groups with the &#x60;APP_GROUP&#x60; type. Using &#x60;search&#x60; on an &#x60;APP_GROUP&#x60; returns an &#x60;HTTP 400 Bad Request&#x60; error. &gt;  * Using an overly complex or long search query can result in an error. &gt;  * The &#x60;search&#x60; parameter results are sourced from an eventually consistent datasource and may not reflect the latest information.
+func (r ApiListGroupUsersRequest) Search(search string) ApiListGroupUsersRequest {
+	r.search = &search
+	return r
+}
+
+func (r ApiListGroupUsersRequest) Execute() ([]User, *APIResponse, error) {
+	return r.ApiService.ListGroupUsersExecute(r)
+}
+
+/*
+ListGroupUsers List all member users
+
+Lists all users that are a member of a group.
+The default user limit is set to a very high number due to historical reasons that are no longer valid for most orgs. This will change in a future version of this API. The recommended page limit is now `limit=200`.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param groupId The `id` of the group
+	@return ApiListGroupUsersRequest
+*/
+func (a *GroupAPIService) ListGroupUsers(ctx context.Context, groupId string) ApiListGroupUsersRequest {
+	return ApiListGroupUsersRequest{
+		ApiService: a,
+		ctx:        ctx,
+		groupId:    groupId,
+		retryCount: 0,
+	}
+}
+
+// Execute executes the request
+//
+//	@return []User
+func (a *GroupAPIService) ListGroupUsersExecute(r ApiListGroupUsersRequest) ([]User, *APIResponse, error) {
+	var (
+		localVarHTTPMethod   = http.MethodGet
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  []User
+		localVarHTTPResponse *http.Response
+		localAPIResponse     *APIResponse
+		err                  error
+	)
+
+	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
+		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
+		r.ctx = localctx
+		defer cancel()
+	}
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "GroupAPIService.ListGroupUsers")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/groups/{groupId}/users"
+	localVarPath = strings.Replace(localVarPath, "{"+"groupId"+"}", url.PathEscape(parameterToString(r.groupId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.after != nil {
+		localVarQueryParams.Add("after", parameterToString(*r.after, ""))
+	}
+	if r.limit != nil {
+		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+	}
+	if r.expand != nil {
+		localVarQueryParams.Add("expand", parameterToString(*r.expand, ""))
+	}
+	if r.search != nil {
+		localVarQueryParams.Add("search", parameterToString(*r.search, ""))
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiToken"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, newErr
+	}
+
+	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+	return localVarReturnValue, localAPIResponse, nil
+}
+
 type ApiListGroupsRequest struct {
 	ctx        context.Context
 	ApiService GroupAPI
@@ -1227,6 +1445,7 @@ type ApiListGroupsRequest struct {
 	expand     *string
 	sortBy     *string
 	sortOrder  *string
+	fields     *string
 	retryCount int32
 }
 
@@ -1275,6 +1494,12 @@ func (r ApiListGroupsRequest) SortBy(sortBy string) ApiListGroupsRequest {
 // Specifies sort order: &#x60;asc&#x60; or &#x60;desc&#x60; (for search queries only). This parameter is ignored if &#x60;sortBy&#x60; isn&#39;t present.
 func (r ApiListGroupsRequest) SortOrder(sortOrder string) ApiListGroupsRequest {
 	r.sortOrder = &sortOrder
+	return r
+}
+
+// Specifies a comma-separated list of fields to include in the response. Use the &#x60;fields&#x60; parameter to reduce the response payload size.  Supports the following top-level fields: &#x60;id&#x60;, &#x60;type&#x60;, &#x60;created&#x60;, &#x60;lastUpdated&#x60;, &#x60;lastMembershipUpdated&#x60;, &#x60;objectClass&#x60;, &#x60;_links&#x60;  Use the &#x60;profile:(fieldName)&#x60; syntax to request specific profile attributes, such as &#x60;profile:(name)&#x60; or &#x60;profile:(name,description)&#x60;. Bare &#x60;profile&#x60; field isn&#39;t supported and you must specify which profile attributes to include.  &gt; **Note:** The &#x60;id&#x60; field is always included in the response. The &#x60;_embedded&#x60; property is controlled by the &#x60;expand&#x60; parameter, not &#x60;fields&#x60;.
+func (r ApiListGroupsRequest) Fields(fields string) ApiListGroupsRequest {
+	r.fields = &fields
 	return r
 }
 
@@ -1359,6 +1584,9 @@ func (a *GroupAPIService) ListGroupsExecute(r ApiListGroupsRequest) ([]Group, *A
 	}
 	if r.sortOrder != nil {
 		localVarQueryParams.Add("sortOrder", parameterToString(*r.sortOrder, ""))
+	}
+	if r.fields != nil {
+		localVarQueryParams.Add("fields", parameterToString(*r.fields, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

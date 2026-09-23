@@ -10,6 +10,7 @@ Name | Type | Description | Notes
 **GUID** | Pointer to **string** | Globally Unique Identifier for the account | [optional] 
 **QualifiedUsername** | Pointer to **string** | Fully qualified username | [optional] 
 **SecurityId** | Pointer to **string** | Windows Security Identifier (SID) | [optional] 
+**Type** | Pointer to **string** | Profile type discriminator | [optional] 
 **Upn** | Pointer to **string** | User principal name | [optional] 
 
 ## Methods
@@ -180,6 +181,31 @@ SetSecurityId sets SecurityId field to given value.
 `func (o *WindowsOSAccountProfile) HasSecurityId() bool`
 
 HasSecurityId returns a boolean if a field has been set.
+
+### GetType
+
+`func (o *WindowsOSAccountProfile) GetType() string`
+
+GetType returns the Type field if non-nil, zero value otherwise.
+
+### GetTypeOk
+
+`func (o *WindowsOSAccountProfile) GetTypeOk() (*string, bool)`
+
+GetTypeOk returns a tuple with the Type field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetType
+
+`func (o *WindowsOSAccountProfile) SetType(v string)`
+
+SetType sets Type field to given value.
+
+### HasType
+
+`func (o *WindowsOSAccountProfile) HasType() bool`
+
+HasType returns a boolean if a field has been set.
 
 ### GetUpn
 

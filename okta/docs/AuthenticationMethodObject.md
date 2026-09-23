@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | Pointer to **string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;Authenticator ID | [optional] 
-**Key** | **string** | A label that identifies the authenticator | 
+**Key** | **string** | A label that identifies the authenticator.   &gt; &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; **Note:** When the Flexible Okta Verify authenticator configuration feature is enabled, &#x60;okta_verify&#x60; is no longer accepted. Use &#x60;okta_verify_totp&#x60;, &#x60;okta_verify_push&#x60;, or &#x60;okta_verify_fastpass&#x60; instead. | 
 **Method** | Pointer to **string** | Specifies the method used for the authenticator | [optional] 
 
 ## Methods

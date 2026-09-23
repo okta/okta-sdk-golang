@@ -30,7 +30,7 @@ import (
 // checks if the OktaUserGroupProfile type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &OktaUserGroupProfile{}
 
-// OktaUserGroupProfile Profile for any group that is not imported from Active Directory. Specifies the standard and custom profile properties for a group.  The `objectClass` for these groups is `okta:user_group`.
+// OktaUserGroupProfile Profile for any group that is not imported from Active Directory. Specifies the standard and custom profile properties for a group.  The `objectClass` for these groups is `okta:user_group`.  You can extend group profiles with custom properties, but you must first add the properties to the group profile schema before you can reference them. Use the Profile Editor in the Admin Console or the [Schemas API](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Schema/) to manage schema extensions.  Custom properties can contain HTML tags. It is the client's responsibility to escape or encode this data before displaying it. Use [best-practices](https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html) to prevent cross-site scripting.
 type OktaUserGroupProfile struct {
 	// Description of the group
 	Description *string `json:"description,omitempty"`

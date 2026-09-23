@@ -33,9 +33,11 @@ var _ MappedNullable = &MacOSAccountProfile{}
 // MacOSAccountProfile struct for MacOSAccountProfile
 type MacOSAccountProfile struct {
 	// Unique identifier for the macOS account
-	AccountUUID *string `json:"accountUUID,omitempty"`
+	AccountUuid *string `json:"accountUuid,omitempty"`
 	// Full name of the account user
 	FullName *string `json:"fullName,omitempty"`
+	// Profile type discriminator
+	Type *string `json:"type,omitempty"`
 	// Username of the account
 	Username             *string `json:"username,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -60,36 +62,36 @@ func NewMacOSAccountProfileWithDefaults() *MacOSAccountProfile {
 	return &this
 }
 
-// GetAccountUUID returns the AccountUUID field value if set, zero value otherwise.
-func (o *MacOSAccountProfile) GetAccountUUID() string {
-	if o == nil || IsNil(o.AccountUUID) {
+// GetAccountUuid returns the AccountUuid field value if set, zero value otherwise.
+func (o *MacOSAccountProfile) GetAccountUuid() string {
+	if o == nil || IsNil(o.AccountUuid) {
 		var ret string
 		return ret
 	}
-	return *o.AccountUUID
+	return *o.AccountUuid
 }
 
-// GetAccountUUIDOk returns a tuple with the AccountUUID field value if set, nil otherwise
+// GetAccountUuidOk returns a tuple with the AccountUuid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MacOSAccountProfile) GetAccountUUIDOk() (*string, bool) {
-	if o == nil || IsNil(o.AccountUUID) {
+func (o *MacOSAccountProfile) GetAccountUuidOk() (*string, bool) {
+	if o == nil || IsNil(o.AccountUuid) {
 		return nil, false
 	}
-	return o.AccountUUID, true
+	return o.AccountUuid, true
 }
 
-// HasAccountUUID returns a boolean if a field has been set.
-func (o *MacOSAccountProfile) HasAccountUUID() bool {
-	if o != nil && !IsNil(o.AccountUUID) {
+// HasAccountUuid returns a boolean if a field has been set.
+func (o *MacOSAccountProfile) HasAccountUuid() bool {
+	if o != nil && !IsNil(o.AccountUuid) {
 		return true
 	}
 
 	return false
 }
 
-// SetAccountUUID gets a reference to the given string and assigns it to the AccountUUID field.
-func (o *MacOSAccountProfile) SetAccountUUID(v string) {
-	o.AccountUUID = &v
+// SetAccountUuid gets a reference to the given string and assigns it to the AccountUuid field.
+func (o *MacOSAccountProfile) SetAccountUuid(v string) {
+	o.AccountUuid = &v
 }
 
 // GetFullName returns the FullName field value if set, zero value otherwise.
@@ -122,6 +124,38 @@ func (o *MacOSAccountProfile) HasFullName() bool {
 // SetFullName gets a reference to the given string and assigns it to the FullName field.
 func (o *MacOSAccountProfile) SetFullName(v string) {
 	o.FullName = &v
+}
+
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *MacOSAccountProfile) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MacOSAccountProfile) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *MacOSAccountProfile) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *MacOSAccountProfile) SetType(v string) {
+	o.Type = &v
 }
 
 // GetUsername returns the Username field value if set, zero value otherwise.
@@ -166,11 +200,14 @@ func (o MacOSAccountProfile) MarshalJSON() ([]byte, error) {
 
 func (o MacOSAccountProfile) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.AccountUUID) {
-		toSerialize["accountUUID"] = o.AccountUUID
+	if !IsNil(o.AccountUuid) {
+		toSerialize["accountUuid"] = o.AccountUuid
 	}
 	if !IsNil(o.FullName) {
 		toSerialize["fullName"] = o.FullName
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
 	}
 	if !IsNil(o.Username) {
 		toSerialize["username"] = o.Username
@@ -197,8 +234,9 @@ func (o *MacOSAccountProfile) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "accountUUID")
+		delete(additionalProperties, "accountUuid")
 		delete(additionalProperties, "fullName")
+		delete(additionalProperties, "type")
 		delete(additionalProperties, "username")
 		o.AdditionalProperties = additionalProperties
 	}

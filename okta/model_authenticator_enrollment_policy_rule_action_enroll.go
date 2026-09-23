@@ -30,7 +30,7 @@ import (
 // checks if the AuthenticatorEnrollmentPolicyRuleActionEnroll type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AuthenticatorEnrollmentPolicyRuleActionEnroll{}
 
-// AuthenticatorEnrollmentPolicyRuleActionEnroll Specifies whether the user is to be enrolled the first time they `LOGIN`, the next time they are in the `CHALLENGE` process, or `NEVER`
+// AuthenticatorEnrollmentPolicyRuleActionEnroll Specifies when or if the user is prompted to enroll an authenticator > **Note:** The `CHALLENGE` and `LOGIN` options have identical behaviors in Identity Engine. `LOGIN` is primarily used in authenticator enrollment policies created in Classic Engine orgs.
 type AuthenticatorEnrollmentPolicyRuleActionEnroll struct {
 	Self                 *string `json:"self,omitempty"`
 	AdditionalProperties map[string]interface{}

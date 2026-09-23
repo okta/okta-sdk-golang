@@ -35,8 +35,6 @@ var _ MappedNullable = &DeviceSignalCollectionPolicyRule{}
 // DeviceSignalCollectionPolicyRule struct for DeviceSignalCollectionPolicyRule
 type DeviceSignalCollectionPolicyRule struct {
 	PolicyRule
-	Actions              *DeviceSignalCollectionPolicyRuleActions    `json:"actions,omitempty"`
-	Conditions           *DeviceSignalCollectionPolicyRuleConditions `json:"conditions,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -61,70 +59,6 @@ func NewDeviceSignalCollectionPolicyRuleWithDefaults() *DeviceSignalCollectionPo
 	return &this
 }
 
-// GetActions returns the Actions field value if set, zero value otherwise.
-func (o *DeviceSignalCollectionPolicyRule) GetActions() DeviceSignalCollectionPolicyRuleActions {
-	if o == nil || IsNil(o.Actions) {
-		var ret DeviceSignalCollectionPolicyRuleActions
-		return ret
-	}
-	return *o.Actions
-}
-
-// GetActionsOk returns a tuple with the Actions field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DeviceSignalCollectionPolicyRule) GetActionsOk() (*DeviceSignalCollectionPolicyRuleActions, bool) {
-	if o == nil || IsNil(o.Actions) {
-		return nil, false
-	}
-	return o.Actions, true
-}
-
-// HasActions returns a boolean if a field has been set.
-func (o *DeviceSignalCollectionPolicyRule) HasActions() bool {
-	if o != nil && !IsNil(o.Actions) {
-		return true
-	}
-
-	return false
-}
-
-// SetActions gets a reference to the given DeviceSignalCollectionPolicyRuleActions and assigns it to the Actions field.
-func (o *DeviceSignalCollectionPolicyRule) SetActions(v DeviceSignalCollectionPolicyRuleActions) {
-	o.Actions = &v
-}
-
-// GetConditions returns the Conditions field value if set, zero value otherwise.
-func (o *DeviceSignalCollectionPolicyRule) GetConditions() DeviceSignalCollectionPolicyRuleConditions {
-	if o == nil || IsNil(o.Conditions) {
-		var ret DeviceSignalCollectionPolicyRuleConditions
-		return ret
-	}
-	return *o.Conditions
-}
-
-// GetConditionsOk returns a tuple with the Conditions field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DeviceSignalCollectionPolicyRule) GetConditionsOk() (*DeviceSignalCollectionPolicyRuleConditions, bool) {
-	if o == nil || IsNil(o.Conditions) {
-		return nil, false
-	}
-	return o.Conditions, true
-}
-
-// HasConditions returns a boolean if a field has been set.
-func (o *DeviceSignalCollectionPolicyRule) HasConditions() bool {
-	if o != nil && !IsNil(o.Conditions) {
-		return true
-	}
-
-	return false
-}
-
-// SetConditions gets a reference to the given DeviceSignalCollectionPolicyRuleConditions and assigns it to the Conditions field.
-func (o *DeviceSignalCollectionPolicyRule) SetConditions(v DeviceSignalCollectionPolicyRuleConditions) {
-	o.Conditions = &v
-}
-
 func (o DeviceSignalCollectionPolicyRule) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -143,12 +77,6 @@ func (o DeviceSignalCollectionPolicyRule) ToMap() (map[string]interface{}, error
 	if errPolicyRule != nil {
 		return map[string]interface{}{}, errPolicyRule
 	}
-	if !IsNil(o.Actions) {
-		toSerialize["actions"] = o.Actions
-	}
-	if !IsNil(o.Conditions) {
-		toSerialize["conditions"] = o.Conditions
-	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -159,8 +87,6 @@ func (o DeviceSignalCollectionPolicyRule) ToMap() (map[string]interface{}, error
 
 func (o *DeviceSignalCollectionPolicyRule) UnmarshalJSON(data []byte) (err error) {
 	type DeviceSignalCollectionPolicyRuleWithoutEmbeddedStruct struct {
-		Actions    *DeviceSignalCollectionPolicyRuleActions    `json:"actions,omitempty"`
-		Conditions *DeviceSignalCollectionPolicyRuleConditions `json:"conditions,omitempty"`
 	}
 
 	varDeviceSignalCollectionPolicyRuleWithoutEmbeddedStruct := DeviceSignalCollectionPolicyRuleWithoutEmbeddedStruct{}
@@ -168,8 +94,6 @@ func (o *DeviceSignalCollectionPolicyRule) UnmarshalJSON(data []byte) (err error
 	err = json.Unmarshal(data, &varDeviceSignalCollectionPolicyRuleWithoutEmbeddedStruct)
 	if err == nil {
 		varDeviceSignalCollectionPolicyRule := _DeviceSignalCollectionPolicyRule{}
-		varDeviceSignalCollectionPolicyRule.Actions = varDeviceSignalCollectionPolicyRuleWithoutEmbeddedStruct.Actions
-		varDeviceSignalCollectionPolicyRule.Conditions = varDeviceSignalCollectionPolicyRuleWithoutEmbeddedStruct.Conditions
 		*o = DeviceSignalCollectionPolicyRule(varDeviceSignalCollectionPolicyRule)
 	} else {
 		return err
@@ -187,8 +111,6 @@ func (o *DeviceSignalCollectionPolicyRule) UnmarshalJSON(data []byte) (err error
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "actions")
-		delete(additionalProperties, "conditions")
 
 		// remove fields from embedded structs
 		reflectPolicyRule := reflect.ValueOf(o.PolicyRule)
