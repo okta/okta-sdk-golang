@@ -77361,6 +77361,8 @@ components:
           - DENY
         requirement:
           $ref: "#/components/schemas/SsprRequirement"
+        settings:
+          $ref: "#/components/schemas/SsprSettings"
         type:
           description: <x-lifecycle class="oie"></x-lifecycle> The type of rule action
           enum:
@@ -78715,6 +78717,15 @@ components:
           $ref: "#/components/schemas/SsprPrimaryRequirement"
         stepUp:
           $ref: "#/components/schemas/SsprStepUpRequirement"
+      type: object
+    SsprSettings:
+      description: <x-lifecycle class="oie"></x-lifecycle> Settings that change how
+        a user can recover their password
+      properties:
+        allowRecoveryEmailWithoutEnrollment:
+          description: Allows a user to recover their password with their email address
+            when they have not enrolled the email authenticator
+          type: boolean
       type: object
     SsprStepUpRequirement:
       description: |-

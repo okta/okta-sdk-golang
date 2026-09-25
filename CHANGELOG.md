@@ -1,6 +1,9 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## Unreleased
+- Add the `SsprSettings` model and the `settings` property on `SelfServicePasswordResetAction`, so that `allowRecoveryEmailWithoutEnrollment` is typed rather than reachable only through `AdditionalProperties`. [#604](https://github.com/okta/okta-sdk-golang/issues/604)
+
 ## v6.1.7
 - Add JSON marshal support in `parameterToString` to correctly serialize types implementing `json.Marshaler` interface. [#599](https://github.com/okta/okta-sdk-golang/pull/599) Thanks [@pranav-okta](https://github.com/pranav-okta)
 

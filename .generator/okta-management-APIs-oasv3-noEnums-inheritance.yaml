@@ -50070,6 +50070,8 @@ components:
           $ref: '#/components/schemas/PolicyAccess'
         requirement:
           $ref: '#/components/schemas/SsprRequirement'
+        settings:
+          $ref: '#/components/schemas/SsprSettings'
         type:
           type: string
           description: <x-lifecycle class="oie"></x-lifecycle> The type of rule action
@@ -50989,6 +50991,13 @@ components:
           $ref: '#/components/schemas/SsprPrimaryRequirement'
         stepUp:
           $ref: '#/components/schemas/SsprStepUpRequirement'
+    SsprSettings:
+      description: <x-lifecycle class="oie"></x-lifecycle> Settings that change how a user can recover their password
+      type: object
+      properties:
+        allowRecoveryEmailWithoutEnrollment:
+          description: Allows a user to recover their password with their email address when they have not enrolled the email authenticator
+          type: boolean
     SsprStepUpRequirement:
       description: |-
         Defines the secondary authenticators needed for password reset if `required` is true. The following are three valid configurations:
