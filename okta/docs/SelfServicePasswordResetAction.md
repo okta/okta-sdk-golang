@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Access** | Pointer to **string** |  | [optional] 
 **Requirement** | Pointer to [**SsprRequirement**](SsprRequirement.md) |  | [optional] 
+**Settings** | Pointer to [**SsprSettings**](SsprSettings.md) |  | [optional] 
 **Type** | Pointer to **string** | &lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt; The type of rule action | [optional] 
 
 ## Methods
@@ -76,6 +77,31 @@ SetRequirement sets Requirement field to given value.
 `func (o *SelfServicePasswordResetAction) HasRequirement() bool`
 
 HasRequirement returns a boolean if a field has been set.
+
+### GetSettings
+
+`func (o *SelfServicePasswordResetAction) GetSettings() SsprSettings`
+
+GetSettings returns the Settings field if non-nil, zero value otherwise.
+
+### GetSettingsOk
+
+`func (o *SelfServicePasswordResetAction) GetSettingsOk() (*SsprSettings, bool)`
+
+GetSettingsOk returns a tuple with the Settings field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSettings
+
+`func (o *SelfServicePasswordResetAction) SetSettings(v SsprSettings)`
+
+SetSettings sets Settings field to given value.
+
+### HasSettings
+
+`func (o *SelfServicePasswordResetAction) HasSettings() bool`
+
+HasSettings returns a boolean if a field has been set.
 
 ### GetType
 

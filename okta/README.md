@@ -2071,6 +2071,7 @@ Class | Method | HTTP request | Description
  - [SsoCapability](docs/SsoCapability.md)
  - [SsprPrimaryRequirement](docs/SsprPrimaryRequirement.md)
  - [SsprRequirement](docs/SsprRequirement.md)
+ - [SsprSettings](docs/SsprSettings.md)
  - [SsprStepUpRequirement](docs/SsprStepUpRequirement.md)
  - [StandardRole](docs/StandardRole.md)
  - [StandardRoleAssignmentSchema](docs/StandardRoleAssignmentSchema.md)
