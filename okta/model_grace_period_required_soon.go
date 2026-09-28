@@ -30,7 +30,7 @@ import (
 // checks if the GracePeriodRequiredSoon type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &GracePeriodRequiredSoon{}
 
-// GracePeriodRequiredSoon <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>Customizable strings to use with [grace periods](https://developer.okta.com/docs/concepts/policies/#authenticator-enrollment-policies) that are shown on the Sign-In Widget  You can use the `gracePeriodRequiredSoonDescription` string without using either of the custom link strings. However, if you use one of the custom link strings (`gracePeriodRequiredSoonCustomLinkLabel` or `gracePeriodRequiredSoonCustomLinkUrl`), then both are required.
+// GracePeriodRequiredSoon <x-lifecycle-container><x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>Customizable strings to use with [grace periods](https://developer.okta.com/docs/concepts/policies/#authenticator-enrollment-policies) that are shown on the Sign-In Widget  You can use the `gracePeriodRequiredSoonDescription` string without using either of the custom link strings. However, if you use one of the custom link strings (`gracePeriodRequiredSoonCustomLinkLabel` or `gracePeriodRequiredSoonCustomLinkUrl`), then both are required.
 type GracePeriodRequiredSoon struct {
 	// The label of the custom link that's shown on the Sign-In Widget when users are prompted to enroll required authenticators before their grace period ends.
 	GracePeriodRequiredSoonCustomLinkLabel *string `json:"gracePeriodRequiredSoonCustomLinkLabel,omitempty"`

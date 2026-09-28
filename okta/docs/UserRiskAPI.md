@@ -101,7 +101,7 @@ import (
 
 func main() {
 	userId := "00ub0oNGTSWTBKOLGLNR" // string | ID of an existing Okta user
-	userRiskRequest := *openapiclient.NewUserRiskRequest() // UserRiskRequest | 
+	userRiskRequest := *openapiclient.NewUserRiskRequest("RiskLevel_example") // UserRiskRequest | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

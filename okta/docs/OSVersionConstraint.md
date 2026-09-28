@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **DynamicVersionRequirement** | Pointer to [**OSVersionConstraintDynamicVersionRequirement**](OSVersionConstraintDynamicVersionRequirement.md) |  | [optional] 
-**MajorVersionConstraint** | **string** | Indicates the Windows major version | 
-**Minimum** | Pointer to **string** | The Windows device version must be equal to or newer than the specified version | [optional] 
+**MajorVersionConstraint** | **string** | Indicates the major OS version | 
+**Minimum** | Pointer to **string** | The device version must be equal to or newer than the specified version | [optional] 
 
 ## Methods
 

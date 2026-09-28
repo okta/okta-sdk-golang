@@ -5,6 +5,7 @@ All URIs are relative to *https://subdomain.okta.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**GetGroupAttributeQueryResult**](DirectoriesIntegrationAPI.md#GetGroupAttributeQueryResult) | **Get** /api/v1/directories/{appInstanceId}/groups/{groupId}/query/{resultId} | Retrieve the results of an AD group query
+[**InvokeRemoteScript**](DirectoriesIntegrationAPI.md#InvokeRemoteScript) | **Post** /api/v1/directories/{appInstanceId}/invoke-remote-script | Invoke a remote script on the AD agent
 [**SubmitGroupAttributeQuery**](DirectoriesIntegrationAPI.md#SubmitGroupAttributeQuery) | **Post** /api/v1/directories/{appInstanceId}/groups/{groupId}/query | Submit a query for AD Group
 [**UpdateGroupMembership**](DirectoriesIntegrationAPI.md#UpdateGroupMembership) | **Post** /api/v1/directories/{appInstanceId}/groups/modify | Update an external directory group membership
 
@@ -79,6 +80,78 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## InvokeRemoteScript
+
+> ScriptInvokeResponse InvokeRemoteScript(ctx, appInstanceId).ScriptInvokeRequest(scriptInvokeRequest).Execute()
+
+Invoke a remote script on the AD agent
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
+)
+
+func main() {
+	appInstanceId := "00a1xucgTZFrziXg10g4" // string | ID of the AD instance in Okta
+	scriptInvokeRequest := *openapiclient.NewScriptInvokeRequest("Type_example") // ScriptInvokeRequest |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.DirectoriesIntegrationAPI.InvokeRemoteScript(context.Background(), appInstanceId).ScriptInvokeRequest(scriptInvokeRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `DirectoriesIntegrationAPI.InvokeRemoteScript``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `InvokeRemoteScript`: ScriptInvokeResponse
+	fmt.Fprintf(os.Stdout, "Response from `DirectoriesIntegrationAPI.InvokeRemoteScript`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**appInstanceId** | **string** | ID of the AD instance in Okta | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiInvokeRemoteScriptRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+ **scriptInvokeRequest** | [**ScriptInvokeRequest**](ScriptInvokeRequest.md) |  | 
+
+### Return type
+
+[**ScriptInvokeResponse**](ScriptInvokeResponse.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)

@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **Settings** | Pointer to [**OidcSettings**](OidcSettings.md) |  | [optional] 
 **Type** | Pointer to **string** | SAML 2.0 protocol | [optional] 
 **Scopes** | Pointer to **[]string** | IdP-defined permission bundles to request delegated access from the user. &gt; **Note:** The [identity provider type](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/createIdentityProvider!path&#x3D;type&amp;t&#x3D;request) table lists the scopes that are supported for each IdP. | [optional] 
+**Issuer** | Pointer to [**OidcIssuer**](OidcIssuer.md) |  | [optional] 
 **OktaIdpOrgUrl** | Pointer to **string** | URL of the IdP org | [optional] 
 
 ## Methods
@@ -206,6 +207,31 @@ SetScopes sets Scopes field to given value.
 `func (o *IdentityProviderProtocol) HasScopes() bool`
 
 HasScopes returns a boolean if a field has been set.
+
+### GetIssuer
+
+`func (o *IdentityProviderProtocol) GetIssuer() OidcIssuer`
+
+GetIssuer returns the Issuer field if non-nil, zero value otherwise.
+
+### GetIssuerOk
+
+`func (o *IdentityProviderProtocol) GetIssuerOk() (*OidcIssuer, bool)`
+
+GetIssuerOk returns a tuple with the Issuer field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIssuer
+
+`func (o *IdentityProviderProtocol) SetIssuer(v OidcIssuer)`
+
+SetIssuer sets Issuer field to given value.
+
+### HasIssuer
+
+`func (o *IdentityProviderProtocol) HasIssuer() bool`
+
+HasIssuer returns a boolean if a field has been set.
 
 ### GetOktaIdpOrgUrl
 

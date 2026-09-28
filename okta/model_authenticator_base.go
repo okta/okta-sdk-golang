@@ -35,7 +35,7 @@ var _ MappedNullable = &AuthenticatorBase{}
 type AuthenticatorBase struct {
 	// Timestamp when the authenticator was created
 	Created *time.Time `json:"created,omitempty"`
-	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>The description of the authenticator. This setting is only available for the `webauthn` authenticator type (Passkeys).
+	// The description of the authenticator. This setting is only available for the `webauthn` authenticator type (Passkeys).
 	Description *string `json:"description,omitempty"`
 	// A unique identifier for the authenticator
 	Id *string `json:"id,omitempty"`

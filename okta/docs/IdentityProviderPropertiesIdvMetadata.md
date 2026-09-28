@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **VendorDisplayName** | Pointer to **string** | The display name of the IDV vendor | [optional] 
 **TermsOfUse** | Pointer to **string** | A URL that links to the terms of use for the IDV vendor | [optional] 
 **PrivacyPolicy** | Pointer to **string** | A URL that links to the privacy policy for the IDV vendor | [optional] 
+**ConfigUrl** | Pointer to **string** | A URL that links to the IDV vendor&#39;s own setup or configuration guide | [optional] 
 
 ## Methods
 
@@ -101,6 +102,31 @@ SetPrivacyPolicy sets PrivacyPolicy field to given value.
 `func (o *IdentityProviderPropertiesIdvMetadata) HasPrivacyPolicy() bool`
 
 HasPrivacyPolicy returns a boolean if a field has been set.
+
+### GetConfigUrl
+
+`func (o *IdentityProviderPropertiesIdvMetadata) GetConfigUrl() string`
+
+GetConfigUrl returns the ConfigUrl field if non-nil, zero value otherwise.
+
+### GetConfigUrlOk
+
+`func (o *IdentityProviderPropertiesIdvMetadata) GetConfigUrlOk() (*string, bool)`
+
+GetConfigUrlOk returns a tuple with the ConfigUrl field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetConfigUrl
+
+`func (o *IdentityProviderPropertiesIdvMetadata) SetConfigUrl(v string)`
+
+SetConfigUrl sets ConfigUrl field to given value.
+
+### HasConfigUrl
+
+`func (o *IdentityProviderPropertiesIdvMetadata) HasConfigUrl() bool`
+
+HasConfigUrl returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

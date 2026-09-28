@@ -4,14 +4,13 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Level** | Pointer to **string** | The level to match | [optional] 
-**MinRiskLevel** | Pointer to **string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;The minimum risk level to match. Only used in a Session Violation Detection (&#x60;SESSION_VIOLATION_DETECTION&#x60;) policy rule. | [optional] 
+**Level** | **string** | The level to match | 
 
 ## Methods
 
 ### NewRiskScorePolicyRuleCondition
 
-`func NewRiskScorePolicyRuleCondition() *RiskScorePolicyRuleCondition`
+`func NewRiskScorePolicyRuleCondition(level string, ) *RiskScorePolicyRuleCondition`
 
 NewRiskScorePolicyRuleCondition instantiates a new RiskScorePolicyRuleCondition object
 This constructor will assign default values to properties that have it defined,
@@ -45,36 +44,6 @@ and a boolean to check if the value has been set.
 
 SetLevel sets Level field to given value.
 
-### HasLevel
-
-`func (o *RiskScorePolicyRuleCondition) HasLevel() bool`
-
-HasLevel returns a boolean if a field has been set.
-
-### GetMinRiskLevel
-
-`func (o *RiskScorePolicyRuleCondition) GetMinRiskLevel() string`
-
-GetMinRiskLevel returns the MinRiskLevel field if non-nil, zero value otherwise.
-
-### GetMinRiskLevelOk
-
-`func (o *RiskScorePolicyRuleCondition) GetMinRiskLevelOk() (*string, bool)`
-
-GetMinRiskLevelOk returns a tuple with the MinRiskLevel field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetMinRiskLevel
-
-`func (o *RiskScorePolicyRuleCondition) SetMinRiskLevel(v string)`
-
-SetMinRiskLevel sets MinRiskLevel field to given value.
-
-### HasMinRiskLevel
-
-`func (o *RiskScorePolicyRuleCondition) HasMinRiskLevel() bool`
-
-HasMinRiskLevel returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -1028,7 +1028,7 @@ import (
 
 func main() {
 	authenticatorId := "aut1nd8PQhGcQtSxB0g4" // string | `id` of the authenticator
-	authenticator := *openapiclient.NewAuthenticatorBase() // AuthenticatorBase | 
+	authenticator := openapiclient.listAuthenticators_200_response_inner{AuthenticatorKeyCustomApp: openapiclient.NewAuthenticatorKeyCustomApp()} // ListAuthenticators200ResponseInner | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -1058,7 +1058,7 @@ Other parameters are passed through a pointer to a apiReplaceAuthenticatorReques
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **authenticator** | [**AuthenticatorBase**](AuthenticatorBase.md) |  | 
+ **authenticator** | [**ListAuthenticators200ResponseInner**](ListAuthenticators200ResponseInner.md) |  | 
 
 ### Return type
 

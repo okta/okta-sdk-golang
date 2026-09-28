@@ -218,7 +218,7 @@ Name | Type | Description  | Notes
 
 ## ListRealms
 
-> []Realm ListRealms(ctx).Limit(limit).After(after).Search(search).SortBy(sortBy).SortOrder(sortOrder).Execute()
+> []Realm ListRealms(ctx).Limit(limit).After(after).Search(search).SortBy(sortBy).SortOrder(sortOrder).Fields(fields).Execute()
 
 List all realms
 
@@ -242,10 +242,11 @@ func main() {
 	search := "search_example" // string | Searches for realms with a supported filtering expression for most properties.  Searches for realms can be filtered by the contains (`co`) operator. You can only use `co` with the `profile.name` property. See [Operators](https://developer.okta.com/docs/api/#operators). (optional)
 	sortBy := "profile.name" // string | Specifies the field to sort by and can be any single property (for search queries only) (optional)
 	sortOrder := "sortOrder_example" // string | Specifies sort order: `asc` or `desc` (for search queries only). This parameter is ignored if `sortBy` isn't present. (optional) (default to "asc")
+	fields := "id,profile:(name)" // string | Specifies a comma-separated list of fields to include in the response. Use the `fields` parameter to reduce the response payload size.  Supports the following top-level fields: `id`, `created`, `lastUpdated`, `profile`, `isDefault`, `_links`  Use the `profile:(fieldName)` syntax to request specific profile attributes, such as `profile:(name)` or `profile:(name,realmType)`. Bare `profile` field is also supported and returns the full profile object.  > **Note:** The `id` field is always included in the response. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.RealmAPI.ListRealms(context.Background()).Limit(limit).After(after).Search(search).SortBy(sortBy).SortOrder(sortOrder).Execute()
+	resp, r, err := apiClient.RealmAPI.ListRealms(context.Background()).Limit(limit).After(after).Search(search).SortBy(sortBy).SortOrder(sortOrder).Fields(fields).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `RealmAPI.ListRealms``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -271,6 +272,7 @@ Name | Type | Description  | Notes
  **search** | **string** | Searches for realms with a supported filtering expression for most properties.  Searches for realms can be filtered by the contains (&#x60;co&#x60;) operator. You can only use &#x60;co&#x60; with the &#x60;profile.name&#x60; property. See [Operators](https://developer.okta.com/docs/api/#operators). | 
  **sortBy** | **string** | Specifies the field to sort by and can be any single property (for search queries only) | 
  **sortOrder** | **string** | Specifies sort order: &#x60;asc&#x60; or &#x60;desc&#x60; (for search queries only). This parameter is ignored if &#x60;sortBy&#x60; isn&#39;t present. | [default to &quot;asc&quot;]
+ **fields** | **string** | Specifies a comma-separated list of fields to include in the response. Use the &#x60;fields&#x60; parameter to reduce the response payload size.  Supports the following top-level fields: &#x60;id&#x60;, &#x60;created&#x60;, &#x60;lastUpdated&#x60;, &#x60;profile&#x60;, &#x60;isDefault&#x60;, &#x60;_links&#x60;  Use the &#x60;profile:(fieldName)&#x60; syntax to request specific profile attributes, such as &#x60;profile:(name)&#x60; or &#x60;profile:(name,realmType)&#x60;. Bare &#x60;profile&#x60; field is also supported and returns the full profile object.  &gt; **Note:** The &#x60;id&#x60; field is always included in the response. | 
 
 ### Return type
 

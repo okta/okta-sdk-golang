@@ -40,7 +40,7 @@ type TokenResponse struct {
 	ExpiresIn *int32 `json:"expires_in,omitempty"`
 	// An ID token. This is returned if the `openid` scope is granted.
 	IdToken *string `json:"id_token,omitempty"`
-	// The type of token for token exchange. `urn:okta:params:oauth:token-type:interclient_token` is EA.
+	// The type of token for token exchange
 	IssuedTokenType *string `json:"issued_token_type,omitempty"`
 	// An opaque refresh token. This is returned if the `offline_access` scope is granted.
 	RefreshToken *string `json:"refresh_token,omitempty"`

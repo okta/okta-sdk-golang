@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **MsgTemplate** | Pointer to **string** | Default or Okta org configured sms or voice message template | [optional] 
 **PhoneNumber** | Pointer to **string** | The Okta&#39;s user&#39;s phone number | [optional] 
-**OtpExpires** | Pointer to **string** | The time when OTP expires | [optional] 
+**OtpExpires** | Pointer to **string** | The time when the OTP expires | [optional] 
 **DeliveryChannel** | Pointer to **string** | The channel for OTP delivery - SMS or voice | [optional] 
 **OtpCode** | Pointer to **string** | The OTP code requested by the Okta user | [optional] 
 **Locale** | Pointer to **string** | The locale associated with the Okta user | [optional] 

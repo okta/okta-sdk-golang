@@ -6,9 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AppName** | Pointer to **string** | The application name | [optional] [readonly] 
 **ContainerId** | **string** | The app ID associated with the privileged resource | 
-**DisplayName** | Pointer to **string** | Human-readable name of the container that owns the privileged resource | [optional] [readonly] 
-**GlobalAppId** | Pointer to **string** | The application global ID | [optional] [readonly] 
+**DisplayName** | Pointer to **string** | Name of the container that owns the privileged resource | [optional] [readonly] 
+**GlobalAppId** | Pointer to **string** | Global ID of the application | [optional] [readonly] 
 **PasswordPushSupported** | Pointer to **bool** | Indicates if the application supports password push | [optional] [readonly] 
+**PasswordVerificationSupported** | Pointer to **bool** | Indicates if the application supports credential verification | [optional] [readonly] 
 **ProvisioningEnabled** | Pointer to **bool** | Indicates if provisioning is enabled for this application | [optional] [readonly] 
 **Status** | Pointer to **string** | Current status of the application instance | [optional] [readonly] 
 **Links** | Pointer to [**AppAccountContainerLink**](AppAccountContainerLink.md) |  | [optional] 
@@ -151,6 +152,31 @@ SetPasswordPushSupported sets PasswordPushSupported field to given value.
 `func (o *AppAccountContainerDetails) HasPasswordPushSupported() bool`
 
 HasPasswordPushSupported returns a boolean if a field has been set.
+
+### GetPasswordVerificationSupported
+
+`func (o *AppAccountContainerDetails) GetPasswordVerificationSupported() bool`
+
+GetPasswordVerificationSupported returns the PasswordVerificationSupported field if non-nil, zero value otherwise.
+
+### GetPasswordVerificationSupportedOk
+
+`func (o *AppAccountContainerDetails) GetPasswordVerificationSupportedOk() (*bool, bool)`
+
+GetPasswordVerificationSupportedOk returns a tuple with the PasswordVerificationSupported field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPasswordVerificationSupported
+
+`func (o *AppAccountContainerDetails) SetPasswordVerificationSupported(v bool)`
+
+SetPasswordVerificationSupported sets PasswordVerificationSupported field to given value.
+
+### HasPasswordVerificationSupported
+
+`func (o *AppAccountContainerDetails) HasPasswordVerificationSupported() bool`
+
+HasPasswordVerificationSupported returns a boolean if a field has been set.
 
 ### GetProvisioningEnabled
 

@@ -37,7 +37,7 @@ type OktaManagedUserAccountRequest struct {
 	Description *string `json:"description,omitempty"`
 	// The user-defined name for the Okta managed user account
 	Name string `json:"name" validate:"regexp=^[\\\\w\\\\-_. ]+$"`
-	// The ID of the Okta user to manage as a service account. This must be an existing user in your Okta org.
+	// The ID of the Okta user to manage as a service account.  This must be an existing user in your Okta org.
 	OktaUserId string `json:"oktaUserId" validate:"regexp=^[a-zA-Z0-9]+$"`
 	// A list of IDs of the Okta groups who own the Okta managed user account
 	OwnerGroupIds []string `json:"ownerGroupIds,omitempty"`

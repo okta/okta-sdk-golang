@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Network** | Pointer to [**PolicyNetworkCondition**](PolicyNetworkCondition.md) |  | [optional] 
-**RiskScore** | Pointer to [**RiskScorePolicyRuleCondition**](RiskScorePolicyRuleCondition.md) |  | [optional] 
+**RiskScore** | Pointer to [**SessionViolationDetectionRiskScoreCondition**](SessionViolationDetectionRiskScoreCondition.md) |  | [optional] 
 
 ## Methods
 
@@ -53,20 +53,20 @@ HasNetwork returns a boolean if a field has been set.
 
 ### GetRiskScore
 
-`func (o *SessionViolationDetectionPolicyRuleAllOfConditions) GetRiskScore() RiskScorePolicyRuleCondition`
+`func (o *SessionViolationDetectionPolicyRuleAllOfConditions) GetRiskScore() SessionViolationDetectionRiskScoreCondition`
 
 GetRiskScore returns the RiskScore field if non-nil, zero value otherwise.
 
 ### GetRiskScoreOk
 
-`func (o *SessionViolationDetectionPolicyRuleAllOfConditions) GetRiskScoreOk() (*RiskScorePolicyRuleCondition, bool)`
+`func (o *SessionViolationDetectionPolicyRuleAllOfConditions) GetRiskScoreOk() (*SessionViolationDetectionRiskScoreCondition, bool)`
 
 GetRiskScoreOk returns a tuple with the RiskScore field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRiskScore
 
-`func (o *SessionViolationDetectionPolicyRuleAllOfConditions) SetRiskScore(v RiskScorePolicyRuleCondition)`
+`func (o *SessionViolationDetectionPolicyRuleAllOfConditions) SetRiskScore(v SessionViolationDetectionRiskScoreCondition)`
 
 SetRiskScore sets RiskScore field to given value.
 

@@ -156,7 +156,7 @@ Name | Type | Description  | Notes
 
 ## ListInterclientAllowedApplications
 
-> []string ListInterclientAllowedApplications(ctx, appId).Execute()
+> []string ListInterclientAllowedApplications(ctx, appId).After(after).Limit(limit).Execute()
 
 List all allowed apps for a target app
 
@@ -176,10 +176,12 @@ import (
 
 func main() {
 	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). (optional)
+	limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationInterclientTrustMappingsAPI.ListInterclientAllowedApplications(context.Background(), appId).Execute()
+	resp, r, err := apiClient.ApplicationInterclientTrustMappingsAPI.ListInterclientAllowedApplications(context.Background(), appId).After(after).Limit(limit).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationInterclientTrustMappingsAPI.ListInterclientAllowedApplications``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -205,6 +207,8 @@ Other parameters are passed through a pointer to a apiListInterclientAllowedAppl
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). | 
+ **limit** | **int32** | A limit on the number of objects to return | [default to 20]
 
 ### Return type
 
@@ -226,7 +230,7 @@ Name | Type | Description  | Notes
 
 ## ListInterclientTargetApplications
 
-> []string ListInterclientTargetApplications(ctx, appId).Execute()
+> []string ListInterclientTargetApplications(ctx, appId).After(after).Limit(limit).Execute()
 
 List all target apps for an allowed app
 
@@ -246,10 +250,12 @@ import (
 
 func main() {
 	appId := "0oafxqCAJWWGELFTYASJ" // string | Application ID
+	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). (optional)
+	limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApplicationInterclientTrustMappingsAPI.ListInterclientTargetApplications(context.Background(), appId).Execute()
+	resp, r, err := apiClient.ApplicationInterclientTrustMappingsAPI.ListInterclientTargetApplications(context.Background(), appId).After(after).Limit(limit).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationInterclientTrustMappingsAPI.ListInterclientTargetApplications``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -275,6 +281,8 @@ Other parameters are passed through a pointer to a apiListInterclientTargetAppli
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
+ **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). | 
+ **limit** | **int32** | A limit on the number of objects to return | [default to 20]
 
 ### Return type
 

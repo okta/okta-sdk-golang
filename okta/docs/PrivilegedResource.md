@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Created** | Pointer to **time.Time** | Timestamp when the object was created | [optional] [readonly] 
 **CredentialSyncInfo** | Pointer to [**CredentialSyncInfo**](CredentialSyncInfo.md) |  | [optional] 
+**CredentialVerificationInfo** | Pointer to [**CredentialVerificationInfo**](CredentialVerificationInfo.md) |  | [optional] 
 **Id** | Pointer to **string** | ID of the privileged resource | [optional] [readonly] 
 **LastUpdated** | Pointer to **time.Time** | Timestamp when the object was last updated | [optional] [readonly] 
 **ResourceType** | **string** | The type of the resource | 
@@ -79,6 +80,31 @@ SetCredentialSyncInfo sets CredentialSyncInfo field to given value.
 `func (o *PrivilegedResource) HasCredentialSyncInfo() bool`
 
 HasCredentialSyncInfo returns a boolean if a field has been set.
+
+### GetCredentialVerificationInfo
+
+`func (o *PrivilegedResource) GetCredentialVerificationInfo() CredentialVerificationInfo`
+
+GetCredentialVerificationInfo returns the CredentialVerificationInfo field if non-nil, zero value otherwise.
+
+### GetCredentialVerificationInfoOk
+
+`func (o *PrivilegedResource) GetCredentialVerificationInfoOk() (*CredentialVerificationInfo, bool)`
+
+GetCredentialVerificationInfoOk returns a tuple with the CredentialVerificationInfo field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCredentialVerificationInfo
+
+`func (o *PrivilegedResource) SetCredentialVerificationInfo(v CredentialVerificationInfo)`
+
+SetCredentialVerificationInfo sets CredentialVerificationInfo field to given value.
+
+### HasCredentialVerificationInfo
+
+`func (o *PrivilegedResource) HasCredentialVerificationInfo() bool`
+
+HasCredentialVerificationInfo returns a boolean if a field has been set.
 
 ### GetId
 

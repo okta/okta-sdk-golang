@@ -83,7 +83,7 @@ type AuthenticatorAPI interface {
 	/*
 		CreateCustomAAGUID Create a custom AAGUID
 
-		Creates a custom AAGUID for the WebAuthn authenticator
+		Creates a custom AAGUID for the Passkey (FIDO2 WebAuthn) authenticator
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param authenticatorId `id` of the authenticator
@@ -237,12 +237,16 @@ type AuthenticatorAPI interface {
 	ListAuthenticatorMethodsExecute(r ApiListAuthenticatorMethodsRequest) ([]ListAuthenticatorMethods200ResponseInner, *APIResponse, error)
 
 	/*
-		ListAuthenticators List all authenticators
+			ListAuthenticators List all authenticators
 
-		Lists all authenticators
+			Lists all authenticators
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return ApiListAuthenticatorsRequest
+		> <x-lifecycle class="ea"></x-lifecycle> **Note:** When the Flexible Okta Verify authenticator configuration feature is enabled, the response includes both the individual per-method authenticators (`okta_verify_totp`, `okta_verify_push`, `okta_verify_fastpass`) and a legacy `okta_verify` aggregate object for backward compatibility.
+		>
+		> Flexible Okta Verify authenticator configuration is a [self-service Early Access (EA)](/docs/concepts/feature-lifecycle-management/#self-service-features) feature. See [Manage Early Access and Beta features](https://help.okta.com/okta_help.htm?id=ext_secur_manage_ea_bata) to enable the feature.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@return ApiListAuthenticatorsRequest
 	*/
 	ListAuthenticators(ctx context.Context) ApiListAuthenticatorsRequest
 
@@ -251,13 +255,17 @@ type AuthenticatorAPI interface {
 	ListAuthenticatorsExecute(r ApiListAuthenticatorsRequest) ([]ListAuthenticators200ResponseInner, *APIResponse, error)
 
 	/*
-		ReplaceAuthenticator Replace an authenticator
+			ReplaceAuthenticator Replace an authenticator
 
-		Replaces the properties for an authenticator identified by `authenticatorId`
+			Replaces the properties for an authenticator identified by `authenticatorId`
 
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@param authenticatorId `id` of the authenticator
-		@return ApiReplaceAuthenticatorRequest
+		 > <x-lifecycle class="ea"></x-lifecycle> **Note:** When the Flexible Okta Verify authenticator configuration feature is enabled, the `compliance.fips` and `enrollmentSecurityLevel` settings are shared across all Okta Verify per-method authenticators (`okta_verify_totp`, `okta_verify_push`, `okta_verify_fastpass`). Updating either property on any one authenticator applies the change to all three. The `okta_verify` key is returned in responses for backward compatibility only and is no longer accepted in the request body. Use `okta_verify_totp`, `okta_verify_push`, or `okta_verify_fastpass` instead.
+		 >
+		 > Flexible Okta Verify authenticator configuration is a [self-service Early Access (EA)](/docs/concepts/feature-lifecycle-management/#self-service-features) feature. See [Manage Early Access and Beta features](https://help.okta.com/okta_help.htm?id=ext_secur_manage_ea_bata) to enable the feature.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param authenticatorId `id` of the authenticator
+			@return ApiReplaceAuthenticatorRequest
 	*/
 	ReplaceAuthenticator(ctx context.Context, authenticatorId string) ApiReplaceAuthenticatorRequest
 
@@ -284,7 +292,7 @@ type AuthenticatorAPI interface {
 	/*
 		ReplaceCustomAAGUID Replace a custom AAGUID
 
-		Replaces a custom AAGUID for the specified WebAuthn authenticator
+		Replaces a custom AAGUID for the specified Passkey (FIDO2 WebAuthn) authenticator
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param authenticatorId `id` of the authenticator
@@ -316,7 +324,7 @@ type AuthenticatorAPI interface {
 	/*
 		VerifyRpIdDomain Verify a Relying Party ID domain
 
-		Verifies the [Relying Party identifier (RP ID)](https://www.w3.org/TR/webauthn/#relying-party-identifier) domain for the specified WebAuthn authenticator and the specific `webauthn` authenticator method
+		Verifies the [Relying Party identifier (RP ID)](https://www.w3.org/TR/webauthn/#relying-party-identifier) domain for the specified Passkey (FIDO2 WebAuthn) authenticator and the specific `webauthn` authenticator method
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param authenticatorId `id` of the authenticator
@@ -871,7 +879,7 @@ func (r ApiCreateCustomAAGUIDRequest) Execute() (*CustomAAGUIDResponseObject, *A
 /*
 CreateCustomAAGUID Create a custom AAGUID
 
-Creates a custom AAGUID for the WebAuthn authenticator
+Creates a custom AAGUID for the Passkey (FIDO2 WebAuthn) authenticator
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param authenticatorId `id` of the authenticator
@@ -2520,7 +2528,11 @@ func (r ApiListAuthenticatorsRequest) Execute() ([]ListAuthenticators200Response
 /*
 ListAuthenticators List all authenticators
 
-Lists all authenticators
+# Lists all authenticators
+
+> <x-lifecycle class="ea"></x-lifecycle> **Note:** When the Flexible Okta Verify authenticator configuration feature is enabled, the response includes both the individual per-method authenticators (`okta_verify_totp`, `okta_verify_push`, `okta_verify_fastpass`) and a legacy `okta_verify` aggregate object for backward compatibility.
+>
+> Flexible Okta Verify authenticator configuration is a [self-service Early Access (EA)](/docs/concepts/feature-lifecycle-management/#self-service-features) feature. See [Manage Early Access and Beta features](https://help.okta.com/okta_help.htm?id=ext_secur_manage_ea_bata) to enable the feature.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiListAuthenticatorsRequest
@@ -2661,11 +2673,11 @@ type ApiReplaceAuthenticatorRequest struct {
 	ctx             context.Context
 	ApiService      AuthenticatorAPI
 	authenticatorId string
-	authenticator   *AuthenticatorBase
+	authenticator   *ListAuthenticators200ResponseInner
 	retryCount      int32
 }
 
-func (r ApiReplaceAuthenticatorRequest) Authenticator(authenticator AuthenticatorBase) ApiReplaceAuthenticatorRequest {
+func (r ApiReplaceAuthenticatorRequest) Authenticator(authenticator ListAuthenticators200ResponseInner) ApiReplaceAuthenticatorRequest {
 	r.authenticator = &authenticator
 	return r
 }
@@ -2678,6 +2690,10 @@ func (r ApiReplaceAuthenticatorRequest) Execute() (*AuthenticatorBase, *APIRespo
 ReplaceAuthenticator Replace an authenticator
 
 Replaces the properties for an authenticator identified by `authenticatorId`
+
+	> <x-lifecycle class="ea"></x-lifecycle> **Note:** When the Flexible Okta Verify authenticator configuration feature is enabled, the `compliance.fips` and `enrollmentSecurityLevel` settings are shared across all Okta Verify per-method authenticators (`okta_verify_totp`, `okta_verify_push`, `okta_verify_fastpass`). Updating either property on any one authenticator applies the change to all three. The `okta_verify` key is returned in responses for backward compatibility only and is no longer accepted in the request body. Use `okta_verify_totp`, `okta_verify_push`, or `okta_verify_fastpass` instead.
+	>
+	> Flexible Okta Verify authenticator configuration is a [self-service Early Access (EA)](/docs/concepts/feature-lifecycle-management/#self-service-features) feature. See [Manage Early Access and Beta features](https://help.okta.com/okta_help.htm?id=ext_secur_manage_ea_bata) to enable the feature.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param authenticatorId `id` of the authenticator
@@ -3057,7 +3073,7 @@ func (r ApiReplaceCustomAAGUIDRequest) Execute() (*CustomAAGUIDResponseObject, *
 /*
 ReplaceCustomAAGUID Replace a custom AAGUID
 
-Replaces a custom AAGUID for the specified WebAuthn authenticator
+Replaces a custom AAGUID for the specified Passkey (FIDO2 WebAuthn) authenticator
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param authenticatorId `id` of the authenticator
@@ -3407,7 +3423,7 @@ func (r ApiVerifyRpIdDomainRequest) Execute() (*APIResponse, error) {
 /*
 VerifyRpIdDomain Verify a Relying Party ID domain
 
-Verifies the [Relying Party identifier (RP ID)](https://www.w3.org/TR/webauthn/#relying-party-identifier) domain for the specified WebAuthn authenticator and the specific `webauthn` authenticator method
+Verifies the [Relying Party identifier (RP ID)](https://www.w3.org/TR/webauthn/#relying-party-identifier) domain for the specified Passkey (FIDO2 WebAuthn) authenticator and the specific `webauthn` authenticator method
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param authenticatorId `id` of the authenticator

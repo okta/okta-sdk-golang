@@ -155,7 +155,7 @@ Name | Type | Description  | Notes
 
 ## ListGroupOwners
 
-> []GroupOwner ListGroupOwners(ctx, groupId).Search(search).After(after).Limit(limit).Execute()
+> []GroupOwner ListGroupOwners(ctx, groupId).Filter(filter).After(after).Limit(limit).Execute()
 
 List all group owners
 
@@ -175,13 +175,13 @@ import (
 
 func main() {
 	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
-	search := "search_example" // string | SCIM filter expression for group owners. Allows you to filter owners by type. (optional)
+	filter := "type eq "USER"" // string | SCIM filter expression for group owners. You can filter by `type` (`GROUP` or `USER`) and/or `resolved` (true or false). If you don't specify a filter, only owners with a resolved status are returned, equivalent to `resolved eq true`. (optional)
 	after := "after_example" // string | Specifies the pagination cursor for the next page of owners (optional)
 	limit := int32(56) // int32 | Specifies the number of owner results in a page (optional) (default to 1000)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupOwnerAPI.ListGroupOwners(context.Background(), groupId).Search(search).After(after).Limit(limit).Execute()
+	resp, r, err := apiClient.GroupOwnerAPI.ListGroupOwners(context.Background(), groupId).Filter(filter).After(after).Limit(limit).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupOwnerAPI.ListGroupOwners``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -207,7 +207,7 @@ Other parameters are passed through a pointer to a apiListGroupOwnersRequest str
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
- **search** | **string** | SCIM filter expression for group owners. Allows you to filter owners by type. | 
+ **filter** | **string** | SCIM filter expression for group owners. You can filter by &#x60;type&#x60; (&#x60;GROUP&#x60; or &#x60;USER&#x60;) and/or &#x60;resolved&#x60; (true or false). If you don&#39;t specify a filter, only owners with a resolved status are returned, equivalent to &#x60;resolved eq true&#x60;. | 
  **after** | **string** | Specifies the pagination cursor for the next page of owners | 
  **limit** | **int32** | Specifies the number of owner results in a page | [default to 1000]
 

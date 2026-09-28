@@ -33,7 +33,7 @@ var _ MappedNullable = &OpenIdConnectApplicationSettingsClient{}
 
 // OpenIdConnectApplicationSettingsClient struct for OpenIdConnectApplicationSettingsClient
 type OpenIdConnectApplicationSettingsClient struct {
-	// The type of client app Specific `grant_types` are valid for each `application_type`. See [Create a Client Application](/openapi/okta-oauth/oauth/client/createclient).
+	// The type of client app      Specific `grant_types` are valid for each `application_type`. See [Create a Client Application](/openapi/okta-oauth/oauth/client/createclient).
 	ApplicationType *string `json:"application_type,omitempty"`
 	// The signing algorithm for Client-Initiated Backchannel Authentication (CIBA) signed requests using JWT. If this value isn't set and a JWT-signed request is sent, the request fails. > **Note:** This property appears for clients with `urn:openid:params:grant-type:ciba` defined as one of the `grant_types`.
 	BackchannelAuthenticationRequestSigningAlg *string `json:"backchannel_authentication_request_signing_alg,omitempty"`
@@ -41,16 +41,16 @@ type OpenIdConnectApplicationSettingsClient struct {
 	BackchannelCustomAuthenticatorId *string `json:"backchannel_custom_authenticator_id,omitempty"`
 	// The delivery mode for Client-Initiated Backchannel Authentication (CIBA).  Currently, only `poll` is supported. > **Note:** This property appears for clients with `urn:openid:params:grant-type:ciba` defined as one of the `grant_types`.
 	BackchannelTokenDeliveryMode *string `json:"backchannel_token_delivery_mode,omitempty"`
+	// <x-lifecycle-container><x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>Indicates whether Okta reads the client's configuration from a Client ID Metadata Document (CIMD) instead of using Okta-generated client credentials. If `true`, set `cimdUrl` as the URL of the CIMD.
+	CimdClient *bool `json:"cimdClient,omitempty"`
+	// <x-lifecycle-container><x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>The HTTPS URL where the client's CIMD is hosted. Okta fetches this URL to configure the client's redirect URIs, grant types, and signing keys. This is required if `cimdClient` is `true`.
+	CimdUrl *string `json:"cimdUrl,omitempty"`
 	// URL string of a web page providing information about the client
 	ClientUri *string `json:"client_uri,omitempty"`
 	// Indicates whether user consent is required or implicit. A consent dialog appears for the end user depending on the values of three elements:  * [prompt](/openapi/okta-oauth/oauth/orgas/authorize#orgas/authorize/t=request&in=query&path=prompt): A query parameter that is used in requests to `/authorize` * `consent_method` (this property) * [consent](/openapi/okta-management/management/authorizationserverscopes/createoauth2scope#authorizationserverscopes/createoauth2scope/t=request&path=consent): A [Scope](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/AuthorizationServerScopes/) property that allows you to enable or disable user consent for an individual scope  | `prompt` | `consent_method` | `consent` | Result | ---------- | ----------- | ---------- | ----------- | | CONSENT | TRUSTED or REQUIRED | REQUIRED | Prompted | | CONSENT | TRUSTED or REQUIRED | FLEXIBLE | Prompted | | CONSENT | TRUSTED | IMPLICIT | Not prompted | | NONE | TRUSTED | FLEXIBLE, IMPLICIT, or REQUIRED | Not prompted | | NONE | REQUIRED | FLEXIBLE or REQUIRED | Prompted | | NONE | REQUIRED | IMPLICIT | Not prompted |  > **Notes:** > * If you request a scope that requires consent while using the `client_credentials` flow, an error is returned because the flow doesn't support user consent. > * If the `prompt` value is set to `NONE`, but the `consent_method` and the consent values are set to `REQUIRED`, then an error occurs. > * When a scope is requested during a Client Credentials grant flow and `consent` is set to `FLEXIBLE`, the scope is granted in the access token with no consent prompt. This occurs because there is no user involved in a two-legged OAuth 2.0 [Client Credentials](https://developer.okta.com/docs/guides/implement-grant-type/clientcreds/main/) grant flow.
 	ConsentMethod *string `json:"consent_method,omitempty"`
 	// Indicates that the client application uses Demonstrating Proof-of-Possession (DPoP) for token requests. If `true`, the authorization server rejects token requests from this client that don't contain the DPoP header. > **Note:** If `dpop_bound_access_tokens` is true, then `client_credentials` and `implicit` aren't allowed in `grant_types`.
-	DpopBoundAccessTokens *bool `json:"dpop_bound_access_tokens,omitempty"`
-	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle> <x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>Determines whether Okta sends `sid` and `iss` in the logout request
-	FrontchannelLogoutSessionRequired *bool `json:"frontchannel_logout_session_required,omitempty"`
-	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle> <x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>URL where Okta sends the logout request
-	FrontchannelLogoutUri *string  `json:"frontchannel_logout_uri,omitempty"`
+	DpopBoundAccessTokens *bool    `json:"dpop_bound_access_tokens,omitempty"`
 	GrantTypes            []string `json:"grant_types"`
 	// JWE alg algorithm for encrypting the ID token issued to this client. If this is requested, the response is signed, and then encrypted with the result being a nested JWT. The default, if omitted, is that no encryption is performed. See the [Application Public Keys API](/openapi/okta-management/management/applicationssopublickeys/) for more information on encryption keys. See [Key management](https://developer.okta.com/docs/guides/key-management/main/) for more information on how encryption keys are used.
 	IdTokenEncryptedResponseAlg *string                                    `json:"id_token_encrypted_response_alg,omitempty"`
@@ -65,8 +65,6 @@ type OpenIdConnectApplicationSettingsClient struct {
 	// The URL string that references a logo for the client. This logo appears on the client tile in the End-User Dashboard. It also appears on the client consent dialog during the client consent flow.
 	LogoUri *string                          `json:"logo_uri,omitempty"`
 	Network *OpenIdConnectApplicationNetwork `json:"network,omitempty"`
-	// <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle> <x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>Allows the app to participate in front-channel Single Logout  > **Note:** You can only enable `participate_slo` for `web` and `browser` application types (`application_type`).
-	ParticipateSlo *bool `json:"participate_slo,omitempty"`
 	// URL string of a web page providing the client's policy document
 	PolicyUri *string `json:"policy_uri,omitempty"`
 	// Array of redirection URI strings for relying party-initiated logouts
@@ -245,6 +243,70 @@ func (o *OpenIdConnectApplicationSettingsClient) SetBackchannelTokenDeliveryMode
 	o.BackchannelTokenDeliveryMode = &v
 }
 
+// GetCimdClient returns the CimdClient field value if set, zero value otherwise.
+func (o *OpenIdConnectApplicationSettingsClient) GetCimdClient() bool {
+	if o == nil || IsNil(o.CimdClient) {
+		var ret bool
+		return ret
+	}
+	return *o.CimdClient
+}
+
+// GetCimdClientOk returns a tuple with the CimdClient field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OpenIdConnectApplicationSettingsClient) GetCimdClientOk() (*bool, bool) {
+	if o == nil || IsNil(o.CimdClient) {
+		return nil, false
+	}
+	return o.CimdClient, true
+}
+
+// HasCimdClient returns a boolean if a field has been set.
+func (o *OpenIdConnectApplicationSettingsClient) HasCimdClient() bool {
+	if o != nil && !IsNil(o.CimdClient) {
+		return true
+	}
+
+	return false
+}
+
+// SetCimdClient gets a reference to the given bool and assigns it to the CimdClient field.
+func (o *OpenIdConnectApplicationSettingsClient) SetCimdClient(v bool) {
+	o.CimdClient = &v
+}
+
+// GetCimdUrl returns the CimdUrl field value if set, zero value otherwise.
+func (o *OpenIdConnectApplicationSettingsClient) GetCimdUrl() string {
+	if o == nil || IsNil(o.CimdUrl) {
+		var ret string
+		return ret
+	}
+	return *o.CimdUrl
+}
+
+// GetCimdUrlOk returns a tuple with the CimdUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *OpenIdConnectApplicationSettingsClient) GetCimdUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.CimdUrl) {
+		return nil, false
+	}
+	return o.CimdUrl, true
+}
+
+// HasCimdUrl returns a boolean if a field has been set.
+func (o *OpenIdConnectApplicationSettingsClient) HasCimdUrl() bool {
+	if o != nil && !IsNil(o.CimdUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetCimdUrl gets a reference to the given string and assigns it to the CimdUrl field.
+func (o *OpenIdConnectApplicationSettingsClient) SetCimdUrl(v string) {
+	o.CimdUrl = &v
+}
+
 // GetClientUri returns the ClientUri field value if set, zero value otherwise.
 func (o *OpenIdConnectApplicationSettingsClient) GetClientUri() string {
 	if o == nil || IsNil(o.ClientUri) {
@@ -339,70 +401,6 @@ func (o *OpenIdConnectApplicationSettingsClient) HasDpopBoundAccessTokens() bool
 // SetDpopBoundAccessTokens gets a reference to the given bool and assigns it to the DpopBoundAccessTokens field.
 func (o *OpenIdConnectApplicationSettingsClient) SetDpopBoundAccessTokens(v bool) {
 	o.DpopBoundAccessTokens = &v
-}
-
-// GetFrontchannelLogoutSessionRequired returns the FrontchannelLogoutSessionRequired field value if set, zero value otherwise.
-func (o *OpenIdConnectApplicationSettingsClient) GetFrontchannelLogoutSessionRequired() bool {
-	if o == nil || IsNil(o.FrontchannelLogoutSessionRequired) {
-		var ret bool
-		return ret
-	}
-	return *o.FrontchannelLogoutSessionRequired
-}
-
-// GetFrontchannelLogoutSessionRequiredOk returns a tuple with the FrontchannelLogoutSessionRequired field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OpenIdConnectApplicationSettingsClient) GetFrontchannelLogoutSessionRequiredOk() (*bool, bool) {
-	if o == nil || IsNil(o.FrontchannelLogoutSessionRequired) {
-		return nil, false
-	}
-	return o.FrontchannelLogoutSessionRequired, true
-}
-
-// HasFrontchannelLogoutSessionRequired returns a boolean if a field has been set.
-func (o *OpenIdConnectApplicationSettingsClient) HasFrontchannelLogoutSessionRequired() bool {
-	if o != nil && !IsNil(o.FrontchannelLogoutSessionRequired) {
-		return true
-	}
-
-	return false
-}
-
-// SetFrontchannelLogoutSessionRequired gets a reference to the given bool and assigns it to the FrontchannelLogoutSessionRequired field.
-func (o *OpenIdConnectApplicationSettingsClient) SetFrontchannelLogoutSessionRequired(v bool) {
-	o.FrontchannelLogoutSessionRequired = &v
-}
-
-// GetFrontchannelLogoutUri returns the FrontchannelLogoutUri field value if set, zero value otherwise.
-func (o *OpenIdConnectApplicationSettingsClient) GetFrontchannelLogoutUri() string {
-	if o == nil || IsNil(o.FrontchannelLogoutUri) {
-		var ret string
-		return ret
-	}
-	return *o.FrontchannelLogoutUri
-}
-
-// GetFrontchannelLogoutUriOk returns a tuple with the FrontchannelLogoutUri field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OpenIdConnectApplicationSettingsClient) GetFrontchannelLogoutUriOk() (*string, bool) {
-	if o == nil || IsNil(o.FrontchannelLogoutUri) {
-		return nil, false
-	}
-	return o.FrontchannelLogoutUri, true
-}
-
-// HasFrontchannelLogoutUri returns a boolean if a field has been set.
-func (o *OpenIdConnectApplicationSettingsClient) HasFrontchannelLogoutUri() bool {
-	if o != nil && !IsNil(o.FrontchannelLogoutUri) {
-		return true
-	}
-
-	return false
-}
-
-// SetFrontchannelLogoutUri gets a reference to the given string and assigns it to the FrontchannelLogoutUri field.
-func (o *OpenIdConnectApplicationSettingsClient) SetFrontchannelLogoutUri(v string) {
-	o.FrontchannelLogoutUri = &v
 }
 
 // GetGrantTypes returns the GrantTypes field value
@@ -683,38 +681,6 @@ func (o *OpenIdConnectApplicationSettingsClient) HasNetwork() bool {
 // SetNetwork gets a reference to the given OpenIdConnectApplicationNetwork and assigns it to the Network field.
 func (o *OpenIdConnectApplicationSettingsClient) SetNetwork(v OpenIdConnectApplicationNetwork) {
 	o.Network = &v
-}
-
-// GetParticipateSlo returns the ParticipateSlo field value if set, zero value otherwise.
-func (o *OpenIdConnectApplicationSettingsClient) GetParticipateSlo() bool {
-	if o == nil || IsNil(o.ParticipateSlo) {
-		var ret bool
-		return ret
-	}
-	return *o.ParticipateSlo
-}
-
-// GetParticipateSloOk returns a tuple with the ParticipateSlo field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *OpenIdConnectApplicationSettingsClient) GetParticipateSloOk() (*bool, bool) {
-	if o == nil || IsNil(o.ParticipateSlo) {
-		return nil, false
-	}
-	return o.ParticipateSlo, true
-}
-
-// HasParticipateSlo returns a boolean if a field has been set.
-func (o *OpenIdConnectApplicationSettingsClient) HasParticipateSlo() bool {
-	if o != nil && !IsNil(o.ParticipateSlo) {
-		return true
-	}
-
-	return false
-}
-
-// SetParticipateSlo gets a reference to the given bool and assigns it to the ParticipateSlo field.
-func (o *OpenIdConnectApplicationSettingsClient) SetParticipateSlo(v bool) {
-	o.ParticipateSlo = &v
 }
 
 // GetPolicyUri returns the PolicyUri field value if set, zero value otherwise.
@@ -1059,6 +1025,12 @@ func (o OpenIdConnectApplicationSettingsClient) ToMap() (map[string]interface{},
 	if !IsNil(o.BackchannelTokenDeliveryMode) {
 		toSerialize["backchannel_token_delivery_mode"] = o.BackchannelTokenDeliveryMode
 	}
+	if !IsNil(o.CimdClient) {
+		toSerialize["cimdClient"] = o.CimdClient
+	}
+	if !IsNil(o.CimdUrl) {
+		toSerialize["cimdUrl"] = o.CimdUrl
+	}
 	if !IsNil(o.ClientUri) {
 		toSerialize["client_uri"] = o.ClientUri
 	}
@@ -1067,12 +1039,6 @@ func (o OpenIdConnectApplicationSettingsClient) ToMap() (map[string]interface{},
 	}
 	if !IsNil(o.DpopBoundAccessTokens) {
 		toSerialize["dpop_bound_access_tokens"] = o.DpopBoundAccessTokens
-	}
-	if !IsNil(o.FrontchannelLogoutSessionRequired) {
-		toSerialize["frontchannel_logout_session_required"] = o.FrontchannelLogoutSessionRequired
-	}
-	if !IsNil(o.FrontchannelLogoutUri) {
-		toSerialize["frontchannel_logout_uri"] = o.FrontchannelLogoutUri
 	}
 	toSerialize["grant_types"] = o.GrantTypes
 	if !IsNil(o.IdTokenEncryptedResponseAlg) {
@@ -1098,9 +1064,6 @@ func (o OpenIdConnectApplicationSettingsClient) ToMap() (map[string]interface{},
 	}
 	if !IsNil(o.Network) {
 		toSerialize["network"] = o.Network
-	}
-	if !IsNil(o.ParticipateSlo) {
-		toSerialize["participate_slo"] = o.ParticipateSlo
 	}
 	if !IsNil(o.PolicyUri) {
 		toSerialize["policy_uri"] = o.PolicyUri
@@ -1179,11 +1142,11 @@ func (o *OpenIdConnectApplicationSettingsClient) UnmarshalJSON(data []byte) (err
 		delete(additionalProperties, "backchannel_authentication_request_signing_alg")
 		delete(additionalProperties, "backchannel_custom_authenticator_id")
 		delete(additionalProperties, "backchannel_token_delivery_mode")
+		delete(additionalProperties, "cimdClient")
+		delete(additionalProperties, "cimdUrl")
 		delete(additionalProperties, "client_uri")
 		delete(additionalProperties, "consent_method")
 		delete(additionalProperties, "dpop_bound_access_tokens")
-		delete(additionalProperties, "frontchannel_logout_session_required")
-		delete(additionalProperties, "frontchannel_logout_uri")
 		delete(additionalProperties, "grant_types")
 		delete(additionalProperties, "id_token_encrypted_response_alg")
 		delete(additionalProperties, "idp_initiated_login")
@@ -1193,7 +1156,6 @@ func (o *OpenIdConnectApplicationSettingsClient) UnmarshalJSON(data []byte) (err
 		delete(additionalProperties, "jwks_uri")
 		delete(additionalProperties, "logo_uri")
 		delete(additionalProperties, "network")
-		delete(additionalProperties, "participate_slo")
 		delete(additionalProperties, "policy_uri")
 		delete(additionalProperties, "post_logout_redirect_uris")
 		delete(additionalProperties, "redirect_uris")

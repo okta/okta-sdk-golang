@@ -33,8 +33,11 @@ var _ MappedNullable = &AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll
 // AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll Enrollment requirements for the authenticator
 type AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll struct {
 	// Requirements for the user-initiated enrollment
-	Self                 *string                                   `json:"self,omitempty"`
+	Self *string `json:"self,omitempty"`
+	// <x-lifecycle class=\"oie\"></x-lifecycle> Controls whether the email authenticator is automatically enrolled for users during sign-up, user account creation, or if the user's profile email address is changed or updated.    * `true` or `null`: The email authenticator is auto-enrolled. This is the default behavior for the email authenticator in Identity Engine.   * `false`: The email authenticator auto-enrollment is skipped. Users see email as an optional authenticator during enrollment and can choose to skip it.    > **Note:** `autoEnroll` can only be set to `false` when [`self`](/openapi/okta-management/management/tags/policy/other/createpolicy#other/createpolicy/t=request&path=&d=1/settings/authenticators/enroll/self) is `OPTIONAL` or `NOT_ALLOWED`. This property is only available if the Email auto-enrollment and recovery control [self-service EA](/openapi/okta-management/guides/release-lifecycle/#early-access-ea) feature is enabled.
+	AutoEnroll           NullableBool                              `json:"autoEnroll,omitempty"`
 	GracePeriod          *EnrollmentPolicyAuthenticatorGracePeriod `json:"gracePeriod,omitempty"`
+	Promotion            *EnrollmentPolicyAuthenticatorPromotion   `json:"promotion,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -93,6 +96,49 @@ func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) SetSelf(v str
 	o.Self = &v
 }
 
+// GetAutoEnroll returns the AutoEnroll field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) GetAutoEnroll() bool {
+	if o == nil || IsNil(o.AutoEnroll.Get()) {
+		var ret bool
+		return ret
+	}
+	return *o.AutoEnroll.Get()
+}
+
+// GetAutoEnrollOk returns a tuple with the AutoEnroll field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) GetAutoEnrollOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.AutoEnroll.Get(), o.AutoEnroll.IsSet()
+}
+
+// HasAutoEnroll returns a boolean if a field has been set.
+func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) HasAutoEnroll() bool {
+	if o != nil && o.AutoEnroll.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetAutoEnroll gets a reference to the given NullableBool and assigns it to the AutoEnroll field.
+func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) SetAutoEnroll(v bool) {
+	o.AutoEnroll.Set(&v)
+}
+
+// SetAutoEnrollNil sets the value for AutoEnroll to be an explicit nil
+func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) SetAutoEnrollNil() {
+	o.AutoEnroll.Set(nil)
+}
+
+// UnsetAutoEnroll ensures that no value is present for AutoEnroll, not even an explicit nil
+func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) UnsetAutoEnroll() {
+	o.AutoEnroll.Unset()
+}
+
 // GetGracePeriod returns the GracePeriod field value if set, zero value otherwise.
 func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) GetGracePeriod() EnrollmentPolicyAuthenticatorGracePeriod {
 	if o == nil || IsNil(o.GracePeriod) {
@@ -125,6 +171,38 @@ func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) SetGracePerio
 	o.GracePeriod = &v
 }
 
+// GetPromotion returns the Promotion field value if set, zero value otherwise.
+func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) GetPromotion() EnrollmentPolicyAuthenticatorPromotion {
+	if o == nil || IsNil(o.Promotion) {
+		var ret EnrollmentPolicyAuthenticatorPromotion
+		return ret
+	}
+	return *o.Promotion
+}
+
+// GetPromotionOk returns a tuple with the Promotion field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) GetPromotionOk() (*EnrollmentPolicyAuthenticatorPromotion, bool) {
+	if o == nil || IsNil(o.Promotion) {
+		return nil, false
+	}
+	return o.Promotion, true
+}
+
+// HasPromotion returns a boolean if a field has been set.
+func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) HasPromotion() bool {
+	if o != nil && !IsNil(o.Promotion) {
+		return true
+	}
+
+	return false
+}
+
+// SetPromotion gets a reference to the given EnrollmentPolicyAuthenticatorPromotion and assigns it to the Promotion field.
+func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) SetPromotion(v EnrollmentPolicyAuthenticatorPromotion) {
+	o.Promotion = &v
+}
+
 func (o AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -138,8 +216,14 @@ func (o AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) ToMap() (map[s
 	if !IsNil(o.Self) {
 		toSerialize["self"] = o.Self
 	}
+	if o.AutoEnroll.IsSet() {
+		toSerialize["autoEnroll"] = o.AutoEnroll.Get()
+	}
 	if !IsNil(o.GracePeriod) {
 		toSerialize["gracePeriod"] = o.GracePeriod
+	}
+	if !IsNil(o.Promotion) {
+		toSerialize["promotion"] = o.Promotion
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -164,7 +248,9 @@ func (o *AuthenticatorEnrollmentPolicyAuthenticatorSettingsEnroll) UnmarshalJSON
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "self")
+		delete(additionalProperties, "autoEnroll")
 		delete(additionalProperties, "gracePeriod")
+		delete(additionalProperties, "promotion")
 		o.AdditionalProperties = additionalProperties
 	}
 

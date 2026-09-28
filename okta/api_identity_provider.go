@@ -83,9 +83,9 @@ type IdentityProviderAPI interface {
 
 		Identity verification (IDV) vendors work like IdPs, with a few key differences. IDV vendors verify your user's identities by requiring them to submit a proof of identity. There are many ways to verify user identities. For example, a proof of identity can be a selfie to determine liveliness or it can be requiring users to submit a photo of their driver's license and matching that information with a database.
 
-		There are three IDV vendors (Persona, CLEAR Verified, and Incode) with specific configuration settings and another IDV vendor type (Custom IDV) that lets you create a custom IDV vendor, using a [standardized IDV process](https://developer.okta.com/docs/guides/idv-integration/main/). You can configure each of the IDV vendors as IdPs in your org by creating an account with the vendor, and then creating an IdP integration. Control how the IDVs verify your users by using [Okta account management policy rules](https://developer.okta.com/docs/guides/okta-account-management-policy/main/).
+		There are multiple IDV vendors with specific configuration settings, and another IDV vendor type (Custom IDV) that lets you create a custom IDV vendor using a [standardized IDV process](https://developer.okta.com/docs/guides/idv-integration/main/). You can configure each of the IDV vendors as IdPs in your org by creating an account with the vendor, and then creating an IdP integration. Control how the IDV vendors verify your users by using [Okta account management policy rules](https://developer.okta.com/docs/guides/okta-account-management-policy/main/).
 
-		* [Persona](https://withpersona.com/)
+		* [Persona](https://withpersona.com/). Okta recommends that new integrations use the newer Persona IDV integration. See [Persona IDV](https://developer.okta.com/docs/guides/add-id-verification-idp/persona/main/) to learn how to configure it.
 
 		* [CLEAR Verified](https://www.clearme.com/)
 
@@ -397,9 +397,9 @@ Depending on the information stored in the smart card, select the proper [templa
 
 Identity verification (IDV) vendors work like IdPs, with a few key differences. IDV vendors verify your user's identities by requiring them to submit a proof of identity. There are many ways to verify user identities. For example, a proof of identity can be a selfie to determine liveliness or it can be requiring users to submit a photo of their driver's license and matching that information with a database.
 
-There are three IDV vendors (Persona, CLEAR Verified, and Incode) with specific configuration settings and another IDV vendor type (Custom IDV) that lets you create a custom IDV vendor, using a [standardized IDV process](https://developer.okta.com/docs/guides/idv-integration/main/). You can configure each of the IDV vendors as IdPs in your org by creating an account with the vendor, and then creating an IdP integration. Control how the IDVs verify your users by using [Okta account management policy rules](https://developer.okta.com/docs/guides/okta-account-management-policy/main/).
+There are multiple IDV vendors with specific configuration settings, and another IDV vendor type (Custom IDV) that lets you create a custom IDV vendor using a [standardized IDV process](https://developer.okta.com/docs/guides/idv-integration/main/). You can configure each of the IDV vendors as IdPs in your org by creating an account with the vendor, and then creating an IdP integration. Control how the IDV vendors verify your users by using [Okta account management policy rules](https://developer.okta.com/docs/guides/okta-account-management-policy/main/).
 
-* [Persona](https://withpersona.com/)
+* [Persona](https://withpersona.com/). Okta recommends that new integrations use the newer Persona IDV integration. See [Persona IDV](https://developer.okta.com/docs/guides/add-id-verification-idp/persona/main/) to learn how to configure it.
 
 * [CLEAR Verified](https://www.clearme.com/)
 

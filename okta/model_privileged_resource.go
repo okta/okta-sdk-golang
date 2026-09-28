@@ -35,8 +35,9 @@ var _ MappedNullable = &PrivilegedResource{}
 // PrivilegedResource Base class for PrivilegedResourceRequest and PrivilegedResourceResponse
 type PrivilegedResource struct {
 	// Timestamp when the object was created
-	Created            *time.Time          `json:"created,omitempty"`
-	CredentialSyncInfo *CredentialSyncInfo `json:"credentialSyncInfo,omitempty"`
+	Created                    *time.Time                  `json:"created,omitempty"`
+	CredentialSyncInfo         *CredentialSyncInfo         `json:"credentialSyncInfo,omitempty"`
+	CredentialVerificationInfo *CredentialVerificationInfo `json:"credentialVerificationInfo,omitempty"`
 	// ID of the privileged resource
 	Id *string `json:"id,omitempty"`
 	// Timestamp when the object was last updated
@@ -130,6 +131,38 @@ func (o *PrivilegedResource) HasCredentialSyncInfo() bool {
 // SetCredentialSyncInfo gets a reference to the given CredentialSyncInfo and assigns it to the CredentialSyncInfo field.
 func (o *PrivilegedResource) SetCredentialSyncInfo(v CredentialSyncInfo) {
 	o.CredentialSyncInfo = &v
+}
+
+// GetCredentialVerificationInfo returns the CredentialVerificationInfo field value if set, zero value otherwise.
+func (o *PrivilegedResource) GetCredentialVerificationInfo() CredentialVerificationInfo {
+	if o == nil || IsNil(o.CredentialVerificationInfo) {
+		var ret CredentialVerificationInfo
+		return ret
+	}
+	return *o.CredentialVerificationInfo
+}
+
+// GetCredentialVerificationInfoOk returns a tuple with the CredentialVerificationInfo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PrivilegedResource) GetCredentialVerificationInfoOk() (*CredentialVerificationInfo, bool) {
+	if o == nil || IsNil(o.CredentialVerificationInfo) {
+		return nil, false
+	}
+	return o.CredentialVerificationInfo, true
+}
+
+// HasCredentialVerificationInfo returns a boolean if a field has been set.
+func (o *PrivilegedResource) HasCredentialVerificationInfo() bool {
+	if o != nil && !IsNil(o.CredentialVerificationInfo) {
+		return true
+	}
+
+	return false
+}
+
+// SetCredentialVerificationInfo gets a reference to the given CredentialVerificationInfo and assigns it to the CredentialVerificationInfo field.
+func (o *PrivilegedResource) SetCredentialVerificationInfo(v CredentialVerificationInfo) {
+	o.CredentialVerificationInfo = &v
 }
 
 // GetId returns the Id field value if set, zero value otherwise.
@@ -268,6 +301,9 @@ func (o PrivilegedResource) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CredentialSyncInfo) {
 		toSerialize["credentialSyncInfo"] = o.CredentialSyncInfo
 	}
+	if !IsNil(o.CredentialVerificationInfo) {
+		toSerialize["credentialVerificationInfo"] = o.CredentialVerificationInfo
+	}
 	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
@@ -323,6 +359,7 @@ func (o *PrivilegedResource) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "created")
 		delete(additionalProperties, "credentialSyncInfo")
+		delete(additionalProperties, "credentialVerificationInfo")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "resourceType")

@@ -35,7 +35,7 @@ var _ MappedNullable = &UserRiskLevelExists{}
 // UserRiskLevelExists struct for UserRiskLevelExists
 type UserRiskLevelExists struct {
 	UserRiskGetResponse
-	// Describes the risk level for the user
+	// The reason for the user's current risk level. Defaults to `override.by.admin` when set by an admin without a custom reason.
 	Reason               *string `json:"reason,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -122,7 +122,7 @@ func (o UserRiskLevelExists) ToMap() (map[string]interface{}, error) {
 
 func (o *UserRiskLevelExists) UnmarshalJSON(data []byte) (err error) {
 	type UserRiskLevelExistsWithoutEmbeddedStruct struct {
-		// Describes the risk level for the user
+		// The reason for the user's current risk level. Defaults to `override.by.admin` when set by an admin without a custom reason.
 		Reason *string `json:"reason,omitempty"`
 	}
 

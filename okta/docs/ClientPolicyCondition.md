@@ -4,6 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Cimd** | Pointer to [**[]CimdClientCondition**](CimdClientCondition.md) | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;oie\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;The CIMD-registered apps or AI agents to include in the policy, identified by type and ID | [optional] 
 **Include** | Pointer to **[]string** | Which clients are included in the policy | [optional] 
 
 ## Methods
@@ -24,6 +25,31 @@ will change when the set of required properties is changed
 NewClientPolicyConditionWithDefaults instantiates a new ClientPolicyCondition object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetCimd
+
+`func (o *ClientPolicyCondition) GetCimd() []CimdClientCondition`
+
+GetCimd returns the Cimd field if non-nil, zero value otherwise.
+
+### GetCimdOk
+
+`func (o *ClientPolicyCondition) GetCimdOk() (*[]CimdClientCondition, bool)`
+
+GetCimdOk returns a tuple with the Cimd field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCimd
+
+`func (o *ClientPolicyCondition) SetCimd(v []CimdClientCondition)`
+
+SetCimd sets Cimd field to given value.
+
+### HasCimd
+
+`func (o *ClientPolicyCondition) HasCimd() bool`
+
+HasCimd returns a boolean if a field has been set.
 
 ### GetInclude
 

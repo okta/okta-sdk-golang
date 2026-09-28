@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **SerialNumber** | Pointer to **string** | Serial number of the device | [optional] 
 **Sid** | Pointer to **string** | Windows Security identifier of the device | [optional] 
 **TpmPublicKeyHash** | Pointer to **string** | Windows Trusted Platform Module hash value | [optional] 
-**Udid** | Pointer to **string** | macOS Unique device identifier of the device | [optional] 
+**Udid** | Pointer to **string** | macOS unique device identifier (UDID) of the device. This must be the device&#39;s full, unique hardware identifier.  When a device is managed, this value is populated from the MDM managed app configuration. A truncated or otherwise non-unique UDID—typically the result of a misconfigured MDM managed app configuration—causes multiple physical devices to be collapsed onto a single device record that shares one &#x60;id&#x60;. See the &#x60;id&#x60; property for the effects of a shared device identifier. | [optional] 
 
 ## Methods
 

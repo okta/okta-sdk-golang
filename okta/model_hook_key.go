@@ -31,7 +31,7 @@ import (
 // checks if the HookKey type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &HookKey{}
 
-// HookKey The `id` property in the response as `id` serves as the unique ID for the key, which you can specify when invoking other CRUD operations.  The `keyId` provided in the response is the alias of the public key that you can use to get details of the public key data in a separate call.
+// HookKey The `id` property in the response as `id` serves as the unique ID for the key, which you can specify when invoking other CRUD operations.   The `keyId` provided in the response is the alias of the public key that you can use to get details of the public key data in a separate call.
 type HookKey struct {
 	// Timestamp when the key was created
 	Created NullableTime `json:"created,omitempty"`

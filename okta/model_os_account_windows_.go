@@ -47,13 +47,14 @@ type _OSAccountWindows OSAccountWindows
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewOSAccountWindows(profile WindowsOSAccountProfile, created time.Time, deviceId string, id string, lastUpdated time.Time, platform string, links OSAccountLinks) *OSAccountWindows {
+func NewOSAccountWindows(profile WindowsOSAccountProfile, created time.Time, deviceId string, id string, lastUpdated time.Time, platform string, status string, links OSAccountLinks) *OSAccountWindows {
 	this := OSAccountWindows{}
 	this.Created = created
 	this.DeviceId = deviceId
 	this.Id = id
 	this.LastUpdated = lastUpdated
 	this.Platform = platform
+	this.Status = status
 	this.Links = links
 	this.Profile = profile
 	return &this
@@ -129,6 +130,7 @@ func (o *OSAccountWindows) UnmarshalJSON(data []byte) (err error) {
 		"id",
 		"lastUpdated",
 		"platform",
+		"status",
 		"_links",
 	}
 

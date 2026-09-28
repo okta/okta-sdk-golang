@@ -63,7 +63,7 @@ type DeviceProfile struct {
 	Sid *string `json:"sid,omitempty"`
 	// Windows Trusted Platform Module hash value
 	TpmPublicKeyHash *string `json:"tpmPublicKeyHash,omitempty"`
-	// macOS Unique device identifier of the device
+	// macOS unique device identifier (UDID) of the device. This must be the device's full, unique hardware identifier.  When a device is managed, this value is populated from the MDM managed app configuration. A truncated or otherwise non-unique UDID—typically the result of a misconfigured MDM managed app configuration—causes multiple physical devices to be collapsed onto a single device record that shares one `id`. See the `id` property for the effects of a shared device identifier.
 	Udid                 *string `json:"udid,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

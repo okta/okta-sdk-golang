@@ -54,6 +54,23 @@ type DirectoriesIntegrationAPI interface {
 	GetGroupAttributeQueryResultExecute(r ApiGetGroupAttributeQueryResultRequest) (*GroupProfileResult, *APIResponse, error)
 
 	/*
+			InvokeRemoteScript Invoke a remote script on the AD agent
+
+			Invokes a pre-configured, cryptographically signed script on demand against an on-premises Active Directory environment via the Okta AD agent.
+
+		The optional payload is forwarded to the script on the agent.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param appInstanceId ID of the AD instance in Okta
+			@return ApiInvokeRemoteScriptRequest
+	*/
+	InvokeRemoteScript(ctx context.Context, appInstanceId string) ApiInvokeRemoteScriptRequest
+
+	// InvokeRemoteScriptExecute executes the request
+	//  @return ScriptInvokeResponse
+	InvokeRemoteScriptExecute(r ApiInvokeRemoteScriptRequest) (*ScriptInvokeResponse, *APIResponse, error)
+
+	/*
 			SubmitGroupAttributeQuery Submit a query for AD Group
 
 			Submits a query search on the on-premises agent to asynchronously fetch specific Active Directory (AD) attributes for a group.
@@ -202,6 +219,192 @@ func (a *DirectoriesIntegrationAPIService) GetGroupAttributeQueryResultExecute(r
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, newErr
+	}
+
+	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+	return localVarReturnValue, localAPIResponse, nil
+}
+
+type ApiInvokeRemoteScriptRequest struct {
+	ctx                 context.Context
+	ApiService          DirectoriesIntegrationAPI
+	appInstanceId       string
+	scriptInvokeRequest *ScriptInvokeRequest
+	retryCount          int32
+}
+
+func (r ApiInvokeRemoteScriptRequest) ScriptInvokeRequest(scriptInvokeRequest ScriptInvokeRequest) ApiInvokeRemoteScriptRequest {
+	r.scriptInvokeRequest = &scriptInvokeRequest
+	return r
+}
+
+func (r ApiInvokeRemoteScriptRequest) Execute() (*ScriptInvokeResponse, *APIResponse, error) {
+	return r.ApiService.InvokeRemoteScriptExecute(r)
+}
+
+/*
+InvokeRemoteScript Invoke a remote script on the AD agent
+
+Invokes a pre-configured, cryptographically signed script on demand against an on-premises Active Directory environment via the Okta AD agent.
+
+The optional payload is forwarded to the script on the agent.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param appInstanceId ID of the AD instance in Okta
+	@return ApiInvokeRemoteScriptRequest
+*/
+func (a *DirectoriesIntegrationAPIService) InvokeRemoteScript(ctx context.Context, appInstanceId string) ApiInvokeRemoteScriptRequest {
+	return ApiInvokeRemoteScriptRequest{
+		ApiService:    a,
+		ctx:           ctx,
+		appInstanceId: appInstanceId,
+		retryCount:    0,
+	}
+}
+
+// Execute executes the request
+//
+//	@return ScriptInvokeResponse
+func (a *DirectoriesIntegrationAPIService) InvokeRemoteScriptExecute(r ApiInvokeRemoteScriptRequest) (*ScriptInvokeResponse, *APIResponse, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarReturnValue  *ScriptInvokeResponse
+		localVarHTTPResponse *http.Response
+		localAPIResponse     *APIResponse
+		err                  error
+	)
+
+	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
+		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
+		r.ctx = localctx
+		defer cancel()
+	}
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DirectoriesIntegrationAPIService.InvokeRemoteScript")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/directories/{appInstanceId}/invoke-remote-script"
+	localVarPath = strings.Replace(localVarPath, "{"+"appInstanceId"+"}", url.PathEscape(parameterToString(r.appInstanceId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.scriptInvokeRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+		return localVarReturnValue, localAPIResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 503 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+				return localVarReturnValue, localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, localVarReturnValue)
+			return localVarReturnValue, localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 504 {
 			var v Error
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {

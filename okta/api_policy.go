@@ -2733,7 +2733,7 @@ type ApiListPoliciesRequest struct {
 	retryCount int32
 }
 
-// Specifies the type of policy to return. The following policy types are available only with the Okta Identity Engine - &#x60;ACCESS_POLICY&#x60;, &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &#x60;DEVICE_SIGNAL_COLLECTION&#x60;, &#x60;PROFILE_ENROLLMENT&#x60;, &#x60;POST_AUTH_SESSION&#x60;, &#x60;ENTITY_RISK&#x60;, and &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &#x60;CLIENT_UPDATE&#x60;.
+// Specifies the type of policy to return
 func (r ApiListPoliciesRequest) Type_(type_ string) ApiListPoliciesRequest {
 	r.type_ = &type_
 	return r

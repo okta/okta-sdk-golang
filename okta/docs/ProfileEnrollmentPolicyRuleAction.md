@@ -8,9 +8,10 @@ Name | Type | Description | Notes
 **ActivationRequirements** | Pointer to [**ProfileEnrollmentPolicyRuleActivationRequirement**](ProfileEnrollmentPolicyRuleActivationRequirement.md) |  | [optional] 
 **AllowedIdentifiers** | Pointer to **[]string** | A list of attributes to identify an end user. Can be used across Okta sign-in, unlock, and recovery flows. | [optional] [default to ["login"]]
 **EnrollAuthenticatorTypes** | Pointer to **[]string** | Additional authenticator fields that can be used on the first page of user registration. Valid values only includes &#x60;&#39;password&#39;&#x60;. | [optional] 
-**PreRegistrationInlineHooks** | Pointer to [**[]PreRegistrationInlineHook**](PreRegistrationInlineHook.md) | (Optional) The &#x60;id&#x60; of at most one registration inline hook | [optional] 
+**PreRegistrationInlineHooks** | Pointer to [**[]PreRegistrationInlineHook**](PreRegistrationInlineHook.md) | The &#x60;id&#x60; of at most one pre-registration inline hook to invoke during registration. When you set it, &#x60;scopes&#x60; is required to specify which registration flows trigger the hook. | [optional] 
 **ProfileAttributes** | Pointer to [**[]ProfileEnrollmentPolicyRuleProfileAttribute**](ProfileEnrollmentPolicyRuleProfileAttribute.md) | A list of attributes to prompt the user for during registration or progressive profiling. Where defined on the user schema, these attributes are persisted in the user profile. You can also add non-schema attributes, which aren&#39;t persisted to the user&#39;s profile, but are included in requests to the registration inline hook. A maximum of 10 profile properties is supported. | [optional] 
 **ProgressiveProfilingAction** | Pointer to **string** | Progressive profile enrollment helps evaluate the user profile policy at every user login. Users can be prompted to provide input for newly required attributes. | [optional] 
+**Scopes** | Pointer to **[]string** | Specifies the use cases when the configured pre-registration inline hook is invoked. This property is required when &#x60;preRegistrationInlineHooks&#x60; is set. Include both values to invoke the hook during self-service registration and progressive profiling. | [optional] 
 **TargetGroupIds** | Pointer to **[]string** | (Optional, max 1 entry) The &#x60;id&#x60; of a group that this user should be added to | [optional] 
 **UiSchemaId** | Pointer to **string** | Value created by the backend. If present, all policy updates must include this attribute/value. | [optional] 
 **UnknownUserAction** | Pointer to **string** | Which action should be taken if this user is new | [optional] 
@@ -208,6 +209,31 @@ SetProgressiveProfilingAction sets ProgressiveProfilingAction field to given val
 `func (o *ProfileEnrollmentPolicyRuleAction) HasProgressiveProfilingAction() bool`
 
 HasProgressiveProfilingAction returns a boolean if a field has been set.
+
+### GetScopes
+
+`func (o *ProfileEnrollmentPolicyRuleAction) GetScopes() []string`
+
+GetScopes returns the Scopes field if non-nil, zero value otherwise.
+
+### GetScopesOk
+
+`func (o *ProfileEnrollmentPolicyRuleAction) GetScopesOk() (*[]string, bool)`
+
+GetScopesOk returns a tuple with the Scopes field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetScopes
+
+`func (o *ProfileEnrollmentPolicyRuleAction) SetScopes(v []string)`
+
+SetScopes sets Scopes field to given value.
+
+### HasScopes
+
+`func (o *ProfileEnrollmentPolicyRuleAction) HasScopes() bool`
+
+HasScopes returns a boolean if a field has been set.
 
 ### GetTargetGroupIds
 

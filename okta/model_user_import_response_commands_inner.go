@@ -34,7 +34,7 @@ var _ MappedNullable = &UserImportResponseCommandsInner{}
 type UserImportResponseCommandsInner struct {
 	// The command types supported for the import inline hook. When using the `com.okta.action.update` command to specify that the user should be treated as a match, you need to also provide a `com.okta.user.update` command that sets the ID of the Okta user.
 	Type *string `json:"type,omitempty"`
-	// The `value` object is the parameter to pass to the command. In the case of the `com.okta.appUser.profile.update` and `com.okta.user.profile.update` commands, the parameter should be a list of one or more profile attributes and the values you wish to set them to. In the case of the `com.okta.action.update` command, the parameter should be a `result` property set to either `CREATE_USER` or `LINK_USER`.
+	// The `value` object is the parameter to pass to the command. In the case of the `com.okta.appUser.profile.update` and `com.okta.user.profile.update` commands,  the parameter should be a list of one or more profile attributes and the values you wish to set them to. In the case of the `com.okta.action.update` command, the parameter should be a `result` property set to either `CREATE_USER` or `LINK_USER`.
 	Value                *map[string]string `json:"value,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

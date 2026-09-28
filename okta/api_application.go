@@ -118,7 +118,7 @@ type ApplicationAPI interface {
 
 			Lists all apps in the org with pagination. A subset of apps can be returned that match a supported filter expression or query. The results are [paginated](/#pagination) according to the `limit` parameter. If there are multiple pages of results, the header contains a `next` link. Treat the link as an opaque value (follow it, don't parse it).
 
-		> **Note:** To list all of a member's assigned app links, use the [List all assigned app links endpoint in the User Resources API](/openapi/okta-management/management/userresources/listapplinks).
+		> **Note:** To list all of a member's assigned app links, use the [List all assigned app links endpoint in the User Resources API](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/userresources/other/listapplinks).
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@return ApiListApplicationsRequest
@@ -1029,7 +1029,7 @@ func (r ApiListApplicationsRequest) Limit(limit int32) ApiListApplicationsReques
 	return r
 }
 
-// Filters apps with a supported expression for a subset of properties. Filtering supports the following limited number of properties: &#x60;id&#x60;, &#x60;status&#x60;, &#x60;credentials.signing.kid&#x60;, &#x60;settings.slo.enabled&#x60;, or &#x60;name&#x60;. See [Filter](https://developer.okta.com/docs/api/#filter).
+// Filters apps with a supported expression for a subset of properties. Filtering supports the following limited number of properties: &#x60;id&#x60;, &#x60;status&#x60;, &#x60;credentials.signing.kid&#x60;, &#x60;settings.slo.enabled&#x60;, &#x60;name&#x60;, or &#x60;cimd.client.linkable&#x60;. See [Filter](https://developer.okta.com/docs/api/#filter).
 func (r ApiListApplicationsRequest) Filter(filter string) ApiListApplicationsRequest {
 	r.filter = &filter
 	return r
@@ -1056,7 +1056,7 @@ ListApplications List all applications
 
 Lists all apps in the org with pagination. A subset of apps can be returned that match a supported filter expression or query. The results are [paginated](/#pagination) according to the `limit` parameter. If there are multiple pages of results, the header contains a `next` link. Treat the link as an opaque value (follow it, don't parse it).
 
-> **Note:** To list all of a member's assigned app links, use the [List all assigned app links endpoint in the User Resources API](/openapi/okta-management/management/userresources/listapplinks).
+> **Note:** To list all of a member's assigned app links, use the [List all assigned app links endpoint in the User Resources API](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/userresources/other/listapplinks).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiListApplicationsRequest

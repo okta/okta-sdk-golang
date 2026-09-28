@@ -32,7 +32,7 @@ var _ MappedNullable = &UserRiskPutResponse{}
 
 // UserRiskPutResponse struct for UserRiskPutResponse
 type UserRiskPutResponse struct {
-	// Describes the risk level for the user
+	// The reason for the user's current risk level. Defaults to `override.by.admin` when set by an admin without a custom reason.
 	Reason *string `json:"reason,omitempty"`
 	// The risk level associated with the user
 	RiskLevel            *string                   `json:"riskLevel,omitempty"`

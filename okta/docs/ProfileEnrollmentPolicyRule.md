@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Actions** | Pointer to [**ProfileEnrollmentPolicyRuleActions**](ProfileEnrollmentPolicyRuleActions.md) |  | [optional] 
-**Conditions** | Pointer to **NullableString** | Policy rule conditions aren&#39;t supported for this policy type | [optional] 
+**Conditions** | Pointer to **NullableString** | Policy rule conditions aren&#39;t supported for this policy type. | [optional] 
 
 ## Methods
 

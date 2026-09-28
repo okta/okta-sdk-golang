@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**SkipCount** | Pointer to **int32** | The number of times the user can skip enrolling the corresponding authenticator before it becomes mandatory. | [optional] 
+**SkipCount** | Pointer to **int32** | The number of times the user can skip enrolling the corresponding authenticator before it becomes mandatory | [optional] 
 
 ## Methods
 

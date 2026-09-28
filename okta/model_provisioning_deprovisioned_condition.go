@@ -30,7 +30,7 @@ import (
 // checks if the ProvisioningDeprovisionedCondition type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ProvisioningDeprovisionedCondition{}
 
-// ProvisioningDeprovisionedCondition Behavior for a previously deprovisioned IdP user during authentication. Not supported with OIDC IdPs.
+// ProvisioningDeprovisionedCondition Behavior for a previously deprovisioned IdP user during authentication
 type ProvisioningDeprovisionedCondition struct {
 	// Specifies the action during authentication when an IdP user is linked to a previously deprovisioned Okta user
 	Action               *string `json:"action,omitempty"`

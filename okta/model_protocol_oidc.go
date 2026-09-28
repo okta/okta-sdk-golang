@@ -35,6 +35,7 @@ type ProtocolOidc struct {
 	Algorithms  *OidcAlgorithms   `json:"algorithms,omitempty"`
 	Credentials *OAuthCredentials `json:"credentials,omitempty"`
 	Endpoints   *OAuthEndpoints   `json:"endpoints,omitempty"`
+	Issuer      *OidcIssuer       `json:"issuer,omitempty"`
 	// URL of the IdP org
 	OktaIdpOrgUrl *string `json:"oktaIdpOrgUrl,omitempty"`
 	// OpenID Connect and IdP-defined permission bundles to request delegated access from the user > **Note:** The [IdP type](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/createIdentityProvider!path=type&t=request) table lists the scopes that are supported for each IdP.
@@ -158,6 +159,38 @@ func (o *ProtocolOidc) HasEndpoints() bool {
 // SetEndpoints gets a reference to the given OAuthEndpoints and assigns it to the Endpoints field.
 func (o *ProtocolOidc) SetEndpoints(v OAuthEndpoints) {
 	o.Endpoints = &v
+}
+
+// GetIssuer returns the Issuer field value if set, zero value otherwise.
+func (o *ProtocolOidc) GetIssuer() OidcIssuer {
+	if o == nil || IsNil(o.Issuer) {
+		var ret OidcIssuer
+		return ret
+	}
+	return *o.Issuer
+}
+
+// GetIssuerOk returns a tuple with the Issuer field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ProtocolOidc) GetIssuerOk() (*OidcIssuer, bool) {
+	if o == nil || IsNil(o.Issuer) {
+		return nil, false
+	}
+	return o.Issuer, true
+}
+
+// HasIssuer returns a boolean if a field has been set.
+func (o *ProtocolOidc) HasIssuer() bool {
+	if o != nil && !IsNil(o.Issuer) {
+		return true
+	}
+
+	return false
+}
+
+// SetIssuer gets a reference to the given OidcIssuer and assigns it to the Issuer field.
+func (o *ProtocolOidc) SetIssuer(v OidcIssuer) {
+	o.Issuer = &v
 }
 
 // GetOktaIdpOrgUrl returns the OktaIdpOrgUrl field value if set, zero value otherwise.
@@ -307,6 +340,9 @@ func (o ProtocolOidc) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Endpoints) {
 		toSerialize["endpoints"] = o.Endpoints
 	}
+	if !IsNil(o.Issuer) {
+		toSerialize["issuer"] = o.Issuer
+	}
 	if !IsNil(o.OktaIdpOrgUrl) {
 		toSerialize["oktaIdpOrgUrl"] = o.OktaIdpOrgUrl
 	}
@@ -344,6 +380,7 @@ func (o *ProtocolOidc) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "algorithms")
 		delete(additionalProperties, "credentials")
 		delete(additionalProperties, "endpoints")
+		delete(additionalProperties, "issuer")
 		delete(additionalProperties, "oktaIdpOrgUrl")
 		delete(additionalProperties, "scopes")
 		delete(additionalProperties, "settings")

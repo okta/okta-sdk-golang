@@ -30,7 +30,7 @@ import (
 // checks if the DNSRecordDomains type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &DNSRecordDomains{}
 
-// DNSRecordDomains DNS TXT and CNAME records to be registered for the Domain
+// DNSRecordDomains DNS records to be registered for the domain
 type DNSRecordDomains struct {
 	// DNS TXT record expiration
 	Expiration *string `json:"expiration,omitempty"`

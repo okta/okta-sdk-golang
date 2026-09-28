@@ -36,6 +36,27 @@ import (
 type UserAPI interface {
 
 	/*
+			ClearChromeData Clear the managed Chrome profile browsing data
+
+			Clears the managed Chrome profile browsing data (cookies and cached access tokens) for all managed Google Chrome profiles associated with the specified Okta user by issuing a command to the Google Chrome Management API.
+
+		> This feature is only available with Identity Threat Protection in Okta Identity Engine.
+
+		Calls are made to the Google Chrome Management API asynchronously per profile, and the endpoint returns immediately without waiting for Chrome to confirm the clearing of data.
+		If the user has no managed Chrome profiles, or no active integration with Chrome device trust connector, the request succeeds with no action taken.
+
+		A syslog event (`user.chrome_data.clear`) is triggered per profile indicating success or failure of the Google API call.
+
+			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+			@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+			@return ApiClearChromeDataRequest
+	*/
+	ClearChromeData(ctx context.Context, id string) ApiClearChromeDataRequest
+
+	// ClearChromeDataExecute executes the request
+	ClearChromeDataExecute(r ApiClearChromeDataRequest) (*APIResponse, error)
+
+	/*
 			CreateUser Create a user
 
 			Creates a new user in your Okta org with or without credentials.<br>
@@ -109,8 +130,8 @@ type UserAPI interface {
 	GetUser(ctx context.Context, id string) ApiGetUserRequest
 
 	// GetUserExecute executes the request
-	//  @return UserGetSingleton
-	GetUserExecute(r ApiGetUserRequest) (*UserGetSingleton, *APIResponse, error)
+	//  @return User
+	GetUserExecute(r ApiGetUserRequest) (*User, *APIResponse, error)
 
 	/*
 		ListUserBlocks List all user blocks
@@ -197,6 +218,166 @@ type UserAPI interface {
 
 // UserAPIService UserAPI service
 type UserAPIService service
+
+type ApiClearChromeDataRequest struct {
+	ctx        context.Context
+	ApiService UserAPI
+	id         string
+	retryCount int32
+}
+
+func (r ApiClearChromeDataRequest) Execute() (*APIResponse, error) {
+	return r.ApiService.ClearChromeDataExecute(r)
+}
+
+/*
+ClearChromeData Clear the managed Chrome profile browsing data
+
+Clears the managed Chrome profile browsing data (cookies and cached access tokens) for all managed Google Chrome profiles associated with the specified Okta user by issuing a command to the Google Chrome Management API.
+
+> This feature is only available with Identity Threat Protection in Okta Identity Engine.
+
+Calls are made to the Google Chrome Management API asynchronously per profile, and the endpoint returns immediately without waiting for Chrome to confirm the clearing of data.
+If the user has no managed Chrome profiles, or no active integration with Chrome device trust connector, the request succeeds with no action taken.
+
+A syslog event (`user.chrome_data.clear`) is triggered per profile indicating success or failure of the Google API call.
+
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+	@return ApiClearChromeDataRequest
+*/
+func (a *UserAPIService) ClearChromeData(ctx context.Context, id string) ApiClearChromeDataRequest {
+	return ApiClearChromeDataRequest{
+		ApiService: a,
+		ctx:        ctx,
+		id:         id,
+		retryCount: 0,
+	}
+}
+
+// Execute executes the request
+func (a *UserAPIService) ClearChromeDataExecute(r ApiClearChromeDataRequest) (*APIResponse, error) {
+	var (
+		localVarHTTPMethod   = http.MethodPost
+		localVarPostBody     interface{}
+		formFiles            []formFile
+		localVarHTTPResponse *http.Response
+		localAPIResponse     *APIResponse
+		err                  error
+	)
+
+	if a.client.cfg.Okta.Client.RequestTimeout > 0 {
+		localctx, cancel := context.WithTimeout(r.ctx, time.Second*time.Duration(a.client.cfg.Okta.Client.RequestTimeout))
+		r.ctx = localctx
+		defer cancel()
+	}
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "UserAPIService.ClearChromeData")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/api/v1/users/{id}/clear-chrome-data"
+	localVarPath = strings.Replace(localVarPath, "{"+"id"+"}", url.PathEscape(parameterToString(r.id, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.ctx != nil {
+		// API Key Authentication
+		if auth, ok := r.ctx.Value(ContextAPIKeys).(map[string]APIKey); ok {
+			if apiKey, ok := auth["apiToken"]; ok {
+				var key string
+				if apiKey.Prefix != "" {
+					key = apiKey.Prefix + " " + apiKey.Key
+				} else {
+					key = apiKey.Key
+				}
+				localVarHeaderParams["Authorization"] = key
+			}
+		}
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+	localVarHTTPResponse, err = a.client.do(r.ctx, req)
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 403 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 404 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+			localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+			return localAPIResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 429 {
+			var v Error
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+				return localAPIResponse, newErr
+			}
+			newErr.model = v
+		}
+		localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+		return localAPIResponse, newErr
+	}
+
+	localAPIResponse = newAPIResponse(localVarHTTPResponse, a.client, nil)
+	return localAPIResponse, nil
+}
 
 type ApiCreateUserRequest struct {
 	ctx        context.Context
@@ -616,7 +797,6 @@ type ApiGetUserRequest struct {
 	ApiService  UserAPI
 	id          string
 	contentType *string
-	expand      *string
 	retryCount  int32
 }
 
@@ -626,13 +806,7 @@ func (r ApiGetUserRequest) ContentType(contentType string) ApiGetUserRequest {
 	return r
 }
 
-// An optional parameter to include metadata in the &#x60;_embedded&#x60; attribute. Valid values: &#x60;blocks&#x60; or &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &#x60;classification&#x60;.
-func (r ApiGetUserRequest) Expand(expand string) ApiGetUserRequest {
-	r.expand = &expand
-	return r
-}
-
-func (r ApiGetUserRequest) Execute() (*UserGetSingleton, *APIResponse, error) {
+func (r ApiGetUserRequest) Execute() (*User, *APIResponse, error) {
 	return r.ApiService.GetUserExecute(r)
 }
 
@@ -664,13 +838,13 @@ func (a *UserAPIService) GetUser(ctx context.Context, id string) ApiGetUserReque
 
 // Execute executes the request
 //
-//	@return UserGetSingleton
-func (a *UserAPIService) GetUserExecute(r ApiGetUserRequest) (*UserGetSingleton, *APIResponse, error) {
+//	@return User
+func (a *UserAPIService) GetUserExecute(r ApiGetUserRequest) (*User, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *UserGetSingleton
+		localVarReturnValue  *User
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -693,9 +867,6 @@ func (a *UserAPIService) GetUserExecute(r ApiGetUserRequest) (*UserGetSingleton,
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if r.expand != nil {
-		localVarQueryParams.Add("expand", parameterToString(*r.expand, ""))
-	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -983,7 +1154,6 @@ type ApiListUsersRequest struct {
 	sortBy      *string
 	sortOrder   *string
 	fields      *string
-	expand      *string
 	retryCount  int32
 }
 
@@ -1038,12 +1208,6 @@ func (r ApiListUsersRequest) SortOrder(sortOrder string) ApiListUsersRequest {
 // Specifies a select set of user properties to query. Any other properties will be filtered out of the returned users. This is often called field projections in APIs, which can reduce payload size, improve performance, and limit unneccessary data exposure.  Requested fields should be comma-separated. Comma-separate the fields and place sub-fields in the profile object inside a &#x60;profile:()&#x60; directive, for example &#x60;profile:(firstName, city)&#x60;. The &#x60;id&#x60; field is always included, regardless of whether it&#39;s specified in the &#x60;fields&#x60; parameter.
 func (r ApiListUsersRequest) Fields(fields string) ApiListUsersRequest {
 	r.fields = &fields
-	return r
-}
-
-// &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;A parameter to include metadata in the &#x60;_embedded&#x60; property. Supported value: &#x60;classification&#x60;.
-func (r ApiListUsersRequest) Expand(expand string) ApiListUsersRequest {
-	r.expand = &expand
 	return r
 }
 
@@ -1126,9 +1290,6 @@ func (a *UserAPIService) ListUsersExecute(r ApiListUsersRequest) ([]User, *APIRe
 	}
 	if r.fields != nil {
 		localVarQueryParams.Add("fields", parameterToString(*r.fields, ""))
-	}
-	if r.expand != nil {
-		localVarQueryParams.Add("expand", parameterToString(*r.expand, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}

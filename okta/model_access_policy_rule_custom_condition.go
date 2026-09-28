@@ -33,7 +33,7 @@ var _ MappedNullable = &AccessPolicyRuleCustomCondition{}
 
 // AccessPolicyRuleCustomCondition Specifies [Okta Expression Language](https://developer.okta.com/docs/reference/okta-expression-language-in-identity-engine/) expressions
 type AccessPolicyRuleCustomCondition struct {
-	// expression to match
+	// The Okta Expression Language expression to evaluate.   > <x-lifecycle class=\"ea\"></x-lifecycle> **Note:** When the Flexible Okta Verify authenticator configuration feature is enabled, `okta_verify` in expressions such as `accessRequest.authenticator.key == 'okta_verify'` is no longer accepted. Use `okta_verify_totp`, `okta_verify_push`, or `okta_verify_fastpass` instead.
 	Condition            string `json:"condition"`
 	AdditionalProperties map[string]interface{}
 }

@@ -32,6 +32,7 @@ var _ MappedNullable = &Compliance{}
 
 // Compliance struct for Compliance
 type Compliance struct {
+	// The FIPS compliance mode.   > <x-lifecycle class=\"ea\"></x-lifecycle> **Note:** When the Flexible Okta Verify authenticator configuration feature is enabled, this is a common setting shared across all per-method authenticators (`okta_verify_totp`, `okta_verify_push`, `okta_verify_fastpass`). Updating this value on any one authenticator applies the change to all three.
 	Fips                 *string `json:"fips,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

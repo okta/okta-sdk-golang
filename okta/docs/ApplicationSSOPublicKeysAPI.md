@@ -21,7 +21,7 @@ Method | HTTP request | Description
 
 ## ActivateOAuth2ClientJsonWebKey
 
-> AddJwk201Response ActivateOAuth2ClientJsonWebKey(ctx, appId, keyId).Execute()
+> ListJwk200ResponseInner ActivateOAuth2ClientJsonWebKey(ctx, appId, keyId).Execute()
 
 Activate an OAuth 2.0 client JSON Web Key
 
@@ -50,7 +50,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationSSOPublicKeysAPI.ActivateOAuth2ClientJsonWebKey``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ActivateOAuth2ClientJsonWebKey`: AddJwk201Response
+	// response from `ActivateOAuth2ClientJsonWebKey`: ListJwk200ResponseInner
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationSSOPublicKeysAPI.ActivateOAuth2ClientJsonWebKey`: %v\n", resp)
 }
 ```
@@ -76,7 +76,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AddJwk201Response**](AddJwk201Response.md)
+[**ListJwk200ResponseInner**](ListJwk200ResponseInner.md)
 
 ### Authorization
 
@@ -167,7 +167,7 @@ Name | Type | Description  | Notes
 
 ## AddJwk
 
-> AddJwk201Response AddJwk(ctx, appId).AddJwkRequest(addJwkRequest).Execute()
+> ListJwk200ResponseInner AddJwk(ctx, appId).AddJwkRequest(addJwkRequest).Execute()
 
 Add a JSON Web Key
 
@@ -196,7 +196,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationSSOPublicKeysAPI.AddJwk``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `AddJwk`: AddJwk201Response
+	// response from `AddJwk`: ListJwk200ResponseInner
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationSSOPublicKeysAPI.AddJwk`: %v\n", resp)
 }
 ```
@@ -221,7 +221,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AddJwk201Response**](AddJwk201Response.md)
+[**ListJwk200ResponseInner**](ListJwk200ResponseInner.md)
 
 ### Authorization
 
@@ -599,7 +599,7 @@ Name | Type | Description  | Notes
 
 ## GetJwk
 
-> OAuth2ClientJsonSigningKeyResponse GetJwk(ctx, appId, keyId).Execute()
+> GetJwk200Response GetJwk(ctx, appId, keyId).Execute()
 
 Retrieve an OAuth 2.0 client JSON Web Key
 
@@ -628,7 +628,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationSSOPublicKeysAPI.GetJwk``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetJwk`: OAuth2ClientJsonSigningKeyResponse
+	// response from `GetJwk`: GetJwk200Response
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationSSOPublicKeysAPI.GetJwk`: %v\n", resp)
 }
 ```
@@ -654,7 +654,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OAuth2ClientJsonSigningKeyResponse**](OAuth2ClientJsonSigningKeyResponse.md)
+[**GetJwk200Response**](GetJwk200Response.md)
 
 ### Authorization
 
@@ -745,7 +745,7 @@ Name | Type | Description  | Notes
 
 ## ListJwk
 
-> OAuth2ClientJsonWebKeySet ListJwk(ctx, appId).Execute()
+> []ListJwk200ResponseInner ListJwk(ctx, appId).Execute()
 
 List all the OAuth 2.0 client JSON Web Keys
 
@@ -773,7 +773,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApplicationSSOPublicKeysAPI.ListJwk``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ListJwk`: OAuth2ClientJsonWebKeySet
+	// response from `ListJwk`: []ListJwk200ResponseInner
 	fmt.Fprintf(os.Stdout, "Response from `ApplicationSSOPublicKeysAPI.ListJwk`: %v\n", resp)
 }
 ```
@@ -797,7 +797,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**OAuth2ClientJsonWebKeySet**](OAuth2ClientJsonWebKeySet.md)
+[**[]ListJwk200ResponseInner**](ListJwk200ResponseInner.md)
 
 ### Authorization
 

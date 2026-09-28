@@ -4,18 +4,17 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**AaguidGroups** | Pointer to [**[]AAGUIDGroupObject**](AAGUIDGroupObject.md) | The FIDO2 Authenticator Attestation Global Unique Identifiers (AAGUID) groups available to the WebAuthn authenticator | [optional] 
+**AaguidGroups** | Pointer to [**[]AAGUIDGroupObject**](AAGUIDGroupObject.md) | The FIDO2 Authenticator Attestation Global Unique Identifiers (AAGUID) groups available to the Passkey (FIDO2 WebAuthn) authenticator | [optional] 
 **UserVerification** | Pointer to **string** | User verification settings for enrollment.  This setting controls the user verification requirement during the enrollment of a new credential. It determines whether the authenticator requires verification when a user is registering their device or credential. | [optional] 
-**UserVerificationForVerify** | Pointer to **string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;User verification settings for verification. This setting controls the user verification requirement during authentication (verification). It determines whether the authenticator requires user verification when a user signs in with an already-registered credential.  For verification, the value defaults to &#x60;PREFERRED&#x60;, unless the enrollment setting is &#x60;REQUIRED&#x60;. If the enrollment setting is &#x60;REQUIRED&#x60; for the authenticator, then the verification setting is also implicitly &#x60;REQUIRED&#x60;.  &gt; **Note:** This setting is only available when you have enabled the **Passkeys Rebrand** feature. See [Enable self-service features](https://help.okta.com/okta_help.htm?id&#x3D;ext_Manage_Early_Access_features). | [optional] 
+**UserVerificationForVerify** | Pointer to **string** | User verification settings for verification. This setting controls the user verification requirement during authentication (verification). It determines whether the authenticator requires user verification when a user signs in with an already-registered credential.  For verification, the value defaults to &#x60;PREFERRED&#x60;, unless the enrollment setting is &#x60;REQUIRED&#x60;. If the enrollment setting is &#x60;REQUIRED&#x60; for the authenticator, then the verification setting is also implicitly &#x60;REQUIRED&#x60;. | [optional] 
 **Attachment** | Pointer to **string** | Method attachment | [optional] 
 **RpId** | Pointer to [**WebAuthnRpId**](WebAuthnRpId.md) |  | [optional] 
-**EnableAutofillUI** | Pointer to **bool** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;Enables the passkeys autofill UI to display available WebAuthn discoverable credentials (\&quot;resident key\&quot;) from the Sign-In Widget username field | [optional] [default to false]
-**ResidentKeyRequirement** | Pointer to **string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;Resident key requirement setting. Okta recommends using only &#x60;REQUIRED&#x60; or &#x60;DISCOURAGED&#x60; to make the requirement preference explicit. Using &#x60;PREFERRED&#x60; can sometimes lead to unpredictable behavior depending on the client platform and authenticator capabilities.  &gt; **Note:** This setting is only available when you have enabled the **Passkeys Rebrand** feature. See [Enable self-service features](https://help.okta.com/okta_help.htm?id&#x3D;ext_Manage_Early_Access_features). | [optional] 
-**ShowSignInWithAPasskeyButton** | Pointer to **bool** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;Indicates if the **Sign in with a Passkey** button on the Sign-In Widget is shown.   &gt; **Note:** This setting is only available when you have enabled the **Passkeys Rebrand** feature. See [Enable self-service features](https://help.okta.com/okta_help.htm?id&#x3D;ext_Manage_Early_Access_features). | [optional] [default to false]
-**CertBasedAttestationValidation** | Pointer to **bool** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;Indicates whether certificate-based attestation validation is enabled. When enabled, the authenticator&#39;s attestation certificate is validated against known root certificates (custom AAGUIDs with associated certificates or the [FIDO Metadata Service](https://fidoalliance.org/metadata/)) to ensure its validity.  &gt; **Note:** This setting is only available when you have enabled the **Passkeys Rebrand** feature. See [Enable self-service features](https://help.okta.com/okta_help.htm?id&#x3D;ext_Manage_Early_Access_features). | [optional] [default to false]
-**HardwareProtected** | Pointer to **bool** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;Indicates whether the authenticator is required to store the private key on a hardware component  &gt; **Note:** This setting is only available when you have enabled the **Passkeys Rebrand** feature. See [Enable self-service features](https://help.okta.com/okta_help.htm?id&#x3D;ext_Manage_Early_Access_features). | [optional] [default to false]
-**FipsCompliant** | Pointer to **bool** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;Indicates whether the authenticator is required to be [Federal Information Processing Standards (FIPS)](https://csrc.nist.gov/glossary/term/federal_information_processing_standard) compliant  &gt; **Note:** This setting is only available when you have enabled the **Passkeys Rebrand** feature. See [Enable self-service features](https://help.okta.com/okta_help.htm?id&#x3D;ext_Manage_Early_Access_features). | [optional] [default to false]
-**AllowSyncablePasskeys** | Pointer to **bool** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;Indicates whether syncable passkeys are allowed. When enabled, users can register passkeys that are synchronized across their devices by using platform-specific mechanisms (such as iCloud Keychain for Apple devices or Google Password Manager for Android devices).  &gt; **Note:** This setting is only available when you have enabled the **Passkeys Rebrand** feature. See [Enable self-service features](https://help.okta.com/okta_help.htm?id&#x3D;ext_Manage_Early_Access_features). | [optional] [default to true]
+**ResidentKeyRequirement** | Pointer to **string** | Resident key requirement setting. Okta recommends using only &#x60;REQUIRED&#x60; or &#x60;DISCOURAGED&#x60; to make the requirement preference explicit. Using &#x60;PREFERRED&#x60; can sometimes lead to unpredictable behavior depending on the client platform and authenticator capabilities. | [optional] [default to "REQUIRED"]
+**ShowSignInWithAPasskeyButton** | Pointer to **bool** | Indicates if the **Sign in with a Passkey** button on the Sign-In Widget is shown. | [optional] [default to false]
+**CertBasedAttestationValidation** | Pointer to **bool** | Indicates whether certificate-based attestation validation is enabled. When enabled, the authenticator&#39;s attestation certificate is validated against known root certificates (custom AAGUIDs with associated certificates or the [FIDO Metadata Service](https://fidoalliance.org/metadata/)) to ensure its validity. | [optional] [default to false]
+**HardwareProtected** | Pointer to **bool** | Indicates whether the authenticator is required to store the private key on a hardware component | [optional] [default to false]
+**FipsCompliant** | Pointer to **bool** | Indicates whether the authenticator is required to be [Federal Information Processing Standards (FIPS)](https://csrc.nist.gov/glossary/term/federal_information_processing_standard) compliant | [optional] [default to false]
+**AllowSyncablePasskeys** | Pointer to **bool** | Indicates whether syncable passkeys are allowed. When enabled, users can register passkeys that are synchronized across their devices by using platform-specific mechanisms (such as iCloud Keychain for Apple devices or Google Password Manager for Android devices). | [optional] [default to true]
 
 ## Methods
 
@@ -160,31 +159,6 @@ SetRpId sets RpId field to given value.
 `func (o *AuthenticatorMethodWebAuthnAllOfSettings) HasRpId() bool`
 
 HasRpId returns a boolean if a field has been set.
-
-### GetEnableAutofillUI
-
-`func (o *AuthenticatorMethodWebAuthnAllOfSettings) GetEnableAutofillUI() bool`
-
-GetEnableAutofillUI returns the EnableAutofillUI field if non-nil, zero value otherwise.
-
-### GetEnableAutofillUIOk
-
-`func (o *AuthenticatorMethodWebAuthnAllOfSettings) GetEnableAutofillUIOk() (*bool, bool)`
-
-GetEnableAutofillUIOk returns a tuple with the EnableAutofillUI field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetEnableAutofillUI
-
-`func (o *AuthenticatorMethodWebAuthnAllOfSettings) SetEnableAutofillUI(v bool)`
-
-SetEnableAutofillUI sets EnableAutofillUI field to given value.
-
-### HasEnableAutofillUI
-
-`func (o *AuthenticatorMethodWebAuthnAllOfSettings) HasEnableAutofillUI() bool`
-
-HasEnableAutofillUI returns a boolean if a field has been set.
 
 ### GetResidentKeyRequirement
 

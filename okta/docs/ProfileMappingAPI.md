@@ -102,7 +102,7 @@ import (
 
 func main() {
 	after := "after_example" // string | Mapping `id` that specifies the pagination cursor for the next page of mappings (optional)
-	limit := int32(56) // int32 | Specifies the number of results per page (optional) (default to 20)
+	limit := int32(56) // int32 | Specifies the number of results per page > **Note:** If you encounter timeout errors with larger values, reduce the limit (for example, `50`) and use pagination with the `after` parameter to retrieve the results. (optional) (default to 20)
 	sourceId := "sourceId_example" // string | The user type or app instance ID that acts as the source of expressions in a mapping. If this parameter is included, all returned mappings have this as their `source.id`. (optional)
 	targetId := "targetId_example" // string | The user type or app instance ID that acts as the target of expressions in a mapping. If this parameter is included, all returned mappings have this as their `target.id`. (optional)
 
@@ -130,7 +130,7 @@ Other parameters are passed through a pointer to a apiListProfileMappingsRequest
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **after** | **string** | Mapping &#x60;id&#x60; that specifies the pagination cursor for the next page of mappings | 
- **limit** | **int32** | Specifies the number of results per page | [default to 20]
+ **limit** | **int32** | Specifies the number of results per page &gt; **Note:** If you encounter timeout errors with larger values, reduce the limit (for example, &#x60;50&#x60;) and use pagination with the &#x60;after&#x60; parameter to retrieve the results. | [default to 20]
  **sourceId** | **string** | The user type or app instance ID that acts as the source of expressions in a mapping. If this parameter is included, all returned mappings have this as their &#x60;source.id&#x60;. | 
  **targetId** | **string** | The user type or app instance ID that acts as the target of expressions in a mapping. If this parameter is included, all returned mappings have this as their &#x60;target.id&#x60;. | 
 

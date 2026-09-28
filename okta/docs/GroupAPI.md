@@ -9,6 +9,7 @@ Method | HTTP request | Description
 [**DeleteGroup**](GroupAPI.md#DeleteGroup) | **Delete** /api/v1/groups/{groupId} | Delete a group
 [**GetGroup**](GroupAPI.md#GetGroup) | **Get** /api/v1/groups/{groupId} | Retrieve a group
 [**ListAssignedApplicationsForGroup**](GroupAPI.md#ListAssignedApplicationsForGroup) | **Get** /api/v1/groups/{groupId}/apps | List all assigned apps
+[**ListGroupRulesForUserInGroup**](GroupAPI.md#ListGroupRulesForUserInGroup) | **Get** /api/v1/groups/{groupId}/users/{userId}/group-rules | List all group rules for a user
 [**ListGroupUsers**](GroupAPI.md#ListGroupUsers) | **Get** /api/v1/groups/{groupId}/users | List all member users
 [**ListGroups**](GroupAPI.md#ListGroups) | **Get** /api/v1/groups | List all groups
 [**ReplaceGroup**](GroupAPI.md#ReplaceGroup) | **Put** /api/v1/groups/{groupId} | Replace a group
@@ -365,9 +366,82 @@ Name | Type | Description  | Notes
 [[Back to README]](../README.md)
 
 
+## ListGroupRulesForUserInGroup
+
+> []GroupMembershipRule ListGroupRulesForUserInGroup(ctx, groupId, userId).Execute()
+
+List all group rules for a user
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
+)
+
+func main() {
+	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
+	userId := "00ub0oNGTSWTBKOLGLNR" // string | ID of an existing Okta user
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.GroupAPI.ListGroupRulesForUserInGroup(context.Background(), groupId, userId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.ListGroupRulesForUserInGroup``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListGroupRulesForUserInGroup`: []GroupMembershipRule
+	fmt.Fprintf(os.Stdout, "Response from `GroupAPI.ListGroupRulesForUserInGroup`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**groupId** | **string** | The &#x60;id&#x60; of the group | 
+**userId** | **string** | ID of an existing Okta user | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiListGroupRulesForUserInGroupRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+
+### Return type
+
+[**[]GroupMembershipRule**](GroupMembershipRule.md)
+
+### Authorization
+
+[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
 ## ListGroupUsers
 
-> []User ListGroupUsers(ctx, groupId).After(after).Limit(limit).Execute()
+> []User ListGroupUsers(ctx, groupId).After(after).Limit(limit).Expand(expand).Search(search).Execute()
 
 List all member users
 
@@ -389,10 +463,12 @@ func main() {
 	groupId := "00g1emaKYZTWRYYRRTSK" // string | The `id` of the group
 	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). (optional)
 	limit := int32(56) // int32 | Specifies the number of user results in a page (optional) (default to 1000)
+	expand := "expand_example" // string | If specified, additional metadata is included in the response. Possible values are `group-rules` and `login-status-info`. You can pass multiple values as a comma-separated list. This additional metadata is listed in the [`_embedded`](openapi/okta-management/management/tags/group/other/listgroupusers#other/listgroupusers/t=response&c=200&path=_embedded) property of each user in the response.  Use `group-rules` to return the group rules (by ID and name) that manage the user's membership in the group. Use `login-status-info` to return a label that describes the user's current login status (for example, `Active` or `Password Expired`). (optional)
+	search := "search_example" // string | Searches for group members using a SCIM-style search expression. Uses the same search semantics as [`List all users`](/openapi/okta-management/management/tag/User/#tag/User/operation/listUsers), including the same set of searchable properties (any user profile attribute including custom attributes, the top-level properties `id`, `status`, `created`, `activated`, `statusChanged`, and `lastUpdated`, the user `type.id`, and array-valued properties).  Property names in the `search` parameter are case sensitive, whereas operators (`eq`, `sw`, and so on) and string values are case insensitive. The `search` parameter requires [URL encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). See [Special characters](https://developer.okta.com/docs/api/#special-characters).  Searches for group members can be filtered by the following operators: `sw`, `eq`, and `co`. You can only use `co` with these select user profile attributes: `profile.firstName`, `profile.lastName`, `profile.email`, and `profile.login`. See [Operators](https://developer.okta.com/docs/api/#operators).  > **Notes:** >  * The `search` parameter is not currently supported for groups with the `APP_GROUP` type. Using `search` on an `APP_GROUP` returns an `HTTP 400 Bad Request` error. >  * Using an overly complex or long search query can result in an error. >  * The `search` parameter results are sourced from an eventually consistent datasource and may not reflect the latest information. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.ListGroupUsers(context.Background(), groupId).After(after).Limit(limit).Execute()
+	resp, r, err := apiClient.GroupAPI.ListGroupUsers(context.Background(), groupId).After(after).Limit(limit).Expand(expand).Search(search).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.ListGroupUsers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -420,6 +496,8 @@ Name | Type | Description  | Notes
 
  **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). | 
  **limit** | **int32** | Specifies the number of user results in a page | [default to 1000]
+ **expand** | **string** | If specified, additional metadata is included in the response. Possible values are &#x60;group-rules&#x60; and &#x60;login-status-info&#x60;. You can pass multiple values as a comma-separated list. This additional metadata is listed in the [&#x60;_embedded&#x60;](openapi/okta-management/management/tags/group/other/listgroupusers#other/listgroupusers/t&#x3D;response&amp;c&#x3D;200&amp;path&#x3D;_embedded) property of each user in the response.  Use &#x60;group-rules&#x60; to return the group rules (by ID and name) that manage the user&#39;s membership in the group. Use &#x60;login-status-info&#x60; to return a label that describes the user&#39;s current login status (for example, &#x60;Active&#x60; or &#x60;Password Expired&#x60;). | 
+ **search** | **string** | Searches for group members using a SCIM-style search expression. Uses the same search semantics as [&#x60;List all users&#x60;](/openapi/okta-management/management/tag/User/#tag/User/operation/listUsers), including the same set of searchable properties (any user profile attribute including custom attributes, the top-level properties &#x60;id&#x60;, &#x60;status&#x60;, &#x60;created&#x60;, &#x60;activated&#x60;, &#x60;statusChanged&#x60;, and &#x60;lastUpdated&#x60;, the user &#x60;type.id&#x60;, and array-valued properties).  Property names in the &#x60;search&#x60; parameter are case sensitive, whereas operators (&#x60;eq&#x60;, &#x60;sw&#x60;, and so on) and string values are case insensitive. The &#x60;search&#x60; parameter requires [URL encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). See [Special characters](https://developer.okta.com/docs/api/#special-characters).  Searches for group members can be filtered by the following operators: &#x60;sw&#x60;, &#x60;eq&#x60;, and &#x60;co&#x60;. You can only use &#x60;co&#x60; with these select user profile attributes: &#x60;profile.firstName&#x60;, &#x60;profile.lastName&#x60;, &#x60;profile.email&#x60;, and &#x60;profile.login&#x60;. See [Operators](https://developer.okta.com/docs/api/#operators).  &gt; **Notes:** &gt;  * The &#x60;search&#x60; parameter is not currently supported for groups with the &#x60;APP_GROUP&#x60; type. Using &#x60;search&#x60; on an &#x60;APP_GROUP&#x60; returns an &#x60;HTTP 400 Bad Request&#x60; error. &gt;  * Using an overly complex or long search query can result in an error. &gt;  * The &#x60;search&#x60; parameter results are sourced from an eventually consistent datasource and may not reflect the latest information. | 
 
 ### Return type
 
@@ -441,7 +519,7 @@ Name | Type | Description  | Notes
 
 ## ListGroups
 
-> []Group ListGroups(ctx).Search(search).Filter(filter).Q(q).After(after).Limit(limit).Expand(expand).SortBy(sortBy).SortOrder(sortOrder).Execute()
+> []Group ListGroups(ctx).Search(search).Filter(filter).Q(q).After(after).Limit(limit).Expand(expand).SortBy(sortBy).SortOrder(sortOrder).Fields(fields).Execute()
 
 List all groups
 
@@ -460,18 +538,19 @@ import (
 )
 
 func main() {
-	search := "type%20eq%20%22APP_GROUP%22" // string | Searches for groups with a supported [filtering](https://developer.okta.com/docs/api/#filter) expression for all properties except for `_embedded`, `_links`, and `objectClass`. Okta recommends this query parameter because it provides the largest range of search options and optimal performance.  This operation supports [pagination](https://developer.okta.com/docs/api/#pagination).  The `search` string requires [URL encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). For example, `search=type eq \"OKTA_GROUP\"` is encoded as `search=type+eq+%22OKTA_GROUP%22`.  This operation searches many properties:  * Any group profile attribute, including imported app group profile attributes. * The top-level properties: `id`, `created`, `lastMembershipUpdated`, `lastUpdated`, and `type`. * The [source](/openapi/okta-management/management/group/listgroups#group/listgroups/t=response&c=200&path=_links/source) of groups with type of `APP_GROUP`, accessed as `source.id`.  You can also use the `sortBy` and `sortOrder` parameters.  Searches for groups can be filtered by the following operators: `sw`, `eq`, and `co`. You can only use `co` with these select profile attributes: `profile.name` and `profile.description`. See [Operators](https://developer.okta.com/docs/api/#operators). (optional)
-	filter := "id%20eq%20%2200g1emaKYZTWRYYRRTSK%22" // string | Filter expression for groups. See [Filter](https://developer.okta.com/docs/api/#filter).  Filtering supports the following limited number of properties: `id`, `type`, `lastUpdated`, and `lastMembershipUpdated`.  > **Note:** All filters must be [URL encoded](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). For example, `filter=lastUpdated gt \"2013-06-01T00:00:00.000Z\"` is encoded as `filter=lastUpdated%20gt%20%222013-06-01T00:00:00.000Z%22`.  See [Special characters](https://developer.okta.com/docs/api/#special-characters). (optional)
+	search := "type eq "APP_GROUP"" // string | Searches for groups with a supported [filtering](https://developer.okta.com/docs/api/#filter) expression for all properties except for `_embedded`, `_links`, and `objectClass`. Okta recommends this query parameter because it provides the largest range of search options and optimal performance.  This operation supports [pagination](https://developer.okta.com/docs/api/#pagination).  The `search` string requires [URL encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). For example, `search=type eq \"OKTA_GROUP\"` is encoded as `search=type+eq+%22OKTA_GROUP%22`.  This operation searches many properties:  * Any group profile attribute, including imported app group profile attributes. * The top-level properties: `id`, `created`, `lastMembershipUpdated`, `lastUpdated`, and `type`. * The [source](/openapi/okta-management/management/group/listgroups#group/listgroups/t=response&c=200&path=_links/source) of groups with type of `APP_GROUP`, accessed as `source.id`.  You can also use the `sortBy` and `sortOrder` parameters.  Searches for groups can be filtered by the following operators: `sw`, `eq`, and `co`. You can only use `co` with these select profile attributes: `profile.name` and `profile.description`. See [Operators](https://developer.okta.com/docs/api/#operators). (optional)
+	filter := "id eq "00g1emaKYZTWRYYRRTSK"" // string | Filter expression for groups. See [Filter](https://developer.okta.com/docs/api/#filter).  Filtering supports the following limited number of properties: `id`, `type`, `lastUpdated`, and `lastMembershipUpdated`.  > **Note:** All filters must be [URL encoded](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). For example, `filter=lastUpdated gt \"2013-06-01T00:00:00.000Z\"` is encoded as `filter=lastUpdated%20gt%20%222013-06-01T00:00:00.000Z%22`.  See [Special characters](https://developer.okta.com/docs/api/#special-characters). (optional)
 	q := "West&limit=10" // string | Finds a group that matches the `name` property. > **Note:** Paging and searching are currently mutually exclusive. You can't page a query. The default limit for a query is 300 results. Query is intended for an auto-complete picker use case where users refine their search string to constrain the results. (optional)
 	after := "after_example" // string | Specifies the pagination cursor for the next page of groups. The `after` cursor should be treated as an opaque value and obtained through the next link relation. See [Pagination](https://developer.okta.com/docs/api/#pagination). (optional)
 	limit := int32(56) // int32 | Specifies the number of group results in a page.  Okta recommends using a specific value other than the default or maximum. If your request times out, retry your request with a smaller `limit` and [page the results](https://developer.okta.com/docs/api/#pagination).  The Okta default `Everyone` group isn't returned for users with a group admin role. (optional)
 	expand := "expand_example" // string | If specified, additional metadata is included in the response. Possible values are `stats` and `app`. This additional metadata is listed in the [`_embedded`](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/#tag/Group/operation/addGroup!c=200&path=_embedded&t=response) property of the response.  > **Note:** You can use the `stats` value to return the number of users within a group. This is listed as the `_embedded.stats.usersCount` value in the response. See this [Knowledge Base article](https://support.okta.com/help/s/article/Is-there-an-API-that-returns-the-number-of-users-in-a-group?language=en_US) for more information and an example. (optional)
 	sortBy := "lastUpdated" // string | Specifies the field to sort by (for search queries only). `sortBy` can be any single property, for example `sortBy=profile.name`. Groups with the same value for the `sortBy` property are ordered by `id`'. Use with `sortOrder` to control the order of results. (optional)
 	sortOrder := "sortOrder_example" // string | Specifies sort order: `asc` or `desc` (for search queries only). This parameter is ignored if `sortBy` isn't present. (optional) (default to "asc")
+	fields := "id,type" // string | Specifies a comma-separated list of fields to include in the response. Use the `fields` parameter to reduce the response payload size.  Supports the following top-level fields: `id`, `type`, `created`, `lastUpdated`, `lastMembershipUpdated`, `objectClass`, `_links`  Use the `profile:(fieldName)` syntax to request specific profile attributes, such as `profile:(name)` or `profile:(name,description)`. Bare `profile` field isn't supported and you must specify which profile attributes to include.  > **Note:** The `id` field is always included in the response. The `_embedded` property is controlled by the `expand` parameter, not `fields`. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.GroupAPI.ListGroups(context.Background()).Search(search).Filter(filter).Q(q).After(after).Limit(limit).Expand(expand).SortBy(sortBy).SortOrder(sortOrder).Execute()
+	resp, r, err := apiClient.GroupAPI.ListGroups(context.Background()).Search(search).Filter(filter).Q(q).After(after).Limit(limit).Expand(expand).SortBy(sortBy).SortOrder(sortOrder).Fields(fields).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `GroupAPI.ListGroups``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -500,6 +579,7 @@ Name | Type | Description  | Notes
  **expand** | **string** | If specified, additional metadata is included in the response. Possible values are &#x60;stats&#x60; and &#x60;app&#x60;. This additional metadata is listed in the [&#x60;_embedded&#x60;](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Group/#tag/Group/operation/addGroup!c&#x3D;200&amp;path&#x3D;_embedded&amp;t&#x3D;response) property of the response.  &gt; **Note:** You can use the &#x60;stats&#x60; value to return the number of users within a group. This is listed as the &#x60;_embedded.stats.usersCount&#x60; value in the response. See this [Knowledge Base article](https://support.okta.com/help/s/article/Is-there-an-API-that-returns-the-number-of-users-in-a-group?language&#x3D;en_US) for more information and an example. | 
  **sortBy** | **string** | Specifies the field to sort by (for search queries only). &#x60;sortBy&#x60; can be any single property, for example &#x60;sortBy&#x3D;profile.name&#x60;. Groups with the same value for the &#x60;sortBy&#x60; property are ordered by &#x60;id&#x60;&#39;. Use with &#x60;sortOrder&#x60; to control the order of results. | 
  **sortOrder** | **string** | Specifies sort order: &#x60;asc&#x60; or &#x60;desc&#x60; (for search queries only). This parameter is ignored if &#x60;sortBy&#x60; isn&#39;t present. | [default to &quot;asc&quot;]
+ **fields** | **string** | Specifies a comma-separated list of fields to include in the response. Use the &#x60;fields&#x60; parameter to reduce the response payload size.  Supports the following top-level fields: &#x60;id&#x60;, &#x60;type&#x60;, &#x60;created&#x60;, &#x60;lastUpdated&#x60;, &#x60;lastMembershipUpdated&#x60;, &#x60;objectClass&#x60;, &#x60;_links&#x60;  Use the &#x60;profile:(fieldName)&#x60; syntax to request specific profile attributes, such as &#x60;profile:(name)&#x60; or &#x60;profile:(name,description)&#x60;. Bare &#x60;profile&#x60; field isn&#39;t supported and you must specify which profile attributes to include.  &gt; **Note:** The &#x60;id&#x60; field is always included in the response. The &#x60;_embedded&#x60; property is controlled by the &#x60;expand&#x60; parameter, not &#x60;fields&#x60;. | 
 
 ### Return type
 

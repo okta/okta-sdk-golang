@@ -35,6 +35,7 @@ type ListFactors200ResponseInner struct {
 	UserFactorPush              *UserFactorPush
 	UserFactorSMS               *UserFactorSMS
 	UserFactorSecurityQuestion  *UserFactorSecurityQuestion
+	UserFactorSignedNonce       *UserFactorSignedNonce
 	UserFactorToken             *UserFactorToken
 	UserFactorTokenHOTP         *UserFactorTokenHOTP
 	UserFactorTokenHardware     *UserFactorTokenHardware
@@ -76,6 +77,13 @@ func UserFactorSMSAsListFactors200ResponseInner(v *UserFactorSMS) ListFactors200
 func UserFactorSecurityQuestionAsListFactors200ResponseInner(v *UserFactorSecurityQuestion) ListFactors200ResponseInner {
 	return ListFactors200ResponseInner{
 		UserFactorSecurityQuestion: v,
+	}
+}
+
+// UserFactorSignedNonceAsListFactors200ResponseInner is a convenience function that returns UserFactorSignedNonce wrapped in ListFactors200ResponseInner
+func UserFactorSignedNonceAsListFactors200ResponseInner(v *UserFactorSignedNonce) ListFactors200ResponseInner {
+	return ListFactors200ResponseInner{
+		UserFactorSignedNonce: v,
 	}
 }
 
@@ -186,6 +194,18 @@ func (dst *ListFactors200ResponseInner) UnmarshalJSON(data []byte) error {
 		} else {
 			dst.UserFactorSecurityQuestion = nil
 			return fmt.Errorf("failed to unmarshal ListFactors200ResponseInner as UserFactorSecurityQuestion: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'signed_nonce'
+	if discriminatorValue == "signed_nonce" {
+		// try to unmarshal JSON data into UserFactorSignedNonce
+		err = json.Unmarshal(data, &dst.UserFactorSignedNonce)
+		if err == nil {
+			return nil // data stored in dst.UserFactorSignedNonce, return on the first match
+		} else {
+			dst.UserFactorSignedNonce = nil
+			return fmt.Errorf("failed to unmarshal ListFactors200ResponseInner as UserFactorSignedNonce: %s", err.Error())
 		}
 	}
 
@@ -320,6 +340,10 @@ func (src ListFactors200ResponseInner) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.UserFactorSecurityQuestion)
 	}
 
+	if src.UserFactorSignedNonce != nil {
+		return json.Marshal(&src.UserFactorSignedNonce)
+	}
+
 	if src.UserFactorToken != nil {
 		return json.Marshal(&src.UserFactorToken)
 	}
@@ -376,6 +400,10 @@ func (obj *ListFactors200ResponseInner) GetActualInstance() interface{} {
 		return obj.UserFactorSecurityQuestion
 	}
 
+	if obj.UserFactorSignedNonce != nil {
+		return obj.UserFactorSignedNonce
+	}
+
 	if obj.UserFactorToken != nil {
 		return obj.UserFactorToken
 	}
@@ -428,6 +456,10 @@ func (obj ListFactors200ResponseInner) GetActualInstanceValue() interface{} {
 
 	if obj.UserFactorSecurityQuestion != nil {
 		return *obj.UserFactorSecurityQuestion
+	}
+
+	if obj.UserFactorSignedNonce != nil {
+		return *obj.UserFactorSignedNonce
 	}
 
 	if obj.UserFactorToken != nil {

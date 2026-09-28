@@ -30,7 +30,7 @@ import (
 // checks if the ProvisioningSuspendedCondition type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &ProvisioningSuspendedCondition{}
 
-// ProvisioningSuspendedCondition Behavior for a previously suspended IdP user during authentication. Not supported with OIDC IdPs.
+// ProvisioningSuspendedCondition Behavior for a previously suspended IdP user during authentication
 type ProvisioningSuspendedCondition struct {
 	// Specifies the action during authentication when an IdP user is linked to a previously suspended Okta user
 	Action               *string `json:"action,omitempty"`

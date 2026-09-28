@@ -37,12 +37,14 @@ type AppAccountContainerDetails struct {
 	AppName *string `json:"appName,omitempty"`
 	// The app ID associated with the privileged resource
 	ContainerId string `json:"containerId"`
-	// Human-readable name of the container that owns the privileged resource
+	// Name of the container that owns the privileged resource
 	DisplayName *string `json:"displayName,omitempty"`
-	// The application global ID
+	// Global ID of the application
 	GlobalAppId *string `json:"globalAppId,omitempty"`
 	// Indicates if the application supports password push
 	PasswordPushSupported *bool `json:"passwordPushSupported,omitempty"`
+	// Indicates if the application supports credential verification
+	PasswordVerificationSupported *bool `json:"passwordVerificationSupported,omitempty"`
 	// Indicates if provisioning is enabled for this application
 	ProvisioningEnabled *bool `json:"provisioningEnabled,omitempty"`
 	// Current status of the application instance
@@ -223,6 +225,38 @@ func (o *AppAccountContainerDetails) SetPasswordPushSupported(v bool) {
 	o.PasswordPushSupported = &v
 }
 
+// GetPasswordVerificationSupported returns the PasswordVerificationSupported field value if set, zero value otherwise.
+func (o *AppAccountContainerDetails) GetPasswordVerificationSupported() bool {
+	if o == nil || IsNil(o.PasswordVerificationSupported) {
+		var ret bool
+		return ret
+	}
+	return *o.PasswordVerificationSupported
+}
+
+// GetPasswordVerificationSupportedOk returns a tuple with the PasswordVerificationSupported field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AppAccountContainerDetails) GetPasswordVerificationSupportedOk() (*bool, bool) {
+	if o == nil || IsNil(o.PasswordVerificationSupported) {
+		return nil, false
+	}
+	return o.PasswordVerificationSupported, true
+}
+
+// HasPasswordVerificationSupported returns a boolean if a field has been set.
+func (o *AppAccountContainerDetails) HasPasswordVerificationSupported() bool {
+	if o != nil && !IsNil(o.PasswordVerificationSupported) {
+		return true
+	}
+
+	return false
+}
+
+// SetPasswordVerificationSupported gets a reference to the given bool and assigns it to the PasswordVerificationSupported field.
+func (o *AppAccountContainerDetails) SetPasswordVerificationSupported(v bool) {
+	o.PasswordVerificationSupported = &v
+}
+
 // GetProvisioningEnabled returns the ProvisioningEnabled field value if set, zero value otherwise.
 func (o *AppAccountContainerDetails) GetProvisioningEnabled() bool {
 	if o == nil || IsNil(o.ProvisioningEnabled) {
@@ -342,6 +376,9 @@ func (o AppAccountContainerDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PasswordPushSupported) {
 		toSerialize["passwordPushSupported"] = o.PasswordPushSupported
 	}
+	if !IsNil(o.PasswordVerificationSupported) {
+		toSerialize["passwordVerificationSupported"] = o.PasswordVerificationSupported
+	}
 	if !IsNil(o.ProvisioningEnabled) {
 		toSerialize["provisioningEnabled"] = o.ProvisioningEnabled
 	}
@@ -399,6 +436,7 @@ func (o *AppAccountContainerDetails) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "displayName")
 		delete(additionalProperties, "globalAppId")
 		delete(additionalProperties, "passwordPushSupported")
+		delete(additionalProperties, "passwordVerificationSupported")
 		delete(additionalProperties, "provisioningEnabled")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "_links")

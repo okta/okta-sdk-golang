@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Condition** | **string** | expression to match | 
+**Condition** | **string** | The Okta Expression Language expression to evaluate.   &gt; &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; **Note:** When the Flexible Okta Verify authenticator configuration feature is enabled, &#x60;okta_verify&#x60; in expressions such as &#x60;accessRequest.authenticator.key &#x3D;&#x3D; &#39;okta_verify&#39;&#x60; is no longer accepted. Use &#x60;okta_verify_totp&#x60;, &#x60;okta_verify_push&#x60;, or &#x60;okta_verify_fastpass&#x60; instead. | 
 
 ## Methods
 

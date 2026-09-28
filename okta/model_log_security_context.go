@@ -43,8 +43,9 @@ type LogSecurityContext struct {
 	// The Internet service provider that's used to send the event's request
 	Isp NullableString `json:"isp,omitempty"`
 	// Specifies whether an event's request is from a known proxy
-	IsProxy NullableBool    `json:"isProxy,omitempty"`
-	Risk    NullableLogRisk `json:"risk,omitempty"`
+	IsProxy        NullableBool              `json:"isProxy,omitempty"`
+	Risk           NullableLogRisk           `json:"risk,omitempty"`
+	TlsFingerprint NullableLogTlsFingerprint `json:"tlsFingerprint,omitempty"`
 	// The result of the user behavior detection models associated with the event
 	UserBehaviors        []LogUserBehavior `json:"userBehaviors,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -413,6 +414,49 @@ func (o *LogSecurityContext) UnsetRisk() {
 	o.Risk.Unset()
 }
 
+// GetTlsFingerprint returns the TlsFingerprint field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *LogSecurityContext) GetTlsFingerprint() LogTlsFingerprint {
+	if o == nil || IsNil(o.TlsFingerprint.Get()) {
+		var ret LogTlsFingerprint
+		return ret
+	}
+	return *o.TlsFingerprint.Get()
+}
+
+// GetTlsFingerprintOk returns a tuple with the TlsFingerprint field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *LogSecurityContext) GetTlsFingerprintOk() (*LogTlsFingerprint, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TlsFingerprint.Get(), o.TlsFingerprint.IsSet()
+}
+
+// HasTlsFingerprint returns a boolean if a field has been set.
+func (o *LogSecurityContext) HasTlsFingerprint() bool {
+	if o != nil && o.TlsFingerprint.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTlsFingerprint gets a reference to the given NullableLogTlsFingerprint and assigns it to the TlsFingerprint field.
+func (o *LogSecurityContext) SetTlsFingerprint(v LogTlsFingerprint) {
+	o.TlsFingerprint.Set(&v)
+}
+
+// SetTlsFingerprintNil sets the value for TlsFingerprint to be an explicit nil
+func (o *LogSecurityContext) SetTlsFingerprintNil() {
+	o.TlsFingerprint.Set(nil)
+}
+
+// UnsetTlsFingerprint ensures that no value is present for TlsFingerprint, not even an explicit nil
+func (o *LogSecurityContext) UnsetTlsFingerprint() {
+	o.TlsFingerprint.Unset()
+}
+
 // GetUserBehaviors returns the UserBehaviors field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *LogSecurityContext) GetUserBehaviors() []LogUserBehavior {
 	if o == nil {
@@ -480,6 +524,9 @@ func (o LogSecurityContext) ToMap() (map[string]interface{}, error) {
 	if o.Risk.IsSet() {
 		toSerialize["risk"] = o.Risk.Get()
 	}
+	if o.TlsFingerprint.IsSet() {
+		toSerialize["tlsFingerprint"] = o.TlsFingerprint.Get()
+	}
 	if o.UserBehaviors != nil {
 		toSerialize["userBehaviors"] = o.UserBehaviors
 	}
@@ -513,6 +560,7 @@ func (o *LogSecurityContext) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "isp")
 		delete(additionalProperties, "isProxy")
 		delete(additionalProperties, "risk")
+		delete(additionalProperties, "tlsFingerprint")
 		delete(additionalProperties, "userBehaviors")
 		o.AdditionalProperties = additionalProperties
 	}

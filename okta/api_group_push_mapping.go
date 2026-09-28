@@ -55,7 +55,7 @@ type GroupPushMappingAPI interface {
 	/*
 		DeleteGroupPushMapping Delete a group push mapping
 
-		Deletes a specific group push mapping. The group push mapping must be in an `INACTIVE` state.
+		Deletes a specific group push mapping. The group push mapping must be in an `INACTIVE` or `ERROR` state.
 
 		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		@param appId Application ID
@@ -331,7 +331,7 @@ func (r ApiDeleteGroupPushMappingRequest) Execute() (*APIResponse, error) {
 /*
 DeleteGroupPushMapping Delete a group push mapping
 
-Deletes a specific group push mapping. The group push mapping must be in an `INACTIVE` state.
+Deletes a specific group push mapping. The group push mapping must be in an `INACTIVE` or `ERROR` state.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param appId Application ID
@@ -701,7 +701,7 @@ func (r ApiListGroupPushMappingsRequest) LastUpdated(lastUpdated string) ApiList
 	return r
 }
 
-// Filters group push mappings by source group ID. If you don&#39;t specify a value, all group push mappings are returned.
+// Filters group push mappings by source group ID
 func (r ApiListGroupPushMappingsRequest) SourceGroupId(sourceGroupId string) ApiListGroupPushMappingsRequest {
 	r.sourceGroupId = &sourceGroupId
 	return r

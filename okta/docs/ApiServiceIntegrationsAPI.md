@@ -579,7 +579,7 @@ Name | Type | Description  | Notes
 
 ## ListApiServiceIntegrationInstances
 
-> []APIServiceIntegrationInstance ListApiServiceIntegrationInstances(ctx).After(after).Execute()
+> []APIServiceIntegrationInstance ListApiServiceIntegrationInstances(ctx).After(after).Limit(limit).Q(q).Type_(type_).Execute()
 
 List all API service integration instances
 
@@ -599,10 +599,13 @@ import (
 
 func main() {
 	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). (optional)
+	limit := int32(56) // int32 | A limit on the number of objects to return (optional) (default to 20)
+	q := "My_app" // string | Searches for API service integration instances with `name` or `type` properties that start with the `q` value, using the `startsWith` operation (optional)
+	type_ := "my_app_cie" // string | Filters API Service integration instances with the specified API service integration `type` (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.ApiServiceIntegrationsAPI.ListApiServiceIntegrationInstances(context.Background()).After(after).Execute()
+	resp, r, err := apiClient.ApiServiceIntegrationsAPI.ListApiServiceIntegrationInstances(context.Background()).After(after).Limit(limit).Q(q).Type_(type_).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `ApiServiceIntegrationsAPI.ListApiServiceIntegrationInstances``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -624,6 +627,9 @@ Other parameters are passed through a pointer to a apiListApiServiceIntegrationI
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **after** | **string** | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the &#x60;Link&#x60; response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). | 
+ **limit** | **int32** | A limit on the number of objects to return | [default to 20]
+ **q** | **string** | Searches for API service integration instances with &#x60;name&#x60; or &#x60;type&#x60; properties that start with the &#x60;q&#x60; value, using the &#x60;startsWith&#x60; operation | 
+ **type_** | **string** | Filters API Service integration instances with the specified API service integration &#x60;type&#x60; | 
 
 ### Return type
 

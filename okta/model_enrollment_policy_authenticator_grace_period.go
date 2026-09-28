@@ -32,7 +32,7 @@ var _ MappedNullable = &EnrollmentPolicyAuthenticatorGracePeriod{}
 
 // EnrollmentPolicyAuthenticatorGracePeriod Specifies the [grace period](https://developer.okta.com/docs/concepts/policies/#authenticator-enrollment-policies) configuration for completing an authenticator enrollment or setup
 type EnrollmentPolicyAuthenticatorGracePeriod struct {
-	// Grace period type  * `BY_DATE_TIME`: The grace period is defined by a specific date and time. * <x-lifecycle class=\"ea\"></x-lifecycle>`BY_SKIP_COUNT`: The grace period is defined by the number of times the user can skip enrolling the corresponding authenticator.
+	// Grace period type  * `BY_DATE_TIME`: The grace period is defined by a specific date and time. * `BY_SKIP_COUNT`: The grace period is defined by the number of times the user can skip enrolling the corresponding authenticator.
 	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

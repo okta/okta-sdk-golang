@@ -7,9 +7,9 @@ Name | Type | Description | Notes
 **PassCode** | Pointer to **string** | OTP for the current time window | [optional] 
 **UseNumberMatchingChallenge** | Pointer to **bool** | Select whether to use a number matching challenge for a &#x60;push&#x60; factor.  &gt; **Note:** Sending a request with a body is required when you verify a &#x60;push&#x60; factor with a number matching challenge. | [optional] 
 **Answer** | Pointer to **string** | Answer to the question | [optional] 
-**ClientData** | Pointer to **string** | Base64-encoded client data from the WebAuthn authenticator | [optional] 
-**SignatureData** | Pointer to **string** | Base64-encoded signature data from the WebAuthn authenticator | [optional] 
-**AuthenticatorData** | Pointer to **string** | Base64-encoded authenticator data from the WebAuthn authenticator | [optional] 
+**ClientData** | Pointer to **string** | Base64-encoded client data from the Passkey (FIDO2 WebAuthn) authenticator | [optional] 
+**SignatureData** | Pointer to **string** | Base64-encoded signature data from the Passkey (FIDO2 WebAuthn) authenticator | [optional] 
+**AuthenticatorData** | Pointer to **string** | Base64-encoded authenticator data from the Passkey (FIDO2 WebAuthn) authenticator | [optional] 
 
 ## Methods
 

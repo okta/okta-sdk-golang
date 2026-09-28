@@ -35,13 +35,15 @@ var _ MappedNullable = &DeviceList{}
 type DeviceList struct {
 	// Timestamp when the device was created
 	Created *time.Time `json:"created,omitempty"`
-	// Unique key for the device
+	// Unique key for the device record. This identifier must be unique across all devices. If two or more physical devices report a non-unique device profile attribute (such as a truncated `profile.udid`), Okta may map them to the same device record (shared `id`), which can cause unexpected behavior.
 	Id *string `json:"id,omitempty"`
 	// Timestamp when the device record was last updated. Updates occur when Okta collects and saves device signals during authentication, and when the lifecycle state of the device changes.
-	LastUpdated         *time.Time         `json:"lastUpdated,omitempty"`
-	Profile             *DeviceProfile     `json:"profile,omitempty"`
-	ResourceAlternateId *string            `json:"resourceAlternateId,omitempty"`
-	ResourceDisplayName *DeviceDisplayName `json:"resourceDisplayName,omitempty"`
+	LastUpdated *time.Time     `json:"lastUpdated,omitempty"`
+	Profile     *DeviceProfile `json:"profile,omitempty"`
+	// Registration grants associated with this device. Present only when the device was pre-registered. Omitted (not an empty array) if no grants exist for the device.
+	RegistrationGrants  []RegistrationGrant `json:"registrationGrants,omitempty"`
+	ResourceAlternateId *string             `json:"resourceAlternateId,omitempty"`
+	ResourceDisplayName *DeviceDisplayName  `json:"resourceDisplayName,omitempty"`
 	// Alternate key for the `id`
 	ResourceId   *string `json:"resourceId,omitempty"`
 	ResourceType *string `json:"resourceType,omitempty"`
@@ -197,6 +199,38 @@ func (o *DeviceList) HasProfile() bool {
 // SetProfile gets a reference to the given DeviceProfile and assigns it to the Profile field.
 func (o *DeviceList) SetProfile(v DeviceProfile) {
 	o.Profile = &v
+}
+
+// GetRegistrationGrants returns the RegistrationGrants field value if set, zero value otherwise.
+func (o *DeviceList) GetRegistrationGrants() []RegistrationGrant {
+	if o == nil || IsNil(o.RegistrationGrants) {
+		var ret []RegistrationGrant
+		return ret
+	}
+	return o.RegistrationGrants
+}
+
+// GetRegistrationGrantsOk returns a tuple with the RegistrationGrants field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DeviceList) GetRegistrationGrantsOk() ([]RegistrationGrant, bool) {
+	if o == nil || IsNil(o.RegistrationGrants) {
+		return nil, false
+	}
+	return o.RegistrationGrants, true
+}
+
+// HasRegistrationGrants returns a boolean if a field has been set.
+func (o *DeviceList) HasRegistrationGrants() bool {
+	if o != nil && !IsNil(o.RegistrationGrants) {
+		return true
+	}
+
+	return false
+}
+
+// SetRegistrationGrants gets a reference to the given []RegistrationGrant and assigns it to the RegistrationGrants field.
+func (o *DeviceList) SetRegistrationGrants(v []RegistrationGrant) {
+	o.RegistrationGrants = v
 }
 
 // GetResourceAlternateId returns the ResourceAlternateId field value if set, zero value otherwise.
@@ -445,6 +479,9 @@ func (o DeviceList) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Profile) {
 		toSerialize["profile"] = o.Profile
 	}
+	if !IsNil(o.RegistrationGrants) {
+		toSerialize["registrationGrants"] = o.RegistrationGrants
+	}
 	if !IsNil(o.ResourceAlternateId) {
 		toSerialize["resourceAlternateId"] = o.ResourceAlternateId
 	}
@@ -492,6 +529,7 @@ func (o *DeviceList) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "lastUpdated")
 		delete(additionalProperties, "profile")
+		delete(additionalProperties, "registrationGrants")
 		delete(additionalProperties, "resourceAlternateId")
 		delete(additionalProperties, "resourceDisplayName")
 		delete(additionalProperties, "resourceId")

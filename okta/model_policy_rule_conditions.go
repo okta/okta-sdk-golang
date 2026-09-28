@@ -45,6 +45,7 @@ type PolicyRuleConditions struct {
 	IdentityProvider      *IdentityProviderPolicyRuleCondition           `json:"identityProvider,omitempty"`
 	MdmEnrollment         *MDMEnrollmentPolicyRuleCondition              `json:"mdmEnrollment,omitempty"`
 	Network               *PolicyNetworkCondition                        `json:"network,omitempty"`
+	Office365Client       *Office365ClientCondition                      `json:"office365Client,omitempty"`
 	People                *PolicyPeopleCondition                         `json:"people,omitempty"`
 	Platform              *PlatformPolicyRuleCondition                   `json:"platform,omitempty"`
 	Risk                  *RiskPolicyRuleCondition                       `json:"risk,omitempty"`
@@ -491,6 +492,38 @@ func (o *PolicyRuleConditions) SetNetwork(v PolicyNetworkCondition) {
 	o.Network = &v
 }
 
+// GetOffice365Client returns the Office365Client field value if set, zero value otherwise.
+func (o *PolicyRuleConditions) GetOffice365Client() Office365ClientCondition {
+	if o == nil || IsNil(o.Office365Client) {
+		var ret Office365ClientCondition
+		return ret
+	}
+	return *o.Office365Client
+}
+
+// GetOffice365ClientOk returns a tuple with the Office365Client field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PolicyRuleConditions) GetOffice365ClientOk() (*Office365ClientCondition, bool) {
+	if o == nil || IsNil(o.Office365Client) {
+		return nil, false
+	}
+	return o.Office365Client, true
+}
+
+// HasOffice365Client returns a boolean if a field has been set.
+func (o *PolicyRuleConditions) HasOffice365Client() bool {
+	if o != nil && !IsNil(o.Office365Client) {
+		return true
+	}
+
+	return false
+}
+
+// SetOffice365Client gets a reference to the given Office365ClientCondition and assigns it to the Office365Client field.
+func (o *PolicyRuleConditions) SetOffice365Client(v Office365ClientCondition) {
+	o.Office365Client = &v
+}
+
 // GetPeople returns the People field value if set, zero value otherwise.
 func (o *PolicyRuleConditions) GetPeople() PolicyPeopleCondition {
 	if o == nil || IsNil(o.People) {
@@ -796,6 +829,9 @@ func (o PolicyRuleConditions) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Network) {
 		toSerialize["network"] = o.Network
 	}
+	if !IsNil(o.Office365Client) {
+		toSerialize["office365Client"] = o.Office365Client
+	}
 	if !IsNil(o.People) {
 		toSerialize["people"] = o.People
 	}
@@ -855,6 +891,7 @@ func (o *PolicyRuleConditions) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "identityProvider")
 		delete(additionalProperties, "mdmEnrollment")
 		delete(additionalProperties, "network")
+		delete(additionalProperties, "office365Client")
 		delete(additionalProperties, "people")
 		delete(additionalProperties, "platform")
 		delete(additionalProperties, "risk")

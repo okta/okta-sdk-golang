@@ -34,6 +34,7 @@ var _ MappedNullable = &SelfServicePasswordResetAction{}
 type SelfServicePasswordResetAction struct {
 	Access      *string          `json:"access,omitempty"`
 	Requirement *SsprRequirement `json:"requirement,omitempty"`
+	Settings    *SsprSettings    `json:"settings,omitempty"`
 	// <x-lifecycle class=\"oie\"></x-lifecycle> The type of rule action
 	Type                 *string `json:"type,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -122,6 +123,38 @@ func (o *SelfServicePasswordResetAction) SetRequirement(v SsprRequirement) {
 	o.Requirement = &v
 }
 
+// GetSettings returns the Settings field value if set, zero value otherwise.
+func (o *SelfServicePasswordResetAction) GetSettings() SsprSettings {
+	if o == nil || IsNil(o.Settings) {
+		var ret SsprSettings
+		return ret
+	}
+	return *o.Settings
+}
+
+// GetSettingsOk returns a tuple with the Settings field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SelfServicePasswordResetAction) GetSettingsOk() (*SsprSettings, bool) {
+	if o == nil || IsNil(o.Settings) {
+		return nil, false
+	}
+	return o.Settings, true
+}
+
+// HasSettings returns a boolean if a field has been set.
+func (o *SelfServicePasswordResetAction) HasSettings() bool {
+	if o != nil && !IsNil(o.Settings) {
+		return true
+	}
+
+	return false
+}
+
+// SetSettings gets a reference to the given SsprSettings and assigns it to the Settings field.
+func (o *SelfServicePasswordResetAction) SetSettings(v SsprSettings) {
+	o.Settings = &v
+}
+
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *SelfServicePasswordResetAction) GetType() string {
 	if o == nil || IsNil(o.Type) {
@@ -170,6 +203,9 @@ func (o SelfServicePasswordResetAction) ToMap() (map[string]interface{}, error) 
 	if !IsNil(o.Requirement) {
 		toSerialize["requirement"] = o.Requirement
 	}
+	if !IsNil(o.Settings) {
+		toSerialize["settings"] = o.Settings
+	}
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
@@ -197,6 +233,7 @@ func (o *SelfServicePasswordResetAction) UnmarshalJSON(data []byte) (err error) 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "access")
 		delete(additionalProperties, "requirement")
+		delete(additionalProperties, "settings")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
 	}

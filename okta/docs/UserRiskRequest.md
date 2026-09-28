@@ -4,13 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**RiskLevel** | Pointer to **string** | The risk level associated with the user | [optional] 
+**RiskLevel** | **string** | The risk level associated with the user | 
+**RiskReason** | Pointer to **string** | The reason for the risk change. If not provided, the reason defaults to &#x60;override.by.admin&#x60;. Only alphanumeric characters, spaces, hyphens, commas, and periods are allowed. | [optional] 
 
 ## Methods
 
 ### NewUserRiskRequest
 
-`func NewUserRiskRequest() *UserRiskRequest`
+`func NewUserRiskRequest(riskLevel string, ) *UserRiskRequest`
 
 NewUserRiskRequest instantiates a new UserRiskRequest object
 This constructor will assign default values to properties that have it defined,
@@ -44,11 +45,31 @@ and a boolean to check if the value has been set.
 
 SetRiskLevel sets RiskLevel field to given value.
 
-### HasRiskLevel
 
-`func (o *UserRiskRequest) HasRiskLevel() bool`
+### GetRiskReason
 
-HasRiskLevel returns a boolean if a field has been set.
+`func (o *UserRiskRequest) GetRiskReason() string`
+
+GetRiskReason returns the RiskReason field if non-nil, zero value otherwise.
+
+### GetRiskReasonOk
+
+`func (o *UserRiskRequest) GetRiskReasonOk() (*string, bool)`
+
+GetRiskReasonOk returns a tuple with the RiskReason field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetRiskReason
+
+`func (o *UserRiskRequest) SetRiskReason(v string)`
+
+SetRiskReason sets RiskReason field to given value.
+
+### HasRiskReason
+
+`func (o *UserRiskRequest) HasRiskReason() bool`
+
+HasRiskReason returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

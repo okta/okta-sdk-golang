@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Fips** | Pointer to **string** |  | [optional] 
+**Fips** | Pointer to **string** | The FIPS compliance mode.   &gt; &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; **Note:** When the Flexible Okta Verify authenticator configuration feature is enabled, this is a common setting shared across all per-method authenticators (&#x60;okta_verify_totp&#x60;, &#x60;okta_verify_push&#x60;, &#x60;okta_verify_fastpass&#x60;). Updating this value on any one authenticator applies the change to all three. | [optional] 
 
 ## Methods
 

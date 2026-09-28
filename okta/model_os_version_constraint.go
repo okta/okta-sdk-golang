@@ -34,9 +34,9 @@ var _ MappedNullable = &OSVersionConstraint{}
 // OSVersionConstraint struct for OSVersionConstraint
 type OSVersionConstraint struct {
 	DynamicVersionRequirement *OSVersionConstraintDynamicVersionRequirement `json:"dynamicVersionRequirement,omitempty"`
-	// Indicates the Windows major version
+	// Indicates the major OS version
 	MajorVersionConstraint string `json:"majorVersionConstraint"`
-	// The Windows device version must be equal to or newer than the specified version
+	// The device version must be equal to or newer than the specified version
 	Minimum              *string `json:"minimum,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

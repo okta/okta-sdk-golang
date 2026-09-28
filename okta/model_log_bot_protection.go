@@ -30,7 +30,7 @@ import (
 // checks if the LogBotProtection type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &LogBotProtection{}
 
-// LogBotProtection <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>The result of the bot protection detection associated with the event
+// LogBotProtection <x-lifecycle-container><x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>The result of the bot protection detection associated with the event
 type LogBotProtection struct {
 	// The bot detected level associated with the bot protection configuration target
 	Level                NullableString `json:"level,omitempty"`

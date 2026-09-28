@@ -44,7 +44,7 @@ type UserFactorAPI interface {
 
 		> **Notes:**
 		> * If the user exceeds their SMS, call, or email factor activation rate limit, then an [OTP resend request](./#tag/UserFactor/operation/resendEnrollFactor) isn't allowed for the same factor.
-		> * You can't use the Factors API to activate Okta Fastpass (`signed_nonce`) for a user. See [Configure Okta Fastpass](https://help.okta.com/okta_help.htm?type=oie&id=ext-fp-configure).
+		> * You can't use the Factors API to activate Okta FastPass (`signed_nonce`) for a user. See [Configure Okta FastPass](https://help.okta.com/okta_help.htm?type=oie&id=ext-fp-configure).
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param userId ID of an existing Okta user
@@ -64,7 +64,7 @@ type UserFactorAPI interface {
 
 		> **Notes:**
 		>   * All responses return the enrolled factor with a status of either `PENDING_ACTIVATION` or `ACTIVE`.
-		>   * You can't use the Factors API to enroll Okta Fastpass (`signed_nonce`) for a user. See [Configure Okta Fastpass](https://help.okta.com/okta_help.htm?type=oie&id=ext-fp-configure).
+		>   * You can't use the Factors API to enroll Okta FastPass (`signed_nonce`) for a user. See [Configure Okta FastPass](https://help.okta.com/okta_help.htm?type=oie&id=ext-fp-configure).
 
 		#### Additional SMS/Call factor information
 
@@ -77,6 +77,9 @@ type UserFactorAPI interface {
 		* For detailed information on the WebAuthn standard, including an up-to-date list of supported browsers, see [webauthn.me](https://a0.to/webauthnme-okta-docs).
 
 		* When you enroll a WebAuthn factor, the `activation` object in `_embedded` contains properties used to help the client to create a new WebAuthn credential for use with Okta. See the [WebAuthn spec for PublicKeyCredentialCreationOptions](https://www.w3.org/TR/webauthn/#dictionary-makecredentialoptions).
+
+		* As of the `2026.04.0` release, the FIDO2 (WebAuthn) authenticator is now called Passkey (FIDO2 WebAuthn) and there are new settings and updates to the authenticator page layout. There have been no changes to any existing parameter names, values, or endpoint paths. For example, the `factorType` for the Passkey (FIDO2 WebAuthn) authenticator is still `webauthn`. See [Passkeys and WebAuthn](https://developer.okta.com/docs/guides/authenticators-web-authn/aspnet/main/#passkeys-and-webauthn).
+
 
 		#### Additional Custom TOTP factor information
 
@@ -323,7 +326,7 @@ Okta enforces a rate limit of five activation attempts within five minutes. Afte
 
 > **Notes:**
 > * If the user exceeds their SMS, call, or email factor activation rate limit, then an [OTP resend request](./#tag/UserFactor/operation/resendEnrollFactor) isn't allowed for the same factor.
-> * You can't use the Factors API to activate Okta Fastpass (`signed_nonce`) for a user. See [Configure Okta Fastpass](https://help.okta.com/okta_help.htm?type=oie&id=ext-fp-configure).
+> * You can't use the Factors API to activate Okta FastPass (`signed_nonce`) for a user. See [Configure Okta FastPass](https://help.okta.com/okta_help.htm?type=oie&id=ext-fp-configure).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ID of an existing Okta user
@@ -552,7 +555,7 @@ EnrollFactor Enroll a factor
 
 > **Notes:**
 >   * All responses return the enrolled factor with a status of either `PENDING_ACTIVATION` or `ACTIVE`.
->   * You can't use the Factors API to enroll Okta Fastpass (`signed_nonce`) for a user. See [Configure Okta Fastpass](https://help.okta.com/okta_help.htm?type=oie&id=ext-fp-configure).
+>   * You can't use the Factors API to enroll Okta FastPass (`signed_nonce`) for a user. See [Configure Okta FastPass](https://help.okta.com/okta_help.htm?type=oie&id=ext-fp-configure).
 
 #### Additional SMS/Call factor information
 
@@ -565,6 +568,8 @@ EnrollFactor Enroll a factor
 * For detailed information on the WebAuthn standard, including an up-to-date list of supported browsers, see [webauthn.me](https://a0.to/webauthnme-okta-docs).
 
 * When you enroll a WebAuthn factor, the `activation` object in `_embedded` contains properties used to help the client to create a new WebAuthn credential for use with Okta. See the [WebAuthn spec for PublicKeyCredentialCreationOptions](https://www.w3.org/TR/webauthn/#dictionary-makecredentialoptions).
+
+* As of the `2026.04.0` release, the FIDO2 (WebAuthn) authenticator is now called Passkey (FIDO2 WebAuthn) and there are new settings and updates to the authenticator page layout. There have been no changes to any existing parameter names, values, or endpoint paths. For example, the `factorType` for the Passkey (FIDO2 WebAuthn) authenticator is still `webauthn`. See [Passkeys and WebAuthn](https://developer.okta.com/docs/guides/authenticators-web-authn/aspnet/main/#passkeys-and-webauthn).
 
 #### Additional Custom TOTP factor information
 

@@ -35,7 +35,7 @@ var _ MappedNullable = &AuthenticationMethodObject{}
 type AuthenticationMethodObject struct {
 	// <x-lifecycle-container><x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>Authenticator ID
 	Id *string `json:"id,omitempty"`
-	// A label that identifies the authenticator
+	// A label that identifies the authenticator.   > <x-lifecycle class=\"ea\"></x-lifecycle> **Note:** When the Flexible Okta Verify authenticator configuration feature is enabled, `okta_verify` is no longer accepted. Use `okta_verify_totp`, `okta_verify_push`, or `okta_verify_fastpass` instead.
 	Key string `json:"key"`
 	// Specifies the method used for the authenticator
 	Method               *string `json:"method,omitempty"`

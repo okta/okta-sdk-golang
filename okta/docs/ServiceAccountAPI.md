@@ -33,7 +33,7 @@ import (
 )
 
 func main() {
-	body := *openapiclient.NewAppServiceAccount("orn:okta:idp:00o1n8sbwArJ7OQRw406:apps:salesforce:0oa1gjh63g214q0Hq0g4", "salesforce Prod-5 account", "testuser-salesforce-5@example.com") // AppServiceAccount | 
+	body := *openapiclient.NewAppServiceAccount("orn:okta:idp:00o1n8sbwArJ7OQRw406:apps:salesforce:0oa1gjh63g214q0Hq0g4", "salesforce Prod-5 account", "Password_example", "testuser-salesforce-5@example.com") // AppServiceAccount | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

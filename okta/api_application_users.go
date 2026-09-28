@@ -50,6 +50,7 @@ type ApplicationUsersAPI interface {
 		    > **Notes:**
 		    > * When Universal Directory is enabled, you can only specify profile properties that aren't defined in profile mappings.
 		    > * Omit mapped properties during assignment to minimize assignment errors.
+		    > * Don't use the `scope` parameter to convert between assignment types. To convert a group assignment to an individual assignment, first remove the user from the assigned group, and then create an individual user assignment.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param appId Application ID
@@ -164,6 +165,7 @@ Assigns a user to an app for:
     > **Notes:**
     > * When Universal Directory is enabled, you can only specify profile properties that aren't defined in profile mappings.
     > * Omit mapped properties during assignment to minimize assignment errors.
+    > * Don't use the `scope` parameter to convert between assignment types. To convert a group assignment to an individual assignment, first remove the user from the assigned group, and then create an individual user assignment.
 
     @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
     @param appId Application ID

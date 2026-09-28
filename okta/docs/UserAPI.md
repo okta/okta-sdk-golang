@@ -4,6 +4,7 @@ All URIs are relative to *https://subdomain.okta.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**ClearChromeData**](UserAPI.md#ClearChromeData) | **Post** /api/v1/users/{id}/clear-chrome-data | Clear the managed Chrome profile browsing data
 [**CreateUser**](UserAPI.md#CreateUser) | **Post** /api/v1/users | Create a user
 [**DeleteUser**](UserAPI.md#DeleteUser) | **Delete** /api/v1/users/{id} | Delete a user
 [**GetUser**](UserAPI.md#GetUser) | **Get** /api/v1/users/{id} | Retrieve a user
@@ -12,6 +13,74 @@ Method | HTTP request | Description
 [**ReplaceUser**](UserAPI.md#ReplaceUser) | **Put** /api/v1/users/{id} | Replace a user
 [**UpdateUser**](UserAPI.md#UpdateUser) | **Post** /api/v1/users/{id} | Update a user
 
+
+
+## ClearChromeData
+
+> ClearChromeData(ctx, id).Execute()
+
+Clear the managed Chrome profile browsing data
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
+)
+
+func main() {
+	id := "id_example" // string | An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.UserAPI.ClearChromeData(context.Background(), id).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ClearChromeData``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**id** | **string** | An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiClearChromeDataRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
 
 
 ## CreateUser
@@ -160,7 +229,7 @@ Name | Type | Description  | Notes
 
 ## GetUser
 
-> UserGetSingleton GetUser(ctx, id).ContentType(contentType).Expand(expand).Execute()
+> User GetUser(ctx, id).ContentType(contentType).Execute()
 
 Retrieve a user
 
@@ -181,16 +250,15 @@ import (
 func main() {
 	id := "id_example" // string | An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
 	contentType := "application/json; okta-response=omitCredentials,omitCredentialsLinks" // string | Specifies the media type of the resource. Optional `okta-response` value can be included for performance optimization.  Complex DelAuth configurations may degrade performance when fetching specific parts of the response, and passing this parameter can omit these parts, bypassing the bottleneck.  Enum values for `okta-response`:   * `omitCredentials`: Omits the credentials subobject from the response.   * `omitCredentialsLinks`: Omits the following HAL links from the response: Update password, Change recovery question, Start forgot password flow, Reset password, Reset factors, Unlock.   * `omitTransitioningToStatus`: Omits the `transitioningToStatus` field from the response. (optional)
-	expand := "blocks" // string | An optional parameter to include metadata in the `_embedded` attribute. Valid values: `blocks` or <x-lifecycle class=\"ea\"></x-lifecycle> `classification`. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.GetUser(context.Background(), id).ContentType(contentType).Expand(expand).Execute()
+	resp, r, err := apiClient.UserAPI.GetUser(context.Background(), id).ContentType(contentType).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.GetUser``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetUser`: UserGetSingleton
+	// response from `GetUser`: User
 	fmt.Fprintf(os.Stdout, "Response from `UserAPI.GetUser`: %v\n", resp)
 }
 ```
@@ -212,11 +280,10 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
 
  **contentType** | **string** | Specifies the media type of the resource. Optional &#x60;okta-response&#x60; value can be included for performance optimization.  Complex DelAuth configurations may degrade performance when fetching specific parts of the response, and passing this parameter can omit these parts, bypassing the bottleneck.  Enum values for &#x60;okta-response&#x60;:   * &#x60;omitCredentials&#x60;: Omits the credentials subobject from the response.   * &#x60;omitCredentialsLinks&#x60;: Omits the following HAL links from the response: Update password, Change recovery question, Start forgot password flow, Reset password, Reset factors, Unlock.   * &#x60;omitTransitioningToStatus&#x60;: Omits the &#x60;transitioningToStatus&#x60; field from the response. | 
- **expand** | **string** | An optional parameter to include metadata in the &#x60;_embedded&#x60; attribute. Valid values: &#x60;blocks&#x60; or &lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt; &#x60;classification&#x60;. | 
 
 ### Return type
 
-[**UserGetSingleton**](UserGetSingleton.md)
+[**User**](User.md)
 
 ### Authorization
 
@@ -304,7 +371,7 @@ Name | Type | Description  | Notes
 
 ## ListUsers
 
-> []User ListUsers(ctx).ContentType(contentType).Search(search).Filter(filter).Q(q).After(after).Limit(limit).SortBy(sortBy).SortOrder(sortOrder).Fields(fields).Expand(expand).Execute()
+> []User ListUsers(ctx).ContentType(contentType).Search(search).Filter(filter).Q(q).After(after).Limit(limit).SortBy(sortBy).SortOrder(sortOrder).Fields(fields).Execute()
 
 List all users
 
@@ -324,19 +391,18 @@ import (
 
 func main() {
 	contentType := "application/json; okta-response=omitCredentials,omitCredentialsLinks" // string | Specifies the media type of the resource. Optional `okta-response` value can be included for performance optimization.  Complex DelAuth configurations may degrade performance when fetching specific parts of the response, and passing this parameter can omit these parts, bypassing the bottleneck.  Enum values for `okta-response`:   * `omitCredentials`: Omits the credentials subobject from the response.   * `omitCredentialsLinks`: Omits the following HAL links from the response: Update password, Change recovery question, Start forgot password flow, Reset password, Reset factors, Unlock.   * `omitTransitioningToStatus`: Omits the `transitioningToStatus` field from the response. (optional)
-	search := "status%20eq%20%22STAGED%22" // string | Searches for users with a supported filtering expression for most properties. Okta recommends this query parameter because it provides the largest range of search options and optimal performance.  > **Note:** Using an overly complex or long search query can result in an error.  This operation supports [pagination](https://developer.okta.com/docs/api/#pagination). Use an ID lookup for records that you update to ensure your results contain the latest data. Returned users include those with the `DEPROVISIONED` status.  Property names in the search parameter are case sensitive, whereas operators (`eq`, `sw`, and so on) and string values are case insensitive. Unlike with user logins, diacritical marks are significant in search string values: a search for `isaac.brock` finds `Isaac.Brock`, but doesn't find a property whose value is `isáàc.bröck`.  This operation requires [URL encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). See [Special characters](https://developer.okta.com/docs/api/#special-characters).  This operation searches many properties:   * Any user profile attribute, including custom-defined attributes   * The top-level properties: `id`, `status`, `created`, `activated`, `statusChanged`, and `lastUpdated`   * The [user type](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/#tag/UserType/operation/updateUserType) accessed as `type.id`   * Properties that have array values  > **Note:** <x-lifecycle class=\"ea\"></x-lifecycle> The ability to search by user classification is available as an [Early Access](https://developer.okta.com/docs/api/openapi/okta-management/guides/release-lifecycle/#early-access-ea) feature. The `classification.type` property cannot be used in conjunction with other search terms. You can search using `classification.type eq \"LITE\"` or `classification.type eq \"STANDARD\"`.  You can also use `sortBy` and `sortOrder` parameters. The `ne` (not equal) operator isn't supported, but you can obtain the same result by using `lt ... or ... gt`. For example, to see all users except those that have a status of `STAGED`, use `(status lt \"STAGED\" or status gt \"STAGED\")`.  You can search properties that are arrays. If any element matches the search term, the entire array (object) is returned. Okta follows the [SCIM Protocol Specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) for searching arrays. You can search multiple arrays, multiple values in an array, as well as using the standard logical and filtering operators. See [Filter](https://developer.okta.com/docs/reference/core-okta-api/#filter).  Searches for users can be filtered by the following operators: `sw`, `eq`, and `co`. You can only use `co` with these select user profile attributes: `profile.firstName`, `profile.lastName`, `profile.email`, and `profile.login`. See [Operators](https://developer.okta.com/docs/api/#operators). (optional)
-	filter := "status%20eq%20%22LOCKED_OUT%22" // string | Filters users with a supported expression for a subset of properties.  > **Note:** Returned users include those with the `DEPROVISIONED` status.  This requires [URL encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). For example, `filter=lastUpdated gt \"2013-06-01T00:00:00.000Z\"` is encoded as `filter=lastUpdated%20gt%20%222013-06-01T00:00:00.000Z%22`. Filtering is case-sensitive for property names and query values, while operators are case-insensitive.  Filtering supports the following limited number of properties: `status`, `lastUpdated`, `id`, `profile.login`, `profile.email`, `profile.firstName`, and `profile.lastName`.  Additionally, filtering supports only the equal `eq` operator from the standard Okta API filtering semantics, except in the case of the `lastUpdated` property. This property can also use the inequality operators (`gt`, `ge`, `lt`, and `le`). For logical operators, only the logical operators `and` and `or` are supported. The `not` operator isn't supported. See [Filter](https://developer.okta.com/docs/api/#filter) and [Operators](https://developer.okta.com/docs/api/#operators). (optional)
+	search := "status eq "STAGED"" // string | Searches for users with a supported filtering expression for most properties. Okta recommends this query parameter because it provides the largest range of search options and optimal performance.  > **Note:** Using an overly complex or long search query can result in an error.  This operation supports [pagination](https://developer.okta.com/docs/api/#pagination). Use an ID lookup for records that you update to ensure your results contain the latest data. Returned users include those with the `DEPROVISIONED` status.  Property names in the search parameter are case sensitive, whereas operators (`eq`, `sw`, and so on) and string values are case insensitive. Unlike with user logins, diacritical marks are significant in search string values: a search for `isaac.brock` finds `Isaac.Brock`, but doesn't find a property whose value is `isáàc.bröck`.  This operation requires [URL encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). See [Special characters](https://developer.okta.com/docs/api/#special-characters).  This operation searches many properties:   * Any user profile attribute, including custom-defined attributes   * The top-level properties: `id`, `status`, `created`, `activated`, `statusChanged`, and `lastUpdated`   * The [user type](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/#tag/UserType/operation/updateUserType) accessed as `type.id`   * Properties that have array values  > **Note:** <x-lifecycle class=\"ea\"></x-lifecycle> The ability to search by user classification is available as an [Early Access](https://developer.okta.com/docs/api/openapi/okta-management/guides/release-lifecycle/#early-access-ea) feature. The `classification.type` property cannot be used in conjunction with other search terms. You can search using `classification.type eq \"LITE\"` or `classification.type eq \"STANDARD\"`.  You can also use `sortBy` and `sortOrder` parameters. The `ne` (not equal) operator isn't supported, but you can obtain the same result by using `lt ... or ... gt`. For example, to see all users except those that have a status of `STAGED`, use `(status lt \"STAGED\" or status gt \"STAGED\")`.  You can search properties that are arrays. If any element matches the search term, the entire array (object) is returned. Okta follows the [SCIM Protocol Specification](https://tools.ietf.org/html/rfc7644#section-3.4.2.2) for searching arrays. You can search multiple arrays, multiple values in an array, as well as using the standard logical and filtering operators. See [Filter](https://developer.okta.com/docs/reference/core-okta-api/#filter).  Searches for users can be filtered by the following operators: `sw`, `eq`, and `co`. You can only use `co` with these select user profile attributes: `profile.firstName`, `profile.lastName`, `profile.email`, and `profile.login`. See [Operators](https://developer.okta.com/docs/api/#operators). (optional)
+	filter := "status eq "LOCKED_OUT"" // string | Filters users with a supported expression for a subset of properties.  > **Note:** Returned users include those with the `DEPROVISIONED` status.  This requires [URL encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). For example, `filter=lastUpdated gt \"2013-06-01T00:00:00.000Z\"` is encoded as `filter=lastUpdated%20gt%20%222013-06-01T00:00:00.000Z%22`. Filtering is case-sensitive for property names and query values, while operators are case-insensitive.  Filtering supports the following limited number of properties: `status`, `lastUpdated`, `id`, `profile.login`, `profile.email`, `profile.firstName`, and `profile.lastName`.  Additionally, filtering supports only the equal `eq` operator from the standard Okta API filtering semantics, except in the case of the `lastUpdated` property. This property can also use the inequality operators (`gt`, `ge`, `lt`, and `le`). For logical operators, only the logical operators `and` and `or` are supported. The `not` operator isn't supported. See [Filter](https://developer.okta.com/docs/api/#filter) and [Operators](https://developer.okta.com/docs/api/#operators). (optional)
 	q := "q_example" // string | Finds users who match the specified query. Use the `q` parameter for simple queries, such as a lookup of users by name when creating a people picker.  The value of `q` is matched against `firstName`, `lastName`, or `email`. This performs a `startsWith` match, but this is an implementation detail and can change without notice. You don't need to specify `firstName`, `lastName`, or `email`.  > **Notes:** > * Using the `q` parameter in a request omits users that have a status of `DEPROVISIONED`. To return all users, use a `filter` or `search` query instead. > * This doesn't support pagination, but you can use `limit`. > * This isn't designed for large data sets. For optimal performance, use the `search` parameter instead. (optional)
 	after := "after_example" // string | The cursor to use for pagination. It is an opaque string that specifies your current location in the list and is obtained from the `Link` response header. See [Pagination](https://developer.okta.com/docs/api/#pagination) and [Link header](https://developer.okta.com/docs/api/#link-header). (optional)
 	limit := int32(56) // int32 | Specifies the number of results returned. Defaults to 10 if `q` is provided.  You can use `limit` with `after` to define the cursor location in the data set and manage the user records per page. (optional) (default to 200)
 	sortBy := "sortBy_example" // string | Specifies the field to sort by (for search queries only). This can be any single property, for example `sortBy=profile.lastName`. Users with the same value for the `sortBy` property are ordered by `id`. Use with `sortOrder` to control the order of results. (optional)
 	sortOrder := "sortOrder_example" // string | Specifies sort order: `asc` or `desc` (for search queries only). This parameter is ignored if `sortBy` isn't present. (optional) (default to "asc")
 	fields := "id,status,profile:(firstName,lastName,city)" // string | Specifies a select set of user properties to query. Any other properties will be filtered out of the returned users. This is often called field projections in APIs, which can reduce payload size, improve performance, and limit unneccessary data exposure.  Requested fields should be comma-separated. Comma-separate the fields and place sub-fields in the profile object inside a `profile:()` directive, for example `profile:(firstName, city)`. The `id` field is always included, regardless of whether it's specified in the `fields` parameter. (optional)
-	expand := "classification" // string | <x-lifecycle-container><x-lifecycle class=\"ea\"></x-lifecycle></x-lifecycle-container>A parameter to include metadata in the `_embedded` property. Supported value: `classification`. (optional)
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.UserAPI.ListUsers(context.Background()).ContentType(contentType).Search(search).Filter(filter).Q(q).After(after).Limit(limit).SortBy(sortBy).SortOrder(sortOrder).Fields(fields).Expand(expand).Execute()
+	resp, r, err := apiClient.UserAPI.ListUsers(context.Background()).ContentType(contentType).Search(search).Filter(filter).Q(q).After(after).Limit(limit).SortBy(sortBy).SortOrder(sortOrder).Fields(fields).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `UserAPI.ListUsers``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -366,7 +432,6 @@ Name | Type | Description  | Notes
  **sortBy** | **string** | Specifies the field to sort by (for search queries only). This can be any single property, for example &#x60;sortBy&#x3D;profile.lastName&#x60;. Users with the same value for the &#x60;sortBy&#x60; property are ordered by &#x60;id&#x60;. Use with &#x60;sortOrder&#x60; to control the order of results. | 
  **sortOrder** | **string** | Specifies sort order: &#x60;asc&#x60; or &#x60;desc&#x60; (for search queries only). This parameter is ignored if &#x60;sortBy&#x60; isn&#39;t present. | [default to &quot;asc&quot;]
  **fields** | **string** | Specifies a select set of user properties to query. Any other properties will be filtered out of the returned users. This is often called field projections in APIs, which can reduce payload size, improve performance, and limit unneccessary data exposure.  Requested fields should be comma-separated. Comma-separate the fields and place sub-fields in the profile object inside a &#x60;profile:()&#x60; directive, for example &#x60;profile:(firstName, city)&#x60;. The &#x60;id&#x60; field is always included, regardless of whether it&#39;s specified in the &#x60;fields&#x60; parameter. | 
- **expand** | **string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;A parameter to include metadata in the &#x60;_embedded&#x60; property. Supported value: &#x60;classification&#x60;. | 
 
 ### Return type
 

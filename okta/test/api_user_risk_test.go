@@ -25,45 +25,213 @@ package okta
 
 import (
 	"context"
+	"encoding/json"
+	"errors"
+	"net/http"
+	"slices"
 	"testing"
 
-	openapiclient "github.com/okta/okta-sdk-golang/v6/okta"
+	okta "github.com/okta/okta-sdk-golang/v6/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
-func Test_okta_UserRiskAPIService(t *testing.T) {
+// nonExistentUserRiskUserId is a well formed user ID that no org has.
+const nonExistentUserRiskUserId = "00u00000000000000000"
 
-	configuration, err := openapiclient.NewConfiguration()
+func Test_okta_UserRiskAPIService(t *testing.T) {
+	err := okta.ValidateTestEnvironment()
+	if err != nil {
+		t.Skip("Test environment not configured:", err)
+	}
+
+	configuration, err := okta.NewConfiguration()
 	require.Nil(t, err)
-	apiClient := openapiclient.NewAPIClient(configuration)
+	apiClient := okta.NewAPIClient(configuration)
+	testDataManager := okta.GetTestDataManager()
+
+	defer testDataManager.CleanupAllTestUsers()
+
+	oktaErrorCode := func(err error) string {
+		var apiErr *okta.GenericOpenAPIError
+		if !errors.As(err, &apiErr) {
+			return ""
+		}
+
+		var oktaErr struct {
+			ErrorCode string `json:"errorCode"`
+		}
+		if jsonErr := json.Unmarshal(apiErr.Body(), &oktaErr); jsonErr != nil {
+			return ""
+		}
+
+		return oktaErr.ErrorCode
+	}
+
+	skipIfUserRiskUnavailable := func(t *testing.T, httpRes *okta.APIResponse, err error) {
+		t.Helper()
+
+		if oktaErrorCode(err) == "E0000015" {
+			status := "no response"
+			if httpRes != nil {
+				status = httpRes.Status
+			}
+
+			t.Skipf("User risk is not enabled for this org (%s, errorCode E0000015). It needs the Identity Threat Protection entitlement and the okta.userRisk scopes", status)
+		}
+
+		if httpRes != nil && httpRes.StatusCode == http.StatusForbidden {
+			t.Skip("User risk is forbidden for this org (403). It needs the Identity Threat Protection entitlement and the okta.userRisk scopes")
+		}
+	}
+
+	createTestUser := func(t *testing.T) string {
+		t.Helper()
+
+		createdUser, err := testDataManager.CreateTestUser()
+		require.NoError(t, err, "Failed to create test user")
+		require.NotNil(t, createdUser.Id)
+
+		return *createdUser.Id
+	}
+
+	// upsertRisk sets a risk level on a user. The spec documents both 200 and 201 for
+	// this upsert - 201 when the risk object is created, 200 when an existing one is
+	// updated - so either is accepted.
+	upsertRisk := func(t *testing.T, userId, riskLevel, riskReason string) *okta.UserRiskPutResponse {
+		t.Helper()
+
+		riskRequest := okta.NewUserRiskRequest(riskLevel)
+		riskRequest.SetRiskReason(riskReason)
+
+		resp, httpRes, err := apiClient.UserRiskAPI.UpsertUserRisk(context.Background(), userId).UserRiskRequest(*riskRequest).Execute()
+		skipIfUserRiskUnavailable(t, httpRes, err)
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		require.NotNil(t, httpRes)
+		assert.True(t, slices.Contains([]int{http.StatusOK, http.StatusCreated}, httpRes.StatusCode),
+			"Upsert should return 200 or 201, got %d", httpRes.StatusCode)
+
+		return resp
+	}
 
 	t.Run("Test UserRiskAPIService GetUserRisk", func(t *testing.T) {
-
-		t.Skip("skip test") // remove to run test
-
-		var userId string
+		userId := createTestUser(t)
 
 		resp, httpRes, err := apiClient.UserRiskAPI.GetUserRisk(context.Background(), userId).Execute()
+		skipIfUserRiskUnavailable(t, httpRes, err)
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
+		assert.Equal(t, http.StatusOK, httpRes.StatusCode)
 
+		// The response is a oneOf keyed on riskLevel: NONE resolves to UserRiskLevelNone,
+		// LOW/MEDIUM/HIGH to UserRiskLevelExists. A brand new user carries no risk.
+		actualInstance := resp.GetActualInstance()
+		require.NotNil(t, actualInstance, "Response should carry a user risk instance")
+
+		riskLevelNone, ok := actualInstance.(*okta.UserRiskLevelNone)
+		require.True(t, ok, "A newly created user should have no risk, got %T", actualInstance)
+		require.NotNil(t, riskLevelNone.RiskLevel)
+		assert.Equal(t, "NONE", *riskLevelNone.RiskLevel)
 	})
+
+	assertRiskExists := func(t *testing.T, userId string) {
+		t.Helper()
+
+		getResp, getHttpRes, err := apiClient.UserRiskAPI.GetUserRisk(context.Background(), userId).Execute()
+		require.Nil(t, err)
+		require.NotNil(t, getHttpRes)
+		assert.Equal(t, http.StatusOK, getHttpRes.StatusCode)
+
+		riskLevelExists, ok := getResp.GetActualInstance().(*okta.UserRiskLevelExists)
+		require.True(t, ok, "A user carrying risk should resolve to UserRiskLevelExists, got %T", getResp.GetActualInstance())
+		require.NotNil(t, riskLevelExists.RiskLevel)
+		assert.Contains(t, []string{"HIGH", "MEDIUM", "LOW"}, *riskLevelExists.RiskLevel)
+	}
 
 	t.Run("Test UserRiskAPIService UpsertUserRisk", func(t *testing.T) {
+		userId := createTestUser(t)
 
-		t.Skip("skip test") // remove to run test
+		const riskReason = "Set by SDK tests"
+		resp := upsertRisk(t, userId, "HIGH", riskReason)
 
-		var userId string
+		require.NotNil(t, resp.RiskLevel)
+		assert.Equal(t, "HIGH", *resp.RiskLevel)
+		if resp.Reason != nil {
+			assert.Equal(t, riskReason, *resp.Reason)
+		}
 
-		resp, httpRes, err := apiClient.UserRiskAPI.UpsertUserRisk(context.Background(), userId).Execute()
-
-		require.Nil(t, err)
-		require.NotNil(t, resp)
-		assert.Equal(t, 200, httpRes.StatusCode)
-
+		// The user now has a risk object, so the GET crosses to the UserRiskLevelExists
+		// side of the oneOf instead of UserRiskLevelNone
+		assertRiskExists(t, userId)
 	})
 
+	t.Run("Test UserRiskAPIService UpsertUserRisk Updates An Existing Risk", func(t *testing.T) {
+		userId := createTestUser(t)
+
+		// First call creates the risk object, the second updates it
+		createResp := upsertRisk(t, userId, "HIGH", "Set by SDK tests")
+		require.NotNil(t, createResp.RiskLevel)
+		assert.Equal(t, "HIGH", *createResp.RiskLevel)
+
+		const lowerReason = "Lowered by SDK tests"
+		updateResp := upsertRisk(t, userId, "LOW", lowerReason)
+		require.NotNil(t, updateResp.RiskLevel)
+		assert.Equal(t, "LOW", *updateResp.RiskLevel)
+		if updateResp.Reason != nil {
+			assert.Equal(t, lowerReason, *updateResp.Reason)
+		}
+
+		assertRiskExists(t, userId)
+	})
+
+	t.Run("Test UserRiskAPIService Error Handling - Upsert NONE Is Rejected", func(t *testing.T) {
+		userId := createTestUser(t)
+
+		upsertRisk(t, userId, "MEDIUM", "Set by SDK tests")
+
+		riskRequest := okta.NewUserRiskRequest("NONE")
+
+		_, httpRes, err := apiClient.UserRiskAPI.UpsertUserRisk(context.Background(), userId).UserRiskRequest(*riskRequest).Execute()
+		skipIfUserRiskUnavailable(t, httpRes, err)
+
+		assert.NotNil(t, err)
+		require.NotNil(t, httpRes)
+		assert.Equal(t, http.StatusBadRequest, httpRes.StatusCode)
+
+		// The rejected call didn't clear the risk set above
+		assertRiskExists(t, userId)
+	})
+
+	t.Run("Test UserRiskAPIService Error Handling - Get Risk For Nonexistent User", func(t *testing.T) {
+		_, httpRes, err := apiClient.UserRiskAPI.GetUserRisk(context.Background(), nonExistentUserRiskUserId).Execute()
+		skipIfUserRiskUnavailable(t, httpRes, err)
+
+		assert.NotNil(t, err)
+		assert.Equal(t, http.StatusNotFound, httpRes.StatusCode)
+	})
+
+	t.Run("Test UserRiskAPIService Error Handling - Upsert Risk For Nonexistent User", func(t *testing.T) {
+		riskRequest := okta.NewUserRiskRequest("HIGH")
+
+		_, httpRes, err := apiClient.UserRiskAPI.UpsertUserRisk(context.Background(), nonExistentUserRiskUserId).UserRiskRequest(*riskRequest).Execute()
+		skipIfUserRiskUnavailable(t, httpRes, err)
+
+		assert.NotNil(t, err)
+		assert.Equal(t, http.StatusNotFound, httpRes.StatusCode)
+	})
+
+	t.Run("Test UserRiskAPIService Error Handling - Upsert Invalid Risk Level", func(t *testing.T) {
+		userId := createTestUser(t)
+
+		riskRequest := okta.NewUserRiskRequest("NOT_A_RISK_LEVEL")
+
+		_, httpRes, err := apiClient.UserRiskAPI.UpsertUserRisk(context.Background(), userId).UserRiskRequest(*riskRequest).Execute()
+		skipIfUserRiskUnavailable(t, httpRes, err)
+
+		assert.NotNil(t, err)
+		assert.Equal(t, http.StatusBadRequest, httpRes.StatusCode)
+	})
 }

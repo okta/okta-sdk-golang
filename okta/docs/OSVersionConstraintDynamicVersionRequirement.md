@@ -4,9 +4,9 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | Pointer to **string** | Indicates the type of the dynamic Windows version requirement | [optional] 
-**DistanceFromLatestMajor** | Pointer to **int32** | Indicates the distance from the latest Windows major version | [optional] 
-**LatestSecurityPatch** | Pointer to **bool** | Indicates whether the policy requires Windows devices to be on the latest security patch | [optional] 
+**Type** | Pointer to **string** | Indicates the type of the dynamic OS version requirement | [optional] 
+**DistanceFromLatestMajor** | Pointer to **int32** | Indicates the distance from the latest major version | [optional] 
+**LatestSecurityPatch** | Pointer to **bool** | Indicates whether the device needs to be on the latest security patch | [optional] 
 
 ## Methods
 

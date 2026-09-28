@@ -30,7 +30,7 @@ import (
 // checks if the UserSchemaPublic type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &UserSchemaPublic{}
 
-// UserSchemaPublic All custom profile properties are defined in a profile subschema with the resolution scope `#custom`.  > **Notes:** > * When you refer to custom profile attributes that differ only by case, name collisions occur. This includes naming custom profile attributes the same as base profile attributes, for example, `firstName` and `FirstName`. > * Certain attributes are reserved and can't be used for custom user profiles. See [Review reserved attributes](https://help.okta.com/okta_help.htm?type=oie&id=reserved-attributes).
+// UserSchemaPublic All custom profile properties are defined in a profile subschema with the resolution scope `#custom`.  > **Notes:**  > * When you refer to custom profile attributes that differ only by case, name collisions occur. This includes naming custom profile attributes the same as base profile attributes, for example, `firstName` and `FirstName`. > * Certain attributes are reserved and can't be used for custom user profiles. See [Review reserved attributes](https://help.okta.com/okta_help.htm?type=oie&id=reserved-attributes).
 type UserSchemaPublic struct {
 	// The subschema name
 	Id *string `json:"id,omitempty"`

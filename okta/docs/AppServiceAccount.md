@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **Name** | **string** | The user-defined name for the app service account | 
 **OwnerGroupIds** | Pointer to **[]string** | A list of IDs of the Okta groups who own the app service account | [optional] 
 **OwnerUserIds** | Pointer to **[]string** | A list of IDs of the Okta users who own the app service account | [optional] 
-**Password** | Pointer to **string** | The app service account password. Required for apps that don&#39;t have provisioning enabled or don&#39;t support password synchronization. | [optional] 
+**Password** | **string** | The app service account password | 
 **Status** | Pointer to **string** | Describes the current status of a service account | [optional] [readonly] 
 **StatusDetail** | Pointer to **string** | Describes the detailed status of a service account | [optional] [readonly] 
 **Username** | **string** | The username that serves as the direct link to your managed app account. Ensure that this value precisely matches the identifier of the target app account. | 
@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 
 ### NewAppServiceAccount
 
-`func NewAppServiceAccount(containerOrn string, name string, username string, ) *AppServiceAccount`
+`func NewAppServiceAccount(containerOrn string, name string, password string, username string, ) *AppServiceAccount`
 
 NewAppServiceAccount instantiates a new AppServiceAccount object
 This constructor will assign default values to properties that have it defined,
@@ -297,11 +297,6 @@ and a boolean to check if the value has been set.
 
 SetPassword sets Password field to given value.
 
-### HasPassword
-
-`func (o *AppServiceAccount) HasPassword() bool`
-
-HasPassword returns a boolean if a field has been set.
 
 ### GetStatus
 

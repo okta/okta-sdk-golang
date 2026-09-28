@@ -25,7 +25,6 @@ package okta
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the IdentityProviderProperties type satisfies the MappedNullable interface at compile time
@@ -37,11 +36,15 @@ type IdentityProviderProperties struct {
 	AalValue NullableString `json:"aalValue,omitempty"`
 	// The additional Assurance Methods References (AMR) values for Smart Card IdPs. Applies to `X509` IdP type.
 	AdditionalAmr []string `json:"additionalAmr,omitempty"`
+	// Enables authenticated users to enroll a Smart Card if the users can't be identified using the configured `matchAttribute`. Applies to `X509` IdP type.  > **Note:** Enrollment requires a PIN if the Smart Card is PIN-protected. And enrollment is also blocked if the X.509 certificate contains restricted attributes (`login`, `email`, `secondEmail`, and configured attributes that are used in multiple identifiers).
+	AllowDynamicUserMatching *bool `json:"allowDynamicUserMatching,omitempty"`
+	// Enables attribute synchronization from the X.509 certificate to the user's Okta profile. If it's set to `true`, Okta overwrites user profile attributes with values found in the X.509 certificate. Applies to `X509` IdP type.  > **Note:** Some attributes are restricted and won't be updated, including `login`, `email`, `secondEmail`, and configured attributes that are used in multiple identifiers.
+	AllowUserUpdates *bool `json:"allowUserUpdates,omitempty"`
 	// The [type of identity verification](https://developers.login.gov/oidc/#ial-values) (IAL) value for the Login.gov IdP. See [Add a Login.gov IdP](https://developer.okta.com/docs/guides/add-logingov-idp/). Applies to `LOGINGOV` and `LOGINGOV_SANDBOX` IdP types.
 	IalValue    NullableString                         `json:"ialValue,omitempty"`
 	IdvMetadata *IdentityProviderPropertiesIdvMetadata `json:"idvMetadata,omitempty"`
-	// The ID of the inquiry template from your Persona dashboard. The inquiry template always starts with `itmpl`. Applies to the `IDV_PERSONA` IdP type.
-	InquiryTemplateId    string `json:"inquiryTemplateId"`
+	// The ID of the inquiry template from your Persona dashboard. The inquiry template always starts with `itmpl`. Applies to the legacy `IDV_PERSONA` IdP type.
+	InquiryTemplateId    *string `json:"inquiryTemplateId,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -51,9 +54,12 @@ type _IdentityProviderProperties IdentityProviderProperties
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIdentityProviderProperties(inquiryTemplateId string) *IdentityProviderProperties {
+func NewIdentityProviderProperties() *IdentityProviderProperties {
 	this := IdentityProviderProperties{}
-	this.InquiryTemplateId = inquiryTemplateId
+	var allowDynamicUserMatching bool = false
+	this.AllowDynamicUserMatching = &allowDynamicUserMatching
+	var allowUserUpdates bool = false
+	this.AllowUserUpdates = &allowUserUpdates
 	return &this
 }
 
@@ -62,6 +68,10 @@ func NewIdentityProviderProperties(inquiryTemplateId string) *IdentityProviderPr
 // but it doesn't guarantee that properties required by API are set
 func NewIdentityProviderPropertiesWithDefaults() *IdentityProviderProperties {
 	this := IdentityProviderProperties{}
+	var allowDynamicUserMatching bool = false
+	this.AllowDynamicUserMatching = &allowDynamicUserMatching
+	var allowUserUpdates bool = false
+	this.AllowUserUpdates = &allowUserUpdates
 	return &this
 }
 
@@ -141,6 +151,70 @@ func (o *IdentityProviderProperties) SetAdditionalAmr(v []string) {
 	o.AdditionalAmr = v
 }
 
+// GetAllowDynamicUserMatching returns the AllowDynamicUserMatching field value if set, zero value otherwise.
+func (o *IdentityProviderProperties) GetAllowDynamicUserMatching() bool {
+	if o == nil || IsNil(o.AllowDynamicUserMatching) {
+		var ret bool
+		return ret
+	}
+	return *o.AllowDynamicUserMatching
+}
+
+// GetAllowDynamicUserMatchingOk returns a tuple with the AllowDynamicUserMatching field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IdentityProviderProperties) GetAllowDynamicUserMatchingOk() (*bool, bool) {
+	if o == nil || IsNil(o.AllowDynamicUserMatching) {
+		return nil, false
+	}
+	return o.AllowDynamicUserMatching, true
+}
+
+// HasAllowDynamicUserMatching returns a boolean if a field has been set.
+func (o *IdentityProviderProperties) HasAllowDynamicUserMatching() bool {
+	if o != nil && !IsNil(o.AllowDynamicUserMatching) {
+		return true
+	}
+
+	return false
+}
+
+// SetAllowDynamicUserMatching gets a reference to the given bool and assigns it to the AllowDynamicUserMatching field.
+func (o *IdentityProviderProperties) SetAllowDynamicUserMatching(v bool) {
+	o.AllowDynamicUserMatching = &v
+}
+
+// GetAllowUserUpdates returns the AllowUserUpdates field value if set, zero value otherwise.
+func (o *IdentityProviderProperties) GetAllowUserUpdates() bool {
+	if o == nil || IsNil(o.AllowUserUpdates) {
+		var ret bool
+		return ret
+	}
+	return *o.AllowUserUpdates
+}
+
+// GetAllowUserUpdatesOk returns a tuple with the AllowUserUpdates field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IdentityProviderProperties) GetAllowUserUpdatesOk() (*bool, bool) {
+	if o == nil || IsNil(o.AllowUserUpdates) {
+		return nil, false
+	}
+	return o.AllowUserUpdates, true
+}
+
+// HasAllowUserUpdates returns a boolean if a field has been set.
+func (o *IdentityProviderProperties) HasAllowUserUpdates() bool {
+	if o != nil && !IsNil(o.AllowUserUpdates) {
+		return true
+	}
+
+	return false
+}
+
+// SetAllowUserUpdates gets a reference to the given bool and assigns it to the AllowUserUpdates field.
+func (o *IdentityProviderProperties) SetAllowUserUpdates(v bool) {
+	o.AllowUserUpdates = &v
+}
+
 // GetIalValue returns the IalValue field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *IdentityProviderProperties) GetIalValue() string {
 	if o == nil || IsNil(o.IalValue.Get()) {
@@ -216,28 +290,36 @@ func (o *IdentityProviderProperties) SetIdvMetadata(v IdentityProviderProperties
 	o.IdvMetadata = &v
 }
 
-// GetInquiryTemplateId returns the InquiryTemplateId field value
+// GetInquiryTemplateId returns the InquiryTemplateId field value if set, zero value otherwise.
 func (o *IdentityProviderProperties) GetInquiryTemplateId() string {
-	if o == nil {
+	if o == nil || IsNil(o.InquiryTemplateId) {
 		var ret string
 		return ret
 	}
-
-	return o.InquiryTemplateId
+	return *o.InquiryTemplateId
 }
 
-// GetInquiryTemplateIdOk returns a tuple with the InquiryTemplateId field value
+// GetInquiryTemplateIdOk returns a tuple with the InquiryTemplateId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityProviderProperties) GetInquiryTemplateIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.InquiryTemplateId) {
 		return nil, false
 	}
-	return &o.InquiryTemplateId, true
+	return o.InquiryTemplateId, true
 }
 
-// SetInquiryTemplateId sets field value
+// HasInquiryTemplateId returns a boolean if a field has been set.
+func (o *IdentityProviderProperties) HasInquiryTemplateId() bool {
+	if o != nil && !IsNil(o.InquiryTemplateId) {
+		return true
+	}
+
+	return false
+}
+
+// SetInquiryTemplateId gets a reference to the given string and assigns it to the InquiryTemplateId field.
 func (o *IdentityProviderProperties) SetInquiryTemplateId(v string) {
-	o.InquiryTemplateId = v
+	o.InquiryTemplateId = &v
 }
 
 func (o IdentityProviderProperties) MarshalJSON() ([]byte, error) {
@@ -256,13 +338,21 @@ func (o IdentityProviderProperties) ToMap() (map[string]interface{}, error) {
 	if o.AdditionalAmr != nil {
 		toSerialize["additionalAmr"] = o.AdditionalAmr
 	}
+	if !IsNil(o.AllowDynamicUserMatching) {
+		toSerialize["allowDynamicUserMatching"] = o.AllowDynamicUserMatching
+	}
+	if !IsNil(o.AllowUserUpdates) {
+		toSerialize["allowUserUpdates"] = o.AllowUserUpdates
+	}
 	if o.IalValue.IsSet() {
 		toSerialize["ialValue"] = o.IalValue.Get()
 	}
 	if !IsNil(o.IdvMetadata) {
 		toSerialize["idvMetadata"] = o.IdvMetadata
 	}
-	toSerialize["inquiryTemplateId"] = o.InquiryTemplateId
+	if !IsNil(o.InquiryTemplateId) {
+		toSerialize["inquiryTemplateId"] = o.InquiryTemplateId
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -272,27 +362,6 @@ func (o IdentityProviderProperties) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *IdentityProviderProperties) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"inquiryTemplateId",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varIdentityProviderProperties := _IdentityProviderProperties{}
 
 	err = json.Unmarshal(data, &varIdentityProviderProperties)
@@ -308,6 +377,8 @@ func (o *IdentityProviderProperties) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "aalValue")
 		delete(additionalProperties, "additionalAmr")
+		delete(additionalProperties, "allowDynamicUserMatching")
+		delete(additionalProperties, "allowUserUpdates")
 		delete(additionalProperties, "ialValue")
 		delete(additionalProperties, "idvMetadata")
 		delete(additionalProperties, "inquiryTemplateId")

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Digest** | Pointer to **string** | &lt;x-lifecycle-container&gt;&lt;x-lifecycle class&#x3D;\&quot;ea\&quot;&gt;&lt;/x-lifecycle&gt;&lt;/x-lifecycle-container&gt;XML Digest Algorithm setting for cryptographically hashing &#x60;&lt;AuthnRequest&gt;&#x60; messages sent to the IdP &gt; **Note:**  This property is ignored when you disable request signatures (&#x60;scope&#x60; set as &#x60;NONE&#x60;). | [optional] 
+**Digest** | Pointer to **string** | XML Digest Algorithm setting for cryptographically hashing &#x60;&lt;AuthnRequest&gt;&#x60; messages sent to the IdP &gt; **Note:**  This property is ignored when you disable request signatures (&#x60;scope&#x60; set as &#x60;NONE&#x60;). | [optional] 
 **Signature** | Pointer to [**SamlRequestSignatureAlgorithm**](SamlRequestSignatureAlgorithm.md) |  | [optional] 
 
 ## Methods
