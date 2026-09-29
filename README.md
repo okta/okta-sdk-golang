@@ -64,10 +64,10 @@ SDK.
 To install the Okta Golang SDK in your project:
   - Create a module file by running `go mod init`
     - You can skip this step if you already use `go mod`
-  - Run `go get github.com/okta/okta-sdk-golang/v6@latest`. This will add
+  - Run `go get github.com/okta/okta-sdk-golang/v7@latest`. This will add
     the SDK to your `go.mod` file.
   - Import the package in your project with `import
-   "github.com/okta/okta-sdk-golang/v6/okta"`
+   "github.com/okta/okta-sdk-golang/v7/okta"`
 
 ### Installing legacy version
 
@@ -95,7 +95,7 @@ Construct a client instance by passing it your Okta domain name and API token:
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v6/okta"
+	"github.com/okta/okta-sdk-golang/v7/okta"
 )
 
 func main() {
@@ -174,7 +174,7 @@ any other configuration.
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v6/okta"
+	"github.com/okta/okta-sdk-golang/v7/okta"
 )
 
 func main() {
@@ -203,7 +203,7 @@ should construct your own HTTP requests.
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v6/okta"
+	"github.com/okta/okta-sdk-golang/v7/okta"
 )
 
 func main() {
@@ -230,7 +230,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v6/okta"
+	"github.com/okta/okta-sdk-golang/v7/okta"
 )
 
 func main() {
@@ -260,7 +260,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v6/okta"
+	"github.com/okta/okta-sdk-golang/v7/okta"
 )
 
 func main() {
@@ -292,7 +292,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v6/okta"
+	"github.com/okta/okta-sdk-golang/v7/okta"
 )
 
 func main() {
@@ -339,7 +339,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v6/okta"
+	"github.com/okta/okta-sdk-golang/v7/okta"
 )
 
 func main() {
@@ -387,7 +387,7 @@ To delete a user permanently. Only users that have a `DEPROVISIONED` status can 
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v6/okta"
+	"github.com/okta/okta-sdk-golang/v7/okta"
 )
 
 func main() {
@@ -415,7 +415,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v6/okta"
+	"github.com/okta/okta-sdk-golang/v7/okta"
 )
 
 func main() {
@@ -451,7 +451,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v6/okta"
+	"github.com/okta/okta-sdk-golang/v7/okta"
 )
 
 func main() {
@@ -479,7 +479,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v6/okta"
+	"github.com/okta/okta-sdk-golang/v7/okta"
 )
 
 func main() {
@@ -507,7 +507,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v6/okta"
+	"github.com/okta/okta-sdk-golang/v7/okta"
 )
 
 func main() {
@@ -536,7 +536,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v6/okta"
+	"github.com/okta/okta-sdk-golang/v7/okta"
 )
 
 func main() {
@@ -1067,7 +1067,7 @@ We're happy to accept contributions and PRs! Please see the [contribution
 guide](CONTRIBUTING.md) to understand how to structure a contribution.
 
 [devforum]: https://devforum.okta.com/
-[sdkapiref]: https://godoc.org/github.com/okta/okta-sdk-golang/v6/okta
+[sdkapiref]: https://godoc.org/github.com/okta/okta-sdk-golang/v7/okta
 [lang-landing]: https://developer.okta.com/code/go/
 [github-issues]: /okta/okta-sdk-golang/issues
 [github-releases]: /okta/okta-sdk-golang/releases
