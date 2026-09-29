@@ -28,7 +28,7 @@ import (
 	"net/http"
 	"testing"
 
-	okta "github.com/okta/okta-sdk-golang/v6/okta"
+	okta "github.com/okta/okta-sdk-golang/v7/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

@@ -55,9 +55,9 @@ jobs:
 
       - run: make import
 
-      - run: cd okta/v6 && mv go.mod go.sum ../../
+      - run: cd okta/v7 && mv go.mod go.sum ../../
 
-      - run: cd okta && mv v6/* ./ && rm -rf v6
+      - run: cd okta && mv v7/* ./ && rm -rf v7
 
       - name: Commit generated code
         uses: EndBug/add-and-commit@a94899bca583c204427a224a7af87c02f9b325d5
