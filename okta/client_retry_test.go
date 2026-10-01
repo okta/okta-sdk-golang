@@ -204,25 +204,27 @@ func TestAPIClient_doWithRetries(t *testing.T) {
 		}
 
 		server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			if r.URL.Path == "/oauth2/v1/token" && authRequestCount == 0 {
-				authRequestCount++
-				w.WriteHeader(http.StatusBadRequest)
-				w.Write([]byte("invalid_dpop_proof"))
-				return
+			// DPoP-first: the SDK now attaches a proof to the first token request,
+			// so the proofless invalid_dpop_proof round trip no longer happens.
+			// Okta answers the proof-carrying request with a nonce challenge, then
+			// issues the DPoP-bound token on the retry.
+			if r.URL.Path == "/oauth2/v1/token" {
+				require.NotEmpty(t, r.Header.Get("DPoP"), "token request must carry a DPoP proof")
 			}
-			if r.URL.Path == "/oauth2/v1/token" && authRequestCount == 1 {
+			if r.URL.Path == "/oauth2/v1/token" && authRequestCount == 0 {
 				authRequestCount++
 				w.Header().Set("Dpop-Nonce", "test-nonce")
 				w.WriteHeader(http.StatusBadRequest)
 				w.Write([]byte("use_dpop_nonce"))
 				return
 			}
-			if r.URL.Path == "/oauth2/v1/token" && authRequestCount == 2 {
+			if r.URL.Path == "/oauth2/v1/token" && authRequestCount == 1 {
+				authRequestCount++
 				w.Header().Set("Content-Type", "application/json")
 				require.NoError(t, json.NewEncoder(w).Encode(mockTokenResponse))
 				return
 			}
-			if r.URL.Path == "/oauth2/v1/token" && authRequestCount == 3 {
+			if r.URL.Path == "/oauth2/v1/token" && authRequestCount >= 2 {
 				w.WriteHeader(http.StatusInternalServerError)
 				w.Write([]byte("internal_server_error"))
 				return
