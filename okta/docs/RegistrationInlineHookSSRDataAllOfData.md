@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Context** | Pointer to [**RegistrationInlineHookSSRDataAllOfDataContext**](RegistrationInlineHookSSRDataAllOfDataContext.md) |  | [optional] 
-**Action** | Pointer to **string** | The default action the system will take. Will be &#x60;ALLOW&#x60;. &#x60;DENY&#x60; will never be sent to your external service. | [optional] 
+**Action** | Pointer to **string** | The default action your org takes. By default, this value is set to &#x60;ALLOW&#x60;. (In the case of orgs with Identity Threat Protection enabled, a value of &#x60;DENY&#x60; may be set based on threat detection. See [Self-service registration](https://help.okta.com/okta_help.htm?type&#x3D;oie&amp;id&#x3D;itp-ssr)). | [optional] 
 **UserProfile** | Pointer to **map[string]interface{}** | The name-value pairs for each registration-related attribute supplied by the user in the Profile Enrollment form. | [optional] 
 
 ## Methods

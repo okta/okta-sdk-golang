@@ -459,3 +459,104 @@ The following features have been ported to v6:
 - OAuth for Okta authentication
 - Context-based request handling
 - Structured error responses
+
+## Migrating from 7.x to 8.x
+
+Version 8 of the Okta Go SDK is generated from Okta Management API specification 2026.42.1. Some schemas changed in the specification, which changes the generated models. This section covers the changes that require code modifications.
+
+### Installation
+
+Update your `go.mod` file:
+
+```bash
+go get github.com/okta/okta-sdk-golang/v8@latest
+```
+
+Update your import paths:
+
+```go
+import "github.com/okta/okta-sdk-golang/v8/okta"
+```
+
+### Breaking Changes
+
+#### 1. `SamlApplicationSettingsSignOn` boolean fields are now optional
+
+The `allowMultipleAcsEndpoints`, `assertionSigned`, `honorForceAuthn`, `requestCompressed`, and `responseSigned` properties are no longer required in the specification. API responses can omit them, so the SDK no longer fails to unmarshal SAML apps that leave them out ([#594](https://github.com/okta/okta-sdk-golang/issues/594)).
+
+As a result:
+- `NewSamlApplicationSettingsSignOn` no longer takes any arguments.
+- The fields changed from `bool` to `*bool` and are omitted from the JSON request when not set.
+
+**v7:**
+```go
+signOn := okta.NewSamlApplicationSettingsSignOn(false, true, false, false, true)
+
+if signOn.AssertionSigned {
+    // ...
+}
+```
+
+**v8:**
+```go
+signOn := okta.NewSamlApplicationSettingsSignOn()
+signOn.SetAllowMultipleAcsEndpoints(false)
+signOn.SetAssertionSigned(true)
+signOn.SetHonorForceAuthn(false)
+signOn.SetRequestCompressed(false)
+signOn.SetResponseSigned(true)
+
+// GetAssertionSigned returns false when the field isn't set.
+// Use HasAssertionSigned to check whether the field was present in the response.
+if signOn.GetAssertionSigned() {
+    // ...
+}
+```
+
+#### 2. `Scopes` moved from `ProfileEnrollmentPolicyRuleAction` to `PreRegistrationInlineHook`
+
+The `Scopes` field and its `GetScopes`/`SetScopes` methods were removed from `ProfileEnrollmentPolicyRuleAction`. Scopes are now set on each `PreRegistrationInlineHook` and specify which registration flows trigger that hook (`SELF_SERVICE_REGISTRATION`, `PROGRESSIVE_PROFILING`, or both). `scopes` is required when `preRegistrationInlineHooks` is set.
+
+**v7:**
+```go
+hook := okta.NewPreRegistrationInlineHook()
+hook.SetInlineHookId("{inlineHookId}")
+
+action := okta.NewProfileEnrollmentPolicyRuleAction()
+action.SetPreRegistrationInlineHooks([]okta.PreRegistrationInlineHook{*hook})
+action.SetScopes([]string{"SELF_SERVICE_REGISTRATION"})
+```
+
+**v8:**
+```go
+hook := okta.NewPreRegistrationInlineHook()
+hook.SetInlineHookId("{inlineHookId}")
+hook.SetScopes([]string{"SELF_SERVICE_REGISTRATION", "PROGRESSIVE_PROFILING"})
+
+action := okta.NewProfileEnrollmentPolicyRuleAction()
+action.SetPreRegistrationInlineHooks([]okta.PreRegistrationInlineHook{*hook})
+```
+
+#### 3. `AppInstanceSearchType` has a new required `Count` field
+
+`AppInstanceSearchType` now includes `Count`, the number of app instances of that type in the org. For admins with scoped app access, the count only includes apps they can view. Because `count` is required, `NewAppInstanceSearchType` takes it as the first argument.
+
+**v7:**
+```go
+searchType := okta.NewAppInstanceSearchType("{type}")
+```
+
+**v8:**
+```go
+searchType := okta.NewAppInstanceSearchType(0, "{type}")
+count := searchType.GetCount()
+```
+
+#### 4. `ShowSignInWithAPasskeyButton` no longer defaults to `false`
+
+`NewAuthenticatorMethodWebAuthnAllOfSettings` and `NewAuthenticatorMethodWebAuthnAllOfSettingsWithDefaults` no longer set `ShowSignInWithAPasskeyButton` to `false`. The field stays `nil` and is omitted from the request unless you set it. If your code relied on the SDK sending `false`, set it explicitly:
+
+```go
+settings := okta.NewAuthenticatorMethodWebAuthnAllOfSettings()
+settings.SetShowSignInWithAPasskeyButton(false)
+```

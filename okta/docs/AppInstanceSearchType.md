@@ -4,13 +4,14 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Count** | **int32** | Number of app instances of this type in the org. For admins with scoped app access, the count only includes apps they can view. | 
 **Type** | **string** | App Instance type refers to the integration type of the instance. | 
 
 ## Methods
 
 ### NewAppInstanceSearchType
 
-`func NewAppInstanceSearchType(type_ string, ) *AppInstanceSearchType`
+`func NewAppInstanceSearchType(count int32, type_ string, ) *AppInstanceSearchType`
 
 NewAppInstanceSearchType instantiates a new AppInstanceSearchType object
 This constructor will assign default values to properties that have it defined,
@@ -24,6 +25,26 @@ will change when the set of required properties is changed
 NewAppInstanceSearchTypeWithDefaults instantiates a new AppInstanceSearchType object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
+
+### GetCount
+
+`func (o *AppInstanceSearchType) GetCount() int32`
+
+GetCount returns the Count field if non-nil, zero value otherwise.
+
+### GetCountOk
+
+`func (o *AppInstanceSearchType) GetCountOk() (*int32, bool)`
+
+GetCountOk returns a tuple with the Count field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetCount
+
+`func (o *AppInstanceSearchType) SetCount(v int32)`
+
+SetCount sets Count field to given value.
+
 
 ### GetType
 

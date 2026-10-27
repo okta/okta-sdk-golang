@@ -54,7 +54,10 @@ type IdentityProviderUsersAPI interface {
 	/*
 			LinkUserToIdentityProvider Link a user to IdP
 
-			Links an Okta user to an existing SAML or social identity provider (IdP).
+			Links an Okta user to an existing identity provider (IdP). The IdP can be a generic OpenID Connect (OIDC), Okta Integration, social, or SAML IdP.
+		Set `externalId` to the user's unique identifier at the IdP. For an OIDC or Okta Integration IdP, this is the value of the `sub` claim that the IdP issues for the user. Okta uses this link to match the user when they sign in through the IdP, or when the IdP issues an Identity Assertion JWT Authorization Grant (ID-JAG) for the user in a Cross App Access (XAA) flow.
+		If the user is already linked to the IdP with a different `externalId`, the request replaces it.
+		To link a user to a SAML IdP, the IdP must have `honorPersistentNameId` set to `true`. The [Name Identifier Format](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/replaceIdentityProvider!path=protocol/0/settings&t=request) of the incoming assertion must be `urn:oasis:names:tc:SAML:2.0:nameid-format:persistent`.
 
 		The SAML IdP must have `honorPersistentNameId` set to `true` to use this API.
 		The [Name Identifier Format](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/replaceIdentityProvider!path=protocol/0/settings&t=request) of the incoming assertion must be `urn:oasis:names:tc:SAML:2.0:nameid-format:persistent`.
@@ -328,7 +331,10 @@ func (r ApiLinkUserToIdentityProviderRequest) Execute() (*IdentityProviderApplic
 /*
 LinkUserToIdentityProvider Link a user to IdP
 
-Links an Okta user to an existing SAML or social identity provider (IdP).
+Links an Okta user to an existing identity provider (IdP). The IdP can be a generic OpenID Connect (OIDC), Okta Integration, social, or SAML IdP.
+Set `externalId` to the user's unique identifier at the IdP. For an OIDC or Okta Integration IdP, this is the value of the `sub` claim that the IdP issues for the user. Okta uses this link to match the user when they sign in through the IdP, or when the IdP issues an Identity Assertion JWT Authorization Grant (ID-JAG) for the user in a Cross App Access (XAA) flow.
+If the user is already linked to the IdP with a different `externalId`, the request replaces it.
+To link a user to a SAML IdP, the IdP must have `honorPersistentNameId` set to `true`. The [Name Identifier Format](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/replaceIdentityProvider!path=protocol/0/settings&t=request) of the incoming assertion must be `urn:oasis:names:tc:SAML:2.0:nameid-format:persistent`.
 
 The SAML IdP must have `honorPersistentNameId` set to `true` to use this API.
 The [Name Identifier Format](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/replaceIdentityProvider!path=protocol/0/settings&t=request) of the incoming assertion must be `urn:oasis:names:tc:SAML:2.0:nameid-format:persistent`.

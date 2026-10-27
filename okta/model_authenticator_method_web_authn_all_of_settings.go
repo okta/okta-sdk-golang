@@ -66,8 +66,6 @@ func NewAuthenticatorMethodWebAuthnAllOfSettings() *AuthenticatorMethodWebAuthnA
 	this := AuthenticatorMethodWebAuthnAllOfSettings{}
 	var residentKeyRequirement string = "REQUIRED"
 	this.ResidentKeyRequirement = &residentKeyRequirement
-	var showSignInWithAPasskeyButton bool = false
-	this.ShowSignInWithAPasskeyButton = &showSignInWithAPasskeyButton
 	var certBasedAttestationValidation bool = false
 	this.CertBasedAttestationValidation = &certBasedAttestationValidation
 	var hardwareProtected bool = false
@@ -86,8 +84,6 @@ func NewAuthenticatorMethodWebAuthnAllOfSettingsWithDefaults() *AuthenticatorMet
 	this := AuthenticatorMethodWebAuthnAllOfSettings{}
 	var residentKeyRequirement string = "REQUIRED"
 	this.ResidentKeyRequirement = &residentKeyRequirement
-	var showSignInWithAPasskeyButton bool = false
-	this.ShowSignInWithAPasskeyButton = &showSignInWithAPasskeyButton
 	var certBasedAttestationValidation bool = false
 	this.CertBasedAttestationValidation = &certBasedAttestationValidation
 	var hardwareProtected bool = false

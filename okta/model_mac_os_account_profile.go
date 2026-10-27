@@ -36,6 +36,10 @@ type MacOSAccountProfile struct {
 	AccountUuid *string `json:"accountUuid,omitempty"`
 	// Full name of the account user
 	FullName *string `json:"fullName,omitempty"`
+	// Indicates whether the OS account is managed by the organization
+	ManagementStatus *string `json:"managementStatus,omitempty"`
+	// Type of screen lock configured for the OS account
+	ScreenLockType *string `json:"screenLockType,omitempty"`
 	// Profile type discriminator
 	Type *string `json:"type,omitempty"`
 	// Username of the account
@@ -126,6 +130,70 @@ func (o *MacOSAccountProfile) SetFullName(v string) {
 	o.FullName = &v
 }
 
+// GetManagementStatus returns the ManagementStatus field value if set, zero value otherwise.
+func (o *MacOSAccountProfile) GetManagementStatus() string {
+	if o == nil || IsNil(o.ManagementStatus) {
+		var ret string
+		return ret
+	}
+	return *o.ManagementStatus
+}
+
+// GetManagementStatusOk returns a tuple with the ManagementStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MacOSAccountProfile) GetManagementStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.ManagementStatus) {
+		return nil, false
+	}
+	return o.ManagementStatus, true
+}
+
+// HasManagementStatus returns a boolean if a field has been set.
+func (o *MacOSAccountProfile) HasManagementStatus() bool {
+	if o != nil && !IsNil(o.ManagementStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetManagementStatus gets a reference to the given string and assigns it to the ManagementStatus field.
+func (o *MacOSAccountProfile) SetManagementStatus(v string) {
+	o.ManagementStatus = &v
+}
+
+// GetScreenLockType returns the ScreenLockType field value if set, zero value otherwise.
+func (o *MacOSAccountProfile) GetScreenLockType() string {
+	if o == nil || IsNil(o.ScreenLockType) {
+		var ret string
+		return ret
+	}
+	return *o.ScreenLockType
+}
+
+// GetScreenLockTypeOk returns a tuple with the ScreenLockType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MacOSAccountProfile) GetScreenLockTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.ScreenLockType) {
+		return nil, false
+	}
+	return o.ScreenLockType, true
+}
+
+// HasScreenLockType returns a boolean if a field has been set.
+func (o *MacOSAccountProfile) HasScreenLockType() bool {
+	if o != nil && !IsNil(o.ScreenLockType) {
+		return true
+	}
+
+	return false
+}
+
+// SetScreenLockType gets a reference to the given string and assigns it to the ScreenLockType field.
+func (o *MacOSAccountProfile) SetScreenLockType(v string) {
+	o.ScreenLockType = &v
+}
+
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *MacOSAccountProfile) GetType() string {
 	if o == nil || IsNil(o.Type) {
@@ -206,6 +274,12 @@ func (o MacOSAccountProfile) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.FullName) {
 		toSerialize["fullName"] = o.FullName
 	}
+	if !IsNil(o.ManagementStatus) {
+		toSerialize["managementStatus"] = o.ManagementStatus
+	}
+	if !IsNil(o.ScreenLockType) {
+		toSerialize["screenLockType"] = o.ScreenLockType
+	}
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
@@ -236,6 +310,8 @@ func (o *MacOSAccountProfile) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "accountUuid")
 		delete(additionalProperties, "fullName")
+		delete(additionalProperties, "managementStatus")
+		delete(additionalProperties, "screenLockType")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "username")
 		o.AdditionalProperties = additionalProperties

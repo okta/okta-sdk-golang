@@ -33,7 +33,7 @@ var _ MappedNullable = &RegistrationInlineHookSSRDataAllOfData{}
 // RegistrationInlineHookSSRDataAllOfData struct for RegistrationInlineHookSSRDataAllOfData
 type RegistrationInlineHookSSRDataAllOfData struct {
 	Context *RegistrationInlineHookSSRDataAllOfDataContext `json:"context,omitempty"`
-	// The default action the system will take. Will be `ALLOW`. `DENY` will never be sent to your external service.
+	// The default action your org takes. By default, this value is set to `ALLOW`. (In the case of orgs with Identity Threat Protection enabled, a value of `DENY` may be set based on threat detection. See [Self-service registration](https://help.okta.com/okta_help.htm?type=oie&id=itp-ssr)).
 	Action *string `json:"action,omitempty"`
 	// The name-value pairs for each registration-related attribute supplied by the user in the Profile Enrollment form.
 	UserProfile          map[string]interface{} `json:"userProfile,omitempty"`

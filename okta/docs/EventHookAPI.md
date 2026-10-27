@@ -361,7 +361,7 @@ Name | Type | Description  | Notes
 
 ## ListEventHooks
 
-> []EventHook ListEventHooks(ctx).Execute()
+> []EventHook ListEventHooks(ctx).Status(status).Category(category).Execute()
 
 List all event hooks
 
@@ -380,10 +380,12 @@ import (
 )
 
 func main() {
+	status := "status_example" // string | Filters event hooks by `status`. If you don't specify a value, event hooks with any status are returned. (optional)
+	category := "category_example" // string | Filters event hooks by `category`. If you don't specify a value, only event hooks in the `HOOK` category are returned. (optional) (default to "HOOK")
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
-	resp, r, err := apiClient.EventHookAPI.ListEventHooks(context.Background()).Execute()
+	resp, r, err := apiClient.EventHookAPI.ListEventHooks(context.Background()).Status(status).Category(category).Execute()
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Error when calling `EventHookAPI.ListEventHooks``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -395,12 +397,17 @@ func main() {
 
 ### Path Parameters
 
-This endpoint does not need any parameter.
+
 
 ### Other Parameters
 
 Other parameters are passed through a pointer to a apiListEventHooksRequest struct via the builder pattern
 
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **status** | **string** | Filters event hooks by &#x60;status&#x60;. If you don&#39;t specify a value, event hooks with any status are returned. | 
+ **category** | **string** | Filters event hooks by &#x60;category&#x60;. If you don&#39;t specify a value, only event hooks in the &#x60;HOOK&#x60; category are returned. | [default to &quot;HOOK&quot;]
 
 ### Return type
 
