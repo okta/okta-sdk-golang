@@ -45,8 +45,6 @@ type ProfileEnrollmentPolicyRuleAction struct {
 	ProfileAttributes []ProfileEnrollmentPolicyRuleProfileAttribute `json:"profileAttributes,omitempty"`
 	// Progressive profile enrollment helps evaluate the user profile policy at every user login. Users can be prompted to provide input for newly required attributes.
 	ProgressiveProfilingAction *string `json:"progressiveProfilingAction,omitempty"`
-	// Specifies the use cases when the configured pre-registration inline hook is invoked. This property is required when `preRegistrationInlineHooks` is set. Include both values to invoke the hook during self-service registration and progressive profiling.
-	Scopes []string `json:"scopes,omitempty"`
 	// (Optional, max 1 entry) The `id` of a group that this user should be added to
 	TargetGroupIds []string `json:"targetGroupIds,omitempty"`
 	// Value created by the backend. If present, all policy updates must include this attribute/value.
@@ -299,38 +297,6 @@ func (o *ProfileEnrollmentPolicyRuleAction) SetProgressiveProfilingAction(v stri
 	o.ProgressiveProfilingAction = &v
 }
 
-// GetScopes returns the Scopes field value if set, zero value otherwise.
-func (o *ProfileEnrollmentPolicyRuleAction) GetScopes() []string {
-	if o == nil || IsNil(o.Scopes) {
-		var ret []string
-		return ret
-	}
-	return o.Scopes
-}
-
-// GetScopesOk returns a tuple with the Scopes field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *ProfileEnrollmentPolicyRuleAction) GetScopesOk() ([]string, bool) {
-	if o == nil || IsNil(o.Scopes) {
-		return nil, false
-	}
-	return o.Scopes, true
-}
-
-// HasScopes returns a boolean if a field has been set.
-func (o *ProfileEnrollmentPolicyRuleAction) HasScopes() bool {
-	if o != nil && !IsNil(o.Scopes) {
-		return true
-	}
-
-	return false
-}
-
-// SetScopes gets a reference to the given []string and assigns it to the Scopes field.
-func (o *ProfileEnrollmentPolicyRuleAction) SetScopes(v []string) {
-	o.Scopes = v
-}
-
 // GetTargetGroupIds returns the TargetGroupIds field value if set, zero value otherwise.
 func (o *ProfileEnrollmentPolicyRuleAction) GetTargetGroupIds() []string {
 	if o == nil || IsNil(o.TargetGroupIds) {
@@ -458,9 +424,6 @@ func (o ProfileEnrollmentPolicyRuleAction) ToMap() (map[string]interface{}, erro
 	if !IsNil(o.ProgressiveProfilingAction) {
 		toSerialize["progressiveProfilingAction"] = o.ProgressiveProfilingAction
 	}
-	if !IsNil(o.Scopes) {
-		toSerialize["scopes"] = o.Scopes
-	}
 	if !IsNil(o.TargetGroupIds) {
 		toSerialize["targetGroupIds"] = o.TargetGroupIds
 	}
@@ -499,7 +462,6 @@ func (o *ProfileEnrollmentPolicyRuleAction) UnmarshalJSON(data []byte) (err erro
 		delete(additionalProperties, "preRegistrationInlineHooks")
 		delete(additionalProperties, "profileAttributes")
 		delete(additionalProperties, "progressiveProfilingAction")
-		delete(additionalProperties, "scopes")
 		delete(additionalProperties, "targetGroupIds")
 		delete(additionalProperties, "uiSchemaId")
 		delete(additionalProperties, "unknownUserAction")

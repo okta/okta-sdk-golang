@@ -5,9 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AcsEndpoints** | Pointer to [**[]AcsEndpoint**](AcsEndpoint.md) | An array of ACS endpoints. You can configure a maximum of 100 endpoints. | [optional] 
-**AllowMultipleAcsEndpoints** | **bool** | Determines whether the app allows you to configure multiple ACS URIs | 
+**AllowMultipleAcsEndpoints** | Pointer to **bool** | Determines whether the app allows you to configure multiple ACS URIs | [optional] 
 **AssertionEncryption** | Pointer to [**SamlAssertionEncryption**](SamlAssertionEncryption.md) |  | [optional] 
-**AssertionSigned** | **bool** | Determines whether the SAML assertion is digitally signed | 
+**AssertionSigned** | Pointer to **bool** | Determines whether the SAML assertion is digitally signed | [optional] 
 **AttributeStatements** | Pointer to [**[]SamlAttributeStatement**](SamlAttributeStatement.md) | A list of custom attribute statements for the app&#39;s SAML assertion. See [SAML 2.0 Technical Overview](https://docs.oasis-open.org/security/saml/Post2.0/sstc-saml-tech-overview-2.0-cd-02.html).  There are two types of attribute statements: | Type | Description | | ---- | ----------- | | EXPRESSION | Generic attribute statement that can be dynamic and supports [Okta Expression Language](https://developer.okta.com/docs/reference/okta-expression-language/) | | GROUP | Group attribute statement |  | [optional] 
 **Audience** | Pointer to **string** | The entity ID of the SP. Use the entity ID value exactly as provided by the SP. | [optional] 
 **AudienceOverride** | Pointer to **string** | Audience override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm). | [optional] 
@@ -17,14 +17,14 @@ Name | Type | Description | Notes
 **Destination** | Pointer to **string** | Identifies the location inside the SAML assertion where the SAML response should be sent | [optional] 
 **DestinationOverride** | Pointer to **string** | Destination override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm). | [optional] 
 **DigestAlgorithm** | Pointer to **string** | Determines the digest algorithm used to digitally sign the SAML assertion and response | [optional] 
-**HonorForceAuthn** | **bool** | Set to &#x60;true&#x60; to prompt users for their credentials when a SAML request has the &#x60;ForceAuthn&#x60; attribute set to &#x60;true&#x60; | 
+**HonorForceAuthn** | Pointer to **bool** | Set to &#x60;true&#x60; to prompt users for their credentials when a SAML request has the &#x60;ForceAuthn&#x60; attribute set to &#x60;true&#x60; | [optional] 
 **IdpIssuer** | Pointer to **string** | SAML Issuer ID | [optional] 
 **InlineHooks** | Pointer to [**[]SignOnInlineHook**](SignOnInlineHook.md) | Associates the app with SAML inline hooks. See [the SAML assertion inline hook reference](https://developer.okta.com/docs/reference/saml-hook/). | [optional] 
 **ParticipateSlo** | Pointer to [**SloParticipate**](SloParticipate.md) |  | [optional] 
 **Recipient** | Pointer to **string** | The location where the app may present the SAML assertion | [optional] 
 **RecipientOverride** | Pointer to **string** | Recipient override for CASB configuration. See [CASB config guide](https://help.okta.com/en-us/Content/Topics/Apps/CASB-config-guide.htm). | [optional] 
-**RequestCompressed** | **bool** | Determines whether the SAML request is expected to be compressed | 
-**ResponseSigned** | **bool** | Determines whether the SAML authentication response message is digitally signed by the IdP &gt; **Note:** Either (or both) &#x60;responseSigned&#x60; or &#x60;assertionSigned&#x60; must be &#x60;TRUE&#x60;. | 
+**RequestCompressed** | Pointer to **bool** | Determines whether the SAML request is expected to be compressed | [optional] 
+**ResponseSigned** | Pointer to **bool** | Determines whether the SAML authentication response message is digitally signed by the IdP &gt; **Note:** Either (or both) &#x60;responseSigned&#x60; or &#x60;assertionSigned&#x60; must be &#x60;TRUE&#x60;. | [optional] 
 **SamlAssertionLifetimeSeconds** | Pointer to **int32** | Determines the SAML app session lifetimes with Okta | [optional] 
 **SignatureAlgorithm** | Pointer to **string** | Determines the signing algorithm used to digitally sign the SAML assertion and response | [optional] 
 **Slo** | Pointer to [**SingleLogout**](SingleLogout.md) |  | [optional] 
@@ -39,7 +39,7 @@ Name | Type | Description | Notes
 
 ### NewSamlApplicationSettingsSignOn
 
-`func NewSamlApplicationSettingsSignOn(allowMultipleAcsEndpoints bool, assertionSigned bool, honorForceAuthn bool, requestCompressed bool, responseSigned bool, ) *SamlApplicationSettingsSignOn`
+`func NewSamlApplicationSettingsSignOn() *SamlApplicationSettingsSignOn`
 
 NewSamlApplicationSettingsSignOn instantiates a new SamlApplicationSettingsSignOn object
 This constructor will assign default values to properties that have it defined,
@@ -98,6 +98,11 @@ and a boolean to check if the value has been set.
 
 SetAllowMultipleAcsEndpoints sets AllowMultipleAcsEndpoints field to given value.
 
+### HasAllowMultipleAcsEndpoints
+
+`func (o *SamlApplicationSettingsSignOn) HasAllowMultipleAcsEndpoints() bool`
+
+HasAllowMultipleAcsEndpoints returns a boolean if a field has been set.
 
 ### GetAssertionEncryption
 
@@ -143,6 +148,11 @@ and a boolean to check if the value has been set.
 
 SetAssertionSigned sets AssertionSigned field to given value.
 
+### HasAssertionSigned
+
+`func (o *SamlApplicationSettingsSignOn) HasAssertionSigned() bool`
+
+HasAssertionSigned returns a boolean if a field has been set.
 
 ### GetAttributeStatements
 
@@ -388,6 +398,11 @@ and a boolean to check if the value has been set.
 
 SetHonorForceAuthn sets HonorForceAuthn field to given value.
 
+### HasHonorForceAuthn
+
+`func (o *SamlApplicationSettingsSignOn) HasHonorForceAuthn() bool`
+
+HasHonorForceAuthn returns a boolean if a field has been set.
 
 ### GetIdpIssuer
 
@@ -533,6 +548,11 @@ and a boolean to check if the value has been set.
 
 SetRequestCompressed sets RequestCompressed field to given value.
 
+### HasRequestCompressed
+
+`func (o *SamlApplicationSettingsSignOn) HasRequestCompressed() bool`
+
+HasRequestCompressed returns a boolean if a field has been set.
 
 ### GetResponseSigned
 
@@ -553,6 +573,11 @@ and a boolean to check if the value has been set.
 
 SetResponseSigned sets ResponseSigned field to given value.
 
+### HasResponseSigned
+
+`func (o *SamlApplicationSettingsSignOn) HasResponseSigned() bool`
+
+HasResponseSigned returns a boolean if a field has been set.
 
 ### GetSamlAssertionLifetimeSeconds
 

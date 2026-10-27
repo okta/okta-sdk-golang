@@ -68,7 +68,7 @@ var (
 )
 
 const (
-	VERSION                   = "7.0.0"
+	VERSION                   = "7.1.0"
 	AccessTokenCacheKey       = "OKTA_ACCESS_TOKEN"
 	DpopAccessTokenNonce      = "DPOP_OKTA_ACCESS_TOKEN_NONCE"
 	DpopAccessTokenPrivateKey = "DPOP_OKTA_ACCESS_TOKEN_PRIVATE_KEY"
@@ -127,6 +127,8 @@ type APIClient struct {
 
 	ApplicationUsersAPI ApplicationUsersAPI
 
+	ApplicationXAAConfigurationAPI ApplicationXAAConfigurationAPI
+
 	AssociatedDomainCustomizationsAPI AssociatedDomainCustomizationsAPI
 
 	AttackProtectionAPI AttackProtectionAPI
@@ -158,6 +160,8 @@ type APIClient struct {
 	BreachedCredentialProtectionAPI BreachedCredentialProtectionAPI
 
 	CAPTCHAAPI CAPTCHAAPI
+
+	CertificateAuthorityToScopeMappingAPI CertificateAuthorityToScopeMappingAPI
 
 	CustomDomainAPI CustomDomainAPI
 
@@ -942,6 +946,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.ApplicationSSOPublicKeysAPI = (*ApplicationSSOPublicKeysAPIService)(&c.common)
 	c.ApplicationTokensAPI = (*ApplicationTokensAPIService)(&c.common)
 	c.ApplicationUsersAPI = (*ApplicationUsersAPIService)(&c.common)
+	c.ApplicationXAAConfigurationAPI = (*ApplicationXAAConfigurationAPIService)(&c.common)
 	c.AssociatedDomainCustomizationsAPI = (*AssociatedDomainCustomizationsAPIService)(&c.common)
 	c.AttackProtectionAPI = (*AttackProtectionAPIService)(&c.common)
 	c.AuthenticatorAPI = (*AuthenticatorAPIService)(&c.common)
@@ -958,6 +963,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.BrandsAPI = (*BrandsAPIService)(&c.common)
 	c.BreachedCredentialProtectionAPI = (*BreachedCredentialProtectionAPIService)(&c.common)
 	c.CAPTCHAAPI = (*CAPTCHAAPIService)(&c.common)
+	c.CertificateAuthorityToScopeMappingAPI = (*CertificateAuthorityToScopeMappingAPIService)(&c.common)
 	c.CustomDomainAPI = (*CustomDomainAPIService)(&c.common)
 	c.CustomPagesAPI = (*CustomPagesAPIService)(&c.common)
 	c.CustomTelephonyProviderAPI = (*CustomTelephonyProviderAPIService)(&c.common)

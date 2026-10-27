@@ -6,6 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **AccountUuid** | Pointer to **string** | Unique identifier for the macOS account | [optional] 
 **FullName** | Pointer to **string** | Full name of the account user | [optional] 
+**ManagementStatus** | Pointer to **string** | Indicates whether the OS account is managed by the organization | [optional] 
+**ScreenLockType** | Pointer to **string** | Type of screen lock configured for the OS account | [optional] 
 **Type** | Pointer to **string** | Profile type discriminator | [optional] 
 **Username** | Pointer to **string** | Username of the account | [optional] 
 
@@ -77,6 +79,56 @@ SetFullName sets FullName field to given value.
 `func (o *MacOSAccountProfile) HasFullName() bool`
 
 HasFullName returns a boolean if a field has been set.
+
+### GetManagementStatus
+
+`func (o *MacOSAccountProfile) GetManagementStatus() string`
+
+GetManagementStatus returns the ManagementStatus field if non-nil, zero value otherwise.
+
+### GetManagementStatusOk
+
+`func (o *MacOSAccountProfile) GetManagementStatusOk() (*string, bool)`
+
+GetManagementStatusOk returns a tuple with the ManagementStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetManagementStatus
+
+`func (o *MacOSAccountProfile) SetManagementStatus(v string)`
+
+SetManagementStatus sets ManagementStatus field to given value.
+
+### HasManagementStatus
+
+`func (o *MacOSAccountProfile) HasManagementStatus() bool`
+
+HasManagementStatus returns a boolean if a field has been set.
+
+### GetScreenLockType
+
+`func (o *MacOSAccountProfile) GetScreenLockType() string`
+
+GetScreenLockType returns the ScreenLockType field if non-nil, zero value otherwise.
+
+### GetScreenLockTypeOk
+
+`func (o *MacOSAccountProfile) GetScreenLockTypeOk() (*string, bool)`
+
+GetScreenLockTypeOk returns a tuple with the ScreenLockType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetScreenLockType
+
+`func (o *MacOSAccountProfile) SetScreenLockType(v string)`
+
+SetScreenLockType sets ScreenLockType field to given value.
+
+### HasScreenLockType
+
+`func (o *MacOSAccountProfile) HasScreenLockType() bool`
+
+HasScreenLockType returns a boolean if a field has been set.
 
 ### GetType
 

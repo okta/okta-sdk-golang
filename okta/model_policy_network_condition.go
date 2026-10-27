@@ -30,7 +30,7 @@ import (
 // checks if the PolicyNetworkCondition type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &PolicyNetworkCondition{}
 
-// PolicyNetworkCondition Specifies a network selection mode and a set of network zones to be included or excluded. If the connection parameter's data type is `ZONE`, one of the `include` or `exclude` arrays is required. Specific zone IDs to include or exclude are enumerated in the respective arrays.
+// PolicyNetworkCondition Specifies a network selection mode. When `connection` is `ANYWHERE`, the rule applies regardless of network, and the `include` and `exclude` arrays aren't required. When `connection` is `ZONE`, use the `include` or `exclude` array to enumerate the specific zone IDs that the rule matches. At least one of the two arrays is required in that case.
 type PolicyNetworkCondition struct {
 	// Network selection mode
 	Connection *string `json:"connection,omitempty"`

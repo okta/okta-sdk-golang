@@ -1017,7 +1017,21 @@ func (a *EventHookAPIService) GetEventHookExecute(r ApiGetEventHookRequest) (*Ev
 type ApiListEventHooksRequest struct {
 	ctx        context.Context
 	ApiService EventHookAPI
+	status     *string
+	category   *string
 	retryCount int32
+}
+
+// Filters event hooks by &#x60;status&#x60;. If you don&#39;t specify a value, event hooks with any status are returned.
+func (r ApiListEventHooksRequest) Status(status string) ApiListEventHooksRequest {
+	r.status = &status
+	return r
+}
+
+// Filters event hooks by &#x60;category&#x60;. If you don&#39;t specify a value, only event hooks in the &#x60;HOOK&#x60; category are returned.
+func (r ApiListEventHooksRequest) Category(category string) ApiListEventHooksRequest {
+	r.category = &category
+	return r
 }
 
 func (r ApiListEventHooksRequest) Execute() ([]EventHook, *APIResponse, error) {
@@ -1070,6 +1084,12 @@ func (a *EventHookAPIService) ListEventHooksExecute(r ApiListEventHooksRequest) 
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.status != nil {
+		localVarQueryParams.Add("status", parameterToString(*r.status, ""))
+	}
+	if r.category != nil {
+		localVarQueryParams.Add("category", parameterToString(*r.category, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

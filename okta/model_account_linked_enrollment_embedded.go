@@ -34,7 +34,9 @@ var _ MappedNullable = &AccountLinkedEnrollmentEmbedded{}
 // AccountLinkedEnrollmentEmbedded Embedded data for a linked enrollment
 type AccountLinkedEnrollmentEmbedded struct {
 	// Timestamp of the last successful authentication
-	LastAuthenticatedOn  *time.Time `json:"lastAuthenticatedOn,omitempty"`
+	LastAuthenticatedOn *time.Time `json:"lastAuthenticatedOn,omitempty"`
+	// Factors that are enrolled for offline authentication on this enrollment. `offlineFactors` is only returned for `desktop_mfa` enrollments when `offlineFactors` is requested with the `expand` query parameter.
+	OfflineFactors       []OfflineFactor `json:"offlineFactors,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -89,6 +91,38 @@ func (o *AccountLinkedEnrollmentEmbedded) SetLastAuthenticatedOn(v time.Time) {
 	o.LastAuthenticatedOn = &v
 }
 
+// GetOfflineFactors returns the OfflineFactors field value if set, zero value otherwise.
+func (o *AccountLinkedEnrollmentEmbedded) GetOfflineFactors() []OfflineFactor {
+	if o == nil || IsNil(o.OfflineFactors) {
+		var ret []OfflineFactor
+		return ret
+	}
+	return o.OfflineFactors
+}
+
+// GetOfflineFactorsOk returns a tuple with the OfflineFactors field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AccountLinkedEnrollmentEmbedded) GetOfflineFactorsOk() ([]OfflineFactor, bool) {
+	if o == nil || IsNil(o.OfflineFactors) {
+		return nil, false
+	}
+	return o.OfflineFactors, true
+}
+
+// HasOfflineFactors returns a boolean if a field has been set.
+func (o *AccountLinkedEnrollmentEmbedded) HasOfflineFactors() bool {
+	if o != nil && !IsNil(o.OfflineFactors) {
+		return true
+	}
+
+	return false
+}
+
+// SetOfflineFactors gets a reference to the given []OfflineFactor and assigns it to the OfflineFactors field.
+func (o *AccountLinkedEnrollmentEmbedded) SetOfflineFactors(v []OfflineFactor) {
+	o.OfflineFactors = v
+}
+
 func (o AccountLinkedEnrollmentEmbedded) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -101,6 +135,9 @@ func (o AccountLinkedEnrollmentEmbedded) ToMap() (map[string]interface{}, error)
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.LastAuthenticatedOn) {
 		toSerialize["lastAuthenticatedOn"] = o.LastAuthenticatedOn
+	}
+	if !IsNil(o.OfflineFactors) {
+		toSerialize["offlineFactors"] = o.OfflineFactors
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -125,6 +162,7 @@ func (o *AccountLinkedEnrollmentEmbedded) UnmarshalJSON(data []byte) (err error)
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "lastAuthenticatedOn")
+		delete(additionalProperties, "offlineFactors")
 		o.AdditionalProperties = additionalProperties
 	}
 

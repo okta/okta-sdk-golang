@@ -31,8 +31,10 @@ import (
 // checks if the AppInstanceSearchType type satisfies the MappedNullable interface at compile time
 var _ MappedNullable = &AppInstanceSearchType{}
 
-// AppInstanceSearchType Gives list of types supported for App Instance search.
+// AppInstanceSearchType An app integration type and the number of app instances of that type in the org.
 type AppInstanceSearchType struct {
+	// Number of app instances of this type in the org. For admins with scoped app access, the count only includes apps they can view.
+	Count int32 `json:"count"`
 	// App Instance type refers to the integration type of the instance.
 	Type                 string `json:"type"`
 	AdditionalProperties map[string]interface{}
@@ -44,8 +46,9 @@ type _AppInstanceSearchType AppInstanceSearchType
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAppInstanceSearchType(type_ string) *AppInstanceSearchType {
+func NewAppInstanceSearchType(count int32, type_ string) *AppInstanceSearchType {
 	this := AppInstanceSearchType{}
+	this.Count = count
 	this.Type = type_
 	return &this
 }
@@ -56,6 +59,30 @@ func NewAppInstanceSearchType(type_ string) *AppInstanceSearchType {
 func NewAppInstanceSearchTypeWithDefaults() *AppInstanceSearchType {
 	this := AppInstanceSearchType{}
 	return &this
+}
+
+// GetCount returns the Count field value
+func (o *AppInstanceSearchType) GetCount() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.Count
+}
+
+// GetCountOk returns a tuple with the Count field value
+// and a boolean to check if the value has been set.
+func (o *AppInstanceSearchType) GetCountOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Count, true
+}
+
+// SetCount sets field value
+func (o *AppInstanceSearchType) SetCount(v int32) {
+	o.Count = v
 }
 
 // GetType returns the Type field value
@@ -92,6 +119,7 @@ func (o AppInstanceSearchType) MarshalJSON() ([]byte, error) {
 
 func (o AppInstanceSearchType) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
+	toSerialize["count"] = o.Count
 	toSerialize["type"] = o.Type
 
 	for key, value := range o.AdditionalProperties {
@@ -106,6 +134,7 @@ func (o *AppInstanceSearchType) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"count",
 		"type",
 	}
 
@@ -136,6 +165,7 @@ func (o *AppInstanceSearchType) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "count")
 		delete(additionalProperties, "type")
 		o.AdditionalProperties = additionalProperties
 	}

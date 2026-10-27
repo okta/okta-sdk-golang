@@ -35,8 +35,12 @@ var _ MappedNullable = &ChildOrg{}
 // ChildOrg struct for ChildOrg
 type ChildOrg struct {
 	Admin OrgCreationAdmin `json:"admin"`
+	// The type of builder that the org is created for. Supported values: `Existing Customers`, `Independent Software Vendors`, `Solution Builders`, or `Other Developers`. Values are matched exactly, and a value that isn't one of the listed options returns a `400 Bad Request` response. > **Internal use:** This property is for internal use only and not available to customers. It's only captured during Integrator Free Tier org creation and is ignored otherwise.
+	BuilderType *string `json:"builderType,omitempty"`
 	// Timestamp when the org was created
 	Created *time.Time `json:"created,omitempty"`
+	// The department of the user who creates the org. Supported values: `Engineering`, `Product`, `Developer Relations`, `Sales`, `Marketing`, `Security`, `IT`, `Operations`, `Legal`, or `Others`. Values are matched exactly, and a value that isn't one of the listed options returns a `400 Bad Request` response. > **Internal use:** This property is for internal use only and not available to customers. It's only captured during Integrator Free Tier org creation and is ignored otherwise.
+	Department *string `json:"department,omitempty"`
 	// Edition for the org. `SKU` is the only supported value.
 	Edition string `json:"edition"`
 	// Org ID
@@ -109,6 +113,38 @@ func (o *ChildOrg) SetAdmin(v OrgCreationAdmin) {
 	o.Admin = v
 }
 
+// GetBuilderType returns the BuilderType field value if set, zero value otherwise.
+func (o *ChildOrg) GetBuilderType() string {
+	if o == nil || IsNil(o.BuilderType) {
+		var ret string
+		return ret
+	}
+	return *o.BuilderType
+}
+
+// GetBuilderTypeOk returns a tuple with the BuilderType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ChildOrg) GetBuilderTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.BuilderType) {
+		return nil, false
+	}
+	return o.BuilderType, true
+}
+
+// HasBuilderType returns a boolean if a field has been set.
+func (o *ChildOrg) HasBuilderType() bool {
+	if o != nil && !IsNil(o.BuilderType) {
+		return true
+	}
+
+	return false
+}
+
+// SetBuilderType gets a reference to the given string and assigns it to the BuilderType field.
+func (o *ChildOrg) SetBuilderType(v string) {
+	o.BuilderType = &v
+}
+
 // GetCreated returns the Created field value if set, zero value otherwise.
 func (o *ChildOrg) GetCreated() time.Time {
 	if o == nil || IsNil(o.Created) {
@@ -139,6 +175,38 @@ func (o *ChildOrg) HasCreated() bool {
 // SetCreated gets a reference to the given time.Time and assigns it to the Created field.
 func (o *ChildOrg) SetCreated(v time.Time) {
 	o.Created = &v
+}
+
+// GetDepartment returns the Department field value if set, zero value otherwise.
+func (o *ChildOrg) GetDepartment() string {
+	if o == nil || IsNil(o.Department) {
+		var ret string
+		return ret
+	}
+	return *o.Department
+}
+
+// GetDepartmentOk returns a tuple with the Department field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ChildOrg) GetDepartmentOk() (*string, bool) {
+	if o == nil || IsNil(o.Department) {
+		return nil, false
+	}
+	return o.Department, true
+}
+
+// HasDepartment returns a boolean if a field has been set.
+func (o *ChildOrg) HasDepartment() bool {
+	if o != nil && !IsNil(o.Department) {
+		return true
+	}
+
+	return false
+}
+
+// SetDepartment gets a reference to the given string and assigns it to the Department field.
+func (o *ChildOrg) SetDepartment(v string) {
+	o.Department = &v
 }
 
 // GetEdition returns the Edition field value
@@ -480,8 +548,14 @@ func (o ChildOrg) MarshalJSON() ([]byte, error) {
 func (o ChildOrg) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["admin"] = o.Admin
+	if !IsNil(o.BuilderType) {
+		toSerialize["builderType"] = o.BuilderType
+	}
 	if !IsNil(o.Created) {
 		toSerialize["created"] = o.Created
+	}
+	if !IsNil(o.Department) {
+		toSerialize["department"] = o.Department
 	}
 	toSerialize["edition"] = o.Edition
 	if !IsNil(o.Id) {
@@ -557,7 +631,9 @@ func (o *ChildOrg) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "admin")
+		delete(additionalProperties, "builderType")
 		delete(additionalProperties, "created")
+		delete(additionalProperties, "department")
 		delete(additionalProperties, "edition")
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "lastUpdated")

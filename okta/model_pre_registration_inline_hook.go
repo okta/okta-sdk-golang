@@ -32,7 +32,9 @@ var _ MappedNullable = &PreRegistrationInlineHook{}
 
 // PreRegistrationInlineHook struct for PreRegistrationInlineHook
 type PreRegistrationInlineHook struct {
-	InlineHookId         *string `json:"inlineHookId,omitempty"`
+	InlineHookId *string `json:"inlineHookId,omitempty"`
+	// Specifies the use cases when the configured pre-registration inline hook is invoked. This property is required when `preRegistrationInlineHooks` is set. Include both values to invoke the hook during self-service registration and progressive profiling.
+	Scopes               []string `json:"scopes,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -87,6 +89,38 @@ func (o *PreRegistrationInlineHook) SetInlineHookId(v string) {
 	o.InlineHookId = &v
 }
 
+// GetScopes returns the Scopes field value if set, zero value otherwise.
+func (o *PreRegistrationInlineHook) GetScopes() []string {
+	if o == nil || IsNil(o.Scopes) {
+		var ret []string
+		return ret
+	}
+	return o.Scopes
+}
+
+// GetScopesOk returns a tuple with the Scopes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PreRegistrationInlineHook) GetScopesOk() ([]string, bool) {
+	if o == nil || IsNil(o.Scopes) {
+		return nil, false
+	}
+	return o.Scopes, true
+}
+
+// HasScopes returns a boolean if a field has been set.
+func (o *PreRegistrationInlineHook) HasScopes() bool {
+	if o != nil && !IsNil(o.Scopes) {
+		return true
+	}
+
+	return false
+}
+
+// SetScopes gets a reference to the given []string and assigns it to the Scopes field.
+func (o *PreRegistrationInlineHook) SetScopes(v []string) {
+	o.Scopes = v
+}
+
 func (o PreRegistrationInlineHook) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -99,6 +133,9 @@ func (o PreRegistrationInlineHook) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.InlineHookId) {
 		toSerialize["inlineHookId"] = o.InlineHookId
+	}
+	if !IsNil(o.Scopes) {
+		toSerialize["scopes"] = o.Scopes
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -123,6 +160,7 @@ func (o *PreRegistrationInlineHook) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "inlineHookId")
+		delete(additionalProperties, "scopes")
 		o.AdditionalProperties = additionalProperties
 	}
 

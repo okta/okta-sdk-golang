@@ -143,6 +143,10 @@ tags:
       * SSO and provisioning
   name: ApplicationUsers
   x-displayName: Application Users
+- description: |
+    The Application XAA Configuration API provides operations to retrieve the Cross App Access (XAA) configuration for an app.
+  name: ApplicationXAAConfiguration
+  x-displayName: Application XAA Configuration
 - description: |-
     <x-lifecycle-container><x-lifecycle class="oie"></x-lifecycle></x-lifecycle-container>The Associated Domain Customizations API provides operations to manage associated domain customizations in your org. You can create associations between your custom domains and three well-known endpoints:
     * `/.well-known/apple-app-site-association`
@@ -278,6 +282,12 @@ tags:
     Before you configure your org to use CAPTCHA, sign in to the vendor of your choice or sign up for an account. For more details, refer to [CAPTCHA integration](https://help.okta.com/okta_help.htm?type=oie&id=csh-captcha).
   name: CAPTCHA
   x-displayName: CAPTCHAs
+- description: The Certificate Authority to Scope Mappings API provides operations
+    to read and replace the org's set of Certificate Authority (CA) to scope mappings.
+    Mappings determine which trusted CAs are accepted for each scope (such as management
+    attestation or device registration) and are used by SCEP-based device flows.
+  name: CertificateAuthorityToScopeMapping
+  x-displayName: Certificate Authority to Scope Mappings
 - description: The Custom Domains API provides operations to manage custom domains
     for your organization.
   name: CustomDomain
@@ -622,6 +632,7 @@ tags:
     * [IdP discovery policies](https://developer.okta.com/docs/concepts/policies/#route-to-other-identity-providers): `IDP_DISCOVERY`
     * <x-lifecycle class="ea"></x-lifecycle> [Identity claims sourcing policy](https://developer.okta.com/docs/concepts/policies/#identity-claims-sourcing-policy): `IDENTITY_CLAIM_SOURCING`
     * [Password policies](https://developer.okta.com/docs/concepts/policies/#password-policies): `PASSWORD`
+    * <x-lifecycle class="ea"></x-lifecycle> [Self-service registration policies](https://developer.okta.com/docs/concepts/policies/#identity-threat-protection-policies): `SELF_SERVICE_REGISTRATION`
     * [Session violation enforcement policy](https://developer.okta.com/docs/concepts/policies/#identity-threat-protection-policies): `POST_AUTH_SESSION`
     * [Session violation detection policy](https://developer.okta.com/docs/concepts/policies/#identity-threat-protection-policies): `SESSION_VIOLATION_DETECTION`
     * [User profile policies](https://developer.okta.com/docs/concepts/policies/#user-profile-policies): `PROFILE_ENROLLMENT`
@@ -8701,7 +8712,98 @@ paths:
       x-okta-lifecycle:
         lifecycle: GA
         isGenerallyAvailable: true
-  /api/v1/apps/{appId}/xaa/resource-server: {}
+  /api/v1/apps/{appId}/xaa/resource-server:
+    get:
+      description: |
+        Retrieves the XAA resource server metadata for the specified app. The response includes the issuer that identifies the app's authorization server, the resources it protects, and the scopes it accepts.
+
+        An app returns the XAA resource server metadata only if it's created from an XAA-enabled resource integration in the Okta Integration Network (OIN) catalog.
+        If you request the XAA metadata on an app that's not created from an XAA resource integration from the OIN, then a `404 Not Found` error is returned.
+
+        > **Note:** The `issuer` property on the OIN resource app integration can be an expression that supports [Okta Expression Language's app properties](https://developer.okta.com/docs/reference/okta-expression-language/#application-properties). The XAA resource app instance returns the fully resolved `issuer` expression for its XAA metadata.
+        > If the `issuer` expression can't be resolved, then a `400 Bad Request` error is returned.
+      operationId: getXAAResourceServer
+      parameters:
+      - description: Application ID
+        explode: false
+        in: path
+        name: appId
+        required: true
+        schema:
+          example: 0oafxqCAJWWGELFTYASJ
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/XAAResourceServer"
+          description: Success
+        "400":
+          content:
+            application/json:
+              examples:
+                IssuerFieldNotPopulated:
+                  $ref: "#/components/examples/ErrorXAAIssuerFieldNotPopulated"
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                InvalidTokenProvided:
+                  $ref: "#/components/examples/ErrorInvalidTokenProvided"
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                AccessDenied:
+                  $ref: "#/components/examples/ErrorAccessDenied"
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Forbidden
+        "404":
+          content:
+            application/json:
+              examples:
+                ResourceNotFound:
+                  $ref: "#/components/examples/ErrorResourceNotFound"
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Not Found
+        "429":
+          content:
+            application/json:
+              examples:
+                TooManyRequests:
+                  $ref: "#/components/examples/ErrorTooManyRequests"
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Too Many Requests
+      security:
+      - apiToken: []
+      - oauth2:
+        - okta.apps.read
+      summary: Retrieve the XAA resource server metadata
+      tags:
+      - ApplicationXAAConfiguration
+      x-okta-iam-permissions:
+      - okta.apps.read
+      x-okta-iam-admin-roles:
+      - SUPER_ADMIN
+      - APP_ADMIN
+      - API_ACCESS_MANAGEMENT_ADMIN
+      - ORG_ADMIN
+      - READ_ONLY_ADMIN
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs: []
   /api/v1/apps/{appName}/{appId}/oauth2/callback:
     post:
       description: |
@@ -8782,6 +8884,8 @@ paths:
       x-okta-lifecycle:
         lifecycle: GA
         isGenerallyAvailable: true
+  /api/v1/authenticator-groups: {}
+  /api/v1/authenticator-groups/{groupId}: {}
   /api/v1/authenticators:
     get:
       description: |-
@@ -19374,7 +19478,7 @@ paths:
       tags:
       - DeviceIntegrations
       x-okta-lifecycle:
-        lifecycle: LIMITED_GA
+        lifecycle: GA
         isGenerallyAvailable: false
         SKUs: []
   /api/v1/device-integrations/{deviceIntegrationId}:
@@ -19445,7 +19549,7 @@ paths:
       tags:
       - DeviceIntegrations
       x-okta-lifecycle:
-        lifecycle: LIMITED_GA
+        lifecycle: GA
         isGenerallyAvailable: false
         SKUs: []
   /api/v1/device-integrations/{deviceIntegrationId}/lifecycle/activate:
@@ -19522,7 +19626,7 @@ paths:
       tags:
       - DeviceIntegrations
       x-okta-lifecycle:
-        lifecycle: LIMITED_GA
+        lifecycle: GA
         isGenerallyAvailable: false
         SKUs: []
   /api/v1/device-integrations/{deviceIntegrationId}/lifecycle/deactivate:
@@ -19594,7 +19698,7 @@ paths:
       tags:
       - DeviceIntegrations
       x-okta-lifecycle:
-        lifecycle: LIMITED_GA
+        lifecycle: GA
         isGenerallyAvailable: false
         SKUs: []
   /api/v1/device-posture-checks:
@@ -20041,6 +20145,9 @@ paths:
           UserSummaries:
             summary: Get the list of associated user summaries
             value: userSummary
+          Capabilities:
+            summary: Get the list of associated device capabilities
+            value: capabilities
         explode: true
         in: query
         name: expand
@@ -20049,11 +20156,13 @@ paths:
           enum:
           - user
           - userSummary
+          - capabilities
           example: userSummary
           type: string
           x-enumDescriptions:
             user: Lists full details for associated users
             userSummary: Lists summaries for associated users
+            capabilities: Lists capabilities for associated device
         style: form
       - description: |-
           Specifies a comma-separated list of fields to include in the response. Use the `fields` parameter to reduce the response payload size.
@@ -20245,6 +20354,8 @@ paths:
         SKUs:
         - Okta Identity Engine
   /api/v1/devices/{deviceId}/authenticator-enrollments: {}
+  /api/v1/devices/{deviceId}/capabilities: {}
+  /api/v1/devices/{deviceId}/device-sessions: {}
   /api/v1/devices/{deviceId}/lifecycle/activate:
     post:
       description: |-
@@ -20483,6 +20594,7 @@ paths:
         - Okta Identity Engine
   /api/v1/devices/{deviceId}/os-accounts: {}
   /api/v1/devices/{deviceId}/os-accounts/{osAccountId}: {}
+  /api/v1/devices/{deviceId}/os-accounts/{osAccountId}/capabilities: {}
   /api/v1/devices/{deviceId}/users:
     get:
       description: Lists all Users for a device by `deviceId`
@@ -22130,6 +22242,25 @@ paths:
     get:
       description: Lists all event hooks
       operationId: listEventHooks
+      parameters:
+      - description: "Filters event hooks by `status`. If you don't specify a value,\
+          \ event hooks with any status are returned."
+        explode: true
+        in: query
+        name: status
+        required: false
+        schema:
+          $ref: "#/components/schemas/EventHookStatus"
+        style: form
+      - description: "Filters event hooks by `category`. If you don't specify a value,\
+          \ only event hooks in the `HOOK` category are returned."
+        explode: true
+        in: query
+        name: category
+        required: false
+        schema:
+          $ref: "#/components/schemas/EventHookCategory"
+        style: form
       responses:
         "200":
           content:
@@ -32441,7 +32572,10 @@ paths:
         isGenerallyAvailable: true
     post:
       description: |-
-        Links an Okta user to an existing SAML or social identity provider (IdP).
+        Links an Okta user to an existing identity provider (IdP). The IdP can be a generic OpenID Connect (OIDC), Okta Integration, social, or SAML IdP.
+        Set `externalId` to the user's unique identifier at the IdP. For an OIDC or Okta Integration IdP, this is the value of the `sub` claim that the IdP issues for the user. Okta uses this link to match the user when they sign in through the IdP, or when the IdP issues an Identity Assertion JWT Authorization Grant (ID-JAG) for the user in a Cross App Access (XAA) flow.
+        If the user is already linked to the IdP with a different `externalId`, the request replaces it.
+        To link a user to a SAML IdP, the IdP must have `honorPersistentNameId` set to `true`. The [Name Identifier Format](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/replaceIdentityProvider!path=protocol/0/settings&t=request) of the incoming assertion must be `urn:oasis:names:tc:SAML:2.0:nameid-format:persistent`.
 
         The SAML IdP must have `honorPersistentNameId` set to `true` to use this API.
         The [Name Identifier Format](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/replaceIdentityProvider!path=protocol/0/settings&t=request) of the incoming assertion must be `urn:oasis:names:tc:SAML:2.0:nameid-format:persistent`.
@@ -45255,7 +45389,7 @@ paths:
         Calls are made to the Google Chrome Management API asynchronously per profile, and the endpoint returns immediately without waiting for Chrome to confirm the clearing of data.
         If the user has no managed Chrome profiles, or no active integration with Chrome device trust connector, the request succeeds with no action taken.
 
-        A syslog event (`user.chrome_data.clear`) is triggered per profile indicating success or failure of the Google API call.
+        A syslog event (`user.chrome.data.clear`) is triggered per profile indicating success or failure of the Google API call.
       operationId: clearChromeData
       parameters:
       - description: "An ID, login, or login shortname (as long as the shortname is\
@@ -51776,8 +51910,182 @@ paths:
   /cimd/api/v1/clients/{id}: {}
   /cimd/api/v1/requirements: {}
   /cimd/api/v1/requirements/{id}: {}
-  /device-identity/api/v1/certificate-authority-mappings: {}
-  /device-identity/api/v1/certificate-authority-mappings/certificate-authorities: {}
+  /device-identity/api/v1/certificate-authority-mappings:
+    put:
+      description: |-
+        Replaces the org's Certificate Authority (CA) mappings for the specified scope with the provided list. Only mappings belonging to the given scope are touched — other scopes are unaffected.
+
+        This is a scope-based full reconcile: any existing mappings for the scope that are absent from the request body are deleted, and any CA IDs in the body that aren't already mapped to the scope are inserted. Sending an empty array clears all mappings for the scope without affecting other scopes.
+
+        The response contains the resulting active mappings for the scope. Clients that need the full enriched CA view after an update should issue a subsequent `GET /device-identity/api/v1/certificate-authority-mappings/certificate-authorities`.
+      operationId: replaceCertificateAuthorityMappings
+      parameters:
+      - description: The Certificate Authority scope. Only Certificate Authorities
+          and mappings for this scope are affected.
+        explode: true
+        in: query
+        name: scope
+        required: true
+        schema:
+          $ref: "#/components/schemas/CAScope"
+        style: form
+      requestBody:
+        content:
+          application/json:
+            examples:
+              SingleCa:
+                $ref: "#/components/examples/ReplaceCertificateAuthorityMappingsSingleRequest"
+              MultipleCas:
+                $ref: "#/components/examples/ReplaceCertificateAuthorityMappingsMultipleRequest"
+              ClearAllForScope:
+                $ref: "#/components/examples/ReplaceCertificateAuthorityMappingsClearRequest"
+            schema:
+              items:
+                $ref: "#/components/schemas/CertificateAuthorityToScopeMappingRequest"
+              type: array
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                SingleCa:
+                  $ref: "#/components/examples/ReplaceCertificateAuthorityMappingsSingleResponse"
+                MultipleCas:
+                  $ref: "#/components/examples/ReplaceCertificateAuthorityMappingsMultipleResponse"
+                ClearAllForScope:
+                  $ref: "#/components/examples/ReplaceCertificateAuthorityMappingsClearResponse"
+              schema:
+                items:
+                  $ref: "#/components/schemas/CertificateAuthorityToScopeMapping"
+                type: array
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                APIValidationFailed:
+                  $ref: "#/components/examples/ErrorApiValidationFailed"
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                InvalidTokenProvided:
+                  $ref: "#/components/examples/ErrorInvalidTokenProvided"
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                AccessDenied:
+                  $ref: "#/components/examples/ErrorAccessDenied"
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Forbidden
+        "429":
+          content:
+            application/json:
+              examples:
+                TooManyRequests:
+                  $ref: "#/components/examples/ErrorTooManyRequests"
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Too Many Requests
+      security:
+      - apiToken: []
+      - oauth2:
+        - okta.certificateAuthorities.manage
+      summary: Replace all Certificate Authority mappings for a scope
+      tags:
+      - CertificateAuthorityToScopeMapping
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs: []
+      x-codegen-request-body-name: mappings
+  /device-identity/api/v1/certificate-authority-mappings/certificate-authorities:
+    get:
+      description: |-
+        Lists all Certificate Authorities (CAs) eligible for the requested scope, annotated with the current mapping for that scope (if any).
+
+        Each item represents a CA that's compatible with the requested scope. The `mapping` field is populated when the CA is currently mapped to the scope and is omitted otherwise.
+      operationId: listCertificateAuthoritiesForScope
+      parameters:
+      - description: The Certificate Authority scope. Only Certificate Authorities
+          and mappings for this scope are affected.
+        explode: true
+        in: query
+        name: scope
+        required: true
+        schema:
+          $ref: "#/components/schemas/CAScope"
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              examples:
+                ManagementAttestation:
+                  $ref: "#/components/examples/CertificateAuthoritiesManagementAttestationScopeResponse"
+                DeviceRegistration:
+                  $ref: "#/components/examples/CertificateAuthoritiesDeviceRegistrationScopeResponse"
+              schema:
+                items:
+                  $ref: "#/components/schemas/CertificateAuthorityToScopeMappingResponse"
+                type: array
+          description: OK
+        "400":
+          content:
+            application/json:
+              examples:
+                APIValidationFailed:
+                  $ref: "#/components/examples/ErrorApiValidationFailed"
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              examples:
+                InvalidTokenProvided:
+                  $ref: "#/components/examples/ErrorInvalidTokenProvided"
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Unauthorized
+        "403":
+          content:
+            application/json:
+              examples:
+                AccessDenied:
+                  $ref: "#/components/examples/ErrorAccessDenied"
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Forbidden
+        "429":
+          content:
+            application/json:
+              examples:
+                TooManyRequests:
+                  $ref: "#/components/examples/ErrorTooManyRequests"
+              schema:
+                $ref: "#/components/schemas/Error"
+          description: Too Many Requests
+      security:
+      - apiToken: []
+      - oauth2:
+        - okta.certificateAuthorities.read
+      summary: List all Certificate Authorities for a scope
+      tags:
+      - CertificateAuthorityToScopeMapping
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs: []
   /device-identity/api/v1/registration-grants: {}
   /device-identity/api/v1/registration-secrets: {}
   /device-identity/api/v1/registration-secrets/{registrationSecretId}: {}
@@ -53420,6 +53728,14 @@ paths:
         isGenerallyAvailable: true
   /okta-personal-settings/api/v1/edit-feature: {}
   /okta-personal-settings/api/v1/export-blocklists: {}
+  /pki/api/v2/certificate-authorities: {}
+  /pki/api/v2/certificate-authorities/{authorityInstanceId}: {}
+  /pki/api/v2/certificate-authorities/{authorityInstanceId}/certificates: {}
+  /pki/api/v2/certificate-authorities/{authorityInstanceId}/certificates/{ski}: {}
+  /pki/api/v2/certificate-authorities/{authorityInstanceId}/certificates/{ski}/download: {}
+  /pki/api/v2/certificate-authorities/{authorityInstanceId}/registration-authorities: {}
+  /pki/api/v2/certificate-authorities/{authorityInstanceId}/registration-authorities/{raId}: {}
+  /pki/api/v2/certificate-authorities/{authorityInstanceId}/renew: {}
   /privileged-access/api/v1/containers/{containerId}/prepare-resources: {}
   /privileged-access/api/v1/containers/{containerId}/resource-filter-criteria: {}
   /privileged-access/api/v1/containers/{containerId}/resources: {}
@@ -54751,6 +55067,7 @@ components:
               - GET
         _embedded:
           users: []
+          capabilities: []
       - id: guo4a5u7YAHhjXrMK0g5
         status: ACTIVE
         created: 2023-06-21T23:24:02.000Z
@@ -54844,6 +55161,9 @@ components:
                   href: "https://{yourOktaDomain}/api/v1/users/00u17vh0q8ov8IU881d7/credentials/change_password"
                 deactivate:
                   href: "https://{yourOktaDomain}/api/v1/users/00u17vh0q8ov8IU881d7/lifecycle/deactivate"
+          capabilities:
+          - capability: sensorMode
+            status: READY
     APIDevicesListAllUserSummaryResponse:
       summary: List all devices with embedded user summaries
       value:
@@ -54885,6 +55205,7 @@ components:
               - GET
         _embedded:
           users: []
+          capabilities: []
       - id: guo4a5u7YAHhjXrMK0g5
         status: ACTIVE
         created: 2023-06-21T23:24:02.000Z
@@ -54938,6 +55259,9 @@ components:
               _links:
                 self:
                   href: "https://{yourOktaDomain}/api/v1/users/00u17vh0q8ov8IU881d7"
+          capabilities:
+          - capability: sensorMode
+            status: READY
     APIDevicesListAllUsersResponse:
       summary: Response example
       value:
@@ -56744,8 +57068,7 @@ components:
               - POST
       x-okta-lifecycle:
         lifecycle: GA
-        isGenerallyAvailable: false
-        SKUs: []
+        isGenerallyAvailable: true
     AuthenticatorMethodWebAuthnWithRpId:
       summary: Passkey (FIDO2 WebAuthn) authenticator method with a custom RP ID
       value:
@@ -56798,7 +57121,7 @@ components:
         key: tac
         name: Temporary Access Code
         provider:
-          type: tac
+          type: TAC
           configuration:
             minTtl: 10
             maxTtl: 14400
@@ -56820,8 +57143,7 @@ components:
         description: Custom description for Passkey (FIDO2 WebAuthn) authenticator
       x-okta-lifecycle:
         lifecycle: GA
-        isGenerallyAvailable: false
-        SKUs: []
+        isGenerallyAvailable: true
     AuthenticatorResponseDuo:
       summary: Duo
       value:
@@ -57001,7 +57323,7 @@ components:
         created: 2022-07-15T21:14:02.000Z
         lastUpdated: 2022-07-15T21:14:02.000Z
         provider:
-          type: tac
+          type: TAC
           configuration:
             minTtl: 10
             maxTtl: 14400
@@ -57101,8 +57423,7 @@ components:
               - POST
       x-okta-lifecycle:
         lifecycle: GA
-        isGenerallyAvailable: false
-        SKUs: []
+        isGenerallyAvailable: true
     AuthenticatorsResponse:
       summary: List of org's authenticators
       value:
@@ -57317,8 +57638,7 @@ components:
               - POST
       x-okta-lifecycle:
         lifecycle: GA
-        isGenerallyAvailable: false
-        SKUs: []
+        isGenerallyAvailable: true
     AuthorizationServerPolicy:
       summary: Authorization server policy
       value:
@@ -59179,6 +59499,8 @@ components:
         name: My Child Org 1
         website: http://www.examplecorp.com
         edition: SKU
+        builderType: Independent Software Vendors
+        department: Engineering
         admin:
           profile:
             firstName: First
@@ -60284,6 +60606,19 @@ components:
             matchAttribute: ""
             userNameTemplate:
               template: idpuser.subjectAltNameEmail
+    CreateSpiffeTrustDomainRegistrationBody:
+      summary: Register a SPIFFE trust domain
+      value:
+        trustDomain: example.org
+        bundleUrl: https://bundle.example.com/spiffe/bundle.json
+    CreateSpiffeTrustDomainRegistrationResponse:
+      summary: Created SPIFFE trust domain registration
+      value:
+        id: std00000000000000001
+        trustDomain: example.org
+        bundleUrl: https://bundle.example.com/spiffe/bundle.json
+        created: 2026-01-01T00:00:00.000Z
+        lastUpdated: 2026-01-01T00:00:00.000Z
     CreateStandardRoleAssignmentResponseGroup:
       value:
         id: grasraHPx7i79ajaJ0g3
@@ -64476,6 +64811,26 @@ components:
         errorCauses:
         - errorSummary: The client can have only one active encryption key in the
             'jwks'.
+    ErrorParallelReplayConflict:
+      summary: A parallel configuration already exists for the named source configuration
+      value:
+        errorCode: E0000195
+        errorSummary: "Api validation failed due to conflict: parallelConfigs"
+        errorLink: E0000195
+        errorId: oaeW7pQ4RsTXlaGwZf9BCdEhG
+        errorCauses:
+        - errorSummary: This configuration has already been migrated for the renewed
+            Certificate Authority as configuration racm2yda3v5fIHTQm4x7.
+    ErrorParallelReplayConflictConcurrent:
+      summary: Two requests raced to migrate the same source configuration
+      value:
+        errorCode: E0000195
+        errorSummary: "Api validation failed due to conflict: parallelConfigs"
+        errorLink: E0000195
+        errorId: oaeW7pQ4RsTXlaGwZf9BCdEhG
+        errorCauses:
+        - errorSummary: This configuration has already been migrated for the renewed
+            Certificate Authority.
     ErrorPinOrCredRequestsGenerationFailure:
       summary: PIN or cred requests generation failed
       value:
@@ -64543,6 +64898,16 @@ components:
         errorLink: E0000007
         errorId: sampleMlLvGUj_YD5v16vkYWY
         errorCauses: []
+    ErrorRolloverReplayConflict:
+      summary: A named configuration is already on the renewed certificate
+      value:
+        errorCode: E0000195
+        errorSummary: "Api validation failed due to conflict: rolloverConfigIds"
+        errorLink: E0000195
+        errorId: oaeW7pQ4RsTXlaGwZf9BCdEhG
+        errorCauses:
+        - errorSummary: This configuration has already been migrated for the renewed
+            Certificate Authority.
     ErrorTargetAppType:
       value:
         errorCode: E0000001
@@ -65864,6 +66229,24 @@ components:
         _links:
           self:
             href: "https://{yourOktaDomain}/cimd/api/v1/requirements/cdr00000000000000001"
+    GetDeviceCapabilitiesResponse:
+      summary: "Device capability readiness, one capability not ready"
+      value:
+        capabilities:
+        - capability: platformSso
+          status: NOT_READY
+          reasons:
+          - E_PSSO_DEVICE_KEYS_NOT_REGISTERED
+        - capability: deviceBoundSso
+          status: NOT_READY
+          reasons:
+          - E_DEVICE_NOT_REGISTERED
+        - capability: sensorMode
+          status: READY
+        - capability: desktopMfaRecoveryPin
+          status: NOT_READY
+          reasons:
+          - E_RECOVERY_PIN_NOT_SET
     GetDeviceRegistrationSecretResponse:
       summary: Single registration secret
       value:
@@ -65983,6 +66366,14 @@ components:
         importType: INCREMENTAL
         created: 2022-04-04T15:56:05.000Z
         lastUpdated: 2022-05-05T16:15:44.000Z
+    GetSpiffeTrustDomainRegistrationResponse:
+      summary: Retrieved SPIFFE trust domain registration
+      value:
+        id: std00000000000000001
+        trustDomain: example.org
+        bundleUrl: https://bundle.example.com/spiffe/bundle.json
+        created: 2026-01-01T00:00:00.000Z
+        lastUpdated: 2026-01-01T00:00:00.000Z
     GetThemeResponse:
       value:
         id: thdul904tTZ6kWVhP0g3
@@ -68117,6 +68508,23 @@ components:
         registrationCount: 42
         created: 2026-04-17T08:30:00.000Z
         lastUpdated: 2026-04-17T08:30:00.000Z
+    ListDeviceSessionsResponse:
+      summary: List all Device-Bound SSO sessions for a device
+      value:
+      - id: eds1a2b3c4d5e6f7g8h9
+        userId: 00u1a2b3c4d5e6f7g8h9
+        factors:
+        - type: signed_nonce
+          displayName: Okta Verify
+          key: okta_verify
+          lastUsedOn: 2026-07-25T08:00:00.000Z
+        - type: password
+          displayName: Password
+          key: okta_password
+          lastUsedOn: 2026-07-20T10:30:00.000Z
+        _links:
+          user:
+            href: "https://{yourOktaDomain}/api/v1/users/00u1a2b3c4d5e6f7g8h9"
     ListEmailCustomizationResponse:
       value:
       - language: en
@@ -69067,6 +69475,19 @@ components:
         importType: INCREMENTAL
         created: 2022-04-04T19:56:05.000Z
         lastUpdated: 2022-05-05T20:15:44.000Z
+    ListSpiffeTrustDomainRegistrationsResponse:
+      summary: List all SPIFFE trust domain registrations in the org
+      value:
+      - id: std00000000000000001
+        trustDomain: example.org
+        bundleUrl: https://bundle.example.com/spiffe/bundle.json
+        created: 2026-01-01T00:00:00.000Z
+        lastUpdated: 2026-01-01T00:00:00.000Z
+      - id: std00000000000000002
+        trustDomain: partner.example
+        bundleUrl: https://bundle.partner.example/spiffe/bundle.json
+        created: 2026-01-02T00:00:00.000Z
+        lastUpdated: 2026-01-02T00:00:00.000Z
     ListThemesResponse:
       value:
       - id: thdul904tTZ6kWVhP0g3
@@ -69899,6 +70320,8 @@ components:
           accountUuid: 4ac29c85-d847-4492-96cb-46e337170c33
           username: carmel.sonne
           fullName: Carmel Sonne
+          managementStatus: MANAGED
+          screenLockType: BIOMETRIC
         status: ACTIVE
         lastSeenAt: 2026-04-09T17:22:56.000Z
         resourceAlternateId: null
@@ -69911,11 +70334,26 @@ components:
           users:
           - id: 00u1fxs5JcdX9jsfc0g5
             status: ACTIVE
+            created: 2025-11-04T18:02:44.000Z
+            activated: 2025-11-04T18:03:12.000Z
+            statusChanged: 2025-11-04T18:03:12.000Z
+            lastLogin: 2026-04-09T17:22:56.000Z
+            lastUpdated: 2026-01-19T17:22:30.000Z
+            passwordChanged: 2025-11-04T18:03:12.000Z
+            type:
+              id: oty1fxs5JcdX9jsfc0g5
             profile:
               firstName: Carmel
               lastName: Sonne
               login: carmel.sonne@okta.com
               email: carmel.sonne@okta.com
+            credentials:
+              provider:
+                type: OKTA
+                name: OKTA
+            _links:
+              self:
+                href: "https://{yourOktaDomain}/api/v1/users/00u1fxs5JcdX9jsfc0g5"
           accountLinkedEnrollments:
           - id: ukp1fxtdiJkUQiX220g5
             type: platform_sso
@@ -69923,9 +70361,26 @@ components:
             created: 2026-01-19T17:22:30.000Z
             lastUpdated: 2026-01-19T17:22:30.000Z
             profile:
-              authenticationMethod: PASSWORD
+              authenticationMethod: SECURE_ENCLAVE
             _embedded:
               lastAuthenticatedOn: 2026-04-09T17:22:56.000Z
+          - id: dme1fxtdiJkUQiX220g5
+            type: desktop_mfa
+            status: ACTIVE
+            created: 2026-01-19T17:22:30.000Z
+            lastUpdated: 2026-04-09T17:22:56.000Z
+            _embedded:
+              offlineFactors:
+              - id: dmo1fxtdiJkUQiX220g5
+                type: TOTP
+                displayName: Okta Verify TOTP
+                enrollDate: 2026-01-19T17:22:30.000Z
+                profile: {}
+          capabilities:
+          - capability: sensorMode
+            status: NOT_READY
+            reasons:
+            - E_DEVICE_NOT_REGISTERED
         _links:
           self:
             href: "https://{yourOktaDomain}/api/v1/devices/guo4a5u7JHHhjXrMK0g4/os-accounts/dao3qgkIEKjhNZudR0g4"
@@ -69950,6 +70405,8 @@ components:
           accountUuid: 4ac29c85-d847-4492-96cb-46e337170c33
           username: carmel.sonne
           fullName: Carmel Sonne
+          managementStatus: MANAGED
+          screenLockType: BIOMETRIC
         status: ACTIVE
         lastSeenAt: 2026-04-09T17:22:56.000Z
         resourceAlternateId: null
@@ -69962,11 +70419,26 @@ components:
           users:
           - id: 00u1fxs5JcdX9jsfc0g5
             status: ACTIVE
+            created: 2025-11-04T18:02:44.000Z
+            activated: 2025-11-04T18:03:12.000Z
+            statusChanged: 2025-11-04T18:03:12.000Z
+            lastLogin: 2026-04-09T17:22:56.000Z
+            lastUpdated: 2026-01-19T17:22:30.000Z
+            passwordChanged: 2025-11-04T18:03:12.000Z
+            type:
+              id: oty1fxs5JcdX9jsfc0g5
             profile:
               firstName: Carmel
               lastName: Sonne
               login: carmel.sonne@okta.com
               email: carmel.sonne@okta.com
+            credentials:
+              provider:
+                type: OKTA
+                name: OKTA
+            _links:
+              self:
+                href: "https://{yourOktaDomain}/api/v1/users/00u1fxs5JcdX9jsfc0g5"
           accountLinkedEnrollments:
           - id: ukp1fxtdiJkUQiX220g5
             type: platform_sso
@@ -69974,9 +70446,26 @@ components:
             created: 2026-01-19T17:22:30.000Z
             lastUpdated: 2026-01-19T17:22:30.000Z
             profile:
-              authenticationMethod: PASSWORD
+              authenticationMethod: SECURE_ENCLAVE
             _embedded:
               lastAuthenticatedOn: 2026-04-09T17:22:56.000Z
+          - id: dme1fxtdiJkUQiX220g5
+            type: desktop_mfa
+            status: ACTIVE
+            created: 2026-01-19T17:22:30.000Z
+            lastUpdated: 2026-04-09T17:22:56.000Z
+            _embedded:
+              offlineFactors:
+              - id: dmo1fxtdiJkUQiX220g5
+                type: TOTP
+                displayName: Okta Verify TOTP
+                enrollDate: 2026-01-19T17:22:30.000Z
+                profile: {}
+          capabilities:
+          - capability: sensorMode
+            status: NOT_READY
+            reasons:
+            - E_DEVICE_NOT_REGISTERED
         _links:
           self:
             href: "https://{yourOktaDomain}/api/v1/devices/guo4a5u7JHHhjXrMK0g4/os-accounts/dao3qgkIEKjhNZudR0g4"
@@ -70728,6 +71217,21 @@ components:
             hints:
               allow:
               - DELETE
+    OSAccountCapabilitiesNotReadyResponse:
+      summary: "OS account Device-Bound SSO readiness, not ready"
+      value:
+        capabilities:
+        - capability: deviceBoundSso
+          status: NOT_READY
+          reasons:
+          - E_PLATFORM_SSO_NOT_ENROLLED
+          - E_FASTPASS_NOT_ENROLLED
+    OSAccountCapabilitiesReadyResponse:
+      summary: "OS account Device-Bound SSO readiness, ready"
+      value:
+        capabilities:
+        - capability: deviceBoundSso
+          status: READY
     OktaIntegrationIdpResponse:
       summary: Okta Integration IdP
       value:
@@ -73185,6 +73689,19 @@ components:
       value:
         label: UserCreator
         description: Create users
+    ReplaceSpiffeTrustDomainRegistrationBody:
+      summary: Replace the bundleUrl of a SPIFFE trust domain registration
+      value:
+        trustDomain: example.org
+        bundleUrl: https://new-bundle.example.com/spiffe/bundle.json
+    ReplaceSpiffeTrustDomainRegistrationResponse:
+      summary: Replaced SPIFFE trust domain registration
+      value:
+        id: std00000000000000001
+        trustDomain: example.org
+        bundleUrl: https://new-bundle.example.com/spiffe/bundle.json
+        created: 2026-01-01T00:00:00.000Z
+        lastUpdated: 2026-02-01T00:00:00.000Z
     ReplaceUserTypePutRequest:
       summary: Replace user type request
       value:
@@ -78269,6 +78786,8 @@ components:
           downLevelUsername: okta\carmel.sonne
           upn: carmel.sonne@okta.com
           qualifiedUsername: okta\carmel.sonne
+          managementStatus: MANAGED
+          screenLockType: PASSWORD
         status: ACTIVE
         lastSeenAt: 2026-04-09T17:22:56.000Z
         resourceAlternateId: null
@@ -78281,11 +78800,26 @@ components:
           users:
           - id: 00u1fxs5JcdX9jsfc0g5
             status: ACTIVE
+            created: 2025-11-04T18:02:44.000Z
+            activated: 2025-11-04T18:03:12.000Z
+            statusChanged: 2025-11-04T18:03:12.000Z
+            lastLogin: 2026-04-09T17:22:56.000Z
+            lastUpdated: 2026-01-19T17:22:30.000Z
+            passwordChanged: 2025-11-04T18:03:12.000Z
+            type:
+              id: oty1fxs5JcdX9jsfc0g5
             profile:
               firstName: Carmel
               lastName: Sonne
               login: carmel.sonne@okta.com
               email: carmel.sonne@okta.com
+            credentials:
+              provider:
+                type: OKTA
+                name: OKTA
+            _links:
+              self:
+                href: "https://{yourOktaDomain}/api/v1/users/00u1fxs5JcdX9jsfc0g5"
           accountLinkedEnrollments:
           - id: ukp1fxtdiJkUQiX220g5
             type: platform_sso
@@ -78296,6 +78830,34 @@ components:
               authenticationMethod: PASSWORD
             _embedded:
               lastAuthenticatedOn: 2026-04-09T17:22:56.000Z
+          - id: dme1fxtdiJkUQiX220g5
+            type: desktop_mfa
+            status: ACTIVE
+            created: 2026-01-19T17:22:30.000Z
+            lastUpdated: 2026-04-09T17:22:56.000Z
+            _embedded:
+              offlineFactors:
+              - id: dmo1fxtdiJkUQiX220g5
+                type: TOTP
+                displayName: Okta Verify TOTP
+                enrollDate: 2026-01-19T17:22:30.000Z
+                profile: {}
+              - id: dmo2gytdiJkUQiX220g5
+                type: SECURITY_KEY
+                displayName: YubiKey 5C NFC
+                enrollDate: 2026-02-03T11:47:59.000Z
+                profile:
+                  serialNumber: "18274655"
+              - id: dmo3hztdiJkUQiX220g5
+                type: BIO_FINGERPRINT
+                displayName: Windows Hello Fingerprint
+                enrollDate: 2026-03-01T08:12:10.000Z
+                profile: {}
+          capabilities:
+          - capability: sensorMode
+            status: NOT_READY
+            reasons:
+            - E_DEVICE_NOT_REGISTERED
         _links:
           self:
             href: "https://{yourOktaDomain}/api/v1/devices/guo4a5u7JHHhjXrMK0g4/os-accounts/dao3qgkIEKjhNZudR0g4"
@@ -78324,6 +78886,8 @@ components:
           downLevelUsername: okta\carmel.sonne
           upn: carmel.sonne@okta.com
           qualifiedUsername: okta\carmel.sonne
+          managementStatus: MANAGED
+          screenLockType: PASSWORD
         status: ACTIVE
         lastSeenAt: 2026-04-09T17:22:56.000Z
         resourceAlternateId: null
@@ -78336,11 +78900,26 @@ components:
           users:
           - id: 00u1fxs5JcdX9jsfc0g5
             status: ACTIVE
+            created: 2025-11-04T18:02:44.000Z
+            activated: 2025-11-04T18:03:12.000Z
+            statusChanged: 2025-11-04T18:03:12.000Z
+            lastLogin: 2026-04-09T17:22:56.000Z
+            lastUpdated: 2026-01-19T17:22:30.000Z
+            passwordChanged: 2025-11-04T18:03:12.000Z
+            type:
+              id: oty1fxs5JcdX9jsfc0g5
             profile:
               firstName: Carmel
               lastName: Sonne
               login: carmel.sonne@okta.com
               email: carmel.sonne@okta.com
+            credentials:
+              provider:
+                type: OKTA
+                name: OKTA
+            _links:
+              self:
+                href: "https://{yourOktaDomain}/api/v1/users/00u1fxs5JcdX9jsfc0g5"
           accountLinkedEnrollments:
           - id: ukp1fxtdiJkUQiX220g5
             type: platform_sso
@@ -78351,6 +78930,34 @@ components:
               authenticationMethod: PASSWORD
             _embedded:
               lastAuthenticatedOn: 2026-04-09T17:22:56.000Z
+          - id: dme1fxtdiJkUQiX220g5
+            type: desktop_mfa
+            status: ACTIVE
+            created: 2026-01-19T17:22:30.000Z
+            lastUpdated: 2026-04-09T17:22:56.000Z
+            _embedded:
+              offlineFactors:
+              - id: dmo1fxtdiJkUQiX220g5
+                type: TOTP
+                displayName: Okta Verify TOTP
+                enrollDate: 2026-01-19T17:22:30.000Z
+                profile: {}
+              - id: dmo2gytdiJkUQiX220g5
+                type: SECURITY_KEY
+                displayName: YubiKey 5C NFC
+                enrollDate: 2026-02-03T11:47:59.000Z
+                profile:
+                  serialNumber: "18274655"
+              - id: dmo3hztdiJkUQiX220g5
+                type: BIO_FINGERPRINT
+                displayName: Windows Hello Fingerprint
+                enrollDate: 2026-03-01T08:12:10.000Z
+                profile: {}
+          capabilities:
+          - capability: sensorMode
+            status: NOT_READY
+            reasons:
+            - E_DEVICE_NOT_REGISTERED
         _links:
           self:
             href: "https://{yourOktaDomain}/api/v1/devices/guo4a5u7JHHhjXrMK0g4/os-accounts/dao3qgkIEKjhNZudR0g4"
@@ -78444,6 +79051,23 @@ components:
             hints:
               allow:
               - POST
+    appInstanceSearchTypeResponseEx:
+      summary: App type counts
+      value:
+      - type: SAML
+        count: 12
+      - type: OIDC
+        count: 8
+      - type: SWA
+        count: 3
+      - type: PROVISIONING
+        count: 5
+      - type: API_SERVICE
+        count: 2
+      - type: UNIVERSAL_LOGOUT
+        count: 1
+      - type: ENTITLEMENT_MANAGEMENT
+        count: 0
     bulkDeletePayload:
       value:
         entityType: USERS
@@ -83964,6 +84588,16 @@ components:
         example: GeGRTEr7f3yu2n7grw22
         type: string
       style: simple
+    pathAuthenticatorGroupId:
+      description: The `id` of the authenticator group
+      explode: false
+      in: path
+      name: groupId
+      required: true
+      schema:
+        example: arg7xus97faIAgmti0
+        type: string
+      style: simple
     pathAuthenticatorId:
       description: '`id` of the authenticator'
       explode: false
@@ -84903,6 +85537,16 @@ components:
         pattern: "^[0-9A-F]+$"
         type: string
       style: simple
+    pathSpiffeTrustDomainRegistrationId:
+      description: Unique ID of the SPIFFE trust domain registration
+      explode: false
+      in: path
+      name: id
+      required: true
+      schema:
+        example: std00000000000000000
+        type: string
+      style: simple
     pathTargetGroupId:
       explode: false
       in: path
@@ -85326,6 +85970,26 @@ components:
           type: string
         type: array
       style: form
+    queryEventHookCategory:
+      description: "Filters event hooks by `category`. If you don't specify a value,\
+        \ only event hooks in the `HOOK` category are returned."
+      explode: true
+      in: query
+      name: category
+      required: false
+      schema:
+        $ref: "#/components/schemas/EventHookCategory"
+      style: form
+    queryEventHookStatus:
+      description: "Filters event hooks by `status`. If you don't specify a value,\
+        \ event hooks with any status are returned."
+      explode: true
+      in: query
+      name: status
+      required: false
+      schema:
+        $ref: "#/components/schemas/EventHookStatus"
+      style: form
     queryExpand:
       description: "Valid value: `scope`. If specified, scope details are included\
         \ in the `_embedded` attribute."
@@ -85593,8 +86257,21 @@ components:
         type: integer
       style: form
     queryOsAccountExpand:
-      description: Comma-separated list of related resources to include in the `_embedded`
-        attribute. Supported values are `users` and `account_linked_enrollments`.
+      description: |-
+        Comma-separated list of related resources to include in the `_embedded` attribute. Supported values are `users`, `account_linked_enrollments`, and `offlineFactors`.
+
+        > **Note:** `offlineFactors` expands a section nested under `account_linked_enrollments`, so it only takes effect when `account_linked_enrollments` is also requested. It adds `_embedded.offlineFactors` to each linked `desktop_mfa` enrollment.
+      examples:
+        UsersAndLinkedEnrollments:
+          summary: Embed users and linked enrollments
+          value:
+          - users
+          - account_linked_enrollments
+        LinkedEnrollmentsWithOfflineFactors:
+          summary: Embed linked enrollments and their offline factors
+          value:
+          - account_linked_enrollments
+          - offlineFactors
       explode: false
       in: query
       name: expand
@@ -85607,7 +86284,13 @@ components:
           enum:
           - users
           - account_linked_enrollments
+          - offlineFactors
           type: string
+          x-enumDescriptions:
+            users: Lists the users associated with the OS account
+            account_linked_enrollments: Lists the enrollments linked to the OS account
+            offlineFactors: Lists the offline authentication factors on each linked
+              `desktop_mfa` enrollment. Requires `account_linked_enrollments`.
         type: array
       style: form
     queryPoolType:
@@ -86883,6 +87566,13 @@ components:
           description: Timestamp of the last successful authentication
           format: date-time
           type: string
+        offlineFactors:
+          description: Factors that are enrolled for offline authentication on this
+            enrollment. `offlineFactors` is only returned for `desktop_mfa` enrollments
+            when `offlineFactors` is requested with the `expand` query parameter.
+          items:
+            $ref: "#/components/schemas/OfflineFactor"
+          type: array
       type: object
     AccountLinkedEnrollmentProfile:
       description: Profile details for a linked enrollment
@@ -87914,20 +88604,28 @@ components:
           type: array
       type: object
     AppInstanceSearchType:
-      description: Gives list of types supported for App Instance search.
+      description: An app integration type and the number of app instances of that
+        type in the org.
       properties:
+        count:
+          description: "Number of app instances of this type in the org. For admins\
+            \ with scoped app access, the count only includes apps they can view."
+          format: int32
+          minimum: 0
+          type: integer
         type:
           description: App Instance type refers to the integration type of the instance.
           type: string
           x-okta-known-values:
           - API_SERVICE
-          - ENTITLEMENTS_MANAGEMENT
+          - ENTITLEMENT_MANAGEMENT
           - OIDC
           - PROVISIONING
           - SAML
           - SWA
           - UNIVERSAL_LOGOUT
       required:
+      - count
       - type
       type: object
     AppInstanceSearchTypes:
@@ -87935,7 +88633,7 @@ components:
       type: string
       x-okta-known-values:
       - API_SERVICE
-      - ENTITLEMENTS_MANAGEMENT
+      - ENTITLEMENT_MANAGEMENT
       - OIDC
       - PROVISIONING
       - SAML
@@ -88030,7 +88728,7 @@ components:
           description: The user-defined name for the app service account
           example: salesforce Prod-5 account
           format: regex
-          maxLength: 50
+          maxLength: 100
           minLength: 1
           pattern: "^[\\w\\-_. ]+$"
           type: string
@@ -88162,7 +88860,7 @@ components:
           description: The user-defined name for the app service account
           example: salesforce Prod-5 account
           format: regex
-          maxLength: 50
+          maxLength: 100
           minLength: 1
           pattern: "^[\\w\\-_. ]+$"
           type: string
@@ -88918,6 +89616,16 @@ components:
           default: client_secret_basic
           description: Requested authentication method for the token endpoint
           type: string
+          x-enumDescriptions:
+            client_secret_basic: Client credentials are passed as HTTP Basic Authentication
+              in the `Authorization` header.
+            client_secret_jwt: The client authenticates by signing a JWT with a key
+              derived from the client secret.
+            client_secret_post: Client credentials are passed as `client_id` and `client_secret`
+              parameters in the request body.
+            none: No client authentication. Use for public clients that rely on PKCE.
+            private_key_jwt: The client authenticates by signing a JWT with its private
+              key. Requires a registered public key.
           x-okta-known-values:
           - client_secret_basic
           - client_secret_jwt
@@ -90213,8 +90921,7 @@ components:
           type: string
           x-okta-lifecycle:
             lifecycle: GA
-            isGenerallyAvailable: false
-            SKUs: []
+            isGenerallyAvailable: true
         id:
           description: A unique identifier for the authenticator
           readOnly: true
@@ -90397,7 +91104,7 @@ components:
             \ `external_idp` authenticator."
           type: string
         key:
-          description: 'A label that identifies the authenticator. '
+          description: A label that identifies the authenticator
           type: string
           x-okta-known-values:
           - custom_app
@@ -90425,7 +91132,7 @@ components:
       - OPTIONAL
       - REQUIRED
     AuthenticatorEnrollmentPolicyAuthenticatorType:
-      description: 'A label that identifies the authenticator. '
+      description: A label that identifies the authenticator
       type: string
       x-okta-known-values:
       - custom_app
@@ -90517,7 +91224,7 @@ components:
       properties:
         authenticators:
           description: |
-            List of authenticator policy settings
+            List of authenticator policy settings.
 
             <x-lifecycle class="oie"></x-lifecycle> For orgs with the Authenticator enrollment policy feature enabled, the new default authenticator enrollment policy created by Okta contains the `authenticators` property in the policy settings. Existing default authenticator enrollment policies from a migrated Classic Engine org remain unchanged. The policies still use the `factors` property in their settings. The `authenticators` parameter allows you to configure all available authenticators, including authentication and recovery. The `factors` parameter only allows you to configure multifactor authentication.
           items:
@@ -90525,22 +91232,29 @@ components:
           type: array
         type:
           default: FACTORS
-          description: |
-            Type of policy configuration object
+          description: |-
+            Type of policy configuration object. The value determines which property that the policy uses to configure authenticators. Set this value when you create or replace the policy. Okta doesn't infer it from the other properties in the request.
 
             <x-lifecycle class="oie"></x-lifecycle> The `type` property in the policy `settings` is only applicable to the authenticator enrollment policy available in Identity Engine.
           type: string
+          x-enumDescriptions:
+            AUTHENTICATORS: The policy configures each authenticator individually
+              in `settings.authenticators`
+            FACTORS: The policy configures each factor individually in `settings.factors`
           x-okta-known-values:
           - AUTHENTICATORS
           - FACTORS
       type: object
     AuthenticatorEnrollmentPolicySettingsType:
       default: FACTORS
-      description: |
-        Type of policy configuration object
+      description: |-
+        Type of policy configuration object. The value determines which property that the policy uses to configure authenticators. Set this value when you create or replace the policy. Okta doesn't infer it from the other properties in the request.
 
         <x-lifecycle class="oie"></x-lifecycle> The `type` property in the policy `settings` is only applicable to the authenticator enrollment policy available in Identity Engine.
       type: string
+      x-enumDescriptions:
+        AUTHENTICATORS: The policy configures each authenticator individually in `settings.authenticators`
+        FACTORS: The policy configures each factor individually in `settings.factors`
       x-okta-known-values:
       - AUTHENTICATORS
       - FACTORS
@@ -93978,6 +94692,10 @@ components:
       description: "A persisted Certificate Authority to scope mapping. Returned as\
         \ items in the `PUT /device-identity/api/v1/certificate-authority-mappings`\
         \ response, representing the active mappings resulting from the reconcile."
+      example:
+        caId: tci00000000000000001
+        scope: scope
+        id: fcm00000000000000001
       properties:
         caId:
           description: The `id` of the Trusted Certificate Authority that's mapped
@@ -94005,6 +94723,8 @@ components:
       description: A request item for the `PUT /device-identity/api/v1/certificate-authority-mappings`
         body. The scope is specified as a query parameter and applies uniformly to
         all items in the list.
+      example:
+        caId: tci00000000000000001
       properties:
         caId:
           description: The `id` of the Trusted Certificate Authority to map to the
@@ -94017,6 +94737,18 @@ components:
     CertificateAuthorityToScopeMappingResponse:
       description: "A Certificate Authority eligible for the requested scope, annotated\
         \ with its current mapping (if any)."
+      example:
+        lastUpdatedDate: 2016-01-03T18:15:47Z
+        mapping:
+          scope: scope
+          id: fcm00000000000000001
+        createdDate: 2016-01-03T18:15:47Z
+        caType: caType
+        issuerDN: "CN=Okta Root CA,O=Okta,C=US"
+        id: tci00000000000000001
+        expirationDate: 2016-01-03T18:15:47Z
+        status: status
+        subjectDN: "CN=Okta Root CA,O=Okta,C=US"
       properties:
         caType:
           description: The type of the Certificate Authority.
@@ -94075,6 +94807,9 @@ components:
     CertificateAuthorityToScopeMappingResponseMapping:
       description: The Certificate Authority's mapping for the requested scope. Omitted
         when the Certificate Authority isn't mapped to the requested scope.
+      example:
+        scope: scope
+        id: fcm00000000000000001
       properties:
         id:
           description: The unique identifier of the Certificate Authority mapping.
@@ -94205,21 +94940,41 @@ components:
             email: email
         edition: SKU
         token: token
+        builderType: Independent Software Vendors
         lastUpdated: 2022-08-25T00:05:00Z
         name: My Child Org 1
         subdomain: my-child-org-1
         id: 00o1n8sbwArJ7OQRw406
+        department: Engineering
         tokenType: SSWS
         status: ACTIVE
       properties:
         admin:
           $ref: "#/components/schemas/OrgCreationAdmin"
+        builderType:
+          description: |-
+            The type of builder that the org is created for.
+            Supported values: `Existing Customers`, `Independent Software Vendors`, `Solution Builders`, or `Other Developers`.
+            Values are matched exactly, and a value that isn't one of the listed options returns a `400 Bad Request` response.
+            > **Internal use:** This property is for internal use only and not available to customers. It's only captured during Integrator Free Tier org creation and is ignored otherwise.
+          example: Independent Software Vendors
+          type: string
+          writeOnly: true
         created:
           description: Timestamp when the org was created
           example: 2022-08-25T00:05:00Z
           format: date-time
           readOnly: true
           type: string
+        department:
+          description: |-
+            The department of the user who creates the org.
+            Supported values: `Engineering`, `Product`, `Developer Relations`, `Sales`, `Marketing`, `Security`, `IT`, `Operations`, `Legal`, or `Others`.
+            Values are matched exactly, and a value that isn't one of the listed options returns a `400 Bad Request` response.
+            > **Internal use:** This property is for internal use only and not available to customers. It's only captured during Integrator Free Tier org creation and is ignored otherwise.
+          example: Engineering
+          type: string
+          writeOnly: true
         edition:
           description: Edition for the org. `SKU` is the only supported value.
           enum:
@@ -96930,6 +97685,51 @@ components:
             managed: true
             compliant: true
         secureHardwarePresent: true
+    DeviceCapabilitiesResponse:
+      properties:
+        capabilities:
+          description: "One entry per capability. An entry is omitted entirely if\
+            \ your org's plan doesn't include that capability, or if the device's\
+            \ platform doesn't support it."
+          items:
+            $ref: "#/components/schemas/DeviceCapability"
+          type: array
+      required:
+      - capabilities
+      type: object
+    DeviceCapability:
+      properties:
+        capability:
+          description: Capability identifier
+          enum:
+          - platformSso
+          - deviceBoundSso
+          - sensorMode
+          - desktopMfaRecoveryPin
+          example: deviceBoundSso
+          type: string
+        reasons:
+          description: List of possible reason codes for unmet preconditions. It's
+            only present when the `status` is `NOT_READY`.
+          items:
+            example: E_DEVICE_NOT_REGISTERED
+            type: string
+          type: array
+        status:
+          description: Readiness of the capability
+          enum:
+          - READY
+          - NOT_READY
+          example: NOT_READY
+          type: string
+          x-enumDescriptions:
+            READY: The capability's preconditions are met
+            NOT_READY: The capability's preconditions aren't met. You can see the
+              reasons for why the preconditions aren't met in the `reasons` array.
+      required:
+      - capability
+      - status
+      type: object
     DeviceContextProvider:
       properties:
         id:
@@ -97972,6 +98772,73 @@ components:
           - INACTIVE
       title: DeviceRegistrationSecretUpdateRequest
       type: object
+    DeviceSession:
+      properties:
+        factors:
+          description: "Authenticator methods that are verified in this session, with\
+            \ the most recently verified authenticator method first. This array always\
+            \ has at least one item."
+          items:
+            $ref: "#/components/schemas/DeviceSessionFactor"
+          minItems: 1
+          type: array
+        id:
+          description: The session's external identifier. The same value is recorded
+            in the System Log as `authenticationContext.deviceSessionId`. Use that
+            event to correlate this session with its events.
+          example: eds1a2b3c4d5e6f7g8h9
+          type: string
+        userId:
+          description: The unique identifier of the user that this session belongs
+            to
+          example: 00u1a2b3c4d5e6f7g8h9
+          type: string
+        _links:
+          $ref: "#/components/schemas/DeviceSessionLinks"
+      required:
+      - factors
+      - id
+      - userId
+      type: object
+    DeviceSessionFactor:
+      properties:
+        displayName:
+          description: |-
+            The human-readable authenticator name that's displayed.
+
+            There are three places where the display name can be retrieved from, which are evaluated in a priority order.
+            1. The display name is retrieved from the org's configured authenticator name.
+            2. The display name is retrieved from the authenticator catalog default.
+            3. For legacy verifications with no authenticator key, the display name is retrieved from the enrollment's own display name.
+
+            The display name is omitted only when all three are absent.
+          example: Okta Verify
+          type: string
+        key:
+          description: "The authenticator key, `webauthn` or `okta_verify`, for example.\
+            \ This property is omitted for legacy verifications that carry no authenticator\
+            \ key."
+          example: okta_verify
+          type: string
+        lastUsedOn:
+          description: Timestamp when this factor was last verified in the session
+          example: 2026-07-25T08:00:00Z
+          format: date-time
+          type: string
+        type:
+          description: "The authenticator method name, `password`, `signed_nonce`,\
+            \ `push`, or `otp`, for example"
+          example: signed_nonce
+          type: string
+      required:
+      - lastUsedOn
+      - type
+      type: object
+    DeviceSessionLinks:
+      properties:
+        user:
+          $ref: "#/components/schemas/HrefObject"
+      type: object
     DeviceSignalCollectionPlatformConditionEvaluatorPlatform:
       properties:
         os:
@@ -98657,9 +99524,11 @@ components:
       - $ref: "#/components/schemas/NetworkZone"
       - properties:
           asns:
-            allOf:
-            - $ref: "#/components/schemas/NetworkZoneAsns"
             description: An array of ASNs for a Network Zone
+            items:
+              type: string
+            maxItems: 75
+            type: array
           proxyType:
             description: The proxy type used for a Dynamic Network Zone
             enum:
@@ -98674,9 +99543,12 @@ components:
               Tor: Use Tor Anonymizer proxy for the Dynamic Zone.
               NotTorAnonymizer: Use a non Tor Anonymizer proxy for the Dynamic Zone.
           locations:
-            allOf:
-            - $ref: "#/components/schemas/NetworkZoneLocationArray"
             description: An array of geolocations for a Dynamic Network Zone
+            items:
+              $ref: "#/components/schemas/NetworkZoneLocation"
+            maxItems: 75
+            nullable: true
+            type: array
         type: object
       title: Dynamic Network Zone
       x-okta-ignore-redocly-rules-for-sdk: true
@@ -99959,6 +100831,15 @@ components:
       - name
       type: object
       x-okta-ignore-redocly-rules-for-sdk: true
+    EventHookCategory:
+      default: HOOK
+      description: |-
+        The category of the event hook. Event hooks that you create with this API belong to the `HOOK` category.
+        The `FLOW` category identifies event hooks that Okta creates on your behalf for Okta Workflows.
+      type: string
+      x-okta-known-values:
+      - FLOW
+      - HOOK
     EventHookChannel:
       example:
         type: type
@@ -100139,6 +101020,12 @@ components:
           readOnly: true
           type: string
       type: object
+    EventHookStatus:
+      description: Status of the event hook
+      type: string
+      x-okta-known-values:
+      - ACTIVE
+      - INACTIVE
     EventHookSubscribedEventTypes:
       description: |-
         The subscribed event types that trigger the event hook. When you register an event hook
@@ -107708,6 +108595,29 @@ components:
           description: Full name of the account user
           example: Carmel Sonne
           type: string
+        managementStatus:
+          description: Indicates whether the OS account is managed by the organization
+          example: MANAGED
+          type: string
+          x-enumDescriptions:
+            MANAGED: The OS account is managed by the organization
+            UNMANAGED: The OS account isn't managed by the organization
+          x-okta-known-values:
+          - MANAGED
+          - UNMANAGED
+        screenLockType:
+          description: Type of screen lock configured for the OS account
+          example: BIOMETRIC
+          type: string
+          x-enumDescriptions:
+            BIOMETRIC: "The account unlocks with a biometric method, such as Touch\
+              \ ID or Windows Hello"
+            PASSWORD: The account unlocks with a password or passcode
+            NONE: No screen lock is configured for the account
+          x-okta-known-values:
+          - BIOMETRIC
+          - NONE
+          - PASSWORD
         type:
           description: Profile type discriminator
           enum:
@@ -107908,11 +108818,6 @@ components:
       x-okta-known-values:
       - CIDR
       - RANGE
-    NetworkZoneAsns:
-      items:
-        type: string
-      maximum: 75
-      type: array
     NetworkZoneLocation:
       properties:
         country:
@@ -107930,12 +108835,6 @@ components:
             <br>For example: `CA` (for `US-CA` country and region code)
           type: string
       type: object
-    NetworkZoneLocationArray:
-      items:
-        $ref: "#/components/schemas/NetworkZoneLocation"
-      maximum: 75
-      nullable: true
-      type: array
     NetworkZoneStatus:
       description: Network Zone status
       type: string
@@ -109439,6 +110338,16 @@ components:
       default: client_secret_basic
       description: Requested authentication method for the token endpoint
       type: string
+      x-enumDescriptions:
+        client_secret_basic: Client credentials are passed as HTTP Basic Authentication
+          in the `Authorization` header.
+        client_secret_jwt: The client authenticates by signing a JWT with a key derived
+          from the client secret.
+        client_secret_post: Client credentials are passed as `client_id` and `client_secret`
+          parameters in the request body.
+        none: No client authentication. Use for public clients that rely on PKCE.
+        private_key_jwt: The client authenticates by signing a JWT with its private
+          key. Requires a registered public key.
       x-okta-known-values:
       - client_secret_basic
       - client_secret_jwt
@@ -109895,6 +110804,16 @@ components:
         required:
         - profile
         type: object
+    OSAccountManagementStatus:
+      description: Indicates whether the OS account is managed by the organization
+      example: MANAGED
+      type: string
+      x-enumDescriptions:
+        MANAGED: The OS account is managed by the organization
+        UNMANAGED: The OS account isn't managed by the organization
+      x-okta-known-values:
+      - MANAGED
+      - UNMANAGED
     OSAccountPlatform:
       description: OS platform for OS accounts (desktop platforms only)
       type: string
@@ -109904,6 +110823,19 @@ components:
       x-okta-known-values:
       - MACOS
       - WINDOWS
+    OSAccountScreenLockType:
+      description: Type of screen lock configured for the OS account
+      example: BIOMETRIC
+      type: string
+      x-enumDescriptions:
+        BIOMETRIC: "The account unlocks with a biometric method, such as Touch ID\
+          \ or Windows Hello"
+        PASSWORD: The account unlocks with a password or passcode
+        NONE: No screen lock is configured for the account
+      x-okta-known-values:
+      - BIOMETRIC
+      - NONE
+      - PASSWORD
     OSAccountWindows:
       allOf:
       - $ref: "#/components/schemas/OSAccount"
@@ -110094,6 +111026,64 @@ components:
           example: offline_access
           type: string
       type: object
+    OfflineFactor:
+      description: A factor that's enrolled for offline authentication
+      properties:
+        displayName:
+          description: Human-readable name of the offline factor
+          example: Okta Verify TOTP
+          type: string
+        enrollDate:
+          description: Timestamp when the offline factor was enrolled
+          format: date-time
+          readOnly: true
+          type: string
+        id:
+          description: Unique identifier of the offline factor
+          readOnly: true
+          type: string
+        profile:
+          $ref: "#/components/schemas/OfflineFactorProfile"
+        type:
+          description: "The type of offline factor. `TOTP` is the only supported offline\
+            \ factor for macOS enrollments, currently."
+          example: TOTP
+          type: string
+          x-enumDescriptions:
+            TOTP: "A time-based one-time passcode, such as Okta Verify TOTP"
+            SECURITY_KEY: "A hardware security key, such as a YubiKey. Windows only."
+            BIO_FINGERPRINT: "A fingerprint biometric, such as Windows Hello Fingerprint.\
+              \ Windows only."
+          x-okta-known-values:
+          - BIO_FINGERPRINT
+          - SECURITY_KEY
+          - TOTP
+      type: object
+    OfflineFactorProfile:
+      description: "Profile details for an offline factor. The returned properties\
+        \ depend on the factor `type`, and the object is empty for factor types that\
+        \ have no additional detail."
+      properties:
+        serialNumber:
+          description: Serial number of the factor's hardware. Only returned for `SECURITY_KEY`
+            factors.
+          example: "18274655"
+          type: string
+      type: object
+    OfflineFactorType:
+      description: "The type of offline factor. `TOTP` is the only supported offline\
+        \ factor for macOS enrollments, currently."
+      example: TOTP
+      type: string
+      x-enumDescriptions:
+        TOTP: "A time-based one-time passcode, such as Okta Verify TOTP"
+        SECURITY_KEY: "A hardware security key, such as a YubiKey. Windows only."
+        BIO_FINGERPRINT: "A fingerprint biometric, such as Windows Hello Fingerprint.\
+          \ Windows only."
+      x-okta-known-values:
+      - BIO_FINGERPRINT
+      - SECURITY_KEY
+      - TOTP
     OidcAlgorithms:
       properties:
         request:
@@ -110339,7 +111329,7 @@ components:
           description: The user-defined name for the Okta managed user account
           example: AD Integrations Admin - Updated
           format: regex
-          maxLength: 50
+          maxLength: 100
           minLength: 1
           pattern: "^[\\w\\-_. ]+$"
           type: string
@@ -110386,7 +111376,7 @@ components:
           description: The user-defined name for the Okta managed user account
           example: AD Integrations Admin
           format: regex
-          maxLength: 50
+          maxLength: 100
           minLength: 1
           pattern: "^[\\w\\-_. ]+$"
           type: string
@@ -110481,7 +111471,7 @@ components:
           description: The user-defined name for the Okta managed user account
           example: AD Integrations Admin
           format: regex
-          maxLength: 50
+          maxLength: 100
           minLength: 1
           pattern: "^[\\w\\-_. ]+$"
           type: string
@@ -113477,10 +114467,11 @@ components:
       x-okta-known-values:
       - ACCESS_POLICY
     PolicyNetworkCondition:
-      description: "Specifies a network selection mode and a set of network zones\
-        \ to be included or excluded. If the connection parameter's data type is `ZONE`,\
-        \ one of the `include` or `exclude` arrays is required. Specific zone IDs\
-        \ to include or exclude are enumerated in the respective arrays."
+      description: "Specifies a network selection mode. When `connection` is `ANYWHERE`,\
+        \ the rule applies regardless of network, and the `include` and `exclude`\
+        \ arrays aren't required. When `connection` is `ZONE`, use the `include` or\
+        \ `exclude` array to enumerate the specific zone IDs that the rule matches.\
+        \ At least one of the two arrays is required in that case."
       example:
         include:
         - include
@@ -114147,6 +115138,24 @@ components:
       properties:
         inlineHookId:
           type: string
+        scopes:
+          description: Specifies the use cases when the configured pre-registration
+            inline hook is invoked. This property is required when `preRegistrationInlineHooks`
+            is set. Include both values to invoke the hook during self-service registration
+            and progressive profiling.
+          items:
+            enum:
+            - SELF_SERVICE_REGISTRATION
+            - PROGRESSIVE_PROFILING
+            type: string
+            x-enumDescriptions:
+              SELF_SERVICE_REGISTRATION: Okta calls the pre-registration inline hook
+                when a new user submits the self-service registration form.
+              PROGRESSIVE_PROFILING: Okta calls the pre-registration inline hook when
+                an existing user submits additional profile attributes during progressive
+                profiling.
+          type: array
+          uniqueItems: true
       type: object
     PreRegistrationPlatform:
       description: Device platform for pre-registration
@@ -114466,23 +115475,6 @@ components:
           - ENABLED
           - DISABLED
           type: string
-        scopes:
-          description: Specifies the use cases when the configured pre-registration
-            inline hook is invoked. This property is required when `preRegistrationInlineHooks`
-            is set. Include both values to invoke the hook during self-service registration
-            and progressive profiling.
-          items:
-            enum:
-            - SELF_SERVICE_REGISTRATION
-            - PROGRESSIVE_PROFILING
-            type: string
-            x-enumDescriptions:
-              SELF_SERVICE_REGISTRATION: Invokes the pre-registration inline hook
-                during self-service registration
-              PROGRESSIVE_PROFILING: Invokes the pre-registration inline hook during
-                progressive profiling
-          type: array
-          uniqueItems: true
         targetGroupIds:
           description: "(Optional, max 1 entry) The `id` of a group that this user\
             \ should be added to"
@@ -114732,6 +115724,86 @@ components:
           example: DISABLED
       type: object
       x-okta-ignore-redocly-rules-for-sdk: true
+    ProtectedResource:
+      description: |-
+        <x-lifecycle-container><x-lifecycle class="oie"></x-lifecycle></x-lifecycle-container>A resource protected by a custom authorization server. This shape is common to all resource
+        types (see `resourceType`). Type-specific properties, such as `resourceUrl`, are only present
+        for the resource types that have them.
+      properties:
+        id:
+          description: Unique identifier of the protected resource
+          example: ems8nUa7p0g4zrZbs2f4
+          readOnly: true
+          type: string
+        resourceType:
+          description: <x-lifecycle-container><x-lifecycle class="oie"></x-lifecycle></x-lifecycle-container>The
+            type of a resource protected by an authorization server
+          example: MCP
+          type: string
+          x-okta-lifecycle:
+            lifecycle: LIMITED_GA
+            isGenerallyAvailable: false
+            SKUs: []
+          x-enumDescriptions:
+            MCP: Model Context Protocol (MCP) server
+            A2A: Agent-to-agent (A2A) server
+            API: API resource server
+            VMP: Virtual MCP server
+          x-okta-known-values:
+          - MCP
+          - A2A
+          - API
+          - VMP
+        resourceUrl:
+          description: The URL of the protected resource. Present only for resource
+            types that expose a resource URL.
+          example: https://api.example.com/mcp
+          format: uri
+          type: string
+        status:
+          description: Current status of the resource in its lifecycle
+          enum:
+          - INACTIVE
+          - ACTIVE
+          - INVALID
+          example: ACTIVE
+          readOnly: true
+          type: string
+          x-enumDescriptions:
+            INACTIVE: Resource is inactive and ready to be activated
+            ACTIVE: Resource is active and operational
+            INVALID: Resource configuration is invalid
+        _links:
+          $ref: "#/components/schemas/LinksSelf"
+      required:
+      - _links
+      - id
+      - resourceType
+      - status
+      type: object
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs: []
+    ProtectedResourceType:
+      description: <x-lifecycle-container><x-lifecycle class="oie"></x-lifecycle></x-lifecycle-container>The
+        type of a resource protected by an authorization server
+      example: MCP
+      type: string
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs: []
+      x-enumDescriptions:
+        MCP: Model Context Protocol (MCP) server
+        A2A: Agent-to-agent (A2A) server
+        API: API resource server
+        VMP: Virtual MCP server
+      x-okta-known-values:
+      - MCP
+      - A2A
+      - API
+      - VMP
     ProtocolAlgorithmRequestScope:
       description: Specifies whether to digitally sign authorization requests to the
         IdP
@@ -118038,12 +119110,6 @@ components:
           description: Template for app user's username when a user is assigned to
             the app
           type: string
-      required:
-      - allowMultipleAcsEndpoints
-      - assertionSigned
-      - honorForceAuthn
-      - requestCompressed
-      - responseSigned
       type: object
     SamlAssertionEncryption:
       description: Determines if the app supports encrypted assertions
@@ -119143,7 +120209,7 @@ components:
           description: The user-defined name for the service account
           example: AWS Prod-5 account
           format: regex
-          maxLength: 50
+          maxLength: 100
           minLength: 1
           pattern: "^[\\w\\-_. ]+$"
           type: string
@@ -119298,7 +120364,7 @@ components:
           description: The human-readable name for the service account
           example: AWS Prod-5 account
           format: regex
-          maxLength: 50
+          maxLength: 100
           minLength: 1
           pattern: "^[\\w\\-_. ]+$"
           type: string
@@ -120363,6 +121429,52 @@ components:
           href: href
           type: type
       x-okta-ignore-redocly-rules-for-sdk: true
+    SpiffeTrustDomainRegistration:
+      description: "Represents a SPIFFE trust domain registration, which binds a SPIFFE\
+        \ trust domain to the HTTPS endpoint that serves its JWK bundle. Workloads\
+        \ whose SPIFFE IDs belong to the registered trust domain can authenticate\
+        \ against your Okta org using SPIFFE JWT-SVIDs, with signing keys fetched\
+        \ from the registered `bundleUrl`."
+      properties:
+        bundleUrl:
+          description: HTTPS URL of the SPIFFE bundle endpoint that serves the trust
+            domain's JWK Set. Okta fetches this URL on demand to resolve the signing
+            keys for incoming SPIFFE JWT-SVID client assertions.
+          example: https://bundle.example.com/spiffe/bundle.json
+          format: uri
+          maxLength: 2048
+          pattern: ^https://
+          type: string
+        created:
+          description: Timestamp when the registration was created
+          example: 2026-01-01T00:00:00Z
+          format: date-time
+          readOnly: true
+          type: string
+        id:
+          description: Unique identifier of the SPIFFE trust domain registration
+          example: std00000000000000000
+          readOnly: true
+          type: string
+        lastUpdated:
+          description: Timestamp when the registration was last updated
+          example: 2026-01-01T00:00:00Z
+          format: date-time
+          readOnly: true
+          type: string
+        trustDomain:
+          description: "The trust domain of a workload's SPIFFE ID. For example, in\
+            \ the SPIFFE ID `spiffe://example.org/payments-service`, the trust domain\
+            \ is `example.org`. The trust domain is immutable after creation; use\
+            \ the DELETE endpoint and create a new registration if the trust domain\
+            \ changes."
+          example: example.org
+          maxLength: 255
+          type: string
+      required:
+      - bundleUrl
+      - trustDomain
+      type: object
     SplunkEdition:
       description: Edition of the Splunk Cloud instance
       example: aws
@@ -122907,6 +124019,22 @@ components:
           example: ACTIVE
           readOnly: true
           type: string
+          x-enumDescriptions:
+            ACTIVE: The factor is active and can be used to sign in.
+            DISABLED: The factor is disabled.
+            ENROLLED: "The factor is enrolled, but activation hasn't started. This\
+              \ is equivalent to `PENDING_ACTIVATION` and isn't considered fully enrolled."
+            EXPIRED: The factor is expired and must be re-enrolled or activated again.
+            INACTIVE: The factor is no longer active and can't be used to sign in.
+            NOT_SETUP: The factor isn't set up. This means that the factor is either
+              not enrolled or the enrollment process hasn't been completed. A user
+              can't sign in with a factor that isn't set up.
+            PENDING_ACTIVATION: The factor is configured but not yet verified. Not
+              all factors require verification. A user can't sign in with this factor
+              while it's pending verification.
+            SUSPENDED: The factor is enrolled but in a suspended state. It can't be
+              used to sign in. Factors can be suspended due to too many sign-in attempts
+              or other security reasons.
           x-okta-known-values:
           - ACTIVE
           - DISABLED
@@ -122915,6 +124043,7 @@ components:
           - INACTIVE
           - NOT_SETUP
           - PENDING_ACTIVATION
+          - SUSPENDED
         vendorName:
           description: "Name of the factor vendor. This is usually the same as the\
             \ provider except for On-Prem MFA, which depends on admin settings."
@@ -123444,6 +124573,22 @@ components:
       example: ACTIVE
       readOnly: true
       type: string
+      x-enumDescriptions:
+        ACTIVE: The factor is active and can be used to sign in.
+        DISABLED: The factor is disabled.
+        ENROLLED: "The factor is enrolled, but activation hasn't started. This is\
+          \ equivalent to `PENDING_ACTIVATION` and isn't considered fully enrolled."
+        EXPIRED: The factor is expired and must be re-enrolled or activated again.
+        INACTIVE: The factor is no longer active and can't be used to sign in.
+        NOT_SETUP: The factor isn't set up. This means that the factor is either not
+          enrolled or the enrollment process hasn't been completed. A user can't sign
+          in with a factor that isn't set up.
+        PENDING_ACTIVATION: The factor is configured but not yet verified. Not all
+          factors require verification. A user can't sign in with this factor while
+          it's pending verification.
+        SUSPENDED: The factor is enrolled but in a suspended state. It can't be used
+          to sign in. Factors can be suspended due to too many sign-in attempts or
+          other security reasons.
       x-okta-known-values:
       - ACTIVE
       - DISABLED
@@ -123452,6 +124597,7 @@ components:
       - INACTIVE
       - NOT_SETUP
       - PENDING_ACTIVATION
+      - SUSPENDED
     UserFactorSupported:
       example:
         provider: provider
@@ -123524,6 +124670,22 @@ components:
           example: ACTIVE
           readOnly: true
           type: string
+          x-enumDescriptions:
+            ACTIVE: The factor is active and can be used to sign in.
+            DISABLED: The factor is disabled.
+            ENROLLED: "The factor is enrolled, but activation hasn't started. This\
+              \ is equivalent to `PENDING_ACTIVATION` and isn't considered fully enrolled."
+            EXPIRED: The factor is expired and must be re-enrolled or activated again.
+            INACTIVE: The factor is no longer active and can't be used to sign in.
+            NOT_SETUP: The factor isn't set up. This means that the factor is either
+              not enrolled or the enrollment process hasn't been completed. A user
+              can't sign in with a factor that isn't set up.
+            PENDING_ACTIVATION: The factor is configured but not yet verified. Not
+              all factors require verification. A user can't sign in with this factor
+              while it's pending verification.
+            SUSPENDED: The factor is enrolled but in a suspended state. It can't be
+              used to sign in. Factors can be suspended due to too many sign-in attempts
+              or other security reasons.
           x-okta-known-values:
           - ACTIVE
           - DISABLED
@@ -123532,6 +124694,7 @@ components:
           - INACTIVE
           - NOT_SETUP
           - PENDING_ACTIVATION
+          - SUSPENDED
         vendorName:
           description: "Name of the factor vendor. This is usually the same as the\
             \ provider except for On-Prem MFA, which depends on admin settings."
@@ -125457,8 +126620,7 @@ components:
       type: string
       x-okta-lifecycle:
         lifecycle: GA
-        isGenerallyAvailable: false
-        SKUs: []
+        isGenerallyAvailable: true
       x-enumDescriptions:
         DISCOURAGED: "The authenticator isn't asked to perform user verification,\
           \ but may do so at its discretion."
@@ -125657,6 +126819,22 @@ components:
           example: ACTIVE
           readOnly: true
           type: string
+          x-enumDescriptions:
+            ACTIVE: The factor is active and can be used to sign in.
+            DISABLED: The factor is disabled.
+            ENROLLED: "The factor is enrolled, but activation hasn't started. This\
+              \ is equivalent to `PENDING_ACTIVATION` and isn't considered fully enrolled."
+            EXPIRED: The factor is expired and must be re-enrolled or activated again.
+            INACTIVE: The factor is no longer active and can't be used to sign in.
+            NOT_SETUP: The factor isn't set up. This means that the factor is either
+              not enrolled or the enrollment process hasn't been completed. A user
+              can't sign in with a factor that isn't set up.
+            PENDING_ACTIVATION: The factor is configured but not yet verified. Not
+              all factors require verification. A user can't sign in with this factor
+              while it's pending verification.
+            SUSPENDED: The factor is enrolled but in a suspended state. It can't be
+              used to sign in. Factors can be suspended due to too many sign-in attempts
+              or other security reasons.
           x-okta-known-values:
           - ACTIVE
           - DISABLED
@@ -125665,6 +126843,7 @@ components:
           - INACTIVE
           - NOT_SETUP
           - PENDING_ACTIVATION
+          - SUSPENDED
         vendorName:
           description: Name of the factor vendor. This is usually the same as the
             provider.
@@ -125747,8 +126926,7 @@ components:
       type: boolean
       x-okta-lifecycle:
         lifecycle: GA
-        isGenerallyAvailable: false
-        SKUs: []
+        isGenerallyAvailable: true
     WebAuthnSettingCertBasedAttestationValidation:
       default: false
       description: "Indicates whether certificate-based attestation validation is\
@@ -125759,8 +126937,7 @@ components:
       type: boolean
       x-okta-lifecycle:
         lifecycle: GA
-        isGenerallyAvailable: false
-        SKUs: []
+        isGenerallyAvailable: true
     WebAuthnSettingFipsCompliant:
       default: false
       description: "Indicates whether the authenticator is required to be [Federal\
@@ -125769,8 +126946,7 @@ components:
       type: boolean
       x-okta-lifecycle:
         lifecycle: GA
-        isGenerallyAvailable: false
-        SKUs: []
+        isGenerallyAvailable: true
     WebAuthnSettingHardwareProtected:
       default: false
       description: Indicates whether the authenticator is required to store the private
@@ -125778,8 +126954,7 @@ components:
       type: boolean
       x-okta-lifecycle:
         lifecycle: GA
-        isGenerallyAvailable: false
-        SKUs: []
+        isGenerallyAvailable: true
     WebAuthnSettingResidentKeyRequirement:
       default: REQUIRED
       description: Resident key requirement setting. Okta recommends using only `REQUIRED`
@@ -125789,8 +126964,7 @@ components:
       type: string
       x-okta-lifecycle:
         lifecycle: GA
-        isGenerallyAvailable: false
-        SKUs: []
+        isGenerallyAvailable: true
       x-enumDescriptions:
         DISCOURAGED: "The authenticator is requested to create a server-side credential,\
           \ but may create a client-side discoverable credential at its discretion."
@@ -125811,8 +126985,7 @@ components:
       type: boolean
       x-okta-lifecycle:
         lifecycle: GA
-        isGenerallyAvailable: false
-        SKUs: []
+        isGenerallyAvailable: true
     WellKnownAppAuthenticatorConfiguration:
       example:
         lastUpdated: 2000-01-23T04:56:07.000+00:00
@@ -126154,10 +127327,13 @@ components:
     WidgetConfigurationI18n:
       additionalProperties:
         additionalProperties:
+          maxLength: 1024
+          pattern: "^[^<>]*$"
           type: string
         type: object
       description: "Internationalization overrides. Keys are locale codes (e.g. \"\
-        en\", \"ja\", \"fr\"), values are objects mapping i18n keys to string overrides."
+        en\", \"ja\", \"fr\"), values are objects mapping i18n keys to string overrides.\
+        \ Override values can't contain `<` or `>` characters."
       type: object
     WidgetConfigurationThemeTokens:
       additionalProperties: false
@@ -126490,10 +127666,33 @@ components:
           example: 4ac29c85-d847-4492-96cb-46e337170c33
           format: uuid
           type: string
+        managementStatus:
+          description: Indicates whether the OS account is managed by the organization
+          example: MANAGED
+          type: string
+          x-enumDescriptions:
+            MANAGED: The OS account is managed by the organization
+            UNMANAGED: The OS account isn't managed by the organization
+          x-okta-known-values:
+          - MANAGED
+          - UNMANAGED
         qualifiedUsername:
           description: Fully qualified username
           example: okta\carmel.sonne
           type: string
+        screenLockType:
+          description: Type of screen lock configured for the OS account
+          example: BIOMETRIC
+          type: string
+          x-enumDescriptions:
+            BIOMETRIC: "The account unlocks with a biometric method, such as Touch\
+              \ ID or Windows Hello"
+            PASSWORD: The account unlocks with a password or passcode
+            NONE: No screen lock is configured for the account
+          x-okta-known-values:
+          - BIOMETRIC
+          - NONE
+          - PASSWORD
         securityId:
           description: Windows Security Identifier (SID)
           example: S-1-5-21-1004336348-1177238915-682003330-512
@@ -126619,6 +127818,16 @@ components:
       type: array
     XAAResourceServer:
       description: XAA resource server metadata for an app instance
+      example:
+        protectedResources:
+        - https://api.myapp.example.com/v1/documents
+        - https://api.myapp.example.com/v1/messages
+        audTenantRequired: true
+        scopes:
+        - documents.read
+        - messages.read
+        cimdSupported: true
+        issuer: https://myapp.example.com
       properties:
         audTenantRequired:
           description: |
@@ -127887,7 +129096,7 @@ components:
             \ `false` when [`self`](/openapi/okta-management/management/tags/policy/other/createpolicy#other/createpolicy/t=request&path=&d=1/settings/authenticators/enroll/self)\
             \ is `OPTIONAL` or `NOT_ALLOWED`. This property is only available if the\
             \ Email auto-enrollment and recovery control [self-service EA](/openapi/okta-management/guides/release-lifecycle/#early-access-ea)\
-            \ feature is enabled.  "
+            \ feature is enabled."
           nullable: true
           type: boolean
           x-okta-lifecycle:
@@ -128163,7 +129372,7 @@ components:
         type:
           description: Provider type
           enum:
-          - tac
+          - TAC
           type: string
         configuration:
           $ref: "#/components/schemas/AuthenticatorKeyTac_allOf_provider_configuration"
@@ -128271,8 +129480,7 @@ components:
           type: string
           x-okta-lifecycle:
             lifecycle: GA
-            isGenerallyAvailable: false
-            SKUs: []
+            isGenerallyAvailable: true
           x-enumDescriptions:
             DISCOURAGED: "The authenticator isn't asked to perform user verification,\
               \ but may do so at its discretion."
@@ -128301,8 +129509,7 @@ components:
           type: string
           x-okta-lifecycle:
             lifecycle: GA
-            isGenerallyAvailable: false
-            SKUs: []
+            isGenerallyAvailable: true
           x-enumDescriptions:
             DISCOURAGED: "The authenticator is requested to create a server-side credential,\
               \ but may create a client-side discoverable credential at its discretion."
@@ -128317,14 +129524,9 @@ components:
           - PREFERRED
           - REQUIRED
         showSignInWithAPasskeyButton:
-          default: false
-          description: Indicates if the **Sign in with a Passkey** button on the Sign-In
-            Widget is shown.
-          type: boolean
-          x-okta-lifecycle:
-            lifecycle: GA
-            isGenerallyAvailable: false
-            SKUs: []
+          allOf:
+          - $ref: "#/components/schemas/WebAuthnSettingShowSignInWithAPasskeyButton"
+          x-okta-ignore-redocly-rules-for-sdk: true
         certBasedAttestationValidation:
           default: false
           description: "Indicates whether certificate-based attestation validation\
@@ -128335,8 +129537,7 @@ components:
           type: boolean
           x-okta-lifecycle:
             lifecycle: GA
-            isGenerallyAvailable: false
-            SKUs: []
+            isGenerallyAvailable: true
         hardwareProtected:
           default: false
           description: Indicates whether the authenticator is required to store the
@@ -128344,8 +129545,7 @@ components:
           type: boolean
           x-okta-lifecycle:
             lifecycle: GA
-            isGenerallyAvailable: false
-            SKUs: []
+            isGenerallyAvailable: true
         fipsCompliant:
           default: false
           description: "Indicates whether the authenticator is required to be [Federal\
@@ -128354,8 +129554,7 @@ components:
           type: boolean
           x-okta-lifecycle:
             lifecycle: GA
-            isGenerallyAvailable: false
-            SKUs: []
+            isGenerallyAvailable: true
         allowSyncablePasskeys:
           default: true
           description: "Indicates whether syncable passkeys are allowed. When enabled,\
@@ -128365,8 +129564,7 @@ components:
           type: boolean
           x-okta-lifecycle:
             lifecycle: GA
-            isGenerallyAvailable: false
-            SKUs: []
+            isGenerallyAvailable: true
       type: object
     AuthorizationServerPolicy_allOf__links:
       allOf:
@@ -129367,15 +130565,19 @@ components:
       description: The list of ASNs associated with an Enhanced Dynamic Network Zone
       properties:
         include:
-          allOf:
-          - $ref: "#/components/schemas/NetworkZoneAsns"
           description: An array of ASNs to include for an Enhanced Dynamic Network
             Zone
+          items:
+            type: string
+          maxItems: 75
+          type: array
         exclude:
-          allOf:
-          - $ref: "#/components/schemas/NetworkZoneAsns"
           description: An array of ASNs to exclude for an Enhanced Dynamic Network
             Zone
+          items:
+            type: string
+          maxItems: 75
+          type: array
       type: object
       x-okta-lifecycle:
         lifecycle: GA
@@ -129386,15 +130588,21 @@ components:
         Dynamic Network Zone
       properties:
         include:
-          allOf:
-          - $ref: "#/components/schemas/NetworkZoneLocationArray"
           description: An array of geolocations to include for an Enhanced Dynamic
             Network Zone
+          items:
+            $ref: "#/components/schemas/NetworkZoneLocation"
+          maxItems: 75
+          nullable: true
+          type: array
         exclude:
-          allOf:
-          - $ref: "#/components/schemas/NetworkZoneLocationArray"
           description: An array of geolocations to exclude for an Enhanced Dynamic
             Network Zone
+          items:
+            $ref: "#/components/schemas/NetworkZoneLocation"
+          maxItems: 75
+          nullable: true
+          type: array
       type: object
       x-okta-lifecycle:
         lifecycle: GA
@@ -129408,13 +130616,13 @@ components:
           description: IP services to include for an Enhanced Dynamic Network Zone
           items:
             $ref: "#/components/schemas/IPServiceCategory"
-          maximum: 75
+          maxItems: 75
           type: array
         exclude:
           description: IP services to exclude for an Enhanced Dynamic Network Zone
           items:
             $ref: "#/components/schemas/IPServiceCategory"
-          maximum: 75
+          maxItems: 75
           type: array
       type: object
       x-okta-lifecycle:
@@ -131126,8 +132334,10 @@ components:
         context:
           $ref: "#/components/schemas/RegistrationInlineHookSSRData_allOf_data_context"
         action:
-          description: The default action the system will take. Will be `ALLOW`. `DENY`
-            will never be sent to your external service.
+          description: "The default action your org takes. By default, this value\
+            \ is set to `ALLOW`. (In the case of orgs with Identity Threat Protection\
+            \ enabled, a value of `DENY` may be set based on threat detection. See\
+            \ [Self-service registration](https://help.okta.com/okta_help.htm?type=oie&id=itp-ssr))."
           type: string
         userProfile:
           additionalProperties: true
@@ -131141,7 +132351,7 @@ components:
           description: |-
             The location where you specify the command. To set attributes in the user's Okta profile, supply a `type` property set to `com.okta.user.profile.update`, together with a `value` property set to a list of key-value pairs corresponding to the Okta user profile attributes you want to set. The attributes must already exist in your user profile schema.
 
-            To explicitly allow or deny registration to the user, supply a type property set to `com.okta.action.update`, together with a value property set to `{"registration": "ALLOW"}` or `{"registration": "DENY"}`. The default is to allow registration.
+            To explicitly allow or deny registration to the user, supply a type property set to `com.okta.action.update`, together with a value property set to `{"registration": "ALLOW"}` or `{"registration": "DENY"}`. The default is to allow registration, except in the case of orgs with Identity Threat Protection enabled where registration may be denied based on threat detection. (See [Self-service registration](https://help.okta.com/okta_help.htm?type=oie&id=itp-ssr).)
 
             In Okta Identity Engine, to set attributes in the user's profile, supply a `type` property set to `com.okta.user.progressive.profile.update`, together with a `value` property set to a list of key-value pairs corresponding to the Progressive Enrollment attributes that you want to set. See [Registration inline hook - Send response](https://developer.okta.com/docs/guides/registration-inline-hook/nodejs/main/#send-response).
 
@@ -131158,7 +132368,7 @@ components:
 
             For `com.okta.action.update` commands, the value should be an object containing the attribute `action` set to a value of either `ALLOW` or `DENY`, indicating whether the registration should be permitted or not.
 
-            Registrations are allowed by default, so setting a value of `ALLOW` for the action field is valid but superfluous.
+            Registrations are allowed by default, so setting a value of `ALLOW` for the action field is valid but superfluous. This default doesn't apply to self-service registration (SSR) for orgs with Identity Threat Protection enabled, where the default can instead come from the hook and be `DENY`.
           type: object
       type: object
     RegistrationResponse_Error_errorCauses_inner:
@@ -134241,6 +135451,10 @@ components:
               your Okta organization
             okta.captchas.read: Allows the app to read information about CAPTCHAs
               in your Okta organization
+            okta.certificateAuthorities.manage: Allows the app to manage Certificate
+              Authorities and their mappings in your Okta organization
+            okta.certificateAuthorities.read: Allows the app to read Certificate Authorities
+              and their mappings in your Okta organization
             okta.clients.manage: Allows the app to manage information about OAuth
               clients.
             okta.clients.read: Allows the app to read information about OAuth clients
@@ -134944,6 +136158,7 @@ x-tagGroups:
   - ApplicationSSOFederatedClaims
   - ApplicationTokens
   - ApplicationUsers
+  - ApplicationXAAConfiguration
   - ApiServiceIntegrations
   - OktaApplicationSettings
   - GroupPushMapping
@@ -134977,6 +136192,7 @@ x-tagGroups:
   - Themes
 - name: Devices
   tags:
+  - CertificateAuthorityToScopeMapping
   - Device
   - DeviceAssurance
   - DeviceIntegrations

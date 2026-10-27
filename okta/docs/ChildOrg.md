@@ -5,7 +5,9 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Admin** | [**OrgCreationAdmin**](OrgCreationAdmin.md) |  | 
+**BuilderType** | Pointer to **string** | The type of builder that the org is created for. Supported values: &#x60;Existing Customers&#x60;, &#x60;Independent Software Vendors&#x60;, &#x60;Solution Builders&#x60;, or &#x60;Other Developers&#x60;. Values are matched exactly, and a value that isn&#39;t one of the listed options returns a &#x60;400 Bad Request&#x60; response. &gt; **Internal use:** This property is for internal use only and not available to customers. It&#39;s only captured during Integrator Free Tier org creation and is ignored otherwise. | [optional] 
 **Created** | Pointer to **time.Time** | Timestamp when the org was created | [optional] [readonly] 
+**Department** | Pointer to **string** | The department of the user who creates the org. Supported values: &#x60;Engineering&#x60;, &#x60;Product&#x60;, &#x60;Developer Relations&#x60;, &#x60;Sales&#x60;, &#x60;Marketing&#x60;, &#x60;Security&#x60;, &#x60;IT&#x60;, &#x60;Operations&#x60;, &#x60;Legal&#x60;, or &#x60;Others&#x60;. Values are matched exactly, and a value that isn&#39;t one of the listed options returns a &#x60;400 Bad Request&#x60; response. &gt; **Internal use:** This property is for internal use only and not available to customers. It&#39;s only captured during Integrator Free Tier org creation and is ignored otherwise. | [optional] 
 **Edition** | **string** | Edition for the org. &#x60;SKU&#x60; is the only supported value. | 
 **Id** | Pointer to **string** | Org ID | [optional] [readonly] 
 **LastUpdated** | Pointer to **time.Time** | Timestamp when the org was last updated | [optional] [readonly] 
@@ -57,6 +59,31 @@ and a boolean to check if the value has been set.
 SetAdmin sets Admin field to given value.
 
 
+### GetBuilderType
+
+`func (o *ChildOrg) GetBuilderType() string`
+
+GetBuilderType returns the BuilderType field if non-nil, zero value otherwise.
+
+### GetBuilderTypeOk
+
+`func (o *ChildOrg) GetBuilderTypeOk() (*string, bool)`
+
+GetBuilderTypeOk returns a tuple with the BuilderType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetBuilderType
+
+`func (o *ChildOrg) SetBuilderType(v string)`
+
+SetBuilderType sets BuilderType field to given value.
+
+### HasBuilderType
+
+`func (o *ChildOrg) HasBuilderType() bool`
+
+HasBuilderType returns a boolean if a field has been set.
+
 ### GetCreated
 
 `func (o *ChildOrg) GetCreated() time.Time`
@@ -81,6 +108,31 @@ SetCreated sets Created field to given value.
 `func (o *ChildOrg) HasCreated() bool`
 
 HasCreated returns a boolean if a field has been set.
+
+### GetDepartment
+
+`func (o *ChildOrg) GetDepartment() string`
+
+GetDepartment returns the Department field if non-nil, zero value otherwise.
+
+### GetDepartmentOk
+
+`func (o *ChildOrg) GetDepartmentOk() (*string, bool)`
+
+GetDepartmentOk returns a tuple with the Department field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetDepartment
+
+`func (o *ChildOrg) SetDepartment(v string)`
+
+SetDepartment sets Department field to given value.
+
+### HasDepartment
+
+`func (o *ChildOrg) HasDepartment() bool`
+
+HasDepartment returns a boolean if a field has been set.
 
 ### GetEdition
 

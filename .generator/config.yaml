@@ -10,7 +10,7 @@ additionalProperties:
   enumClassPrefix: true
   generateInterfaces: true
   packageName: okta
-  packageVersion: 7.0.0
+  packageVersion: 7.1.0
   useOneOfDiscriminatorLookup: true
   disallowAdditionalPropertiesIfNotPresent: false
 files:

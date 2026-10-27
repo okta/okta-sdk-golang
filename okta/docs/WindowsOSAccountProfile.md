@@ -8,7 +8,9 @@ Name | Type | Description | Notes
 **DownLevelUsername** | Pointer to **string** | Domain\\username format (down-level logon name) | [optional] 
 **FullName** | Pointer to **string** | Full name of the account user | [optional] 
 **GUID** | Pointer to **string** | Globally Unique Identifier for the account | [optional] 
+**ManagementStatus** | Pointer to **string** | Indicates whether the OS account is managed by the organization | [optional] 
 **QualifiedUsername** | Pointer to **string** | Fully qualified username | [optional] 
+**ScreenLockType** | Pointer to **string** | Type of screen lock configured for the OS account | [optional] 
 **SecurityId** | Pointer to **string** | Windows Security Identifier (SID) | [optional] 
 **Type** | Pointer to **string** | Profile type discriminator | [optional] 
 **Upn** | Pointer to **string** | User principal name | [optional] 
@@ -132,6 +134,31 @@ SetGUID sets GUID field to given value.
 
 HasGUID returns a boolean if a field has been set.
 
+### GetManagementStatus
+
+`func (o *WindowsOSAccountProfile) GetManagementStatus() string`
+
+GetManagementStatus returns the ManagementStatus field if non-nil, zero value otherwise.
+
+### GetManagementStatusOk
+
+`func (o *WindowsOSAccountProfile) GetManagementStatusOk() (*string, bool)`
+
+GetManagementStatusOk returns a tuple with the ManagementStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetManagementStatus
+
+`func (o *WindowsOSAccountProfile) SetManagementStatus(v string)`
+
+SetManagementStatus sets ManagementStatus field to given value.
+
+### HasManagementStatus
+
+`func (o *WindowsOSAccountProfile) HasManagementStatus() bool`
+
+HasManagementStatus returns a boolean if a field has been set.
+
 ### GetQualifiedUsername
 
 `func (o *WindowsOSAccountProfile) GetQualifiedUsername() string`
@@ -156,6 +183,31 @@ SetQualifiedUsername sets QualifiedUsername field to given value.
 `func (o *WindowsOSAccountProfile) HasQualifiedUsername() bool`
 
 HasQualifiedUsername returns a boolean if a field has been set.
+
+### GetScreenLockType
+
+`func (o *WindowsOSAccountProfile) GetScreenLockType() string`
+
+GetScreenLockType returns the ScreenLockType field if non-nil, zero value otherwise.
+
+### GetScreenLockTypeOk
+
+`func (o *WindowsOSAccountProfile) GetScreenLockTypeOk() (*string, bool)`
+
+GetScreenLockTypeOk returns a tuple with the ScreenLockType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetScreenLockType
+
+`func (o *WindowsOSAccountProfile) SetScreenLockType(v string)`
+
+SetScreenLockType sets ScreenLockType field to given value.
+
+### HasScreenLockType
+
+`func (o *WindowsOSAccountProfile) HasScreenLockType() bool`
+
+HasScreenLockType returns a boolean if a field has been set.
 
 ### GetSecurityId
 

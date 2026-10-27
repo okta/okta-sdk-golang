@@ -45,7 +45,7 @@ type UserAPI interface {
 		Calls are made to the Google Chrome Management API asynchronously per profile, and the endpoint returns immediately without waiting for Chrome to confirm the clearing of data.
 		If the user has no managed Chrome profiles, or no active integration with Chrome device trust connector, the request succeeds with no action taken.
 
-		A syslog event (`user.chrome_data.clear`) is triggered per profile indicating success or failure of the Google API call.
+		A syslog event (`user.chrome.data.clear`) is triggered per profile indicating success or failure of the Google API call.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
@@ -240,7 +240,7 @@ Clears the managed Chrome profile browsing data (cookies and cached access token
 Calls are made to the Google Chrome Management API asynchronously per profile, and the endpoint returns immediately without waiting for Chrome to confirm the clearing of data.
 If the user has no managed Chrome profiles, or no active integration with Chrome device trust connector, the request succeeds with no action taken.
 
-A syslog event (`user.chrome_data.clear`) is triggered per profile indicating success or failure of the Google API call.
+A syslog event (`user.chrome.data.clear`) is triggered per profile indicating success or failure of the Google API call.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user

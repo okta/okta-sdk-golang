@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **LastAuthenticatedOn** | Pointer to **time.Time** | Timestamp of the last successful authentication | [optional] 
+**OfflineFactors** | Pointer to [**[]OfflineFactor**](OfflineFactor.md) | Factors that are enrolled for offline authentication on this enrollment. &#x60;offlineFactors&#x60; is only returned for &#x60;desktop_mfa&#x60; enrollments when &#x60;offlineFactors&#x60; is requested with the &#x60;expand&#x60; query parameter. | [optional] 
 
 ## Methods
 
@@ -49,6 +50,31 @@ SetLastAuthenticatedOn sets LastAuthenticatedOn field to given value.
 `func (o *AccountLinkedEnrollmentEmbedded) HasLastAuthenticatedOn() bool`
 
 HasLastAuthenticatedOn returns a boolean if a field has been set.
+
+### GetOfflineFactors
+
+`func (o *AccountLinkedEnrollmentEmbedded) GetOfflineFactors() []OfflineFactor`
+
+GetOfflineFactors returns the OfflineFactors field if non-nil, zero value otherwise.
+
+### GetOfflineFactorsOk
+
+`func (o *AccountLinkedEnrollmentEmbedded) GetOfflineFactorsOk() (*[]OfflineFactor, bool)`
+
+GetOfflineFactorsOk returns a tuple with the OfflineFactors field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOfflineFactors
+
+`func (o *AccountLinkedEnrollmentEmbedded) SetOfflineFactors(v []OfflineFactor)`
+
+SetOfflineFactors sets OfflineFactors field to given value.
+
+### HasOfflineFactors
+
+`func (o *AccountLinkedEnrollmentEmbedded) HasOfflineFactors() bool`
+
+HasOfflineFactors returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

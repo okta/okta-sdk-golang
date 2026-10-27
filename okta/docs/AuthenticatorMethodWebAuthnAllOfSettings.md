@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **Attachment** | Pointer to **string** | Method attachment | [optional] 
 **RpId** | Pointer to [**WebAuthnRpId**](WebAuthnRpId.md) |  | [optional] 
 **ResidentKeyRequirement** | Pointer to **string** | Resident key requirement setting. Okta recommends using only &#x60;REQUIRED&#x60; or &#x60;DISCOURAGED&#x60; to make the requirement preference explicit. Using &#x60;PREFERRED&#x60; can sometimes lead to unpredictable behavior depending on the client platform and authenticator capabilities. | [optional] [default to "REQUIRED"]
-**ShowSignInWithAPasskeyButton** | Pointer to **bool** | Indicates if the **Sign in with a Passkey** button on the Sign-In Widget is shown. | [optional] [default to false]
+**ShowSignInWithAPasskeyButton** | Pointer to **bool** | Indicates if the **Sign in with a Passkey** button on the Sign-In Widget is shown. | [optional] 
 **CertBasedAttestationValidation** | Pointer to **bool** | Indicates whether certificate-based attestation validation is enabled. When enabled, the authenticator&#39;s attestation certificate is validated against known root certificates (custom AAGUIDs with associated certificates or the [FIDO Metadata Service](https://fidoalliance.org/metadata/)) to ensure its validity. | [optional] [default to false]
 **HardwareProtected** | Pointer to **bool** | Indicates whether the authenticator is required to store the private key on a hardware component | [optional] [default to false]
 **FipsCompliant** | Pointer to **bool** | Indicates whether the authenticator is required to be [Federal Information Processing Standards (FIPS)](https://csrc.nist.gov/glossary/term/federal_information_processing_standard) compliant | [optional] [default to false]

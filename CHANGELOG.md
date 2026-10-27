@@ -1,6 +1,9 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v7.1.0
+- Update to latest Okta Management API specification 2026.42.1 . [#603](https://github.com/okta/okta-sdk-golang/pull/604) Thanks [@dhiwakar-okta](https://github.com/dhiwakar-okta)
+
 ## v7.0.0
 - Update to latest Okta Management API specification 2026.09.0 . [#603](https://github.com/okta/okta-sdk-golang/pull/604) Thanks [@dhiwakar-okta](https://github.com/dhiwakar-okta)
 - Updated JSON marshal logic client.mustache

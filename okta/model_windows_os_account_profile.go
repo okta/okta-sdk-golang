@@ -40,8 +40,12 @@ type WindowsOSAccountProfile struct {
 	FullName *string `json:"fullName,omitempty"`
 	// Globally Unique Identifier for the account
 	GUID *string `json:"GUID,omitempty"`
+	// Indicates whether the OS account is managed by the organization
+	ManagementStatus *string `json:"managementStatus,omitempty"`
 	// Fully qualified username
 	QualifiedUsername *string `json:"qualifiedUsername,omitempty"`
+	// Type of screen lock configured for the OS account
+	ScreenLockType *string `json:"screenLockType,omitempty"`
 	// Windows Security Identifier (SID)
 	SecurityId *string `json:"securityId,omitempty"`
 	// Profile type discriminator
@@ -198,6 +202,38 @@ func (o *WindowsOSAccountProfile) SetGUID(v string) {
 	o.GUID = &v
 }
 
+// GetManagementStatus returns the ManagementStatus field value if set, zero value otherwise.
+func (o *WindowsOSAccountProfile) GetManagementStatus() string {
+	if o == nil || IsNil(o.ManagementStatus) {
+		var ret string
+		return ret
+	}
+	return *o.ManagementStatus
+}
+
+// GetManagementStatusOk returns a tuple with the ManagementStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WindowsOSAccountProfile) GetManagementStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.ManagementStatus) {
+		return nil, false
+	}
+	return o.ManagementStatus, true
+}
+
+// HasManagementStatus returns a boolean if a field has been set.
+func (o *WindowsOSAccountProfile) HasManagementStatus() bool {
+	if o != nil && !IsNil(o.ManagementStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetManagementStatus gets a reference to the given string and assigns it to the ManagementStatus field.
+func (o *WindowsOSAccountProfile) SetManagementStatus(v string) {
+	o.ManagementStatus = &v
+}
+
 // GetQualifiedUsername returns the QualifiedUsername field value if set, zero value otherwise.
 func (o *WindowsOSAccountProfile) GetQualifiedUsername() string {
 	if o == nil || IsNil(o.QualifiedUsername) {
@@ -228,6 +264,38 @@ func (o *WindowsOSAccountProfile) HasQualifiedUsername() bool {
 // SetQualifiedUsername gets a reference to the given string and assigns it to the QualifiedUsername field.
 func (o *WindowsOSAccountProfile) SetQualifiedUsername(v string) {
 	o.QualifiedUsername = &v
+}
+
+// GetScreenLockType returns the ScreenLockType field value if set, zero value otherwise.
+func (o *WindowsOSAccountProfile) GetScreenLockType() string {
+	if o == nil || IsNil(o.ScreenLockType) {
+		var ret string
+		return ret
+	}
+	return *o.ScreenLockType
+}
+
+// GetScreenLockTypeOk returns a tuple with the ScreenLockType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *WindowsOSAccountProfile) GetScreenLockTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.ScreenLockType) {
+		return nil, false
+	}
+	return o.ScreenLockType, true
+}
+
+// HasScreenLockType returns a boolean if a field has been set.
+func (o *WindowsOSAccountProfile) HasScreenLockType() bool {
+	if o != nil && !IsNil(o.ScreenLockType) {
+		return true
+	}
+
+	return false
+}
+
+// SetScreenLockType gets a reference to the given string and assigns it to the ScreenLockType field.
+func (o *WindowsOSAccountProfile) SetScreenLockType(v string) {
+	o.ScreenLockType = &v
 }
 
 // GetSecurityId returns the SecurityId field value if set, zero value otherwise.
@@ -348,8 +416,14 @@ func (o WindowsOSAccountProfile) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.GUID) {
 		toSerialize["GUID"] = o.GUID
 	}
+	if !IsNil(o.ManagementStatus) {
+		toSerialize["managementStatus"] = o.ManagementStatus
+	}
 	if !IsNil(o.QualifiedUsername) {
 		toSerialize["qualifiedUsername"] = o.QualifiedUsername
+	}
+	if !IsNil(o.ScreenLockType) {
+		toSerialize["screenLockType"] = o.ScreenLockType
 	}
 	if !IsNil(o.SecurityId) {
 		toSerialize["securityId"] = o.SecurityId
@@ -386,7 +460,9 @@ func (o *WindowsOSAccountProfile) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "downLevelUsername")
 		delete(additionalProperties, "fullName")
 		delete(additionalProperties, "GUID")
+		delete(additionalProperties, "managementStatus")
 		delete(additionalProperties, "qualifiedUsername")
+		delete(additionalProperties, "screenLockType")
 		delete(additionalProperties, "securityId")
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "upn")
