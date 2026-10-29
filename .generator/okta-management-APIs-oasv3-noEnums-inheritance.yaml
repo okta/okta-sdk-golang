@@ -86291,11 +86291,6 @@ components:
         userNameSelector:
           type: string
           description: CSS selector for the **Username** field in the sign-in form (for three-field SWA apps with the `template_swa3field` app name definition)
-      required:
-        - buttonField
-        - passwordField
-        - usernameField
-        - url
     TacAuthenticatorEnrollment:
       type: object
       properties:
