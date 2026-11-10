@@ -90,5 +90,5 @@ openapi-generator-jar:
 	@unzip -qt "$(OPENAPI_GENERATOR_JAR)" >/dev/null 2>&1 && echo "$(COLOR_OK)openapi-generator jar ready$(COLOR_NONE)" || (echo "$(COLOR_ERROR)openapi-generator jar download failed$(COLOR_NONE)"; exit 1)
 
 generate: openapi-generator-jar
-	java -jar "$(OPENAPI_GENERATOR_JAR)" generate -c ./.generator/config.yaml -i .generator/okta-management-APIs-oasv3-noEnums-inheritance.yaml --skip-validate-spec
+	java -DmaxYamlCodePoints=99999999 -jar "$(OPENAPI_GENERATOR_JAR)" generate -c ./.generator/config.yaml -i .generator/okta-management-APIs-oasv3-noEnums-inheritance.yaml --skip-validate-spec
 
