@@ -351,7 +351,7 @@ tags:
     x-displayName: Directories Integration
     description: |-
       The Directories Integration API provides operations to manage Active Directory (AD) and Lightweight Directory Access Protocol (LDAP) objects in a connected on-premises directory through Okta.
-            
+
       Okta can only manage group memberships for users and groups imported into Okta using the AD or LDAP integration. You can't use this API to manage users and groups that weren't imported through an AD or LDAP integration or are outside of the integration's org unit scope.
   - name: EmailCustomization
     x-displayName: Org Email Settings
@@ -30879,10 +30879,10 @@ x-webhooks:
 
         Note: Administrators can use the [Okta System Log](https://developer.okta.com/docs/reference/api/system-log/) to view errors. See the Troubleshooting section in the inline hooks topic for details on events captured by the Okta System Log.
 
-        | Issue                                                                               | Impact                                                                                          | Error Visibility                          | 
+        | Issue                                                                               | Impact                                                                                          | Error Visibility                          |
         |-------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|-------------------------------------------|
         |External service fails to communicate or times out                                   | Inline hook operation is skipped, OTP is sent to the Requester using an Okta telephony provider. The telephony inline hook isn't retried. | Administrators only                       |
-        |External service responds with any HTTP status code besides `200`                    | Inline hook operation is skipped, OTP is sent to the Requester using an Okta telephony provider | Administrators only                       | 
+        |External service responds with any HTTP status code besides `200`                    | Inline hook operation is skipped, OTP is sent to the Requester using an Okta telephony provider | Administrators only                       |
         |External service returns an error object                                             | Inline hook operation fails, OTP is sent to the Requester using an Okta telephony provider      | Administrators, developers, and end users |
         |Hook response is malformed or can't be mapped to the expected API response           | Inline hook operation is skipped                                                                | Administrators only                       |
         |Request header doesn't include an `authScheme`                                       | Inline hook operation is skipped                                                                | Administrators only                       |
@@ -30966,7 +30966,7 @@ x-webhooks:
 
         ### Password removal from an existing user store
 
-        Because of the possibility of your org being in a special service mode, you shouldn't attempt to permanently delete user passwords from your existing user store until you can verify the success of the password import . An Okta System Log Event, `user.import.password`, is available for this purpose. An event of this type is created every time a password import inline hook is fired, with its `Event.Outcome` property providing a status of `FAILURE` or `SUCCESS` for the password import operation. 
+        Because of the possibility of your org being in a special service mode, you shouldn't attempt to permanently delete user passwords from your existing user store until you can verify the success of the password import . An Okta System Log Event, `user.import.password`, is available for this purpose. An event of this type is created every time a password import inline hook is fired, with its `Event.Outcome` property providing a status of `FAILURE` or `SUCCESS` for the password import operation.
         If the status is `SUCCESS`, Okta has successfully saved the end user's password, and it's safe to delete it from your previous user store.
 
         You can configure an [Event hook](https://developer.okta.com/docs/concepts/event-hooks/) to send this event type to you for use when triggering automated cleanup of end-user
@@ -31064,12 +31064,12 @@ x-webhooks:
     post:
       summary: Create a user import inline hook
       description: |-
-        Creates a user import inline hook request, one type of inline hook supported by Okta. This is an automated request from Okta to your third-party service endpoint. 
-        This reference provides sample JSON objects that are contained in the outbound request from Okta to your external service, and sample JSON objects that you can include 
+        Creates a user import inline hook request, one type of inline hook supported by Okta. This is an automated request from Okta to your third-party service endpoint.
+        This reference provides sample JSON objects that are contained in the outbound request from Okta to your external service, and sample JSON objects that you can include
         in your response. The objects that you return in the JSON payload of your response to this Okta request are an array of one or more objects, which specify the Okta commands to execute.
 
-        The user import inline hook enables you to add custom logic to the process of importing new users into Okta from an app. You can resolve conflicts in user name or other profile attributes, 
-        modify values of profile attributes, and control whether the imported user is treated as a match for an existing user or not. The hook is invoked for each user being imported, 
+        The user import inline hook enables you to add custom logic to the process of importing new users into Okta from an app. You can resolve conflicts in user name or other profile attributes,
+        modify values of profile attributes, and control whether the imported user is treated as a match for an existing user or not. The hook is invoked for each user being imported,
         at the point immediately after any applicable profile attribute mappings have been applied, and any potential matches with existing users have been found, but before the Okta user profile is created.
 
         >**Note:** If the external service times out after receiving an Okta request, the Okta process flow continues and the user is created.
@@ -62005,7 +62005,8 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/AuthenticatorBase'
+            oneOf: *ref_4
+            discriminator: *ref_5
           examples:
             Duo:
               $ref: '#/components/examples/AuthenticatorRequestDuo'
@@ -62075,7 +62076,8 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/AuthenticatorBase'
+            oneOf: *ref_4
+            discriminator: *ref_5
           examples:
             Duo:
               $ref: '#/components/examples/AuthenticatorResponseDuo'
@@ -62098,7 +62100,8 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/AuthenticatorBase'
+            oneOf: *ref_4
+            discriminator: *ref_5
           examples:
             WebAuthn:
               $ref: '#/components/examples/AuthenticatorResponseInactiveWebAuthn'
@@ -62634,7 +62637,7 @@ components:
         condition:
           type: string
           description: |-
-            The Okta Expression Language expression to evaluate. 
+            The Okta Expression Language expression to evaluate.
 
             > <x-lifecycle class="ea"></x-lifecycle> **Note:** When the Flexible Okta Verify authenticator configuration feature is enabled, `okta_verify` in expressions such as `accessRequest.authenticator.key == 'okta_verify'` is no longer accepted. Use `okta_verify_totp`, `okta_verify_push`, or `okta_verify_fastpass` instead.
       required:
@@ -64129,7 +64132,7 @@ components:
           type: object
           description: |-
             Embedded resource related to the Application Group using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification.
-            If the `expand=group` query parameter is specified, then the [group](openapi/okta-management/management/group) object is embedded. 
+            If the `expand=group` query parameter is specified, then the [group](openapi/okta-management/management/group) object is embedded.
             If the `expand=metadata` query parameter is specified, then the group assignment metadata is embedded.
           additionalProperties:
             type: object
@@ -64612,7 +64615,7 @@ components:
         key:
           type: string
           description: |-
-            A label that identifies the authenticator. 
+            A label that identifies the authenticator.
 
             > <x-lifecycle class="ea"></x-lifecycle> **Note:** When the Flexible Okta Verify authenticator configuration feature is enabled, `okta_verify` is no longer accepted. Use `okta_verify_totp`, `okta_verify_push`, or `okta_verify_fastpass` instead.
         method:
@@ -64690,7 +64693,7 @@ components:
         key:
           type: string
           description: |-
-            A label that identifies the authenticator. 
+            A label that identifies the authenticator.
 
             > <x-lifecycle class="ea"></x-lifecycle> **Note:** When the Flexible Okta Verify authenticator configuration feature is enabled, `okta_verify` is no longer accepted. Use `okta_verify_totp`, `okta_verify_push`, or `okta_verify_fastpass` instead.
         method:
@@ -64890,10 +64893,10 @@ components:
               type: boolean
               nullable: true
               description: |-
-                <x-lifecycle class="oie"></x-lifecycle> Controls whether the email authenticator is automatically enrolled for users during sign-up, user account creation, or if the user's profile email address is changed or updated.  
+                <x-lifecycle class="oie"></x-lifecycle> Controls whether the email authenticator is automatically enrolled for users during sign-up, user account creation, or if the user's profile email address is changed or updated.
 
-                * `true` or `null`: The email authenticator is auto-enrolled. This is the default behavior for the email authenticator in Identity Engine.  
-                * `false`: The email authenticator auto-enrollment is skipped. Users see email as an optional authenticator during enrollment and can choose to skip it.  
+                * `true` or `null`: The email authenticator is auto-enrolled. This is the default behavior for the email authenticator in Identity Engine.
+                * `false`: The email authenticator auto-enrollment is skipped. Users see email as an optional authenticator during enrollment and can choose to skip it.
 
                 > **Note:** `autoEnroll` can only be set to `false` when [`self`](/openapi/okta-management/management/tags/policy/other/createpolicy#other/createpolicy/t=request&path=&d=1/settings/authenticators/enroll/self) is `OPTIONAL` or `NOT_ALLOWED`. This property is only available if the Email auto-enrollment and recovery control [self-service EA](/openapi/okta-management/guides/release-lifecycle/#early-access-ea) feature is enabled.
               x-okta-lifecycle:
@@ -70552,13 +70555,13 @@ components:
         body:
           type: string
           description: |
-            The HTML body of the email. May contain [variable references](https://velocity.apache.org/engine/1.7/user-guide.html#references). 
+            The HTML body of the email. May contain [variable references](https://velocity.apache.org/engine/1.7/user-guide.html#references).
 
             <x-lifecycle class="ea"></x-lifecycle> Not required if Custom languages for Okta Email Templates is enabled. A `null` body is replaced with a default value from one of the following in priority order:
 
             1. An existing default email customization, if one exists
             2. Okta-provided translated content for the specified language, if one exists
-            3. Okta-provided translated content for the brand locale, if it's set 
+            3. Okta-provided translated content for the brand locale, if it's set
             4. Okta-provided content in English
         subject:
           type: string
@@ -71726,7 +71729,7 @@ components:
           example: role
     FipsEnum:
       description: |-
-        The FIPS compliance mode. 
+        The FIPS compliance mode.
 
         > <x-lifecycle class="ea"></x-lifecycle> **Note:** When the Flexible Okta Verify authenticator configuration feature is enabled, this is a common setting shared across all per-method authenticators (`okta_verify_totp`, `okta_verify_push`, `okta_verify_fastpass`). Updating this value on any one authenticator applies the change to all three.
       type: string
@@ -72093,7 +72096,7 @@ components:
                   $ref: '#/components/schemas/HrefObject'
     GroupAssignmentProfile:
       description: |-
-        Specifies the profile properties applied to [application users](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/applicationusers) that are assigned to the app through group membership. 
+        Specifies the profile properties applied to [application users](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/applicationusers) that are assigned to the app through group membership.
         Some reference properties are imported from the target app and can't be configured. See [profile](https://developer.okta.com/docs/api/openapi/okta-management/management/user/getuser#user/getuser/t=response&c=200&path=profile).
       additionalProperties: true
       type: object
@@ -72676,7 +72679,7 @@ components:
     HookKey:
       title: HookKeyInstance
       description: |-
-        The `id` property in the response as `id` serves as the unique ID for the key, which you can specify when invoking other CRUD operations. 
+        The `id` property in the response as `id` serves as the unique ID for the key, which you can specify when invoking other CRUD operations.
 
         The `keyId` provided in the response is the alias of the public key that you can use to get details of the public key data in a separate call.
       type: object
@@ -73527,7 +73530,7 @@ components:
         profile:
           type: object
           description: |-
-            IdP-specific profile for the user. 
+            IdP-specific profile for the user.
 
             IdP user profiles are IdP-specific but may be customized by the Profile Editor in the Admin Console.
 
@@ -73670,7 +73673,7 @@ components:
           description: |-
             Enables attribute synchronization from the X.509 certificate to the user's Okta profile. If it's set to `true`, Okta overwrites user profile attributes with values found in the X.509 certificate. Applies to `X509` IdP type.
 
-            > **Note:** Some attributes are restricted and won't be updated, including `login`, `email`, `secondEmail`, and configured attributes that are used in multiple identifiers. 
+            > **Note:** Some attributes are restricted and won't be updated, including `login`, `email`, `secondEmail`, and configured attributes that are used in multiple identifiers.
           default: false
         ialValue:
           type: string
@@ -73700,9 +73703,9 @@ components:
           example: itmpl_HSctx8fNvXoHtrQfz2hxUVH8RBjG
     IdentityProviderType:
       description: |-
-        The IdP object's `type` property identifies the social or enterprise IdP used for authentication. 
-        Each IdP uses a specific protocol, therefore the `protocol` object must correspond with the IdP `type`. 
-        If the protocol is OAuth 2.0-based, the `protocol` object's `scopes` property must also correspond with the scopes supported by the IdP `type`. 
+        The IdP object's `type` property identifies the social or enterprise IdP used for authentication.
+        Each IdP uses a specific protocol, therefore the `protocol` object must correspond with the IdP `type`.
+        If the protocol is OAuth 2.0-based, the `protocol` object's `scopes` property must also correspond with the scopes supported by the IdP `type`.
         For policy actions supported by each IdP type, see [IdP type policy actions](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/createIdentityProvider!path=policy&t=request).
 
         IDV vendors published through the [Okta Integration Network](https://developer.okta.com/docs/guides/submit-oin-app/xidv/main/) (OIN) use a `type` value that matches the integration's OIN app name. This value is assigned when the integration is submitted and is unique for every vendor. These integrations otherwise follow the same general request and response format as `IDV_CLEAR`, `IDV_INCODE`, and `IDV_STANDARD`.
@@ -78377,7 +78380,7 @@ components:
           example: AD Integrations Admin
         oktaUserId:
           description: |-
-            The ID of the Okta user to manage as a service account. 
+            The ID of the Okta user to manage as a service account.
             This must be an existing user in your Okta org.
           type: string
           minLength: 20
@@ -79086,7 +79089,7 @@ components:
         - rotation_type
     OpenIdConnectApplicationType:
       description: |-
-        The type of client app     
+        The type of client app
         Specific `grant_types` are valid for each `application_type`. See [Create a Client Application](/openapi/okta-oauth/oauth/client/createclient).
       type: string
       x-enumDescriptions:
@@ -81643,7 +81646,7 @@ components:
       description: |-
         Indicates whether to update target properties for user create and update or just for user create.
 
-        - Having a pushStatus of `PUSH` causes properties in the target to be updated on create and update. 
+        - Having a pushStatus of `PUSH` causes properties in the target to be updated on create and update.
         - Having a pushStatus of `DONT_PUSH` causes properties in the target to be updated only on create.
       type: string
       x-okta-known-values:
@@ -87477,7 +87480,7 @@ components:
           description: |-
             The status of the group push mapping.
 
-            If changing the group push mapping status to `ACTIVE`, Okta performs an initial push to the target group, and then begins pushing membership changes. 
+            If changing the group push mapping status to `ACTIVE`, Okta performs an initial push to the target group, and then begins pushing membership changes.
 
             If changing the group push mapping status to `INACTIVE`, Okta stops pushing membership changes to the target group.
           type: string
@@ -89017,7 +89020,7 @@ components:
           properties:
             result:
               description: |-
-                The current default action that results when Okta imports a user. The two possible values are `CREATE_USER` and `LINK_USER`. You 
+                The current default action that results when Okta imports a user. The two possible values are `CREATE_USER` and `LINK_USER`. You
                 can change the action that is taken by means of the commands object you return.
               type: string
               enum:
@@ -89033,8 +89036,8 @@ components:
             profile:
               type: object
               description: |-
-                Provides the name-value pairs of the attributes contained in the app user profile of the user who is being imported. You can change 
-                the values of attributes in the user's app profile by means of the `commands` object you return. If you change attributes in the app 
+                Provides the name-value pairs of the attributes contained in the app user profile of the user who is being imported. You can change
+                the values of attributes in the user's app profile by means of the `commands` object you return. If you change attributes in the app
                 profile, they then flow through to the Okta user profile, based on matching and mapping rules.
               additionalProperties:
                 type: string
@@ -89091,7 +89094,7 @@ components:
         user:
           type: object
           description: |-
-            Provides information on the Okta user profile currently set to be used for the user who is being imported, based on the matching 
+            Provides information on the Okta user profile currently set to be used for the user who is being imported, based on the matching
             rules and attribute mappings that were applied.
           properties:
             profile:
@@ -89136,7 +89139,7 @@ components:
                   com.okta.user.update: Specify the existing Okta user that the imported user should be treated as a match of.
               value:
                 description: |-
-                  The `value` object is the parameter to pass to the command. In the case of the `com.okta.appUser.profile.update` and `com.okta.user.profile.update` commands, 
+                  The `value` object is the parameter to pass to the command. In the case of the `com.okta.appUser.profile.update` and `com.okta.user.profile.update` commands,
                   the parameter should be a list of one or more profile attributes and the values you wish to set them to. In the case of the `com.okta.action.update` command,
                   the parameter should be a `result` property set to either `CREATE_USER` or `LINK_USER`.
                 type: object
@@ -89144,7 +89147,7 @@ components:
                   type: string
         error:
           description: |-
-            An object to return an error. Returning an error causes Okta to record a failure event in the Okta System Log. 
+            An object to return an error. Returning an error causes Okta to record a failure event in the Okta System Log.
             The string supplied in the `errorSummary` property is recorded in the System Log event.
 
             >**Note:** If a response to an import inline hook request is not received from your external service within three seconds, a timeout occurs. In this scenario, the Okta import process continues and the user is created.
@@ -89920,7 +89923,7 @@ components:
       description: |-
         All custom profile properties are defined in a profile subschema with the resolution scope `#custom`.
 
-        > **Notes:** 
+        > **Notes:**
         > * When you refer to custom profile attributes that differ only by case, name collisions occur. This includes naming custom profile attributes the same as base profile attributes, for example, `firstName` and `FirstName`.
         > * Certain attributes are reserved and can't be used for custom user profiles. See [Review reserved attributes](https://help.okta.com/okta_help.htm?type=oie&id=reserved-attributes).
       type: object

@@ -47,8 +47,8 @@ type AuthenticatorAPI interface {
 	ActivateAuthenticator(ctx context.Context, authenticatorId string) ApiActivateAuthenticatorRequest
 
 	// ActivateAuthenticatorExecute executes the request
-	//  @return AuthenticatorBase
-	ActivateAuthenticatorExecute(r ApiActivateAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error)
+	//  @return ListAuthenticators200ResponseInner
+	ActivateAuthenticatorExecute(r ApiActivateAuthenticatorRequest) (*ListAuthenticators200ResponseInner, *APIResponse, error)
 
 	/*
 		ActivateAuthenticatorMethod Activate an authenticator method
@@ -77,8 +77,8 @@ type AuthenticatorAPI interface {
 	CreateAuthenticator(ctx context.Context) ApiCreateAuthenticatorRequest
 
 	// CreateAuthenticatorExecute executes the request
-	//  @return AuthenticatorBase
-	CreateAuthenticatorExecute(r ApiCreateAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error)
+	//  @return ListAuthenticators200ResponseInner
+	CreateAuthenticatorExecute(r ApiCreateAuthenticatorRequest) (*ListAuthenticators200ResponseInner, *APIResponse, error)
 
 	/*
 		CreateCustomAAGUID Create a custom AAGUID
@@ -107,8 +107,8 @@ type AuthenticatorAPI interface {
 	DeactivateAuthenticator(ctx context.Context, authenticatorId string) ApiDeactivateAuthenticatorRequest
 
 	// DeactivateAuthenticatorExecute executes the request
-	//  @return AuthenticatorBase
-	DeactivateAuthenticatorExecute(r ApiDeactivateAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error)
+	//  @return ListAuthenticators200ResponseInner
+	DeactivateAuthenticatorExecute(r ApiDeactivateAuthenticatorRequest) (*ListAuthenticators200ResponseInner, *APIResponse, error)
 
 	/*
 		DeactivateAuthenticatorMethod Deactivate an authenticator method
@@ -155,8 +155,8 @@ type AuthenticatorAPI interface {
 	GetAuthenticator(ctx context.Context, authenticatorId string) ApiGetAuthenticatorRequest
 
 	// GetAuthenticatorExecute executes the request
-	//  @return AuthenticatorBase
-	GetAuthenticatorExecute(r ApiGetAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error)
+	//  @return ListAuthenticators200ResponseInner
+	GetAuthenticatorExecute(r ApiGetAuthenticatorRequest) (*ListAuthenticators200ResponseInner, *APIResponse, error)
 
 	/*
 		GetAuthenticatorMethod Retrieve an authenticator method
@@ -270,8 +270,8 @@ type AuthenticatorAPI interface {
 	ReplaceAuthenticator(ctx context.Context, authenticatorId string) ApiReplaceAuthenticatorRequest
 
 	// ReplaceAuthenticatorExecute executes the request
-	//  @return AuthenticatorBase
-	ReplaceAuthenticatorExecute(r ApiReplaceAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error)
+	//  @return ListAuthenticators200ResponseInner
+	ReplaceAuthenticatorExecute(r ApiReplaceAuthenticatorRequest) (*ListAuthenticators200ResponseInner, *APIResponse, error)
 
 	/*
 		ReplaceAuthenticatorMethod Replace an authenticator method
@@ -347,7 +347,7 @@ type ApiActivateAuthenticatorRequest struct {
 	retryCount      int32
 }
 
-func (r ApiActivateAuthenticatorRequest) Execute() (*AuthenticatorBase, *APIResponse, error) {
+func (r ApiActivateAuthenticatorRequest) Execute() (*ListAuthenticators200ResponseInner, *APIResponse, error) {
 	return r.ApiService.ActivateAuthenticatorExecute(r)
 }
 
@@ -371,13 +371,13 @@ func (a *AuthenticatorAPIService) ActivateAuthenticator(ctx context.Context, aut
 
 // Execute executes the request
 //
-//	@return AuthenticatorBase
-func (a *AuthenticatorAPIService) ActivateAuthenticatorExecute(r ApiActivateAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error) {
+//	@return ListAuthenticators200ResponseInner
+func (a *AuthenticatorAPIService) ActivateAuthenticatorExecute(r ApiActivateAuthenticatorRequest) (*ListAuthenticators200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *AuthenticatorBase
+		localVarReturnValue  *ListAuthenticators200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -679,12 +679,12 @@ func (a *AuthenticatorAPIService) ActivateAuthenticatorMethodExecute(r ApiActiva
 type ApiCreateAuthenticatorRequest struct {
 	ctx           context.Context
 	ApiService    AuthenticatorAPI
-	authenticator *AuthenticatorBase
+	authenticator *ListAuthenticators200ResponseInner
 	activate      *bool
 	retryCount    int32
 }
 
-func (r ApiCreateAuthenticatorRequest) Authenticator(authenticator AuthenticatorBase) ApiCreateAuthenticatorRequest {
+func (r ApiCreateAuthenticatorRequest) Authenticator(authenticator ListAuthenticators200ResponseInner) ApiCreateAuthenticatorRequest {
 	r.authenticator = &authenticator
 	return r
 }
@@ -695,7 +695,7 @@ func (r ApiCreateAuthenticatorRequest) Activate(activate bool) ApiCreateAuthenti
 	return r
 }
 
-func (r ApiCreateAuthenticatorRequest) Execute() (*AuthenticatorBase, *APIResponse, error) {
+func (r ApiCreateAuthenticatorRequest) Execute() (*ListAuthenticators200ResponseInner, *APIResponse, error) {
 	return r.ApiService.CreateAuthenticatorExecute(r)
 }
 
@@ -717,13 +717,13 @@ func (a *AuthenticatorAPIService) CreateAuthenticator(ctx context.Context) ApiCr
 
 // Execute executes the request
 //
-//	@return AuthenticatorBase
-func (a *AuthenticatorAPIService) CreateAuthenticatorExecute(r ApiCreateAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error) {
+//	@return ListAuthenticators200ResponseInner
+func (a *AuthenticatorAPIService) CreateAuthenticatorExecute(r ApiCreateAuthenticatorRequest) (*ListAuthenticators200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *AuthenticatorBase
+		localVarReturnValue  *ListAuthenticators200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -1040,7 +1040,7 @@ type ApiDeactivateAuthenticatorRequest struct {
 	retryCount      int32
 }
 
-func (r ApiDeactivateAuthenticatorRequest) Execute() (*AuthenticatorBase, *APIResponse, error) {
+func (r ApiDeactivateAuthenticatorRequest) Execute() (*ListAuthenticators200ResponseInner, *APIResponse, error) {
 	return r.ApiService.DeactivateAuthenticatorExecute(r)
 }
 
@@ -1064,13 +1064,13 @@ func (a *AuthenticatorAPIService) DeactivateAuthenticator(ctx context.Context, a
 
 // Execute executes the request
 //
-//	@return AuthenticatorBase
-func (a *AuthenticatorAPIService) DeactivateAuthenticatorExecute(r ApiDeactivateAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error) {
+//	@return ListAuthenticators200ResponseInner
+func (a *AuthenticatorAPIService) DeactivateAuthenticatorExecute(r ApiDeactivateAuthenticatorRequest) (*ListAuthenticators200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *AuthenticatorBase
+		localVarReturnValue  *ListAuthenticators200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -1535,7 +1535,7 @@ type ApiGetAuthenticatorRequest struct {
 	retryCount      int32
 }
 
-func (r ApiGetAuthenticatorRequest) Execute() (*AuthenticatorBase, *APIResponse, error) {
+func (r ApiGetAuthenticatorRequest) Execute() (*ListAuthenticators200ResponseInner, *APIResponse, error) {
 	return r.ApiService.GetAuthenticatorExecute(r)
 }
 
@@ -1559,13 +1559,13 @@ func (a *AuthenticatorAPIService) GetAuthenticator(ctx context.Context, authenti
 
 // Execute executes the request
 //
-//	@return AuthenticatorBase
-func (a *AuthenticatorAPIService) GetAuthenticatorExecute(r ApiGetAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error) {
+//	@return ListAuthenticators200ResponseInner
+func (a *AuthenticatorAPIService) GetAuthenticatorExecute(r ApiGetAuthenticatorRequest) (*ListAuthenticators200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodGet
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *AuthenticatorBase
+		localVarReturnValue  *ListAuthenticators200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
@@ -2682,7 +2682,7 @@ func (r ApiReplaceAuthenticatorRequest) Authenticator(authenticator ListAuthenti
 	return r
 }
 
-func (r ApiReplaceAuthenticatorRequest) Execute() (*AuthenticatorBase, *APIResponse, error) {
+func (r ApiReplaceAuthenticatorRequest) Execute() (*ListAuthenticators200ResponseInner, *APIResponse, error) {
 	return r.ApiService.ReplaceAuthenticatorExecute(r)
 }
 
@@ -2710,13 +2710,13 @@ func (a *AuthenticatorAPIService) ReplaceAuthenticator(ctx context.Context, auth
 
 // Execute executes the request
 //
-//	@return AuthenticatorBase
-func (a *AuthenticatorAPIService) ReplaceAuthenticatorExecute(r ApiReplaceAuthenticatorRequest) (*AuthenticatorBase, *APIResponse, error) {
+//	@return ListAuthenticators200ResponseInner
+func (a *AuthenticatorAPIService) ReplaceAuthenticatorExecute(r ApiReplaceAuthenticatorRequest) (*ListAuthenticators200ResponseInner, *APIResponse, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPut
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *AuthenticatorBase
+		localVarReturnValue  *ListAuthenticators200ResponseInner
 		localVarHTTPResponse *http.Response
 		localAPIResponse     *APIResponse
 		err                  error
