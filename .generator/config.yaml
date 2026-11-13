@@ -4,8 +4,8 @@ outputDir: ./okta/v8
 gitUserId: okta
 gitRepoId: okta-sdk-golang
 versionName: v8
-goVersion: "1.23.0"
-toolchainVersion: "go1.24.0"
+goVersion: "1.24.0"
+toolchainVersion: "go1.24.5"
 additionalProperties:
   enumClassPrefix: true
   generateInterfaces: true
