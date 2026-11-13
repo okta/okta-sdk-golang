@@ -80362,15 +80362,17 @@ components:
           type: object
           description: Exclude attributes with specific values for the permission
           additionalProperties:
-            type: object
-            properties: {}
+            type: array
+            items:
+              type: string
           nullable: true
         include:
           type: object
           description: Include attributes with specific values for the permission
           additionalProperties:
-            type: object
-            properties: {}
+            type: array
+            items:
+              type: string
           nullable: true
     Permissions:
       description: Permissions assigned to the role

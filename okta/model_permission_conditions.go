@@ -33,9 +33,9 @@ var _ MappedNullable = &PermissionConditions{}
 // PermissionConditions Conditions for further restricting a permission. See [Permission conditions](https://help.okta.com/okta_help.htm?type=oie&id=ext-permission-conditions).
 type PermissionConditions struct {
 	// Exclude attributes with specific values for the permission
-	Exclude map[string]map[string]interface{} `json:"exclude,omitempty"`
+	Exclude map[string][]string `json:"exclude,omitempty"`
 	// Include attributes with specific values for the permission
-	Include              map[string]map[string]interface{} `json:"include,omitempty"`
+	Include              map[string][]string `json:"include,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -59,9 +59,9 @@ func NewPermissionConditionsWithDefaults() *PermissionConditions {
 }
 
 // GetExclude returns the Exclude field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *PermissionConditions) GetExclude() map[string]map[string]interface{} {
+func (o *PermissionConditions) GetExclude() map[string][]string {
 	if o == nil {
-		var ret map[string]map[string]interface{}
+		var ret map[string][]string
 		return ret
 	}
 	return o.Exclude
@@ -70,11 +70,11 @@ func (o *PermissionConditions) GetExclude() map[string]map[string]interface{} {
 // GetExcludeOk returns a tuple with the Exclude field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PermissionConditions) GetExcludeOk() (map[string]map[string]interface{}, bool) {
+func (o *PermissionConditions) GetExcludeOk() (*map[string][]string, bool) {
 	if o == nil || IsNil(o.Exclude) {
-		return map[string]map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Exclude, true
+	return &o.Exclude, true
 }
 
 // HasExclude returns a boolean if a field has been set.
@@ -86,15 +86,15 @@ func (o *PermissionConditions) HasExclude() bool {
 	return false
 }
 
-// SetExclude gets a reference to the given map[string]map[string]interface{} and assigns it to the Exclude field.
-func (o *PermissionConditions) SetExclude(v map[string]map[string]interface{}) {
+// SetExclude gets a reference to the given map[string][]string and assigns it to the Exclude field.
+func (o *PermissionConditions) SetExclude(v map[string][]string) {
 	o.Exclude = v
 }
 
 // GetInclude returns the Include field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *PermissionConditions) GetInclude() map[string]map[string]interface{} {
+func (o *PermissionConditions) GetInclude() map[string][]string {
 	if o == nil {
-		var ret map[string]map[string]interface{}
+		var ret map[string][]string
 		return ret
 	}
 	return o.Include
@@ -103,11 +103,11 @@ func (o *PermissionConditions) GetInclude() map[string]map[string]interface{} {
 // GetIncludeOk returns a tuple with the Include field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PermissionConditions) GetIncludeOk() (map[string]map[string]interface{}, bool) {
+func (o *PermissionConditions) GetIncludeOk() (*map[string][]string, bool) {
 	if o == nil || IsNil(o.Include) {
-		return map[string]map[string]interface{}{}, false
+		return nil, false
 	}
-	return o.Include, true
+	return &o.Include, true
 }
 
 // HasInclude returns a boolean if a field has been set.
@@ -119,8 +119,8 @@ func (o *PermissionConditions) HasInclude() bool {
 	return false
 }
 
-// SetInclude gets a reference to the given map[string]map[string]interface{} and assigns it to the Include field.
-func (o *PermissionConditions) SetInclude(v map[string]map[string]interface{}) {
+// SetInclude gets a reference to the given map[string][]string and assigns it to the Include field.
+func (o *PermissionConditions) SetInclude(v map[string][]string) {
 	o.Include = v
 }
 

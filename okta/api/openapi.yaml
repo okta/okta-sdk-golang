@@ -95923,9 +95923,13 @@ components:
       example:
         conditions:
           include:
-            key: "{}"
+            key:
+            - include
+            - include
           exclude:
-            key: "{}"
+            key:
+            - exclude
+            - exclude
       properties:
         conditions:
           $ref: "#/components/schemas/PermissionConditions"
@@ -113747,9 +113751,13 @@ components:
         label: okta.users.read
         conditions:
           include:
-            key: "{}"
+            key:
+            - include
+            - include
           exclude:
-            key: "{}"
+            key:
+            - exclude
+            - exclude
       properties:
         conditions:
           $ref: "#/components/schemas/PermissionConditions"
@@ -113777,22 +113785,28 @@ components:
         \ conditions](https://help.okta.com/okta_help.htm?type=oie&id=ext-permission-conditions)."
       example:
         include:
-          key: "{}"
+          key:
+          - include
+          - include
         exclude:
-          key: "{}"
+          key:
+          - exclude
+          - exclude
       nullable: true
       properties:
         exclude:
           additionalProperties:
-            properties: {}
-            type: object
+            items:
+              type: string
+            type: array
           description: Exclude attributes with specific values for the permission
           nullable: true
           type: object
         include:
           additionalProperties:
-            properties: {}
-            type: object
+            items:
+              type: string
+            type: array
           description: Include attributes with specific values for the permission
           nullable: true
           type: object
@@ -113829,9 +113843,13 @@ components:
           label: okta.users.read
           conditions:
             include:
-              key: "{}"
+              key:
+              - include
+              - include
             exclude:
-              key: "{}"
+              key:
+              - exclude
+              - exclude
         - lastUpdated: 2000-01-23T04:56:07.000+00:00
           _links:
             role:
@@ -113856,9 +113874,13 @@ components:
           label: okta.users.read
           conditions:
             include:
-              key: "{}"
+              key:
+              - include
+              - include
             exclude:
-              key: "{}"
+              key:
+              - exclude
+              - exclude
       properties:
         permissions:
           description: "Array of permissions assigned to the role. See [Permissions](/openapi/okta-management/guides/permissions)."
