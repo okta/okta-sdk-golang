@@ -85,18 +85,6 @@ func (dst *ListBehaviorDetectionRules200ResponseInner) UnmarshalJSON(data []byte
 	// Get discriminator value, treating nil/missing as empty string for comparison
 	discriminatorValue, _ := jsonDict["type"].(string)
 
-	// check if the discriminator value is 'ANOMALOUS_ASN'
-	if discriminatorValue == "ANOMALOUS_ASN" {
-		// try to unmarshal JSON data into BehaviorRuleASN
-		err = json.Unmarshal(data, &dst.BehaviorRuleASN)
-		if err == nil {
-			return nil // data stored in dst.BehaviorRuleASN, return on the first match
-		} else {
-			dst.BehaviorRuleASN = nil
-			return fmt.Errorf("failed to unmarshal ListBehaviorDetectionRules200ResponseInner as BehaviorRuleASN: %s", err.Error())
-		}
-	}
-
 	// check if the discriminator value is 'ANOMALOUS_DEVICE'
 	if discriminatorValue == "ANOMALOUS_DEVICE" {
 		// try to unmarshal JSON data into BehaviorRuleAnomalousDevice
@@ -130,6 +118,18 @@ func (dst *ListBehaviorDetectionRules200ResponseInner) UnmarshalJSON(data []byte
 		} else {
 			dst.BehaviorRuleAnomalousLocation = nil
 			return fmt.Errorf("failed to unmarshal ListBehaviorDetectionRules200ResponseInner as BehaviorRuleAnomalousLocation: %s", err.Error())
+		}
+	}
+
+	// check if the discriminator value is 'NEW_ASN'
+	if discriminatorValue == "NEW_ASN" {
+		// try to unmarshal JSON data into BehaviorRuleASN
+		err = json.Unmarshal(data, &dst.BehaviorRuleASN)
+		if err == nil {
+			return nil // data stored in dst.BehaviorRuleASN, return on the first match
+		} else {
+			dst.BehaviorRuleASN = nil
+			return fmt.Errorf("failed to unmarshal ListBehaviorDetectionRules200ResponseInner as BehaviorRuleASN: %s", err.Error())
 		}
 	}
 

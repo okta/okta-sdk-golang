@@ -58,7 +58,7 @@ type ApiPublishSecurityEventTokensRequest struct {
 	retryCount         int32
 }
 
-// The request body is a signed [SET](https://datatracker.ietf.org/doc/html/rfc8417), which is a type of JSON Web Token (JWT).  For SET JWT header and body descriptions, see [SET JWT header](/openapi/okta-management/management/ssfsecurityeventtoken/securityeventtokenrequestjwtheader) and [SET JWT body payload](/openapi/okta-management/management/ssfsecurityeventtoken/securityeventtokenrequestjwtbody).
+// The request body is a signed [SET](https://datatracker.ietf.org/doc/html/rfc8417), which is a type of JSON Web Token (JWT).  For SET JWT header and body descriptions, see [SET JWT header](/openapi/okta-management/management/tags/ssfsecurityeventtoken) and [SET JWT body payload](/openapi/okta-management/management/tags/ssfsecurityeventtoken).
 func (r ApiPublishSecurityEventTokensRequest) SecurityEventToken(securityEventToken string) ApiPublishSecurityEventTokensRequest {
 	r.securityEventToken = &securityEventToken
 	return r

@@ -124,7 +124,7 @@ type UserFactorAPI interface {
 		 > **Note:**
 		 > The response body for a number matching push challenge to an Okta Verify `push` factor enrollment is different from the response body of a standard push challenge.
 		 > The number matching push challenge [response body](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/userfactor/other/getfactortransactionstatus!c=200&path=1/_embedded&t=response) contains the correct answer for the challenge.
-		 > Use [Verify a factor](/openapi/okta-management/management/userfactor/verifyfactor) to configure which challenge is sent.
+		 > Use [Verify a factor](/openapi/okta-management/management/tags/userfactor/other/verifyfactor) to configure which challenge is sent.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param userId ID of an existing Okta user
@@ -953,7 +953,7 @@ Retrieves the status of a `push` factor verification transaction
 	> **Note:**
 	> The response body for a number matching push challenge to an Okta Verify `push` factor enrollment is different from the response body of a standard push challenge.
 	> The number matching push challenge [response body](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/userfactor/other/getfactortransactionstatus!c=200&path=1/_embedded&t=response) contains the correct answer for the challenge.
-	> Use [Verify a factor](/openapi/okta-management/management/userfactor/verifyfactor) to configure which challenge is sent.
+	> Use [Verify a factor](/openapi/okta-management/management/tags/userfactor/other/verifyfactor) to configure which challenge is sent.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ID of an existing Okta user

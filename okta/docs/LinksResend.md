@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Resend** | Pointer to [**HrefObject**](HrefObject.md) | Resends the factor enrollment challenge. See [Resend a factor enrollment](/openapi/okta-management/management/userfactor/resendenrollfactor). | [optional] 
+**Resend** | Pointer to [**HrefObject**](HrefObject.md) | Resends the factor enrollment challenge. See [Resend a factor enrollment](/openapi/okta-management/management/tags/userfactor/other/resendenrollfactor). | [optional] 
 
 ## Methods
 

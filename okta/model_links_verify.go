@@ -32,7 +32,7 @@ var _ MappedNullable = &LinksVerify{}
 
 // LinksVerify struct for LinksVerify
 type LinksVerify struct {
-	// Verifies the factor resource. See [Verify a factor](/openapi/okta-management/management/userfactor/verifyfactor).
+	// Verifies the factor resource. See [Verify a factor](/openapi/okta-management/management/tags/userfactor/other/verifyfactor).
 	Verify               *HrefObject `json:"verify,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

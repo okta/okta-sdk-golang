@@ -13,8 +13,8 @@ Name | Type | Description | Notes
 **System** | Pointer to **bool** | Specifies whether Okta created the policy rule (&#x60;system&#x3D;true&#x60;). You can&#39;t delete policy rules that have &#x60;system&#x60; set to &#x60;true&#x60;. | [optional] [default to false]
 **Type** | Pointer to **string** | Rule type | [optional] 
 **Links** | Pointer to [**PolicyLinks**](PolicyLinks.md) |  | [optional] 
-**Actions** | Pointer to [**UserIdentificationPolicyRuleActions**](UserIdentificationPolicyRuleActions.md) |  | [optional] 
-**Conditions** | Pointer to [**UserIdentificationPolicyRuleConditions**](UserIdentificationPolicyRuleConditions.md) |  | [optional] 
+**Actions** | Pointer to [**SelfServiceRegistrationPolicyRuleActions**](SelfServiceRegistrationPolicyRuleActions.md) |  | [optional] 
+**Conditions** | Pointer to [**SelfServiceRegistrationPolicyRuleConditions**](SelfServiceRegistrationPolicyRuleConditions.md) |  | [optional] 
 
 ## Methods
 
@@ -292,20 +292,20 @@ HasLinks returns a boolean if a field has been set.
 
 ### GetActions
 
-`func (o *ListPolicyRules200ResponseInner) GetActions() UserIdentificationPolicyRuleActions`
+`func (o *ListPolicyRules200ResponseInner) GetActions() SelfServiceRegistrationPolicyRuleActions`
 
 GetActions returns the Actions field if non-nil, zero value otherwise.
 
 ### GetActionsOk
 
-`func (o *ListPolicyRules200ResponseInner) GetActionsOk() (*UserIdentificationPolicyRuleActions, bool)`
+`func (o *ListPolicyRules200ResponseInner) GetActionsOk() (*SelfServiceRegistrationPolicyRuleActions, bool)`
 
 GetActionsOk returns a tuple with the Actions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetActions
 
-`func (o *ListPolicyRules200ResponseInner) SetActions(v UserIdentificationPolicyRuleActions)`
+`func (o *ListPolicyRules200ResponseInner) SetActions(v SelfServiceRegistrationPolicyRuleActions)`
 
 SetActions sets Actions field to given value.
 
@@ -317,20 +317,20 @@ HasActions returns a boolean if a field has been set.
 
 ### GetConditions
 
-`func (o *ListPolicyRules200ResponseInner) GetConditions() UserIdentificationPolicyRuleConditions`
+`func (o *ListPolicyRules200ResponseInner) GetConditions() SelfServiceRegistrationPolicyRuleConditions`
 
 GetConditions returns the Conditions field if non-nil, zero value otherwise.
 
 ### GetConditionsOk
 
-`func (o *ListPolicyRules200ResponseInner) GetConditionsOk() (*UserIdentificationPolicyRuleConditions, bool)`
+`func (o *ListPolicyRules200ResponseInner) GetConditionsOk() (*SelfServiceRegistrationPolicyRuleConditions, bool)`
 
 GetConditionsOk returns a tuple with the Conditions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetConditions
 
-`func (o *ListPolicyRules200ResponseInner) SetConditions(v UserIdentificationPolicyRuleConditions)`
+`func (o *ListPolicyRules200ResponseInner) SetConditions(v SelfServiceRegistrationPolicyRuleConditions)`
 
 SetConditions sets Conditions field to given value.
 

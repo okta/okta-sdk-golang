@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **PageContent** | Pointer to **string** | The HTML for the page | [optional] 
 **ContentSecurityPolicySetting** | Pointer to [**ContentSecurityPolicySetting**](ContentSecurityPolicySetting.md) |  | [optional] 
+**WidgetConfiguration** | Pointer to [**WidgetConfiguration**](WidgetConfiguration.md) |  | [optional] 
 **WidgetCustomizations** | Pointer to [**SignInPageAllOfWidgetCustomizations**](SignInPageAllOfWidgetCustomizations.md) |  | [optional] 
 **WidgetVersion** | Pointer to **string** | The version specified as a [Semantic Version](https://semver.org/). This value can be a wildcard (&#x60;*&#x60;), a major version range (for example, &#x60;^2&#x60;), a major-only version (for example, &#x60;7&#x60;), or a specific &#x60;Major.Minor&#x60; version (for example, &#x60;5.15&#x60;). | [optional] 
 
@@ -77,6 +78,31 @@ SetContentSecurityPolicySetting sets ContentSecurityPolicySetting field to given
 `func (o *SignInPage) HasContentSecurityPolicySetting() bool`
 
 HasContentSecurityPolicySetting returns a boolean if a field has been set.
+
+### GetWidgetConfiguration
+
+`func (o *SignInPage) GetWidgetConfiguration() WidgetConfiguration`
+
+GetWidgetConfiguration returns the WidgetConfiguration field if non-nil, zero value otherwise.
+
+### GetWidgetConfigurationOk
+
+`func (o *SignInPage) GetWidgetConfigurationOk() (*WidgetConfiguration, bool)`
+
+GetWidgetConfigurationOk returns a tuple with the WidgetConfiguration field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetWidgetConfiguration
+
+`func (o *SignInPage) SetWidgetConfiguration(v WidgetConfiguration)`
+
+SetWidgetConfiguration sets WidgetConfiguration field to given value.
+
+### HasWidgetConfiguration
+
+`func (o *SignInPage) HasWidgetConfiguration() bool`
+
+HasWidgetConfiguration returns a boolean if a field has been set.
 
 ### GetWidgetCustomizations
 

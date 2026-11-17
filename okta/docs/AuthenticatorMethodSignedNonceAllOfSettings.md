@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Algorithms** | Pointer to **[]string** |  | [optional] 
 **KeyProtection** | Pointer to **string** | Indicates whether you must use a hardware key store | [optional] 
-**ShowSignInWithOV** | Pointer to **string** | (Deprecated when &#x60;USER_IDENTIFICATION_POLICY&#x60; is enabled) This field is omitted from GET responses and rejected on PUT requests while User Identification Policy is active. Configure this setting using the [User Identification Policy](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/policy) rules instead. | [optional] 
+**ShowSignInWithOV** | Pointer to **string** | Controls whether to show the **Sign in with Okta Verify** button on the Sign-In Widget. This property is deprecated. Use the [&#x60;fastpass.showSignInButton&#x60;](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/policy/other/createpolicyrule#other/createpolicyrule/t&#x3D;request&amp;path&#x3D;&amp;d&#x3D;12/actions/useridentification/settings/securitymethods/fastpass/showsigninbutton) property in a user identification policy rule to show or hide the button instead. This property is omitted from GET responses. PUT requests that include it are rejected. | [optional] 
 
 ## Methods
 

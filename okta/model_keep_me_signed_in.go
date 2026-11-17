@@ -35,7 +35,7 @@ type KeepMeSignedIn struct {
 	// Whether the post-authentication [Keep Me Signed In (KMSI)](https://help.okta.com/oie/en-us/content/topics/security/stay-signed-in.htm) flow is allowed
 	PostAuth *string `json:"postAuth,omitempty"`
 	// A time duration specified as an [ISO 8601 duration](https://en.wikipedia.org/wiki/ISO_8601#Durations).
-	PostAuthPromptFrequency *string `json:"postAuthPromptFrequency,omitempty" validate:"regexp=^P(?:$)(\\\\d+Y)?(\\\\d+M)?(\\\\d+W)?(\\\\d+D)?(T(?:\\\\d)(\\\\d+H)?(\\\\d+M)?(\\\\d+S)?)?$"`
+	PostAuthPromptFrequency *string `json:"postAuthPromptFrequency,omitempty" validate:"regexp=^P(\\\\d+Y)?(\\\\d+M)?(\\\\d+W)?(\\\\d+D)?(T(\\\\d+H)?(\\\\d+M)?(\\\\d+S)?)?$"`
 	AdditionalProperties    map[string]interface{}
 }
 

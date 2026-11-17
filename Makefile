@@ -4,7 +4,7 @@ COLOR_ERROR=\x1b[31;01m
 COLOR_WARNING=\x1b[33;05m
 COLOR_OKTA=\x1B[34;01m
 GOLANGCI_LINT := $(shell go env GOPATH)/bin/golangci-lint
-GOLANGCI_LINT_VERSION := v2.5.0
+GOLANGCI_LINT_VERSION := v2.15.0
 GOIMPORTS := $(shell go env GOPATH)/bin/goimports
 OPENAPI_GENERATOR_VERSION := 7.15.0
 OPENAPI_GENERATOR_JAR := $(HOME)/.openapi-generator-jars/openapi-generator-cli-$(OPENAPI_GENERATOR_VERSION).jar
@@ -90,5 +90,5 @@ openapi-generator-jar:
 	@unzip -qt "$(OPENAPI_GENERATOR_JAR)" >/dev/null 2>&1 && echo "$(COLOR_OK)openapi-generator jar ready$(COLOR_NONE)" || (echo "$(COLOR_ERROR)openapi-generator jar download failed$(COLOR_NONE)"; exit 1)
 
 generate: openapi-generator-jar
-	java -jar "$(OPENAPI_GENERATOR_JAR)" generate -c ./.generator/config.yaml -i .generator/okta-management-APIs-oasv3-noEnums-inheritance.yaml --skip-validate-spec
+	java -DmaxYamlCodePoints=99999999 -jar "$(OPENAPI_GENERATOR_JAR)" generate -c ./.generator/config.yaml -i .generator/okta-management-APIs-oasv3-noEnums-inheritance.yaml --skip-validate-spec
 

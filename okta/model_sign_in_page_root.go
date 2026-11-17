@@ -32,8 +32,8 @@ var _ MappedNullable = &SignInPageRoot{}
 
 // SignInPageRoot The sign-in page sub-resources. Extends `PageRoot` with the sign-in-page-only `widgetConfigurationSchema` expand value (requires the SIW_CONFIG_JSON_CUSTOMIZATION feature).
 type SignInPageRoot struct {
-	Embedded             map[string]interface{} `json:"_embedded,omitempty"`
-	Links                *PageRootLinks         `json:"_links,omitempty"`
+	Embedded             *SignInPageRootAllOfEmbedded `json:"_embedded,omitempty"`
+	Links                *PageRootLinks               `json:"_links,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -57,19 +57,19 @@ func NewSignInPageRootWithDefaults() *SignInPageRoot {
 }
 
 // GetEmbedded returns the Embedded field value if set, zero value otherwise.
-func (o *SignInPageRoot) GetEmbedded() map[string]interface{} {
+func (o *SignInPageRoot) GetEmbedded() SignInPageRootAllOfEmbedded {
 	if o == nil || IsNil(o.Embedded) {
-		var ret map[string]interface{}
+		var ret SignInPageRootAllOfEmbedded
 		return ret
 	}
-	return o.Embedded
+	return *o.Embedded
 }
 
 // GetEmbeddedOk returns a tuple with the Embedded field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SignInPageRoot) GetEmbeddedOk() (map[string]interface{}, bool) {
+func (o *SignInPageRoot) GetEmbeddedOk() (*SignInPageRootAllOfEmbedded, bool) {
 	if o == nil || IsNil(o.Embedded) {
-		return map[string]interface{}{}, false
+		return nil, false
 	}
 	return o.Embedded, true
 }
@@ -83,9 +83,9 @@ func (o *SignInPageRoot) HasEmbedded() bool {
 	return false
 }
 
-// SetEmbedded gets a reference to the given map[string]interface{} and assigns it to the Embedded field.
-func (o *SignInPageRoot) SetEmbedded(v map[string]interface{}) {
-	o.Embedded = v
+// SetEmbedded gets a reference to the given SignInPageRootAllOfEmbedded and assigns it to the Embedded field.
+func (o *SignInPageRoot) SetEmbedded(v SignInPageRootAllOfEmbedded) {
+	o.Embedded = &v
 }
 
 // GetLinks returns the Links field value if set, zero value otherwise.

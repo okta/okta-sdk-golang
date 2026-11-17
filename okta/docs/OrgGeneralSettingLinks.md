@@ -4,12 +4,12 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Contacts** | Pointer to [**HrefObject**](HrefObject.md) | Link to the [Org Contacts](/openapi/okta-management/management/orgsettingcontact/) resource | [optional] 
+**Contacts** | Pointer to [**HrefObject**](HrefObject.md) | Link to the [Org Contacts](/openapi/okta-management/management/tags/orgsettingcontact) resource | [optional] 
 **Logo** | Pointer to [**HrefObject**](HrefObject.md) | Link to the org logo | [optional] 
-**OktaCommunication** | Pointer to [**HrefObject**](HrefObject.md) | Link to the [Org Communication Settings](/openapi/okta-management/management/orgsettingcommunication/) resource | [optional] 
-**OktaSupport** | Pointer to [**HrefObject**](HrefObject.md) | Link to the [Org Support Settings](/openapi/okta-management/management/orgsettingsupport/) resource | [optional] 
-**Preferences** | Pointer to [**HrefObject**](HrefObject.md) | Link to the [Org Preferences](/openapi/okta-management/management/orgsettingcustomization/getorgpreferences) resource | [optional] 
-**UploadLogo** | Pointer to [**HrefObject**](HrefObject.md) | Link to the [Upload Org Logo](/openapi/okta-management/management/orgsettingcustomization) resource | [optional] 
+**OktaCommunication** | Pointer to [**HrefObject**](HrefObject.md) | Link to the [Org Communication Settings](/openapi/okta-management/management/tags/orgsettingcommunication) resource | [optional] 
+**OktaSupport** | Pointer to [**HrefObject**](HrefObject.md) | Link to the [Org Support Settings](/openapi/okta-management/management/tags/orgsettingsupport) resource | [optional] 
+**Preferences** | Pointer to [**HrefObject**](HrefObject.md) | Link to the [Org Preferences](/openapi/okta-management/management/tags/orgsettingcustomization/other/getorgpreferences) resource | [optional] 
+**UploadLogo** | Pointer to [**HrefObject**](HrefObject.md) | Link to the [Upload Org Logo](/openapi/okta-management/management/tags/orgsettingcustomization) resource | [optional] 
 
 ## Methods
 

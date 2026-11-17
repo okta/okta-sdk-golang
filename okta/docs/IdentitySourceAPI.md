@@ -23,6 +23,8 @@ Method | HTTP request | Description
 [**UpdateIdentitySourceUsers**](IdentitySourceAPI.md#UpdateIdentitySourceUsers) | **Patch** /api/v1/identity-sources/{identitySourceId}/users/{externalId} | Update an identity source user
 [**UploadIdentitySourceDataForDelete**](IdentitySourceAPI.md#UploadIdentitySourceDataForDelete) | **Post** /api/v1/identity-sources/{identitySourceId}/sessions/{sessionId}/bulk-delete | Upload the data to be deleted in Okta
 [**UploadIdentitySourceDataForUpsert**](IdentitySourceAPI.md#UploadIdentitySourceDataForUpsert) | **Post** /api/v1/identity-sources/{identitySourceId}/sessions/{sessionId}/bulk-upsert | Upload the data to be upserted in Okta
+[**UploadIdentitySourceDevicesForDelete**](IdentitySourceAPI.md#UploadIdentitySourceDevicesForDelete) | **Post** /api/v1/identity-sources/{identitySourceId}/sessions/{sessionId}/bulk-devices-delete | Upload the device external IDs to be deleted in Okta
+[**UploadIdentitySourceDevicesForUpsert**](IdentitySourceAPI.md#UploadIdentitySourceDevicesForUpsert) | **Post** /api/v1/identity-sources/{identitySourceId}/sessions/{sessionId}/bulk-devices-upsert | Upload the device profiles to be upserted in Okta
 [**UploadIdentitySourceGroupMembershipsForDelete**](IdentitySourceAPI.md#UploadIdentitySourceGroupMembershipsForDelete) | **Post** /api/v1/identity-sources/{identitySourceId}/sessions/{sessionId}/bulk-group-memberships-delete | Upload the group memberships to be deleted in Okta
 [**UploadIdentitySourceGroupMembershipsForUpsert**](IdentitySourceAPI.md#UploadIdentitySourceGroupMembershipsForUpsert) | **Post** /api/v1/identity-sources/{identitySourceId}/sessions/{sessionId}/bulk-group-memberships-upsert | Upload the group memberships to be upserted in Okta
 [**UploadIdentitySourceGroupsDataForDelete**](IdentitySourceAPI.md#UploadIdentitySourceGroupsDataForDelete) | **Post** /api/v1/identity-sources/{identitySourceId}/sessions/{sessionId}/bulk-groups-delete | Upload the group external IDs to be deleted in Okta
@@ -1393,6 +1395,152 @@ Name | Type | Description  | Notes
 
 
  **bulkUpsertRequestBody** | [**BulkUpsertRequestBody**](BulkUpsertRequestBody.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UploadIdentitySourceDevicesForDelete
+
+> UploadIdentitySourceDevicesForDelete(ctx, identitySourceId, sessionId).BulkDeviceDeleteRequestBody(bulkDeviceDeleteRequestBody).Execute()
+
+Upload the device external IDs to be deleted in Okta
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
+)
+
+func main() {
+	identitySourceId := "0oa3l6l6WK6h0R0QW0g4" // string | The ID of the identity source for which the session is created
+	sessionId := "aps1qqonvr2SZv6o70h8" // string | The ID of the identity source session
+	bulkDeviceDeleteRequestBody := *openapiclient.NewBulkDeviceDeleteRequestBody() // BulkDeviceDeleteRequestBody |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.IdentitySourceAPI.UploadIdentitySourceDevicesForDelete(context.Background(), identitySourceId, sessionId).BulkDeviceDeleteRequestBody(bulkDeviceDeleteRequestBody).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IdentitySourceAPI.UploadIdentitySourceDevicesForDelete``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**identitySourceId** | **string** | The ID of the identity source for which the session is created | 
+**sessionId** | **string** | The ID of the identity source session | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUploadIdentitySourceDevicesForDeleteRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **bulkDeviceDeleteRequestBody** | [**BulkDeviceDeleteRequestBody**](BulkDeviceDeleteRequestBody.md) |  | 
+
+### Return type
+
+ (empty response body)
+
+### Authorization
+
+[apiToken](../README.md#apiToken), [oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+- **Content-Type**: application/json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## UploadIdentitySourceDevicesForUpsert
+
+> UploadIdentitySourceDevicesForUpsert(ctx, identitySourceId, sessionId).BulkDeviceUpsertRequestBody(bulkDeviceUpsertRequestBody).Execute()
+
+Upload the device profiles to be upserted in Okta
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/okta/okta-sdk-golang"
+)
+
+func main() {
+	identitySourceId := "0oa3l6l6WK6h0R0QW0g4" // string | The ID of the identity source for which the session is created
+	sessionId := "aps1qqonvr2SZv6o70h8" // string | The ID of the identity source session
+	bulkDeviceUpsertRequestBody := *openapiclient.NewBulkDeviceUpsertRequestBody() // BulkDeviceUpsertRequestBody |  (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	r, err := apiClient.IdentitySourceAPI.UploadIdentitySourceDevicesForUpsert(context.Background(), identitySourceId, sessionId).BulkDeviceUpsertRequestBody(bulkDeviceUpsertRequestBody).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `IdentitySourceAPI.UploadIdentitySourceDevicesForUpsert``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+}
+```
+
+### Path Parameters
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+**ctx** | **context.Context** | context for authentication, logging, cancellation, deadlines, tracing, etc.
+**identitySourceId** | **string** | The ID of the identity source for which the session is created | 
+**sessionId** | **string** | The ID of the identity source session | 
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiUploadIdentitySourceDevicesForUpsertRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+
+
+ **bulkDeviceUpsertRequestBody** | [**BulkDeviceUpsertRequestBody**](BulkDeviceUpsertRequestBody.md) |  | 
 
 ### Return type
 

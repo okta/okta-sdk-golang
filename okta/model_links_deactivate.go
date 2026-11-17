@@ -32,7 +32,7 @@ var _ MappedNullable = &LinksDeactivate{}
 
 // LinksDeactivate struct for LinksDeactivate
 type LinksDeactivate struct {
-	// Deactivates the factor. See [Unenroll a factor](/openapi/okta-management/management/userfactor/unenrollfactor).
+	// Deactivates the factor. See [Unenroll a factor](/openapi/okta-management/management/tags/userfactor/other/unenrollfactor).
 	Deactivate           *HrefObject `json:"deactivate,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

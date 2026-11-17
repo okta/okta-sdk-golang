@@ -32,9 +32,9 @@ var _ MappedNullable = &PolicyMappingRequest{}
 
 // PolicyMappingRequest struct for PolicyMappingRequest
 type PolicyMappingRequest struct {
-	// [Policy ID](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/policy/#tag/Policy/operation/listPolicies!c=200&path=0/id&t=response) of the app sign-in policy that you want to map
+	// [Policy ID](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/policy/#tag/Policy/operation/listPolicies!c=200&path=0/id&t=response) of the policy that you want to map. Use the self-service registration policy ID when mapping to a `PROFILE_ENROLLMENT` resource type.
 	ResourceId *string `json:"resourceId,omitempty"`
-	// Specifies the type of resource to map. You can only map an app sign-in policy to a device signal collection policy (the `policyId` path parameter).
+	// Specifies the type of resource to map. Use `PROFILE_ENROLLMENT` to map a self-service registration policy to a profile enrollment policy.
 	ResourceType         *string `json:"resourceType,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

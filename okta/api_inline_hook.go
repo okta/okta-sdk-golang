@@ -165,7 +165,7 @@ type InlineHookAPI interface {
 		  | `com.okta.oauth2.tokens.transform` | [Token inline hook](/openapi/okta-management/management/management/inlinehook/createtokeninlinehook)               |
 		  | `com.okta.saml.tokens.transform`   | [SAML assertion inline hook](/openapi/okta-management/management/management/inlinehook/createsamlassertioninlinehook)       |
 		  | `com.okta.telephony.provider`      | [Telephony inline hook](/openapi/okta-management/management/management/inlinehook/createtelephonyinlinehook) |
-		  | `com.okta.user.credential.password.import` | [Password import inline hook](openapi/okta-management/management/management/inlinehook/createpasswordimportinlinehook)|
+		  | `com.okta.user.credential.password.import` | [Password import inline hook](/openapi/okta-management/management/tags/inlinehook/webhooks/createpasswordimportinlinehook)|
 		  | `com.okta.user.pre-registration`   | [Registration inline hook](/openapi/okta-management/management/management/inlinehook/create-registration-hook) |
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
@@ -1286,7 +1286,7 @@ When listing a specific inline hook, you need to specify its type. The following
 	 | `com.okta.oauth2.tokens.transform` | [Token inline hook](/openapi/okta-management/management/management/inlinehook/createtokeninlinehook)               |
 	 | `com.okta.saml.tokens.transform`   | [SAML assertion inline hook](/openapi/okta-management/management/management/inlinehook/createsamlassertioninlinehook)       |
 	 | `com.okta.telephony.provider`      | [Telephony inline hook](/openapi/okta-management/management/management/inlinehook/createtelephonyinlinehook) |
-	 | `com.okta.user.credential.password.import` | [Password import inline hook](openapi/okta-management/management/management/inlinehook/createpasswordimportinlinehook)|
+	 | `com.okta.user.credential.password.import` | [Password import inline hook](/openapi/okta-management/management/tags/inlinehook/webhooks/createpasswordimportinlinehook)|
 	 | `com.okta.user.pre-registration`   | [Registration inline hook](/openapi/okta-management/management/management/inlinehook/create-registration-hook) |
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().

@@ -25,6 +25,7 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the DevicePostureCheck type satisfies the MappedNullable interface at compile time
@@ -50,9 +51,9 @@ type DevicePostureCheck struct {
 	Name     *string `json:"name,omitempty"`
 	Platform *string `json:"platform,omitempty"`
 	// OSQuery for the device posture check
-	Query               *string                                 `json:"query,omitempty"`
-	RemediationSettings *DevicePostureChecksRemediationSettings `json:"remediationSettings,omitempty"`
-	Type                *string                                 `json:"type,omitempty"`
+	Query               *string                                `json:"query,omitempty"`
+	RemediationSettings DevicePostureChecksRemediationSettings `json:"remediationSettings"`
+	Type                *string                                `json:"type,omitempty"`
 	// Unique name of the device posture check
 	VariableName         *string    `json:"variableName,omitempty"`
 	Links                *LinksSelf `json:"_links,omitempty"`
@@ -65,8 +66,9 @@ type _DevicePostureCheck DevicePostureCheck
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDevicePostureCheck() *DevicePostureCheck {
+func NewDevicePostureCheck(remediationSettings DevicePostureChecksRemediationSettings) *DevicePostureCheck {
 	this := DevicePostureCheck{}
+	this.RemediationSettings = remediationSettings
 	return &this
 }
 
@@ -398,36 +400,28 @@ func (o *DevicePostureCheck) SetQuery(v string) {
 	o.Query = &v
 }
 
-// GetRemediationSettings returns the RemediationSettings field value if set, zero value otherwise.
+// GetRemediationSettings returns the RemediationSettings field value
 func (o *DevicePostureCheck) GetRemediationSettings() DevicePostureChecksRemediationSettings {
-	if o == nil || IsNil(o.RemediationSettings) {
+	if o == nil {
 		var ret DevicePostureChecksRemediationSettings
 		return ret
 	}
-	return *o.RemediationSettings
+
+	return o.RemediationSettings
 }
 
-// GetRemediationSettingsOk returns a tuple with the RemediationSettings field value if set, nil otherwise
+// GetRemediationSettingsOk returns a tuple with the RemediationSettings field value
 // and a boolean to check if the value has been set.
 func (o *DevicePostureCheck) GetRemediationSettingsOk() (*DevicePostureChecksRemediationSettings, bool) {
-	if o == nil || IsNil(o.RemediationSettings) {
+	if o == nil {
 		return nil, false
 	}
-	return o.RemediationSettings, true
+	return &o.RemediationSettings, true
 }
 
-// HasRemediationSettings returns a boolean if a field has been set.
-func (o *DevicePostureCheck) HasRemediationSettings() bool {
-	if o != nil && !IsNil(o.RemediationSettings) {
-		return true
-	}
-
-	return false
-}
-
-// SetRemediationSettings gets a reference to the given DevicePostureChecksRemediationSettings and assigns it to the RemediationSettings field.
+// SetRemediationSettings sets field value
 func (o *DevicePostureCheck) SetRemediationSettings(v DevicePostureChecksRemediationSettings) {
-	o.RemediationSettings = &v
+	o.RemediationSettings = v
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
@@ -566,9 +560,7 @@ func (o DevicePostureCheck) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Query) {
 		toSerialize["query"] = o.Query
 	}
-	if !IsNil(o.RemediationSettings) {
-		toSerialize["remediationSettings"] = o.RemediationSettings
-	}
+	toSerialize["remediationSettings"] = o.RemediationSettings
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
@@ -587,6 +579,27 @@ func (o DevicePostureCheck) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *DevicePostureCheck) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"remediationSettings",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varDevicePostureCheck := _DevicePostureCheck{}
 
 	err = json.Unmarshal(data, &varDevicePostureCheck)

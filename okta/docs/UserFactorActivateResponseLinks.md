@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Self** | Pointer to [**HrefObjectSelfLink**](HrefObjectSelfLink.md) |  | [optional] 
 **User** | Pointer to [**HrefObject**](HrefObject.md) | Returns information on the specified user | [optional] 
-**Verify** | Pointer to [**HrefObject**](HrefObject.md) | Verifies the factor resource. See [Verify a factor](/openapi/okta-management/management/userfactor/verifyfactor). | [optional] 
+**Verify** | Pointer to [**HrefObject**](HrefObject.md) | Verifies the factor resource. See [Verify a factor](/openapi/okta-management/management/tags/userfactor/other/verifyfactor). | [optional] 
 
 ## Methods
 

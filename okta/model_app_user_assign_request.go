@@ -46,7 +46,7 @@ type AppUserAssignRequest struct {
 	LastUpdated *time.Time `json:"lastUpdated,omitempty"`
 	// Timestamp when the application user password was last changed
 	PasswordChanged NullableTime `json:"passwordChanged,omitempty"`
-	// Specifies the default and custom profile properties for a user. Properties that are visible in the Admin Console for an app assignment can also be assigned through the API. Some properties are reference properties that are imported from the target app and can't be configured. See [profile](/openapi/okta-management/management/user/getuser#user/getuser/t=response&c=200&path=profile).
+	// Specifies the default and custom profile properties for a user. Properties that are visible in the Admin Console for an app assignment can also be assigned through the API. Some properties are reference properties that are imported from the target app and can't be configured. See [profile](/openapi/okta-management/management/tags/user/other/getuser#user/getuser/t=response&c=200&path=profile).
 	Profile map[string]interface{} `json:"profile,omitempty"`
 	// Indicates if the assignment is direct (`USER`) or by group membership (`GROUP`). If not specified, Okta tries to determine the scope based on the assignment type.
 	Scope *string `json:"scope,omitempty"`

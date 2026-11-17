@@ -57,7 +57,7 @@ type UserResourcesAPI interface {
 
 			Lists all client resources for which the specified user has grants or tokens
 
-		> **Note:** To list all client resources for which a specified authorization server has tokens, use the [List all client resources for an authorization server in the Authorization Servers API](/openapi/okta-management/management/authorizationserverclients/listoauth2clientsforauthorizationserver).
+		> **Note:** To list all client resources for which a specified authorization server has tokens, use the [List all client resources for an authorization server in the Authorization Servers API](/openapi/okta-management/management/tags/authorizationserverclients/other/listoauth2clientsforauthorizationserver).
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param userId ID of an existing Okta user
@@ -90,7 +90,7 @@ type UserResourcesAPI interface {
 			ListUserGroups List all groups
 
 			Lists all groups of which the user is a member
-		> **Note:** To list all groups in your org, use the [List all groups endpoints in the Groups API](/openapi/okta-management/management/group/listgroups).
+		> **Note:** To list all groups in your org, use the [List all groups endpoints in the Groups API](/openapi/okta-management/management/tags/group/other/listgroups).
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user
@@ -290,7 +290,7 @@ ListUserClients List all clients
 
 # Lists all client resources for which the specified user has grants or tokens
 
-> **Note:** To list all client resources for which a specified authorization server has tokens, use the [List all client resources for an authorization server in the Authorization Servers API](/openapi/okta-management/management/authorizationserverclients/listoauth2clientsforauthorizationserver).
+> **Note:** To list all client resources for which a specified authorization server has tokens, use the [List all client resources for an authorization server in the Authorization Servers API](/openapi/okta-management/management/tags/authorizationserverclients/other/listoauth2clientsforauthorizationserver).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param userId ID of an existing Okta user
@@ -639,7 +639,7 @@ func (r ApiListUserGroupsRequest) Execute() ([]Group, *APIResponse, error) {
 ListUserGroups List all groups
 
 Lists all groups of which the user is a member
-> **Note:** To list all groups in your org, use the [List all groups endpoints in the Groups API](/openapi/okta-management/management/group/listgroups).
+> **Note:** To list all groups in your org, use the [List all groups endpoints in the Groups API](/openapi/okta-management/management/tags/group/other/listgroups).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param id An ID, login, or login shortname (as long as the shortname is unambiguous) of an existing Okta user

@@ -35,6 +35,7 @@ type CreatePolicyRequest struct {
 	OktaSignOnPolicy              *OktaSignOnPolicy
 	PasswordPolicy                *PasswordPolicy
 	ProfileEnrollmentPolicy       *ProfileEnrollmentPolicy
+	SelfServiceRegistrationPolicy *SelfServiceRegistrationPolicy
 	UserIdentificationPolicy      *UserIdentificationPolicy
 }
 
@@ -70,6 +71,13 @@ func PasswordPolicyAsCreatePolicyRequest(v *PasswordPolicy) CreatePolicyRequest 
 func ProfileEnrollmentPolicyAsCreatePolicyRequest(v *ProfileEnrollmentPolicy) CreatePolicyRequest {
 	return CreatePolicyRequest{
 		ProfileEnrollmentPolicy: v,
+	}
+}
+
+// SelfServiceRegistrationPolicyAsCreatePolicyRequest is a convenience function that returns SelfServiceRegistrationPolicy wrapped in CreatePolicyRequest
+func SelfServiceRegistrationPolicyAsCreatePolicyRequest(v *SelfServiceRegistrationPolicy) CreatePolicyRequest {
+	return CreatePolicyRequest{
+		SelfServiceRegistrationPolicy: v,
 	}
 }
 
@@ -153,6 +161,18 @@ func (dst *CreatePolicyRequest) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'SELF_SERVICE_REGISTRATION'
+	if discriminatorValue == "SELF_SERVICE_REGISTRATION" {
+		// try to unmarshal JSON data into SelfServiceRegistrationPolicy
+		err = json.Unmarshal(data, &dst.SelfServiceRegistrationPolicy)
+		if err == nil {
+			return nil // data stored in dst.SelfServiceRegistrationPolicy, return on the first match
+		} else {
+			dst.SelfServiceRegistrationPolicy = nil
+			return fmt.Errorf("failed to unmarshal CreatePolicyRequest as SelfServiceRegistrationPolicy: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'USER_IDENTIFICATION'
 	if discriminatorValue == "USER_IDENTIFICATION" {
 		// try to unmarshal JSON data into UserIdentificationPolicy
@@ -200,6 +220,10 @@ func (src CreatePolicyRequest) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.ProfileEnrollmentPolicy)
 	}
 
+	if src.SelfServiceRegistrationPolicy != nil {
+		return json.Marshal(&src.SelfServiceRegistrationPolicy)
+	}
+
 	if src.UserIdentificationPolicy != nil {
 		return json.Marshal(&src.UserIdentificationPolicy)
 	}
@@ -232,6 +256,10 @@ func (obj *CreatePolicyRequest) GetActualInstance() interface{} {
 		return obj.ProfileEnrollmentPolicy
 	}
 
+	if obj.SelfServiceRegistrationPolicy != nil {
+		return obj.SelfServiceRegistrationPolicy
+	}
+
 	if obj.UserIdentificationPolicy != nil {
 		return obj.UserIdentificationPolicy
 	}
@@ -260,6 +288,10 @@ func (obj CreatePolicyRequest) GetActualInstanceValue() interface{} {
 
 	if obj.ProfileEnrollmentPolicy != nil {
 		return *obj.ProfileEnrollmentPolicy
+	}
+
+	if obj.SelfServiceRegistrationPolicy != nil {
+		return *obj.SelfServiceRegistrationPolicy
 	}
 
 	if obj.UserIdentificationPolicy != nil {

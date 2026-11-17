@@ -39,6 +39,7 @@ type ListPolicyRules200ResponseInner struct {
 	PasswordPolicyRule                  *PasswordPolicyRule
 	PostAuthSessionPolicyRule           *PostAuthSessionPolicyRule
 	ProfileEnrollmentPolicyRule         *ProfileEnrollmentPolicyRule
+	SelfServiceRegistrationPolicyRule   *SelfServiceRegistrationPolicyRule
 	SessionViolationDetectionPolicyRule *SessionViolationDetectionPolicyRule
 	UserIdentificationPolicyRule        *UserIdentificationPolicyRule
 }
@@ -103,6 +104,13 @@ func PostAuthSessionPolicyRuleAsListPolicyRules200ResponseInner(v *PostAuthSessi
 func ProfileEnrollmentPolicyRuleAsListPolicyRules200ResponseInner(v *ProfileEnrollmentPolicyRule) ListPolicyRules200ResponseInner {
 	return ListPolicyRules200ResponseInner{
 		ProfileEnrollmentPolicyRule: v,
+	}
+}
+
+// SelfServiceRegistrationPolicyRuleAsListPolicyRules200ResponseInner is a convenience function that returns SelfServiceRegistrationPolicyRule wrapped in ListPolicyRules200ResponseInner
+func SelfServiceRegistrationPolicyRuleAsListPolicyRules200ResponseInner(v *SelfServiceRegistrationPolicyRule) ListPolicyRules200ResponseInner {
+	return ListPolicyRules200ResponseInner{
+		SelfServiceRegistrationPolicyRule: v,
 	}
 }
 
@@ -229,6 +237,18 @@ func (dst *ListPolicyRules200ResponseInner) UnmarshalJSON(data []byte) error {
 		}
 	}
 
+	// check if the discriminator value is 'SELF_SERVICE_REGISTRATION'
+	if discriminatorValue == "SELF_SERVICE_REGISTRATION" {
+		// try to unmarshal JSON data into SelfServiceRegistrationPolicyRule
+		err = json.Unmarshal(data, &dst.SelfServiceRegistrationPolicyRule)
+		if err == nil {
+			return nil // data stored in dst.SelfServiceRegistrationPolicyRule, return on the first match
+		} else {
+			dst.SelfServiceRegistrationPolicyRule = nil
+			return fmt.Errorf("failed to unmarshal ListPolicyRules200ResponseInner as SelfServiceRegistrationPolicyRule: %s", err.Error())
+		}
+	}
+
 	// check if the discriminator value is 'SESSION_VIOLATION_DETECTION'
 	if discriminatorValue == "SESSION_VIOLATION_DETECTION" {
 		// try to unmarshal JSON data into SessionViolationDetectionPolicyRule
@@ -316,6 +336,10 @@ func (src ListPolicyRules200ResponseInner) MarshalJSON() ([]byte, error) {
 		return json.Marshal(&src.ProfileEnrollmentPolicyRule)
 	}
 
+	if src.SelfServiceRegistrationPolicyRule != nil {
+		return json.Marshal(&src.SelfServiceRegistrationPolicyRule)
+	}
+
 	if src.SessionViolationDetectionPolicyRule != nil {
 		return json.Marshal(&src.SessionViolationDetectionPolicyRule)
 	}
@@ -368,6 +392,10 @@ func (obj *ListPolicyRules200ResponseInner) GetActualInstance() interface{} {
 		return obj.ProfileEnrollmentPolicyRule
 	}
 
+	if obj.SelfServiceRegistrationPolicyRule != nil {
+		return obj.SelfServiceRegistrationPolicyRule
+	}
+
 	if obj.SessionViolationDetectionPolicyRule != nil {
 		return obj.SessionViolationDetectionPolicyRule
 	}
@@ -416,6 +444,10 @@ func (obj ListPolicyRules200ResponseInner) GetActualInstanceValue() interface{} 
 
 	if obj.ProfileEnrollmentPolicyRule != nil {
 		return *obj.ProfileEnrollmentPolicyRule
+	}
+
+	if obj.SelfServiceRegistrationPolicyRule != nil {
+		return *obj.SelfServiceRegistrationPolicyRule
 	}
 
 	if obj.SessionViolationDetectionPolicyRule != nil {

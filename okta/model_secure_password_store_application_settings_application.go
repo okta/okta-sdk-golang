@@ -47,7 +47,7 @@ type SecurePasswordStoreApplicationSettingsApplication struct {
 	OptionalField3Value *string `json:"optionalField3Value,omitempty"`
 	// CSS selector for the **Password** field in the sign-in form
 	PasswordField string `json:"passwordField"`
-	// The URL of the sign-in page for this app
+	// The URL of the sign-in page for this app > **Note:** Only users with the super admin role can modify this URL after it has been initially set.
 	Url string `json:"url"`
 	// CSS selector for the **Username** field in the sign-in form
 	UsernameField        string `json:"usernameField"`

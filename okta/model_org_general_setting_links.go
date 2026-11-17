@@ -32,17 +32,17 @@ var _ MappedNullable = &OrgGeneralSettingLinks{}
 
 // OrgGeneralSettingLinks Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for the org using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification
 type OrgGeneralSettingLinks struct {
-	// Link to the [Org Contacts](/openapi/okta-management/management/orgsettingcontact/) resource
+	// Link to the [Org Contacts](/openapi/okta-management/management/tags/orgsettingcontact) resource
 	Contacts *HrefObject `json:"contacts,omitempty"`
 	// Link to the org logo
 	Logo *HrefObject `json:"logo,omitempty"`
-	// Link to the [Org Communication Settings](/openapi/okta-management/management/orgsettingcommunication/) resource
+	// Link to the [Org Communication Settings](/openapi/okta-management/management/tags/orgsettingcommunication) resource
 	OktaCommunication *HrefObject `json:"oktaCommunication,omitempty"`
-	// Link to the [Org Support Settings](/openapi/okta-management/management/orgsettingsupport/) resource
+	// Link to the [Org Support Settings](/openapi/okta-management/management/tags/orgsettingsupport) resource
 	OktaSupport *HrefObject `json:"oktaSupport,omitempty"`
-	// Link to the [Org Preferences](/openapi/okta-management/management/orgsettingcustomization/getorgpreferences) resource
+	// Link to the [Org Preferences](/openapi/okta-management/management/tags/orgsettingcustomization/other/getorgpreferences) resource
 	Preferences *HrefObject `json:"preferences,omitempty"`
-	// Link to the [Upload Org Logo](/openapi/okta-management/management/orgsettingcustomization) resource
+	// Link to the [Upload Org Logo](/openapi/okta-management/management/tags/orgsettingcustomization) resource
 	UploadLogo           *HrefObject `json:"uploadLogo,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Fastpass** | Pointer to [**UserIdentificationFastpassSettings**](UserIdentificationFastpassSettings.md) |  | [optional] 
+**Passkey** | Pointer to [**UserIdentificationPasskeySettings**](UserIdentificationPasskeySettings.md) |  | [optional] 
 
 ## Methods
 
@@ -49,6 +50,31 @@ SetFastpass sets Fastpass field to given value.
 `func (o *UserIdentificationSecurityMethods) HasFastpass() bool`
 
 HasFastpass returns a boolean if a field has been set.
+
+### GetPasskey
+
+`func (o *UserIdentificationSecurityMethods) GetPasskey() UserIdentificationPasskeySettings`
+
+GetPasskey returns the Passkey field if non-nil, zero value otherwise.
+
+### GetPasskeyOk
+
+`func (o *UserIdentificationSecurityMethods) GetPasskeyOk() (*UserIdentificationPasskeySettings, bool)`
+
+GetPasskeyOk returns a tuple with the Passkey field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPasskey
+
+`func (o *UserIdentificationSecurityMethods) SetPasskey(v UserIdentificationPasskeySettings)`
+
+SetPasskey sets Passkey field to given value.
+
+### HasPasskey
+
+`func (o *UserIdentificationSecurityMethods) HasPasskey() bool`
+
+HasPasskey returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

@@ -1,0 +1,281 @@
+/*
+Okta Admin Management API
+
+Allows customers to easily access the Okta Management APIs
+
+Copyright 2025 - Present Okta, Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+API version: 2025.08.0
+Contact: devex-public@okta.com
+*/
+
+package okta
+
+import (
+	"encoding/json"
+)
+
+// checks if the IdvMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdvMetadata{}
+
+// IdvMetadata Metadata about the IDV vendor. Available for `IDV_STANDARD` IdPs and IDV vendors that are published through the Okta Integration Network (OIN).
+type IdvMetadata struct {
+	// A URL that links to the IDV vendor's own setup or configuration guide
+	ConfigUrl *string `json:"configUrl,omitempty"`
+	// A URL that links to the privacy policy for the IDV vendor
+	PrivacyPolicy *string `json:"privacyPolicy,omitempty"`
+	// A URL that links to the terms of use for the IDV vendor
+	TermsOfUse *string `json:"termsOfUse,omitempty"`
+	// The display name of the IDV vendor
+	VendorDisplayName    *string `json:"vendorDisplayName,omitempty"`
+	AdditionalProperties map[string]interface{}
+}
+
+type _IdvMetadata IdvMetadata
+
+// NewIdvMetadata instantiates a new IdvMetadata object
+// This constructor will assign default values to properties that have it defined,
+// and makes sure properties required by API are set, but the set of arguments
+// will change when the set of required properties is changed
+func NewIdvMetadata() *IdvMetadata {
+	this := IdvMetadata{}
+	return &this
+}
+
+// NewIdvMetadataWithDefaults instantiates a new IdvMetadata object
+// This constructor will only assign default values to properties that have it defined,
+// but it doesn't guarantee that properties required by API are set
+func NewIdvMetadataWithDefaults() *IdvMetadata {
+	this := IdvMetadata{}
+	return &this
+}
+
+// GetConfigUrl returns the ConfigUrl field value if set, zero value otherwise.
+func (o *IdvMetadata) GetConfigUrl() string {
+	if o == nil || IsNil(o.ConfigUrl) {
+		var ret string
+		return ret
+	}
+	return *o.ConfigUrl
+}
+
+// GetConfigUrlOk returns a tuple with the ConfigUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IdvMetadata) GetConfigUrlOk() (*string, bool) {
+	if o == nil || IsNil(o.ConfigUrl) {
+		return nil, false
+	}
+	return o.ConfigUrl, true
+}
+
+// HasConfigUrl returns a boolean if a field has been set.
+func (o *IdvMetadata) HasConfigUrl() bool {
+	if o != nil && !IsNil(o.ConfigUrl) {
+		return true
+	}
+
+	return false
+}
+
+// SetConfigUrl gets a reference to the given string and assigns it to the ConfigUrl field.
+func (o *IdvMetadata) SetConfigUrl(v string) {
+	o.ConfigUrl = &v
+}
+
+// GetPrivacyPolicy returns the PrivacyPolicy field value if set, zero value otherwise.
+func (o *IdvMetadata) GetPrivacyPolicy() string {
+	if o == nil || IsNil(o.PrivacyPolicy) {
+		var ret string
+		return ret
+	}
+	return *o.PrivacyPolicy
+}
+
+// GetPrivacyPolicyOk returns a tuple with the PrivacyPolicy field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IdvMetadata) GetPrivacyPolicyOk() (*string, bool) {
+	if o == nil || IsNil(o.PrivacyPolicy) {
+		return nil, false
+	}
+	return o.PrivacyPolicy, true
+}
+
+// HasPrivacyPolicy returns a boolean if a field has been set.
+func (o *IdvMetadata) HasPrivacyPolicy() bool {
+	if o != nil && !IsNil(o.PrivacyPolicy) {
+		return true
+	}
+
+	return false
+}
+
+// SetPrivacyPolicy gets a reference to the given string and assigns it to the PrivacyPolicy field.
+func (o *IdvMetadata) SetPrivacyPolicy(v string) {
+	o.PrivacyPolicy = &v
+}
+
+// GetTermsOfUse returns the TermsOfUse field value if set, zero value otherwise.
+func (o *IdvMetadata) GetTermsOfUse() string {
+	if o == nil || IsNil(o.TermsOfUse) {
+		var ret string
+		return ret
+	}
+	return *o.TermsOfUse
+}
+
+// GetTermsOfUseOk returns a tuple with the TermsOfUse field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IdvMetadata) GetTermsOfUseOk() (*string, bool) {
+	if o == nil || IsNil(o.TermsOfUse) {
+		return nil, false
+	}
+	return o.TermsOfUse, true
+}
+
+// HasTermsOfUse returns a boolean if a field has been set.
+func (o *IdvMetadata) HasTermsOfUse() bool {
+	if o != nil && !IsNil(o.TermsOfUse) {
+		return true
+	}
+
+	return false
+}
+
+// SetTermsOfUse gets a reference to the given string and assigns it to the TermsOfUse field.
+func (o *IdvMetadata) SetTermsOfUse(v string) {
+	o.TermsOfUse = &v
+}
+
+// GetVendorDisplayName returns the VendorDisplayName field value if set, zero value otherwise.
+func (o *IdvMetadata) GetVendorDisplayName() string {
+	if o == nil || IsNil(o.VendorDisplayName) {
+		var ret string
+		return ret
+	}
+	return *o.VendorDisplayName
+}
+
+// GetVendorDisplayNameOk returns a tuple with the VendorDisplayName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IdvMetadata) GetVendorDisplayNameOk() (*string, bool) {
+	if o == nil || IsNil(o.VendorDisplayName) {
+		return nil, false
+	}
+	return o.VendorDisplayName, true
+}
+
+// HasVendorDisplayName returns a boolean if a field has been set.
+func (o *IdvMetadata) HasVendorDisplayName() bool {
+	if o != nil && !IsNil(o.VendorDisplayName) {
+		return true
+	}
+
+	return false
+}
+
+// SetVendorDisplayName gets a reference to the given string and assigns it to the VendorDisplayName field.
+func (o *IdvMetadata) SetVendorDisplayName(v string) {
+	o.VendorDisplayName = &v
+}
+
+func (o IdvMetadata) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o IdvMetadata) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.ConfigUrl) {
+		toSerialize["configUrl"] = o.ConfigUrl
+	}
+	if !IsNil(o.PrivacyPolicy) {
+		toSerialize["privacyPolicy"] = o.PrivacyPolicy
+	}
+	if !IsNil(o.TermsOfUse) {
+		toSerialize["termsOfUse"] = o.TermsOfUse
+	}
+	if !IsNil(o.VendorDisplayName) {
+		toSerialize["vendorDisplayName"] = o.VendorDisplayName
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *IdvMetadata) UnmarshalJSON(data []byte) (err error) {
+	varIdvMetadata := _IdvMetadata{}
+
+	err = json.Unmarshal(data, &varIdvMetadata)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IdvMetadata(varIdvMetadata)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "configUrl")
+		delete(additionalProperties, "privacyPolicy")
+		delete(additionalProperties, "termsOfUse")
+		delete(additionalProperties, "vendorDisplayName")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
+}
+
+type NullableIdvMetadata struct {
+	value *IdvMetadata
+	isSet bool
+}
+
+func (v NullableIdvMetadata) Get() *IdvMetadata {
+	return v.value
+}
+
+func (v *NullableIdvMetadata) Set(val *IdvMetadata) {
+	v.value = val
+	v.isSet = true
+}
+
+func (v NullableIdvMetadata) IsSet() bool {
+	return v.isSet
+}
+
+func (v *NullableIdvMetadata) Unset() {
+	v.value = nil
+	v.isSet = false
+}
+
+func NewNullableIdvMetadata(val *IdvMetadata) *NullableIdvMetadata {
+	return &NullableIdvMetadata{value: val, isSet: true}
+}
+
+func (v NullableIdvMetadata) MarshalJSON() ([]byte, error) {
+	return json.Marshal(v.value)
+}
+
+func (v *NullableIdvMetadata) UnmarshalJSON(src []byte) error {
+	v.isSet = true
+	return json.Unmarshal(src, &v.value)
+}

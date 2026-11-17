@@ -34,7 +34,7 @@ import (
 )
 
 func main() {
-	devicePostureCheck := *openapiclient.NewDevicePostureCheck() // DevicePostureCheck | 
+	devicePostureCheck := *openapiclient.NewDevicePostureCheck(*openapiclient.NewDevicePostureChecksRemediationSettings(*openapiclient.NewDevicePostureChecksRemediationSettingsLink(), *openapiclient.NewDevicePostureChecksRemediationSettingsMessage())) // DevicePostureCheck | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
@@ -361,7 +361,7 @@ import (
 
 func main() {
 	postureCheckId := "postureCheckId_example" // string | ID of the device posture check
-	devicePostureCheck := *openapiclient.NewDevicePostureCheck() // DevicePostureCheck | 
+	devicePostureCheck := *openapiclient.NewDevicePostureCheck(*openapiclient.NewDevicePostureChecksRemediationSettings(*openapiclient.NewDevicePostureChecksRemediationSettingsLink(), *openapiclient.NewDevicePostureChecksRemediationSettingsMessage())) // DevicePostureCheck | 
 
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)

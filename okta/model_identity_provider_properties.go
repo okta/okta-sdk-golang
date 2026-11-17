@@ -41,8 +41,8 @@ type IdentityProviderProperties struct {
 	// Enables attribute synchronization from the X.509 certificate to the user's Okta profile. If it's set to `true`, Okta overwrites user profile attributes with values found in the X.509 certificate. Applies to `X509` IdP type.  > **Note:** Some attributes are restricted and won't be updated, including `login`, `email`, `secondEmail`, and configured attributes that are used in multiple identifiers.
 	AllowUserUpdates *bool `json:"allowUserUpdates,omitempty"`
 	// The [type of identity verification](https://developers.login.gov/oidc/#ial-values) (IAL) value for the Login.gov IdP. See [Add a Login.gov IdP](https://developer.okta.com/docs/guides/add-logingov-idp/). Applies to `LOGINGOV` and `LOGINGOV_SANDBOX` IdP types.
-	IalValue    NullableString                         `json:"ialValue,omitempty"`
-	IdvMetadata *IdentityProviderPropertiesIdvMetadata `json:"idvMetadata,omitempty"`
+	IalValue    NullableString `json:"ialValue,omitempty"`
+	IdvMetadata *IdvMetadata   `json:"idvMetadata,omitempty"`
 	// The ID of the inquiry template from your Persona dashboard. The inquiry template always starts with `itmpl`. Applies to the legacy `IDV_PERSONA` IdP type.
 	InquiryTemplateId    *string `json:"inquiryTemplateId,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -259,9 +259,9 @@ func (o *IdentityProviderProperties) UnsetIalValue() {
 }
 
 // GetIdvMetadata returns the IdvMetadata field value if set, zero value otherwise.
-func (o *IdentityProviderProperties) GetIdvMetadata() IdentityProviderPropertiesIdvMetadata {
+func (o *IdentityProviderProperties) GetIdvMetadata() IdvMetadata {
 	if o == nil || IsNil(o.IdvMetadata) {
-		var ret IdentityProviderPropertiesIdvMetadata
+		var ret IdvMetadata
 		return ret
 	}
 	return *o.IdvMetadata
@@ -269,7 +269,7 @@ func (o *IdentityProviderProperties) GetIdvMetadata() IdentityProviderProperties
 
 // GetIdvMetadataOk returns a tuple with the IdvMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IdentityProviderProperties) GetIdvMetadataOk() (*IdentityProviderPropertiesIdvMetadata, bool) {
+func (o *IdentityProviderProperties) GetIdvMetadataOk() (*IdvMetadata, bool) {
 	if o == nil || IsNil(o.IdvMetadata) {
 		return nil, false
 	}
@@ -285,8 +285,8 @@ func (o *IdentityProviderProperties) HasIdvMetadata() bool {
 	return false
 }
 
-// SetIdvMetadata gets a reference to the given IdentityProviderPropertiesIdvMetadata and assigns it to the IdvMetadata field.
-func (o *IdentityProviderProperties) SetIdvMetadata(v IdentityProviderPropertiesIdvMetadata) {
+// SetIdvMetadata gets a reference to the given IdvMetadata and assigns it to the IdvMetadata field.
+func (o *IdentityProviderProperties) SetIdvMetadata(v IdvMetadata) {
 	o.IdvMetadata = &v
 }
 

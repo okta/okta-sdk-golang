@@ -14,7 +14,7 @@ Name | Type | Description | Notes
 **Name** | Pointer to **string** | Display name of the device posture check | [optional] 
 **Platform** | Pointer to **string** |  | [optional] 
 **Query** | Pointer to **string** | OSQuery for the device posture check | [optional] 
-**RemediationSettings** | Pointer to [**DevicePostureChecksRemediationSettings**](DevicePostureChecksRemediationSettings.md) |  | [optional] 
+**RemediationSettings** | [**DevicePostureChecksRemediationSettings**](DevicePostureChecksRemediationSettings.md) |  | 
 **Type** | Pointer to **string** |  | [optional] 
 **VariableName** | Pointer to **string** | Unique name of the device posture check | [optional] 
 **Links** | Pointer to [**LinksSelf**](LinksSelf.md) |  | [optional] 
@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 
 ### NewDevicePostureCheck
 
-`func NewDevicePostureCheck() *DevicePostureCheck`
+`func NewDevicePostureCheck(remediationSettings DevicePostureChecksRemediationSettings, ) *DevicePostureCheck`
 
 NewDevicePostureCheck instantiates a new DevicePostureCheck object
 This constructor will assign default values to properties that have it defined,
@@ -307,11 +307,6 @@ and a boolean to check if the value has been set.
 
 SetRemediationSettings sets RemediationSettings field to given value.
 
-### HasRemediationSettings
-
-`func (o *DevicePostureCheck) HasRemediationSettings() bool`
-
-HasRemediationSettings returns a boolean if a field has been set.
 
 ### GetType
 

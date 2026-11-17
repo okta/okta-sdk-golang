@@ -32,10 +32,11 @@ var _ MappedNullable = &AuthorizationServerPolicyRuleConditions{}
 
 // AuthorizationServerPolicyRuleConditions struct for AuthorizationServerPolicyRuleConditions
 type AuthorizationServerPolicyRuleConditions struct {
-	GrantTypes           *GrantTypePolicyRuleCondition             `json:"grantTypes,omitempty"`
-	People               *AuthorizationServerPolicyPeopleCondition `json:"people,omitempty"`
-	Scopes               *OAuth2ScopesMediationPolicyRuleCondition `json:"scopes,omitempty"`
-	AdditionalProperties map[string]interface{}
+	GrantTypes                   *GrantTypePolicyRuleCondition                 `json:"grantTypes,omitempty"`
+	People                       *AuthorizationServerPolicyPeopleCondition     `json:"people,omitempty"`
+	Scopes                       *OAuth2ScopesMediationPolicyRuleCondition     `json:"scopes,omitempty"`
+	XaaSupportedIdentityProvider *AuthorizationServerPolicyRuleXaaIdpCondition `json:"xaaSupportedIdentityProvider,omitempty"`
+	AdditionalProperties         map[string]interface{}
 }
 
 type _AuthorizationServerPolicyRuleConditions AuthorizationServerPolicyRuleConditions
@@ -153,6 +154,38 @@ func (o *AuthorizationServerPolicyRuleConditions) SetScopes(v OAuth2ScopesMediat
 	o.Scopes = &v
 }
 
+// GetXaaSupportedIdentityProvider returns the XaaSupportedIdentityProvider field value if set, zero value otherwise.
+func (o *AuthorizationServerPolicyRuleConditions) GetXaaSupportedIdentityProvider() AuthorizationServerPolicyRuleXaaIdpCondition {
+	if o == nil || IsNil(o.XaaSupportedIdentityProvider) {
+		var ret AuthorizationServerPolicyRuleXaaIdpCondition
+		return ret
+	}
+	return *o.XaaSupportedIdentityProvider
+}
+
+// GetXaaSupportedIdentityProviderOk returns a tuple with the XaaSupportedIdentityProvider field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuthorizationServerPolicyRuleConditions) GetXaaSupportedIdentityProviderOk() (*AuthorizationServerPolicyRuleXaaIdpCondition, bool) {
+	if o == nil || IsNil(o.XaaSupportedIdentityProvider) {
+		return nil, false
+	}
+	return o.XaaSupportedIdentityProvider, true
+}
+
+// HasXaaSupportedIdentityProvider returns a boolean if a field has been set.
+func (o *AuthorizationServerPolicyRuleConditions) HasXaaSupportedIdentityProvider() bool {
+	if o != nil && !IsNil(o.XaaSupportedIdentityProvider) {
+		return true
+	}
+
+	return false
+}
+
+// SetXaaSupportedIdentityProvider gets a reference to the given AuthorizationServerPolicyRuleXaaIdpCondition and assigns it to the XaaSupportedIdentityProvider field.
+func (o *AuthorizationServerPolicyRuleConditions) SetXaaSupportedIdentityProvider(v AuthorizationServerPolicyRuleXaaIdpCondition) {
+	o.XaaSupportedIdentityProvider = &v
+}
+
 func (o AuthorizationServerPolicyRuleConditions) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -171,6 +204,9 @@ func (o AuthorizationServerPolicyRuleConditions) ToMap() (map[string]interface{}
 	}
 	if !IsNil(o.Scopes) {
 		toSerialize["scopes"] = o.Scopes
+	}
+	if !IsNil(o.XaaSupportedIdentityProvider) {
+		toSerialize["xaaSupportedIdentityProvider"] = o.XaaSupportedIdentityProvider
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -197,6 +233,7 @@ func (o *AuthorizationServerPolicyRuleConditions) UnmarshalJSON(data []byte) (er
 		delete(additionalProperties, "grantTypes")
 		delete(additionalProperties, "people")
 		delete(additionalProperties, "scopes")
+		delete(additionalProperties, "xaaSupportedIdentityProvider")
 		o.AdditionalProperties = additionalProperties
 	}
 
