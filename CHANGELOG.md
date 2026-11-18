@@ -1,6 +1,12 @@
 # Changelog
 Running changelog of releases since `2.0.0-rc.4`
 
+## v9.0.0
+- Update to latest Okta Management API specification. [#616](https://github.com/okta/okta-sdk-golang/pull/616) Thanks [@pranav-okta](https://github.com/pranav-okta)
+- Breaking changes from v8.x - see [migration guide](MIGRATING.md#migrating-from-8x-to-9x)
+- Minimum Go version requirement: 1.26.x
+- Update dependencies, including `go-jose/v4` v4.1.9, `jwx/v3` v3.4.0, and `golang.org/x/oauth2` v0.38.0
+
 ## v8.0.0
 - Update to latest Okta Management API specification 2026.42.1 . [#610](https://github.com/okta/okta-sdk-golang/pull/610) Thanks [@dhiwakar-okta](https://github.com/dhiwakar-okta)
 

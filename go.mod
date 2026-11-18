@@ -1,4 +1,4 @@
-module github.com/okta/okta-sdk-golang/v8
+module github.com/okta/okta-sdk-golang/v9
 
 go 1.26.0
 

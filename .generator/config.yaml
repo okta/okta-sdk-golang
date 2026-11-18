@@ -1,16 +1,16 @@
 generatorName: go
 templateDir: ./.generator/templates
-outputDir: ./okta/v8
+outputDir: ./okta/v9
 gitUserId: okta
 gitRepoId: okta-sdk-golang
-versionName: v8
+versionName: v9
 goVersion: "1.26.0"
 toolchainVersion: "go1.27.4"
 additionalProperties:
   enumClassPrefix: true
   generateInterfaces: true
   packageName: okta
-  packageVersion: 8.0.0
+  packageVersion: 9.0.0
   useOneOfDiscriminatorLookup: true
   disallowAdditionalPropertiesIfNotPresent: false
 files:
