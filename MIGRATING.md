@@ -560,3 +560,140 @@ count := searchType.GetCount()
 settings := okta.NewAuthenticatorMethodWebAuthnAllOfSettings()
 settings.SetShowSignInWithAPasskeyButton(false)
 ```
+
+## Migrating from 8.x to 9.x
+
+Version 9 of the Okta Go SDK is generated from the latest Okta Management API specification. Some schemas changed in the specification, which changes the generated models. This section covers the changes that require code modifications.
+
+### Prerequisites
+
+Version 9 requires Go 1.26 or later.
+
+### Installation
+
+Update your `go.mod` file:
+
+```bash
+go get github.com/okta/okta-sdk-golang/v9@latest
+```
+
+Update your import paths:
+
+```go
+import "github.com/okta/okta-sdk-golang/v9/okta"
+```
+
+### Breaking Changes
+
+#### 1. Authenticator APIs return `ListAuthenticators200ResponseInner`
+
+`CreateAuthenticator`, `GetAuthenticator`, `ReplaceAuthenticator`, `ActivateAuthenticator`, and `DeactivateAuthenticator` now return `*ListAuthenticators200ResponseInner` instead of `*AuthenticatorBase`. This is the same `oneOf` type that `ListAuthenticators` already returns, so all authenticator APIs now return the concrete authenticator type. `CreateAuthenticator` and `ReplaceAuthenticator` also take a `ListAuthenticators200ResponseInner` in `Authenticator()`.
+
+**v8:**
+```go
+auth, _, err := client.AuthenticatorAPI.GetAuthenticator(ctx, "{authenticatorId}").Execute()
+fmt.Println(auth.GetId(), auth.GetName())
+
+authenticator := okta.NewAuthenticatorBase()
+authenticator.SetKey("okta_email")
+authenticator.SetName("Email")
+_, _, err = client.AuthenticatorAPI.CreateAuthenticator(ctx).Authenticator(*authenticator).Execute()
+```
+
+**v9:**
+```go
+auth, _, err := client.AuthenticatorAPI.GetAuthenticator(ctx, "{authenticatorId}").Execute()
+switch a := auth.GetActualInstance().(type) {
+case *okta.AuthenticatorKeyEmail:
+    fmt.Println(a.GetId(), a.GetName())
+case *okta.AuthenticatorKeyPassword:
+    fmt.Println(a.GetId(), a.GetName())
+}
+
+email := okta.NewAuthenticatorKeyEmail()
+email.SetKey("okta_email")
+email.SetName("Email")
+_, _, err = client.AuthenticatorAPI.CreateAuthenticator(ctx).
+    Authenticator(okta.AuthenticatorKeyEmailAsListAuthenticators200ResponseInner(email)).
+    Execute()
+```
+
+#### 2. `IdentityProviderPropertiesIdvMetadata` renamed to `IdvMetadata`
+
+The `IdentityProviderPropertiesIdvMetadata` model is now a named schema, `IdvMetadata`. `GetIdvMetadata`, `GetIdvMetadataOk`, and `SetIdvMetadata` on `IdentityProviderProperties` use the new type.
+
+**v8:**
+```go
+var meta okta.IdentityProviderPropertiesIdvMetadata = props.GetIdvMetadata()
+```
+
+**v9:**
+```go
+var meta okta.IdvMetadata = props.GetIdvMetadata()
+```
+
+#### 3. `PermissionConditions` `Include` and `Exclude` are typed
+
+`Include` and `Exclude` changed from `map[string]map[string]interface{}` to `map[string][]string`, matching the API, which maps each attribute to a list of values. `GetIncludeOk` and `GetExcludeOk` now return a pointer to the map.
+
+**v8:**
+```go
+conditions.SetInclude(map[string]map[string]interface{}{
+    "okta:ResourceAttribute/User/Profile": {"city": nil, "state": nil},
+})
+```
+
+**v9:**
+```go
+conditions.SetInclude(map[string][]string{
+    "okta:ResourceAttribute/User/Profile": {"city", "state"},
+})
+```
+
+#### 4. `SignInPageRoot.Embedded` is typed
+
+`Embedded` changed from `map[string]interface{}` to `*SignInPageRootAllOfEmbedded`, which exposes `WidgetConfigurationSchema`.
+
+**v8:**
+```go
+schema := root.GetEmbedded()["widgetConfigurationSchema"]
+```
+
+**v9:**
+```go
+embedded := root.GetEmbedded()
+schema := embedded.GetWidgetConfigurationSchema()
+```
+
+#### 5. Device posture check remediation settings are required
+
+`remediationSettings` is now required on `DevicePostureCheck`, and `link` and `message` are required on `DevicePostureChecksRemediationSettings`. As a result:
+- `NewDevicePostureCheck` takes the remediation settings, and `NewDevicePostureChecksRemediationSettings` takes the link and message.
+- `RemediationSettings`, `Link`, and `Message` are no longer pointers, and `HasRemediationSettings`, `HasLink`, and `HasMessage` are removed.
+- `DefaultUrl`, `CustomUrl`, `DefaultI18nKey`, and `CustomText` are now `NullableString`. Use the getters and setters, which also add `Set<Field>Nil` and `Unset<Field>`.
+
+**v8:**
+```go
+check := okta.NewDevicePostureCheck()
+check.SetName("Disk encryption")
+
+if check.HasRemediationSettings() {
+    url := check.RemediationSettings.Link.CustomUrl
+}
+```
+
+**v9:**
+```go
+link := okta.NewDevicePostureChecksRemediationSettingsLink()
+link.SetCustomUrl("https://example.com/remediate")
+message := okta.NewDevicePostureChecksRemediationSettingsMessage()
+message.SetCustomText("Update your device to continue")
+
+settings := okta.NewDevicePostureChecksRemediationSettings(*link, *message)
+check := okta.NewDevicePostureCheck(*settings)
+check.SetName("Disk encryption")
+
+if url, ok := check.RemediationSettings.Link.GetCustomUrlOk(); ok && url != nil {
+    fmt.Println(*url)
+}
+```

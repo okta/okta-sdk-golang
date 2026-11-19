@@ -36,13 +36,19 @@ policy](https://developer.okta.com/code/library-versions/).
 
 | Version | Status                                                       |
 | ------- |--------------------------------------------------------------|
-| 0.x     | :warning: Beta Release (Retired)                             |
-| 1.x     | :warning: Retired
+| 0.x     | :warning: Retired                                            |
+| 1.x     | :warning: Retired                                            |
 | 2.x     | :warning: Retired                                            |
 | 3.x     | :warning: Retired                                            |
-| 4.x     | :warning: Retiring                                           |
-| 5.x     | :heavy_check_mark: Release                                   |
-| 6.x     | :heavy_check_mark: Release ([migration guide](MIGRATING.md)) |
+| 4.x     | :warning: Retired                                            |
+| 5.x     | :warning: Retired                                            |
+| 6.x     | :heavy_check_mark: Release                                   |
+| 7.x     | :heavy_check_mark: Release                                   |
+| 8.x     | :heavy_check_mark: Release                                   |
+| 9.x     | :heavy_check_mark: Release ([migration guide](MIGRATING.md)) |
+
+Versions 5.x and earlier are no longer supported and won't receive fixes or
+updates. Only 6.x and later are supported.
 
 The latest release can always be found on the [releases page][github-releases].
 
@@ -55,7 +61,7 @@ If you run into problems using the SDK, you can
 
 ## Getting started
 
-The SDK is compatible with Go version 1.24.x and up. For SDK v2 and above, you
+The SDK is compatible with Go version 1.26.x and up. For SDK v2 and above, you
 must use [Go Modules](https://blog.golang.org/using-go-modules) to install the
 SDK.
 
@@ -64,21 +70,21 @@ SDK.
 To install the Okta Golang SDK in your project:
   - Create a module file by running `go mod init`
     - You can skip this step if you already use `go mod`
-  - Run `go get github.com/okta/okta-sdk-golang/v8@latest`. This will add
+  - Run `go get github.com/okta/okta-sdk-golang/v9@latest`. This will add
     the SDK to your `go.mod` file.
   - Import the package in your project with `import
-   "github.com/okta/okta-sdk-golang/v8/okta"`
+   "github.com/okta/okta-sdk-golang/v9/okta"`
 
 ### Installing legacy version
 
-Although we do not suggest using the 2.x, 3.x, 4.x, and 5.x version of the SDK, you can still use
-it. The earlier versions are either retired or in an unsupported state. It
-will likely remain working currently, but you should make a plan to
-migrate to the new 6.x version.
+Versions 5.x and earlier of the SDK are retired and no longer supported. They
+may still work, but they won't receive fixes or updates, and you should migrate
+to 9.x. Versions 6.x through 8.x are still supported, but we recommend using
+9.x. See the [migration guide](MIGRATING.md).
 
-You can install the latest version of the SDK by running `go get
-github.com/okta/okta-sdk-golang@latest` and import the package in your project
-with `import "github.com/okta/okta-sdk-golang"`
+To install an older supported major version, use its module path. For example,
+for 8.x run `go get github.com/okta/okta-sdk-golang/v8@latest` and import the
+package in your project with `import "github.com/okta/okta-sdk-golang/v8/okta"`
 
 ### You'll also need
 
@@ -95,7 +101,7 @@ Construct a client instance by passing it your Okta domain name and API token:
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v8/okta"
+	"github.com/okta/okta-sdk-golang/v9/okta"
 )
 
 func main() {
@@ -174,7 +180,7 @@ any other configuration.
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v8/okta"
+	"github.com/okta/okta-sdk-golang/v9/okta"
 )
 
 func main() {
@@ -203,7 +209,7 @@ should construct your own HTTP requests.
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v8/okta"
+	"github.com/okta/okta-sdk-golang/v9/okta"
 )
 
 func main() {
@@ -230,7 +236,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v8/okta"
+	"github.com/okta/okta-sdk-golang/v9/okta"
 )
 
 func main() {
@@ -260,7 +266,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v8/okta"
+	"github.com/okta/okta-sdk-golang/v9/okta"
 )
 
 func main() {
@@ -292,7 +298,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v8/okta"
+	"github.com/okta/okta-sdk-golang/v9/okta"
 )
 
 func main() {
@@ -339,7 +345,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v8/okta"
+	"github.com/okta/okta-sdk-golang/v9/okta"
 )
 
 func main() {
@@ -387,7 +393,7 @@ To delete a user permanently. Only users that have a `DEPROVISIONED` status can 
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v8/okta"
+	"github.com/okta/okta-sdk-golang/v9/okta"
 )
 
 func main() {
@@ -415,7 +421,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v8/okta"
+	"github.com/okta/okta-sdk-golang/v9/okta"
 )
 
 func main() {
@@ -451,7 +457,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v8/okta"
+	"github.com/okta/okta-sdk-golang/v9/okta"
 )
 
 func main() {
@@ -479,7 +485,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v8/okta"
+	"github.com/okta/okta-sdk-golang/v9/okta"
 )
 
 func main() {
@@ -507,7 +513,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v8/okta"
+	"github.com/okta/okta-sdk-golang/v9/okta"
 )
 
 func main() {
@@ -536,7 +542,7 @@ func main() {
 import (
 	"fmt"
 	"context"
-	"github.com/okta/okta-sdk-golang/v8/okta"
+	"github.com/okta/okta-sdk-golang/v9/okta"
 )
 
 func main() {
@@ -1067,7 +1073,7 @@ We're happy to accept contributions and PRs! Please see the [contribution
 guide](CONTRIBUTING.md) to understand how to structure a contribution.
 
 [devforum]: https://devforum.okta.com/
-[sdkapiref]: https://godoc.org/github.com/okta/okta-sdk-golang/v8/okta
+[sdkapiref]: https://godoc.org/github.com/okta/okta-sdk-golang/v9/okta
 [lang-landing]: https://developer.okta.com/code/go/
 [github-issues]: /okta/okta-sdk-golang/issues
 [github-releases]: /okta/okta-sdk-golang/releases

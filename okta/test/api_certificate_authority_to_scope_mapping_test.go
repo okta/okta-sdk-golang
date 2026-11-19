@@ -27,7 +27,7 @@ import (
 	"context"
 	"testing"
 
-	openapiclient "github.com/okta/okta-sdk-golang/v8/okta"
+	openapiclient "github.com/okta/okta-sdk-golang/v9/okta"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
