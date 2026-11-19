@@ -36,13 +36,19 @@ policy](https://developer.okta.com/code/library-versions/).
 
 | Version | Status                                                       |
 | ------- |--------------------------------------------------------------|
-| 0.x     | :warning: Beta Release (Retired)                             |
-| 1.x     | :warning: Retired
+| 0.x     | :warning: Retired                                            |
+| 1.x     | :warning: Retired                                            |
 | 2.x     | :warning: Retired                                            |
 | 3.x     | :warning: Retired                                            |
-| 4.x     | :warning: Retiring                                           |
-| 5.x     | :heavy_check_mark: Release                                   |
-| 6.x     | :heavy_check_mark: Release ([migration guide](MIGRATING.md)) |
+| 4.x     | :warning: Retired                                            |
+| 5.x     | :warning: Retired                                            |
+| 6.x     | :heavy_check_mark: Release                                   |
+| 7.x     | :heavy_check_mark: Release                                   |
+| 8.x     | :heavy_check_mark: Release                                   |
+| 9.x     | :heavy_check_mark: Release ([migration guide](MIGRATING.md)) |
+
+Versions 5.x and earlier are no longer supported and won't receive fixes or
+updates. Only 6.x and later are supported.
 
 The latest release can always be found on the [releases page][github-releases].
 
@@ -71,14 +77,14 @@ To install the Okta Golang SDK in your project:
 
 ### Installing legacy version
 
-Although we do not suggest using the 2.x, 3.x, 4.x, and 5.x version of the SDK, you can still use
-it. The earlier versions are either retired or in an unsupported state. It
-will likely remain working currently, but you should make a plan to
-migrate to the new 6.x version.
+Versions 5.x and earlier of the SDK are retired and no longer supported. They
+may still work, but they won't receive fixes or updates, and you should migrate
+to 9.x. Versions 6.x through 8.x are still supported, but we recommend using
+9.x. See the [migration guide](MIGRATING.md).
 
-You can install the latest version of the SDK by running `go get
-github.com/okta/okta-sdk-golang@latest` and import the package in your project
-with `import "github.com/okta/okta-sdk-golang"`
+To install an older supported major version, use its module path. For example,
+for 8.x run `go get github.com/okta/okta-sdk-golang/v8@latest` and import the
+package in your project with `import "github.com/okta/okta-sdk-golang/v8/okta"`
 
 ### You'll also need
 
