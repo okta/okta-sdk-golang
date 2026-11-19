@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Exclude** | Pointer to **map[string]map[string]interface{}** | Exclude attributes with specific values for the permission | [optional] 
-**Include** | Pointer to **map[string]map[string]interface{}** | Include attributes with specific values for the permission | [optional] 
+**Exclude** | Pointer to **map[string][]string** | Exclude attributes with specific values for the permission | [optional] 
+**Include** | Pointer to **map[string][]string** | Include attributes with specific values for the permission | [optional] 
 
 ## Methods
 
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetExclude
 
-`func (o *PermissionConditions) GetExclude() map[string]map[string]interface{}`
+`func (o *PermissionConditions) GetExclude() map[string][]string`
 
 GetExclude returns the Exclude field if non-nil, zero value otherwise.
 
 ### GetExcludeOk
 
-`func (o *PermissionConditions) GetExcludeOk() (*map[string]map[string]interface{}, bool)`
+`func (o *PermissionConditions) GetExcludeOk() (*map[string][]string, bool)`
 
 GetExcludeOk returns a tuple with the Exclude field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetExclude
 
-`func (o *PermissionConditions) SetExclude(v map[string]map[string]interface{})`
+`func (o *PermissionConditions) SetExclude(v map[string][]string)`
 
 SetExclude sets Exclude field to given value.
 
@@ -63,20 +63,20 @@ HasExclude returns a boolean if a field has been set.
 UnsetExclude ensures that no value is present for Exclude, not even an explicit nil
 ### GetInclude
 
-`func (o *PermissionConditions) GetInclude() map[string]map[string]interface{}`
+`func (o *PermissionConditions) GetInclude() map[string][]string`
 
 GetInclude returns the Include field if non-nil, zero value otherwise.
 
 ### GetIncludeOk
 
-`func (o *PermissionConditions) GetIncludeOk() (*map[string]map[string]interface{}, bool)`
+`func (o *PermissionConditions) GetIncludeOk() (*map[string][]string, bool)`
 
 GetIncludeOk returns a tuple with the Include field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInclude
 
-`func (o *PermissionConditions) SetInclude(v map[string]map[string]interface{})`
+`func (o *PermissionConditions) SetInclude(v map[string][]string)`
 
 SetInclude sets Include field to given value.
 

@@ -55,7 +55,7 @@ type ApplicationAPI interface {
 			Creates an app instance in your Okta org.
 
 		You can either create an OIN app instance or a custom app instance:
-		* OIN app instances have prescribed `name` (key app definition) and `signOnMode` options. See the [OIN schemas](/openapi/okta-management/management/application/googleapplication) for the request body.
+		* OIN app instances have prescribed `name` (key app definition) and `signOnMode` options. See the [OIN schemas](/openapi/okta-management/management/tags/application) for the request body.
 		* For custom app instances, select the [signOnMode](/openapi/okta-management/management/tags/application/other/createapplication#application/createapplication/t=request&path=&d=0/signonmode) that pertains to your app and specify the required parameters in the request body.
 
 
@@ -340,7 +340,7 @@ CreateApplication Create an application
 Creates an app instance in your Okta org.
 
 You can either create an OIN app instance or a custom app instance:
-* OIN app instances have prescribed `name` (key app definition) and `signOnMode` options. See the [OIN schemas](/openapi/okta-management/management/application/googleapplication) for the request body.
+* OIN app instances have prescribed `name` (key app definition) and `signOnMode` options. See the [OIN schemas](/openapi/okta-management/management/tags/application) for the request body.
 * For custom app instances, select the [signOnMode](/openapi/okta-management/management/tags/application/other/createapplication#application/createapplication/t=request&path=&d=0/signonmode) that pertains to your app and specify the required parameters in the request body.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().

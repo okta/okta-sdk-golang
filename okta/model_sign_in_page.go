@@ -35,6 +35,7 @@ type SignInPage struct {
 	// The HTML for the page
 	PageContent                  *string                              `json:"pageContent,omitempty"`
 	ContentSecurityPolicySetting *ContentSecurityPolicySetting        `json:"contentSecurityPolicySetting,omitempty"`
+	WidgetConfiguration          *WidgetConfiguration                 `json:"widgetConfiguration,omitempty"`
 	WidgetCustomizations         *SignInPageAllOfWidgetCustomizations `json:"widgetCustomizations,omitempty"`
 	// The version specified as a [Semantic Version](https://semver.org/). This value can be a wildcard (`*`), a major version range (for example, `^2`), a major-only version (for example, `7`), or a specific `Major.Minor` version (for example, `5.15`).
 	WidgetVersion        *string `json:"widgetVersion,omitempty" validate:"regexp=^(?:\\\\*|\\\\^?\\\\d+(?:\\\\.\\\\d+){0,2})$"`
@@ -124,6 +125,38 @@ func (o *SignInPage) SetContentSecurityPolicySetting(v ContentSecurityPolicySett
 	o.ContentSecurityPolicySetting = &v
 }
 
+// GetWidgetConfiguration returns the WidgetConfiguration field value if set, zero value otherwise.
+func (o *SignInPage) GetWidgetConfiguration() WidgetConfiguration {
+	if o == nil || IsNil(o.WidgetConfiguration) {
+		var ret WidgetConfiguration
+		return ret
+	}
+	return *o.WidgetConfiguration
+}
+
+// GetWidgetConfigurationOk returns a tuple with the WidgetConfiguration field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SignInPage) GetWidgetConfigurationOk() (*WidgetConfiguration, bool) {
+	if o == nil || IsNil(o.WidgetConfiguration) {
+		return nil, false
+	}
+	return o.WidgetConfiguration, true
+}
+
+// HasWidgetConfiguration returns a boolean if a field has been set.
+func (o *SignInPage) HasWidgetConfiguration() bool {
+	if o != nil && !IsNil(o.WidgetConfiguration) {
+		return true
+	}
+
+	return false
+}
+
+// SetWidgetConfiguration gets a reference to the given WidgetConfiguration and assigns it to the WidgetConfiguration field.
+func (o *SignInPage) SetWidgetConfiguration(v WidgetConfiguration) {
+	o.WidgetConfiguration = &v
+}
+
 // GetWidgetCustomizations returns the WidgetCustomizations field value if set, zero value otherwise.
 func (o *SignInPage) GetWidgetCustomizations() SignInPageAllOfWidgetCustomizations {
 	if o == nil || IsNil(o.WidgetCustomizations) {
@@ -204,6 +237,9 @@ func (o SignInPage) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ContentSecurityPolicySetting) {
 		toSerialize["contentSecurityPolicySetting"] = o.ContentSecurityPolicySetting
 	}
+	if !IsNil(o.WidgetConfiguration) {
+		toSerialize["widgetConfiguration"] = o.WidgetConfiguration
+	}
 	if !IsNil(o.WidgetCustomizations) {
 		toSerialize["widgetCustomizations"] = o.WidgetCustomizations
 	}
@@ -234,6 +270,7 @@ func (o *SignInPage) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "pageContent")
 		delete(additionalProperties, "contentSecurityPolicySetting")
+		delete(additionalProperties, "widgetConfiguration")
 		delete(additionalProperties, "widgetCustomizations")
 		delete(additionalProperties, "widgetVersion")
 		o.AdditionalProperties = additionalProperties

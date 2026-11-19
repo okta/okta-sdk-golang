@@ -33,9 +33,9 @@ var _ MappedNullable = &DevicePostureChecksRemediationSettingsLink{}
 // DevicePostureChecksRemediationSettingsLink struct for DevicePostureChecksRemediationSettingsLink
 type DevicePostureChecksRemediationSettingsLink struct {
 	// Default URL for the link. This property is only relevant if type is set to `BUILTIN`. If type is set to `CUSTOM`, this field is ignored.
-	DefaultUrl *string `json:"defaultUrl,omitempty"`
+	DefaultUrl NullableString `json:"defaultUrl,omitempty"`
 	// Custom URL for the link
-	CustomUrl            *string `json:"customUrl,omitempty"`
+	CustomUrl            NullableString `json:"customUrl,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -58,68 +58,90 @@ func NewDevicePostureChecksRemediationSettingsLinkWithDefaults() *DevicePostureC
 	return &this
 }
 
-// GetDefaultUrl returns the DefaultUrl field value if set, zero value otherwise.
+// GetDefaultUrl returns the DefaultUrl field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *DevicePostureChecksRemediationSettingsLink) GetDefaultUrl() string {
-	if o == nil || IsNil(o.DefaultUrl) {
+	if o == nil || IsNil(o.DefaultUrl.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.DefaultUrl
+	return *o.DefaultUrl.Get()
 }
 
 // GetDefaultUrlOk returns a tuple with the DefaultUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DevicePostureChecksRemediationSettingsLink) GetDefaultUrlOk() (*string, bool) {
-	if o == nil || IsNil(o.DefaultUrl) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DefaultUrl, true
+	return o.DefaultUrl.Get(), o.DefaultUrl.IsSet()
 }
 
 // HasDefaultUrl returns a boolean if a field has been set.
 func (o *DevicePostureChecksRemediationSettingsLink) HasDefaultUrl() bool {
-	if o != nil && !IsNil(o.DefaultUrl) {
+	if o != nil && o.DefaultUrl.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDefaultUrl gets a reference to the given string and assigns it to the DefaultUrl field.
+// SetDefaultUrl gets a reference to the given NullableString and assigns it to the DefaultUrl field.
 func (o *DevicePostureChecksRemediationSettingsLink) SetDefaultUrl(v string) {
-	o.DefaultUrl = &v
+	o.DefaultUrl.Set(&v)
 }
 
-// GetCustomUrl returns the CustomUrl field value if set, zero value otherwise.
+// SetDefaultUrlNil sets the value for DefaultUrl to be an explicit nil
+func (o *DevicePostureChecksRemediationSettingsLink) SetDefaultUrlNil() {
+	o.DefaultUrl.Set(nil)
+}
+
+// UnsetDefaultUrl ensures that no value is present for DefaultUrl, not even an explicit nil
+func (o *DevicePostureChecksRemediationSettingsLink) UnsetDefaultUrl() {
+	o.DefaultUrl.Unset()
+}
+
+// GetCustomUrl returns the CustomUrl field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *DevicePostureChecksRemediationSettingsLink) GetCustomUrl() string {
-	if o == nil || IsNil(o.CustomUrl) {
+	if o == nil || IsNil(o.CustomUrl.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.CustomUrl
+	return *o.CustomUrl.Get()
 }
 
 // GetCustomUrlOk returns a tuple with the CustomUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DevicePostureChecksRemediationSettingsLink) GetCustomUrlOk() (*string, bool) {
-	if o == nil || IsNil(o.CustomUrl) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CustomUrl, true
+	return o.CustomUrl.Get(), o.CustomUrl.IsSet()
 }
 
 // HasCustomUrl returns a boolean if a field has been set.
 func (o *DevicePostureChecksRemediationSettingsLink) HasCustomUrl() bool {
-	if o != nil && !IsNil(o.CustomUrl) {
+	if o != nil && o.CustomUrl.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetCustomUrl gets a reference to the given string and assigns it to the CustomUrl field.
+// SetCustomUrl gets a reference to the given NullableString and assigns it to the CustomUrl field.
 func (o *DevicePostureChecksRemediationSettingsLink) SetCustomUrl(v string) {
-	o.CustomUrl = &v
+	o.CustomUrl.Set(&v)
+}
+
+// SetCustomUrlNil sets the value for CustomUrl to be an explicit nil
+func (o *DevicePostureChecksRemediationSettingsLink) SetCustomUrlNil() {
+	o.CustomUrl.Set(nil)
+}
+
+// UnsetCustomUrl ensures that no value is present for CustomUrl, not even an explicit nil
+func (o *DevicePostureChecksRemediationSettingsLink) UnsetCustomUrl() {
+	o.CustomUrl.Unset()
 }
 
 func (o DevicePostureChecksRemediationSettingsLink) MarshalJSON() ([]byte, error) {
@@ -132,11 +154,11 @@ func (o DevicePostureChecksRemediationSettingsLink) MarshalJSON() ([]byte, error
 
 func (o DevicePostureChecksRemediationSettingsLink) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.DefaultUrl) {
-		toSerialize["defaultUrl"] = o.DefaultUrl
+	if o.DefaultUrl.IsSet() {
+		toSerialize["defaultUrl"] = o.DefaultUrl.Get()
 	}
-	if !IsNil(o.CustomUrl) {
-		toSerialize["customUrl"] = o.CustomUrl
+	if o.CustomUrl.IsSet() {
+		toSerialize["customUrl"] = o.CustomUrl.Get()
 	}
 
 	for key, value := range o.AdditionalProperties {

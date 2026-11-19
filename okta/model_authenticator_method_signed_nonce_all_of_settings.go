@@ -35,7 +35,7 @@ type AuthenticatorMethodSignedNonceAllOfSettings struct {
 	Algorithms []string `json:"algorithms,omitempty"`
 	// Indicates whether you must use a hardware key store
 	KeyProtection *string `json:"keyProtection,omitempty"`
-	// (Deprecated when `USER_IDENTIFICATION_POLICY` is enabled) This field is omitted from GET responses and rejected on PUT requests while User Identification Policy is active. Configure this setting using the [User Identification Policy](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/policy) rules instead.
+	// Controls whether to show the **Sign in with Okta Verify** button on the Sign-In Widget. This property is deprecated. Use the [`fastpass.showSignInButton`](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/policy/other/createpolicyrule#other/createpolicyrule/t=request&path=&d=12/actions/useridentification/settings/securitymethods/fastpass/showsigninbutton) property in a user identification policy rule to show or hide the button instead. This property is omitted from GET responses. PUT requests that include it are rejected.
 	// Deprecated
 	ShowSignInWithOV     *string `json:"showSignInWithOV,omitempty"`
 	AdditionalProperties map[string]interface{}

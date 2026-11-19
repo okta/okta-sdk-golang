@@ -119,7 +119,7 @@ type DeviceAPI interface {
 
 			Lists all devices with pagination support.
 
-		>**Note:** To list all devices enrolled by a user, use the [List all devices endpoint in the User Resources API](/openapi/okta-management/management/userresources/listuserdevices).
+		>**Note:** To list all devices enrolled by a user, use the [List all devices endpoint in the User Resources API](/openapi/okta-management/management/tags/userresources/other/listuserdevices).
 
 		You can return a subset of devices that match a supported search criteria using the `search` query parameter.
 		Searches for devices based on the properties specified in the `search` parameter conforming SCIM filter specifications (case-insensitive). This data is eventually consistent. The API returns different results depending on specified queries in the request. Empty list is returned if no objects match `search` request.
@@ -992,7 +992,7 @@ func (r ApiListDevicesRequest) After(after string) ApiListDevicesRequest {
 	return r
 }
 
-// A limit on the number of objects to return (recommend &#x60;20&#x60;)
+// A limit on the number of objects to return (recommend &#x60;20&#x60;). If you include &#x60;expand&#x3D;user&#x60;, the default and maximum value is &#x60;20&#x60;.
 func (r ApiListDevicesRequest) Limit(limit int32) ApiListDevicesRequest {
 	r.limit = &limit
 	return r
@@ -1025,7 +1025,7 @@ ListDevices List all devices
 
 Lists all devices with pagination support.
 
->**Note:** To list all devices enrolled by a user, use the [List all devices endpoint in the User Resources API](/openapi/okta-management/management/userresources/listuserdevices).
+>**Note:** To list all devices enrolled by a user, use the [List all devices endpoint in the User Resources API](/openapi/okta-management/management/tags/userresources/other/listuserdevices).
 
 You can return a subset of devices that match a supported search criteria using the `search` query parameter.
 Searches for devices based on the properties specified in the `search` parameter conforming SCIM filter specifications (case-insensitive). This data is eventually consistent. The API returns different results depending on specified queries in the request. Empty list is returned if no objects match `search` request.

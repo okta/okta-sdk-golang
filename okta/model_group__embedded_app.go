@@ -32,14 +32,16 @@ var _ MappedNullable = &GroupEmbeddedApp{}
 
 // GroupEmbeddedApp If the group is sourced from an app, this object contains information about that app
 type GroupEmbeddedApp struct {
-	// The ID of the `AppInstance`
+	// The ID of the app instance
 	Id *string `json:"id,omitempty"`
-	// The name of the `AppInstance`
+	// The name of the app instance
 	Name *string `json:"name,omitempty"`
-	// The user-facing display name of the `AppInstance`
+	// The user-facing display name of the app instance
 	Label *string `json:"label,omitempty"`
-	// The configured sign-on mode for the `AppInstance`
-	SignOnMode           *string `json:"signOnMode,omitempty"`
+	// The configured sign-on mode for the app instance
+	SignOnMode *string `json:"signOnMode,omitempty"`
+	// The entitlement management opt-in status for the app instance
+	EmOptInStatus        *string `json:"emOptInStatus,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -190,6 +192,38 @@ func (o *GroupEmbeddedApp) SetSignOnMode(v string) {
 	o.SignOnMode = &v
 }
 
+// GetEmOptInStatus returns the EmOptInStatus field value if set, zero value otherwise.
+func (o *GroupEmbeddedApp) GetEmOptInStatus() string {
+	if o == nil || IsNil(o.EmOptInStatus) {
+		var ret string
+		return ret
+	}
+	return *o.EmOptInStatus
+}
+
+// GetEmOptInStatusOk returns a tuple with the EmOptInStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GroupEmbeddedApp) GetEmOptInStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.EmOptInStatus) {
+		return nil, false
+	}
+	return o.EmOptInStatus, true
+}
+
+// HasEmOptInStatus returns a boolean if a field has been set.
+func (o *GroupEmbeddedApp) HasEmOptInStatus() bool {
+	if o != nil && !IsNil(o.EmOptInStatus) {
+		return true
+	}
+
+	return false
+}
+
+// SetEmOptInStatus gets a reference to the given string and assigns it to the EmOptInStatus field.
+func (o *GroupEmbeddedApp) SetEmOptInStatus(v string) {
+	o.EmOptInStatus = &v
+}
+
 func (o GroupEmbeddedApp) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -211,6 +245,9 @@ func (o GroupEmbeddedApp) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.SignOnMode) {
 		toSerialize["signOnMode"] = o.SignOnMode
+	}
+	if !IsNil(o.EmOptInStatus) {
+		toSerialize["emOptInStatus"] = o.EmOptInStatus
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -238,6 +275,7 @@ func (o *GroupEmbeddedApp) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "label")
 		delete(additionalProperties, "signOnMode")
+		delete(additionalProperties, "emOptInStatus")
 		o.AdditionalProperties = additionalProperties
 	}
 

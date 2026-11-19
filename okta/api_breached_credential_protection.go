@@ -39,7 +39,7 @@ type BreachedCredentialProtectionAPI interface {
 
 			Retrieves the breached credential protection configuration for your org
 
-		> **Note:** This API is only available to Okta Customer Identity orgs with Identity Threat Protection enabled.
+		> **Note:** This API is only available to orgs with Identity Threat Protection enabled.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@return ApiGetBreachedCredentialProtectionConfigurationRequest
@@ -55,7 +55,7 @@ type BreachedCredentialProtectionAPI interface {
 
 			Replaces the breached credential protection configuration for your org
 
-		> **Note:** This API is only available to Okta Customer Identity orgs with Identity Threat Protection enabled.
+		> **Note:** This API is only available to orgs with Identity Threat Protection enabled.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@return ApiReplaceBreachedCredentialProtectionConfigurationRequest
@@ -85,7 +85,7 @@ GetBreachedCredentialProtectionConfiguration Retrieve the breached credential pr
 
 # Retrieves the breached credential protection configuration for your org
 
-> **Note:** This API is only available to Okta Customer Identity orgs with Identity Threat Protection enabled.
+> **Note:** This API is only available to orgs with Identity Threat Protection enabled.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiGetBreachedCredentialProtectionConfigurationRequest
@@ -243,7 +243,7 @@ ReplaceBreachedCredentialProtectionConfiguration Replace the breached credential
 
 # Replaces the breached credential protection configuration for your org
 
-> **Note:** This API is only available to Okta Customer Identity orgs with Identity Threat Protection enabled.
+> **Note:** This API is only available to orgs with Identity Threat Protection enabled.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@return ApiReplaceBreachedCredentialProtectionConfigurationRequest

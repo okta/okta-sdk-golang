@@ -86,7 +86,7 @@ type CustomTelephonyProviderAPI interface {
 
 			Deletes a custom telephony provider by its ID.
 
-		Before you delete a provider, ensure that it is [deactivated](/openapi/okta-management/management/customtelephonyprovider/deactivatecustomtelephonycredential). Consider setting up another telephony provider if you still plan to use telephony in your org. See [Set up an external telephony provider](https://help.okta.com/okta_help.htm?type=oie&id=about-telephony).
+		Before you delete a provider, ensure that it is [deactivated](/openapi/okta-management/management/tags/customtelephonyprovider/other/deactivatecustomtelephonycredential). Consider setting up another telephony provider if you still plan to use telephony in your org. See [Set up an external telephony provider](https://help.okta.com/okta_help.htm?type=oie&id=about-telephony).
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param customTelephonyProviderId The ID of the custom telephony provider
@@ -651,7 +651,7 @@ DeleteCustomTelephonyProviderCredential Delete a custom telephony provider
 
 Deletes a custom telephony provider by its ID.
 
-Before you delete a provider, ensure that it is [deactivated](/openapi/okta-management/management/customtelephonyprovider/deactivatecustomtelephonycredential). Consider setting up another telephony provider if you still plan to use telephony in your org. See [Set up an external telephony provider](https://help.okta.com/okta_help.htm?type=oie&id=about-telephony).
+Before you delete a provider, ensure that it is [deactivated](/openapi/okta-management/management/tags/customtelephonyprovider/other/deactivatecustomtelephonycredential). Consider setting up another telephony provider if you still plan to use telephony in your org. See [Set up an external telephony provider](https://help.okta.com/okta_help.htm?type=oie&id=about-telephony).
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param customTelephonyProviderId The ID of the custom telephony provider

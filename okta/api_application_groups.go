@@ -39,7 +39,7 @@ type ApplicationGroupsAPI interface {
 			AssignGroupToApplication Assign an application group
 
 			Assigns a [Group](/openapi/okta-management/management/tags/group) to an app, which in turn assigns the app to each [User](/openapi/okta-management/management/tags/user) that belongs to the group.
-		The resulting application user [scope](/openapi/okta-management/management/applicationusers/listapplicationusers#applicationusers/listapplicationusers/t=response&c=200&path=scope) is `GROUP` since the assignment was from the group membership.
+		The resulting application user [scope](/openapi/okta-management/management/tags/applicationusers/other/listapplicationusers#applicationusers/listapplicationusers/t=response&c=200&path=scope) is `GROUP` since the assignment was from the group membership.
 
 			@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 			@param appId Application ID
@@ -140,7 +140,7 @@ func (r ApiAssignGroupToApplicationRequest) Execute() (*ApplicationGroupAssignme
 AssignGroupToApplication Assign an application group
 
 Assigns a [Group](/openapi/okta-management/management/tags/group) to an app, which in turn assigns the app to each [User](/openapi/okta-management/management/tags/user) that belongs to the group.
-The resulting application user [scope](/openapi/okta-management/management/applicationusers/listapplicationusers#applicationusers/listapplicationusers/t=response&c=200&path=scope) is `GROUP` since the assignment was from the group membership.
+The resulting application user [scope](/openapi/okta-management/management/tags/applicationusers/other/listapplicationusers#applicationusers/listapplicationusers/t=response&c=200&path=scope) is `GROUP` since the assignment was from the group membership.
 
 	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 	@param appId Application ID

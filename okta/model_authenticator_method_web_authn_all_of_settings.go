@@ -41,9 +41,10 @@ type AuthenticatorMethodWebAuthnAllOfSettings struct {
 	// Method attachment
 	Attachment *string       `json:"attachment,omitempty"`
 	RpId       *WebAuthnRpId `json:"rpId,omitempty"`
-	// Resident key requirement setting. Okta recommends using only `REQUIRED` or `DISCOURAGED` to make the requirement preference explicit. Using `PREFERRED` can sometimes lead to unpredictable behavior depending on the client platform and authenticator capabilities.
+	// Resident key requirement setting. Okta recommends using only `REQUIRED` or `DISCOURAGED` to make the requirement preference explicit. Using `PREFERRED` can sometimes lead to unpredictable behavior depending on the client platform and authenticator capabilities.  > **Note:** You can't set `residentKeyRequirement` to `DISCOURAGED` while any user identification policy rule has [`passkey.showSignInButton`](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/policy/other/createpolicyrule#other/createpolicyrule/t=request&path=&d=12/actions/useridentification/settings/securitymethods/passkey/showsigninbutton) set to `ALWAYS`.
 	ResidentKeyRequirement *string `json:"residentKeyRequirement,omitempty"`
-	// Indicates if the **Sign in with a Passkey** button on the Sign-In Widget is shown.
+	// Indicates whether the **Sign in with a passkey** button on the Sign-In Widget is shown. This property is deprecated. Use the [`passkey.showSignInButton`](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/policy/other/createpolicyrule#other/createpolicyrule/t=request&path=&d=12/actions/useridentification/settings/securitymethods/passkey/showsigninbutton) property in a user identification policy rule to show or hide the button instead. This property is omitted from GET responses. PUT requests that include it are rejected.
+	// Deprecated
 	ShowSignInWithAPasskeyButton *bool `json:"showSignInWithAPasskeyButton,omitempty"`
 	// Indicates whether certificate-based attestation validation is enabled. When enabled, the authenticator's attestation certificate is validated against known root certificates (custom AAGUIDs with associated certificates or the [FIDO Metadata Service](https://fidoalliance.org/metadata/)) to ensure its validity.
 	CertBasedAttestationValidation *bool `json:"certBasedAttestationValidation,omitempty"`
@@ -288,6 +289,7 @@ func (o *AuthenticatorMethodWebAuthnAllOfSettings) SetResidentKeyRequirement(v s
 }
 
 // GetShowSignInWithAPasskeyButton returns the ShowSignInWithAPasskeyButton field value if set, zero value otherwise.
+// Deprecated
 func (o *AuthenticatorMethodWebAuthnAllOfSettings) GetShowSignInWithAPasskeyButton() bool {
 	if o == nil || IsNil(o.ShowSignInWithAPasskeyButton) {
 		var ret bool
@@ -298,6 +300,7 @@ func (o *AuthenticatorMethodWebAuthnAllOfSettings) GetShowSignInWithAPasskeyButt
 
 // GetShowSignInWithAPasskeyButtonOk returns a tuple with the ShowSignInWithAPasskeyButton field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// Deprecated
 func (o *AuthenticatorMethodWebAuthnAllOfSettings) GetShowSignInWithAPasskeyButtonOk() (*bool, bool) {
 	if o == nil || IsNil(o.ShowSignInWithAPasskeyButton) {
 		return nil, false
@@ -315,6 +318,7 @@ func (o *AuthenticatorMethodWebAuthnAllOfSettings) HasShowSignInWithAPasskeyButt
 }
 
 // SetShowSignInWithAPasskeyButton gets a reference to the given bool and assigns it to the ShowSignInWithAPasskeyButton field.
+// Deprecated
 func (o *AuthenticatorMethodWebAuthnAllOfSettings) SetShowSignInWithAPasskeyButton(v bool) {
 	o.ShowSignInWithAPasskeyButton = &v
 }

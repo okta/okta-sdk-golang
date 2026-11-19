@@ -32,7 +32,7 @@ var _ MappedNullable = &LinksResend{}
 
 // LinksResend struct for LinksResend
 type LinksResend struct {
-	// Resends the factor enrollment challenge. See [Resend a factor enrollment](/openapi/okta-management/management/userfactor/resendenrollfactor).
+	// Resends the factor enrollment challenge. See [Resend a factor enrollment](/openapi/okta-management/management/tags/userfactor/other/resendenrollfactor).
 	Resend               *HrefObject `json:"resend,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

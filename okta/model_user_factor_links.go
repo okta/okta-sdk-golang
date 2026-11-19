@@ -32,13 +32,13 @@ var _ MappedNullable = &UserFactorLinks{}
 
 // UserFactorLinks struct for UserFactorLinks
 type UserFactorLinks struct {
-	// Activates an enrolled factor. See [Activate a factor](/openapi/okta-management/management/userfactor/activatefactor).
+	// Activates an enrolled factor. See [Activate a factor](/openapi/okta-management/management/tags/userfactor/other/activatefactor).
 	Activate *HrefObject `json:"activate,omitempty"`
 	// Cancels a `push` factor challenge with a `WAITING` status
 	Cancel *HrefObject `json:"cancel,omitempty"`
-	// Deactivates the factor. See [Unenroll a factor](/openapi/okta-management/management/userfactor/unenrollfactor).
+	// Deactivates the factor. See [Unenroll a factor](/openapi/okta-management/management/tags/userfactor/other/unenrollfactor).
 	Deactivate *HrefObject `json:"deactivate,omitempty"`
-	// Enrolls a supported factor. See [Enroll a factor](/openapi/okta-management/management/userfactor/enrollfactor).
+	// Enrolls a supported factor. See [Enroll a factor](/openapi/okta-management/management/tags/userfactor/other/enrollfactor).
 	Enroll *HrefObject `json:"enroll,omitempty"`
 	// Link to the factor resource
 	Factor *HrefObject `json:"factor,omitempty"`
@@ -46,16 +46,16 @@ type UserFactorLinks struct {
 	Poll *HrefObject `json:"poll,omitempty"`
 	// QR code that encodes the push activation code needed for enrollment on the device
 	Qrcode *HrefObject `json:"qrcode,omitempty"`
-	// Lists all supported security questions. See [List all supported security questions](/openapi/okta-management/management/userfactor/listsupportedsecurityquestions).
+	// Lists all supported security questions. See [List all supported security questions](/openapi/okta-management/management/tags/userfactor/other/listsupportedsecurityquestions).
 	Question *HrefObject `json:"question,omitempty"`
-	// Resends the factor enrollment challenge. See [Resend a factor enrollment](/openapi/okta-management/management/userfactor/resendenrollfactor).
+	// Resends the factor enrollment challenge. See [Resend a factor enrollment](/openapi/okta-management/management/tags/userfactor/other/resendenrollfactor).
 	Resend *HrefObject `json:"resend,omitempty"`
 	// Sends an activation link through email or sms for users who can't scan the QR code
 	Send *HrefObject         `json:"send,omitempty"`
 	Self *HrefObjectSelfLink `json:"self,omitempty"`
 	// Returns information on the specified user
 	User *HrefObject `json:"user,omitempty"`
-	// Verifies the factor resource. See [Verify a factor](/openapi/okta-management/management/userfactor/verifyfactor).
+	// Verifies the factor resource. See [Verify a factor](/openapi/okta-management/management/tags/userfactor/other/verifyfactor).
 	Verify               *HrefObject `json:"verify,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

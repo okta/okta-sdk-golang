@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DefaultUrl** | Pointer to **string** | Default URL for the link. This property is only relevant if type is set to &#x60;BUILTIN&#x60;. If type is set to &#x60;CUSTOM&#x60;, this field is ignored. | [optional] 
-**CustomUrl** | Pointer to **string** | Custom URL for the link | [optional] 
+**DefaultUrl** | Pointer to **NullableString** | Default URL for the link. This property is only relevant if type is set to &#x60;BUILTIN&#x60;. If type is set to &#x60;CUSTOM&#x60;, this field is ignored. | [optional] 
+**CustomUrl** | Pointer to **NullableString** | Custom URL for the link | [optional] 
 
 ## Methods
 
@@ -51,6 +51,16 @@ SetDefaultUrl sets DefaultUrl field to given value.
 
 HasDefaultUrl returns a boolean if a field has been set.
 
+### SetDefaultUrlNil
+
+`func (o *DevicePostureChecksRemediationSettingsLink) SetDefaultUrlNil(b bool)`
+
+ SetDefaultUrlNil sets the value for DefaultUrl to be an explicit nil
+
+### UnsetDefaultUrl
+`func (o *DevicePostureChecksRemediationSettingsLink) UnsetDefaultUrl()`
+
+UnsetDefaultUrl ensures that no value is present for DefaultUrl, not even an explicit nil
 ### GetCustomUrl
 
 `func (o *DevicePostureChecksRemediationSettingsLink) GetCustomUrl() string`
@@ -76,6 +86,16 @@ SetCustomUrl sets CustomUrl field to given value.
 
 HasCustomUrl returns a boolean if a field has been set.
 
+### SetCustomUrlNil
+
+`func (o *DevicePostureChecksRemediationSettingsLink) SetCustomUrlNil(b bool)`
+
+ SetCustomUrlNil sets the value for CustomUrl to be an explicit nil
+
+### UnsetCustomUrl
+`func (o *DevicePostureChecksRemediationSettingsLink) UnsetCustomUrl()`
+
+UnsetCustomUrl ensures that no value is present for CustomUrl, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

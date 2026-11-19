@@ -312,6 +312,34 @@ func Test_okta_IdentitySourceAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test IdentitySourceAPIService UploadIdentitySourceDevicesForDelete", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var identitySourceId string
+		var sessionId string
+
+		httpRes, err := apiClient.IdentitySourceAPI.UploadIdentitySourceDevicesForDelete(context.Background(), identitySourceId, sessionId).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test IdentitySourceAPIService UploadIdentitySourceDevicesForUpsert", func(t *testing.T) {
+
+		t.Skip("skip test") // remove to run test
+
+		var identitySourceId string
+		var sessionId string
+
+		httpRes, err := apiClient.IdentitySourceAPI.UploadIdentitySourceDevicesForUpsert(context.Background(), identitySourceId, sessionId).Execute()
+
+		require.Nil(t, err)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test IdentitySourceAPIService UploadIdentitySourceGroupMembershipsForDelete", func(t *testing.T) {
 
 		t.Skip("skip test") // remove to run test

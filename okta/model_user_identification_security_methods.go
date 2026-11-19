@@ -33,6 +33,7 @@ var _ MappedNullable = &UserIdentificationSecurityMethods{}
 // UserIdentificationSecurityMethods <x-lifecycle-container><x-lifecycle class=\"oie\"></x-lifecycle></x-lifecycle-container>Specifies the security methods that can be used to identify the user when signing in
 type UserIdentificationSecurityMethods struct {
 	Fastpass             *UserIdentificationFastpassSettings `json:"fastpass,omitempty"`
+	Passkey              *UserIdentificationPasskeySettings  `json:"passkey,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -87,6 +88,38 @@ func (o *UserIdentificationSecurityMethods) SetFastpass(v UserIdentificationFast
 	o.Fastpass = &v
 }
 
+// GetPasskey returns the Passkey field value if set, zero value otherwise.
+func (o *UserIdentificationSecurityMethods) GetPasskey() UserIdentificationPasskeySettings {
+	if o == nil || IsNil(o.Passkey) {
+		var ret UserIdentificationPasskeySettings
+		return ret
+	}
+	return *o.Passkey
+}
+
+// GetPasskeyOk returns a tuple with the Passkey field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *UserIdentificationSecurityMethods) GetPasskeyOk() (*UserIdentificationPasskeySettings, bool) {
+	if o == nil || IsNil(o.Passkey) {
+		return nil, false
+	}
+	return o.Passkey, true
+}
+
+// HasPasskey returns a boolean if a field has been set.
+func (o *UserIdentificationSecurityMethods) HasPasskey() bool {
+	if o != nil && !IsNil(o.Passkey) {
+		return true
+	}
+
+	return false
+}
+
+// SetPasskey gets a reference to the given UserIdentificationPasskeySettings and assigns it to the Passkey field.
+func (o *UserIdentificationSecurityMethods) SetPasskey(v UserIdentificationPasskeySettings) {
+	o.Passkey = &v
+}
+
 func (o UserIdentificationSecurityMethods) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -99,6 +132,9 @@ func (o UserIdentificationSecurityMethods) ToMap() (map[string]interface{}, erro
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Fastpass) {
 		toSerialize["fastpass"] = o.Fastpass
+	}
+	if !IsNil(o.Passkey) {
+		toSerialize["passkey"] = o.Passkey
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -123,6 +159,7 @@ func (o *UserIdentificationSecurityMethods) UnmarshalJSON(data []byte) (err erro
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "fastpass")
+		delete(additionalProperties, "passkey")
 		o.AdditionalProperties = additionalProperties
 	}
 

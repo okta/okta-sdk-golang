@@ -7,9 +7,9 @@ Name | Type | Description | Notes
 **AalValue** | Pointer to **NullableString** | The [authentication assurance level](https://developers.login.gov/oidc/#aal-values) (AAL) value for the Login.gov IdP. See [Add a Login.gov IdP](https://developer.okta.com/docs/guides/add-logingov-idp/). Applies to &#x60;LOGINGOV&#x60; and &#x60;LOGINGOV_SANDBOX&#x60; IdP types. | [optional] 
 **AdditionalAmr** | Pointer to **[]string** | The additional Assurance Methods References (AMR) values for Smart Card IdPs. Applies to &#x60;X509&#x60; IdP type. | [optional] 
 **AllowDynamicUserMatching** | Pointer to **bool** | Enables authenticated users to enroll a Smart Card if the users can&#39;t be identified using the configured &#x60;matchAttribute&#x60;. Applies to &#x60;X509&#x60; IdP type.  &gt; **Note:** Enrollment requires a PIN if the Smart Card is PIN-protected. And enrollment is also blocked if the X.509 certificate contains restricted attributes (&#x60;login&#x60;, &#x60;email&#x60;, &#x60;secondEmail&#x60;, and configured attributes that are used in multiple identifiers). | [optional] [default to false]
-**AllowUserUpdates** | Pointer to **bool** | Enables attribute synchronization from the X.509 certificate to the user&#39;s Okta profile. If it&#39;s set to &#x60;true&#x60;, Okta overwrites user profile attributes with values found in the X.509 certificate. Applies to &#x60;X509&#x60; IdP type.  &gt; **Note:** Some attributes are restricted and won&#39;t be updated, including &#x60;login&#x60;, &#x60;email&#x60;, &#x60;secondEmail&#x60;, and configured attributes that are used in multiple identifiers.  | [optional] [default to false]
+**AllowUserUpdates** | Pointer to **bool** | Enables attribute synchronization from the X.509 certificate to the user&#39;s Okta profile. If it&#39;s set to &#x60;true&#x60;, Okta overwrites user profile attributes with values found in the X.509 certificate. Applies to &#x60;X509&#x60; IdP type.  &gt; **Note:** Some attributes are restricted and won&#39;t be updated, including &#x60;login&#x60;, &#x60;email&#x60;, &#x60;secondEmail&#x60;, and configured attributes that are used in multiple identifiers. | [optional] [default to false]
 **IalValue** | Pointer to **NullableString** | The [type of identity verification](https://developers.login.gov/oidc/#ial-values) (IAL) value for the Login.gov IdP. See [Add a Login.gov IdP](https://developer.okta.com/docs/guides/add-logingov-idp/). Applies to &#x60;LOGINGOV&#x60; and &#x60;LOGINGOV_SANDBOX&#x60; IdP types. | [optional] 
-**IdvMetadata** | Pointer to [**IdentityProviderPropertiesIdvMetadata**](IdentityProviderPropertiesIdvMetadata.md) |  | [optional] 
+**IdvMetadata** | Pointer to [**IdvMetadata**](IdvMetadata.md) |  | [optional] 
 **InquiryTemplateId** | Pointer to **string** | The ID of the inquiry template from your Persona dashboard. The inquiry template always starts with &#x60;itmpl&#x60;. Applies to the legacy &#x60;IDV_PERSONA&#x60; IdP type. | [optional] 
 
 ## Methods
@@ -188,20 +188,20 @@ HasIalValue returns a boolean if a field has been set.
 UnsetIalValue ensures that no value is present for IalValue, not even an explicit nil
 ### GetIdvMetadata
 
-`func (o *IdentityProviderProperties) GetIdvMetadata() IdentityProviderPropertiesIdvMetadata`
+`func (o *IdentityProviderProperties) GetIdvMetadata() IdvMetadata`
 
 GetIdvMetadata returns the IdvMetadata field if non-nil, zero value otherwise.
 
 ### GetIdvMetadataOk
 
-`func (o *IdentityProviderProperties) GetIdvMetadataOk() (*IdentityProviderPropertiesIdvMetadata, bool)`
+`func (o *IdentityProviderProperties) GetIdvMetadataOk() (*IdvMetadata, bool)`
 
 GetIdvMetadataOk returns a tuple with the IdvMetadata field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIdvMetadata
 
-`func (o *IdentityProviderProperties) SetIdvMetadata(v IdentityProviderPropertiesIdvMetadata)`
+`func (o *IdentityProviderProperties) SetIdvMetadata(v IdvMetadata)`
 
 SetIdvMetadata sets IdvMetadata field to given value.
 

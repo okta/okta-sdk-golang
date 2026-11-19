@@ -35,7 +35,7 @@ type UserFactorActivateResponseLinks struct {
 	Self *HrefObjectSelfLink `json:"self,omitempty"`
 	// Returns information on the specified user
 	User *HrefObject `json:"user,omitempty"`
-	// Verifies the factor resource. See [Verify a factor](/openapi/okta-management/management/userfactor/verifyfactor).
+	// Verifies the factor resource. See [Verify a factor](/openapi/okta-management/management/tags/userfactor/other/verifyfactor).
 	Verify               *HrefObject `json:"verify,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **OptionalField3** | Pointer to **string** | Name of the optional parameter in the sign-in form | [optional] 
 **OptionalField3Value** | Pointer to **string** | Name of the optional value in the sign-in form | [optional] 
 **PasswordField** | **string** | CSS selector for the **Password** field in the sign-in form | 
-**Url** | **string** | The URL of the sign-in page for this app | 
+**Url** | **string** | The URL of the sign-in page for this app &gt; **Note:** Only users with the super admin role can modify this URL after it has been initially set. | 
 **UsernameField** | **string** | CSS selector for the **Username** field in the sign-in form | 
 
 ## Methods

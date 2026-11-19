@@ -25,6 +25,7 @@ package okta
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the DevicePostureChecksRemediationSettings type satisfies the MappedNullable interface at compile time
@@ -32,8 +33,8 @@ var _ MappedNullable = &DevicePostureChecksRemediationSettings{}
 
 // DevicePostureChecksRemediationSettings Represents the remediation instructions shown to the end user when the device posture check fails
 type DevicePostureChecksRemediationSettings struct {
-	Link                 *DevicePostureChecksRemediationSettingsLink    `json:"link,omitempty"`
-	Message              *DevicePostureChecksRemediationSettingsMessage `json:"message,omitempty"`
+	Link                 DevicePostureChecksRemediationSettingsLink    `json:"link"`
+	Message              DevicePostureChecksRemediationSettingsMessage `json:"message"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -43,8 +44,10 @@ type _DevicePostureChecksRemediationSettings DevicePostureChecksRemediationSetti
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDevicePostureChecksRemediationSettings() *DevicePostureChecksRemediationSettings {
+func NewDevicePostureChecksRemediationSettings(link DevicePostureChecksRemediationSettingsLink, message DevicePostureChecksRemediationSettingsMessage) *DevicePostureChecksRemediationSettings {
 	this := DevicePostureChecksRemediationSettings{}
+	this.Link = link
+	this.Message = message
 	return &this
 }
 
@@ -56,68 +59,52 @@ func NewDevicePostureChecksRemediationSettingsWithDefaults() *DevicePostureCheck
 	return &this
 }
 
-// GetLink returns the Link field value if set, zero value otherwise.
+// GetLink returns the Link field value
 func (o *DevicePostureChecksRemediationSettings) GetLink() DevicePostureChecksRemediationSettingsLink {
-	if o == nil || IsNil(o.Link) {
+	if o == nil {
 		var ret DevicePostureChecksRemediationSettingsLink
 		return ret
 	}
-	return *o.Link
+
+	return o.Link
 }
 
-// GetLinkOk returns a tuple with the Link field value if set, nil otherwise
+// GetLinkOk returns a tuple with the Link field value
 // and a boolean to check if the value has been set.
 func (o *DevicePostureChecksRemediationSettings) GetLinkOk() (*DevicePostureChecksRemediationSettingsLink, bool) {
-	if o == nil || IsNil(o.Link) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Link, true
+	return &o.Link, true
 }
 
-// HasLink returns a boolean if a field has been set.
-func (o *DevicePostureChecksRemediationSettings) HasLink() bool {
-	if o != nil && !IsNil(o.Link) {
-		return true
-	}
-
-	return false
-}
-
-// SetLink gets a reference to the given DevicePostureChecksRemediationSettingsLink and assigns it to the Link field.
+// SetLink sets field value
 func (o *DevicePostureChecksRemediationSettings) SetLink(v DevicePostureChecksRemediationSettingsLink) {
-	o.Link = &v
+	o.Link = v
 }
 
-// GetMessage returns the Message field value if set, zero value otherwise.
+// GetMessage returns the Message field value
 func (o *DevicePostureChecksRemediationSettings) GetMessage() DevicePostureChecksRemediationSettingsMessage {
-	if o == nil || IsNil(o.Message) {
+	if o == nil {
 		var ret DevicePostureChecksRemediationSettingsMessage
 		return ret
 	}
-	return *o.Message
+
+	return o.Message
 }
 
-// GetMessageOk returns a tuple with the Message field value if set, nil otherwise
+// GetMessageOk returns a tuple with the Message field value
 // and a boolean to check if the value has been set.
 func (o *DevicePostureChecksRemediationSettings) GetMessageOk() (*DevicePostureChecksRemediationSettingsMessage, bool) {
-	if o == nil || IsNil(o.Message) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Message, true
+	return &o.Message, true
 }
 
-// HasMessage returns a boolean if a field has been set.
-func (o *DevicePostureChecksRemediationSettings) HasMessage() bool {
-	if o != nil && !IsNil(o.Message) {
-		return true
-	}
-
-	return false
-}
-
-// SetMessage gets a reference to the given DevicePostureChecksRemediationSettingsMessage and assigns it to the Message field.
+// SetMessage sets field value
 func (o *DevicePostureChecksRemediationSettings) SetMessage(v DevicePostureChecksRemediationSettingsMessage) {
-	o.Message = &v
+	o.Message = v
 }
 
 func (o DevicePostureChecksRemediationSettings) MarshalJSON() ([]byte, error) {
@@ -130,12 +117,8 @@ func (o DevicePostureChecksRemediationSettings) MarshalJSON() ([]byte, error) {
 
 func (o DevicePostureChecksRemediationSettings) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Link) {
-		toSerialize["link"] = o.Link
-	}
-	if !IsNil(o.Message) {
-		toSerialize["message"] = o.Message
-	}
+	toSerialize["link"] = o.Link
+	toSerialize["message"] = o.Message
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -145,6 +128,28 @@ func (o DevicePostureChecksRemediationSettings) ToMap() (map[string]interface{},
 }
 
 func (o *DevicePostureChecksRemediationSettings) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"link",
+		"message",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varDevicePostureChecksRemediationSettings := _DevicePostureChecksRemediationSettings{}
 
 	err = json.Unmarshal(data, &varDevicePostureChecksRemediationSettings)

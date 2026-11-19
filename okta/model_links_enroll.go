@@ -32,7 +32,7 @@ var _ MappedNullable = &LinksEnroll{}
 
 // LinksEnroll struct for LinksEnroll
 type LinksEnroll struct {
-	// Enrolls a supported factor. See [Enroll a factor](/openapi/okta-management/management/userfactor/enrollfactor).
+	// Enrolls a supported factor. See [Enroll a factor](/openapi/okta-management/management/tags/userfactor/other/enrollfactor).
 	Enroll               *HrefObject `json:"enroll,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

@@ -32,7 +32,7 @@ var _ MappedNullable = &LinksActivate{}
 
 // LinksActivate struct for LinksActivate
 type LinksActivate struct {
-	// Activates an enrolled factor. See [Activate a factor](/openapi/okta-management/management/userfactor/activatefactor).
+	// Activates an enrolled factor. See [Activate a factor](/openapi/okta-management/management/tags/userfactor/other/activatefactor).
 	Activate             *HrefObject `json:"activate,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

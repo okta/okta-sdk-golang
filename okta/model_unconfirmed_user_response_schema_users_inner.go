@@ -35,7 +35,7 @@ type UnconfirmedUserResponseSchemaUsersInner struct {
 	// The ID of the user in the target app that's linked to the Okta application user object. This value is the native app-specific identifier or primary key for the user in the target app.  The `externalId` is set during import when the user is confirmed (reconciled) or during provisioning when the user is created in the target app. This value isn't populated for SSO app assignments (for example, SAML or SWA) because it isn't synchronized with a target app.
 	ExternalId  *string             `json:"externalId,omitempty"`
 	Credentials *AppUserCredentials `json:"credentials,omitempty"`
-	// Specifies the default and custom profile properties for a user. Properties that are visible in the Admin Console for an app assignment can also be assigned through the API. Some properties are reference properties that are imported from the target app and can't be configured. See [profile](/openapi/okta-management/management/user/getuser#user/getuser/t=response&c=200&path=profile).
+	// Specifies the default and custom profile properties for a user. Properties that are visible in the Admin Console for an app assignment can also be assigned through the API. Some properties are reference properties that are imported from the target app and can't be configured. See [profile](/openapi/okta-management/management/tags/user/other/getuser#user/getuser/t=response&c=200&path=profile).
 	Profile              map[string]interface{} `json:"profile,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

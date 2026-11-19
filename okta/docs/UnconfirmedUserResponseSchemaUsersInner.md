@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **ExternalId** | Pointer to **string** | The ID of the user in the target app that&#39;s linked to the Okta application user object. This value is the native app-specific identifier or primary key for the user in the target app.  The &#x60;externalId&#x60; is set during import when the user is confirmed (reconciled) or during provisioning when the user is created in the target app. This value isn&#39;t populated for SSO app assignments (for example, SAML or SWA) because it isn&#39;t synchronized with a target app. | [optional] [readonly] 
 **Credentials** | Pointer to [**AppUserCredentials**](AppUserCredentials.md) |  | [optional] 
-**Profile** | Pointer to **map[string]interface{}** | Specifies the default and custom profile properties for a user. Properties that are visible in the Admin Console for an app assignment can also be assigned through the API. Some properties are reference properties that are imported from the target app and can&#39;t be configured. See [profile](/openapi/okta-management/management/user/getuser#user/getuser/t&#x3D;response&amp;c&#x3D;200&amp;path&#x3D;profile).  | [optional] 
+**Profile** | Pointer to **map[string]interface{}** | Specifies the default and custom profile properties for a user. Properties that are visible in the Admin Console for an app assignment can also be assigned through the API. Some properties are reference properties that are imported from the target app and can&#39;t be configured. See [profile](/openapi/okta-management/management/tags/user/other/getuser#user/getuser/t&#x3D;response&amp;c&#x3D;200&amp;path&#x3D;profile).  | [optional] 
 
 ## Methods
 

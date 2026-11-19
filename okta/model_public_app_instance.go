@@ -55,7 +55,7 @@ type PublicAppInstance struct {
 	SignOnMode string `json:"signOnMode"`
 	// App instance status
 	Status *string `json:"status,omitempty"`
-	// App type categorization tags used by the Apps list page facets. Values align with the [`/apps/types`](/openapi/okta-management/management/tag/Application/#tag/Application/operation/listAppTypeUsage) taxonomy (for example, `SAML`, `OIDC`, `PROVISIONING`, `UNIVERSAL_LOGOUT`). Multi-valued because an app can belong to several buckets.
+	// App type categorization tags used by the Apps list page facets. Values align with the [`/apps/types`](/openapi/okta-management/management/tags/application#tag/Application/operation/listAppTypeUsage) taxonomy (for example, `SAML`, `OIDC`, `PROVISIONING`, `UNIVERSAL_LOGOUT`). Multi-valued because an app can belong to several buckets.
 	Types                []string                    `json:"types,omitempty"`
 	UniversalLogout      *ApplicationUniversalLogout `json:"universalLogout,omitempty"`
 	Visibility           *ApplicationVisibility      `json:"visibility,omitempty"`

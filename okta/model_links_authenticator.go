@@ -32,7 +32,7 @@ var _ MappedNullable = &LinksAuthenticator{}
 
 // LinksAuthenticator struct for LinksAuthenticator
 type LinksAuthenticator struct {
-	// Returns information about a specific authenticator. See [Retrieve an authenticator](/openapi/okta-management/management/authenticator/getauthenticator).
+	// Returns information about a specific authenticator. See [Retrieve an authenticator](/openapi/okta-management/management/tags/authenticator/other/getauthenticator).
 	Authenticator        *HrefObject `json:"authenticator,omitempty"`
 	AdditionalProperties map[string]interface{}
 }

@@ -230,6 +230,8 @@ tags:
   - name: BotProtection
     x-displayName: Bot Protection
     description: |-
+      > **Note:** Okta recommends using the Attack Protection policy (the `ATTACK_PROTECTION` policy type) in the [Policies API](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Policy/) instead to manage bot protection. Attack Protection is a [self-service Early Access (EA)](/docs/concepts/feature-lifecycle-management/#self-service-features) feature that uses rules to control how Okta responds to bot-like requests. Okta automatically migrates existing bot protection settings to the Attack Protection policy. After you turn on Attack Protection, changes made with the Bot Protection APIs no longer take effect.
+
       Provides operations to manage the bot protection configuration for your org.
 
       Bot protection helps prevent automated attacks by detecting bots and triggering enforcement during user sign-in flows, self-service registration, and self-service password recovery flows.
@@ -247,7 +249,7 @@ tags:
   - name: BreachedCredentialProtection
     x-displayName: Breached Credential Protection
     description: |-
-      > **Note:** This API is only available to Okta Customer Identity orgs with Identity Threat Protection enabled.
+      > **Note:** This API is only available to orgs with Identity Threat Protection enabled.
 
       This feature helps you detect breached credentials in your Okta environment and customize their remediation.
 
@@ -351,7 +353,7 @@ tags:
     x-displayName: Directories Integration
     description: |-
       The Directories Integration API provides operations to manage Active Directory (AD) and Lightweight Directory Access Protocol (LDAP) objects in a connected on-premises directory through Okta.
-            
+
       Okta can only manage group memberships for users and groups imported into Okta using the AD or LDAP integration. You can't use this API to manage users and groups that weren't imported through an AD or LDAP integration or are outside of the integration's org unit scope.
   - name: EmailCustomization
     x-displayName: Org Email Settings
@@ -976,7 +978,7 @@ tags:
 
       > **Note:** As of the `2026.04.0` release, the FIDO2 (WebAuthn) authenticator is now called Passkey (FIDO2 WebAuthn), and there are new settings and updates to the authenticator page layout. There have been no changes to any existing parameter names, values, or endpoint paths. For example, the `factorType` for the Passkey (FIDO2 WebAuthn) authenticator is still `webauthn`.
       >
-      > See [Passkeys and WebAuthn](/docs/guides/authenticators-web-authn/aspnet/main/#passkeys-and-webauthn).
+      > See [Passkeys and WebAuthn](https://developer.okta.com/docs/guides/authenticators-web-authn/aspnet/main#passkeys-and-webauthn).
   - name: UserGrant
     x-displayName: User Grants
     description: |-
@@ -1044,7 +1046,7 @@ tags:
 
       > **Note:** As of the `2026.04.0` release, the FIDO2 (WebAuthn) authenticator is now called Passkey (FIDO2 WebAuthn), and there are new settings and updates to the authenticator page layout. There have been no changes to any existing parameter names, values, or endpoint paths. For example, the authenticator `key` for the Passkey (FIDO2 WebAuthn) authenticator is still `webauthn`.
       >
-      > See [Passkeys and WebAuthn](/docs/guides/authenticators-web-authn/aspnet/main/#passkeys-and-webauthn).
+      > See [Passkeys and WebAuthn](https://developer.okta.com/docs/guides/authenticators-web-authn/aspnet/main#passkeys-and-webauthn).
 externalDocs:
   description: Find more info here
   url: https://developer.okta.com/docs/reference/
@@ -1927,7 +1929,7 @@ paths:
         Creates an app instance in your Okta org.
 
         You can either create an OIN app instance or a custom app instance:
-        * OIN app instances have prescribed `name` (key app definition) and `signOnMode` options. See the [OIN schemas](/openapi/okta-management/management/application/googleapplication) for the request body.
+        * OIN app instances have prescribed `name` (key app definition) and `signOnMode` options. See the [OIN schemas](/openapi/okta-management/management/tags/application) for the request body.
         * For custom app instances, select the [signOnMode](/openapi/okta-management/management/tags/application/other/createapplication#application/createapplication/t=request&path=&d=0/signonmode) that pertains to your app and specify the required parameters in the request body.
       operationId: createApplication
       parameters:
@@ -2647,7 +2649,7 @@ paths:
       summary: Add a JSON Web Key
       description: |-
         Adds a new JSON Web Key to the client`s JSON Web Keys.
-        > **Note:** This API doesn't allow you to add a key if the existing key doesn't have a `kid`. This is also consistent with how the [Dynamic Client Registration](/openapi/okta-oauth/oauth/client) or [Applications](/openapi/okta-management/management/tags/application) APIs behave, as they don't allow the creation of multiple keys without `kids`. Use the [Replace an Application](/openapi/okta-management/management/application/replaceapplication) or the [Replace a Client Application](/openapi/okta-oauth/oauth/client/replaceclient) operation to update the JWKS or [Delete an OAuth 2.0 Client JSON Web Key](/openapi/okta-management/management/applicationssopublickeys/deletejwk) and re-add the key with a `kid`.
+        > **Note:** This API doesn't allow you to add a key if the existing key doesn't have a `kid`. This is also consistent with how the [Dynamic Client Registration](/openapi/okta-oauth/oauth/client) or [Applications](/openapi/okta-management/management/tags/application) APIs behave, as they don't allow the creation of multiple keys without `kids`. Use the [Replace an Application](/openapi/okta-management/management/tags/application/other/replaceapplication) or the [Replace a Client Application](/openapi/okta-oauth/oauth/client/replaceclient) operation to update the JWKS or [Delete an OAuth 2.0 Client JSON Web Key](/openapi/okta-management/management/tags/applicationssopublickeys/other/deletejwk) and re-add the key with a `kid`.
       operationId: addJwk
       requestBody:
         required: true
@@ -2922,7 +2924,7 @@ paths:
       summary: Generate a key credential
       description: |-
         Generates a new X.509 certificate for an app key credential
-        > **Note:** To update an app with the newly generated key credential, use the [Replace an Application](/openapi/okta-management/management/application/replaceapplication) request with the new [credentials.signing.kid](/openapi/okta-management/management/application/replaceapplication#application/replaceapplication/t=request&path=&d=0/credentials/signing/kid) value in the request body. You can provide just the [signing credential object](/openapi/okta-management/management/application/replaceapplication#application/replaceapplication/t=request&path=&d=0/credentials/signing) instead of the entire [application credential object](/openapi/okta-management/management/application/replaceapplication#application/replaceapplication/t=response&c=200&path=&d=0/credentials).
+        > **Note:** To update an app with the newly generated key credential, use the [Replace an Application](/openapi/okta-management/management/tags/application/other/replaceapplication) request with the new [credentials.signing.kid](/openapi/okta-management/management/tags/application/other/replaceapplication#application/replaceapplication/t=request&path=&d=0/credentials/signing/kid) value in the request body. You can provide just the [signing credential object](/openapi/okta-management/management/tags/application/other/replaceapplication#application/replaceapplication/t=request&path=&d=0/credentials/signing) instead of the entire [application credential object](/openapi/okta-management/management/tags/application/other/replaceapplication#application/replaceapplication/t=response&c=200&path=&d=0/credentials).
       operationId: generateApplicationKey
       parameters:
         - name: validityYears
@@ -3322,7 +3324,7 @@ paths:
       description: |
         Lists all features for an app
         > **Note:** This request returns an error if provisioning isn't enabled for the app.
-        > To set up provisioning, see [Update the default provisioning connection](/openapi/okta-management/management/applicationconnections/updatedefaultprovisioningconnectionforapplication).
+        > To set up provisioning, see [Update the default provisioning connection](/openapi/okta-management/management/tags/applicationconnections/other/updatedefaultprovisioningconnectionforapplication).
       operationId: listFeaturesForApplication
       responses:
         '200':
@@ -4126,7 +4128,7 @@ paths:
       summary: Assign an application group
       description: |-
         Assigns a [Group](/openapi/okta-management/management/tags/group) to an app, which in turn assigns the app to each [User](/openapi/okta-management/management/tags/user) that belongs to the group.
-        The resulting application user [scope](/openapi/okta-management/management/applicationusers/listapplicationusers#applicationusers/listapplicationusers/t=response&c=200&path=scope) is `GROUP` since the assignment was from the group membership.
+        The resulting application user [scope](/openapi/okta-management/management/tags/applicationusers/other/listapplicationusers#applicationusers/listapplicationusers/t=response&c=200&path=scope) is `GROUP` since the assignment was from the group membership.
       operationId: assignGroupToApplication
       x-codegen-request-body-name: applicationGroupAssignment
       requestBody:
@@ -5057,7 +5059,7 @@ paths:
 
         > <x-lifecycle class="ea"></x-lifecycle> **Note:** When the Flexible Okta Verify authenticator configuration feature is enabled, the response includes both the individual per-method authenticators (`okta_verify_totp`, `okta_verify_push`, `okta_verify_fastpass`) and a legacy `okta_verify` aggregate object for backward compatibility.
         >
-        > Flexible Okta Verify authenticator configuration is a [self-service Early Access (EA)](/docs/concepts/feature-lifecycle-management/#self-service-features) feature. See [Manage Early Access and Beta features](https://help.okta.com/okta_help.htm?id=ext_secur_manage_ea_bata) to enable the feature.
+        > Flexible Okta Verify authenticator configuration is a [self-service Early Access (EA)](https://developer.okta.com/docs/concepts/feature-lifecycle-management#self-service-features) feature. See [Manage Early Access and Beta features](https://help.okta.com/okta_help.htm?id=ext_secur_manage_ea_bata) to enable the feature.
       operationId: listAuthenticators
       responses:
         '200':
@@ -5138,10 +5140,44 @@ paths:
             default: true
       x-codegen-request-body-name: authenticator
       requestBody:
-        $ref: '#/components/requestBodies/AuthenticatorRequestBody'
+        content:
+          application/json:
+            schema:
+              oneOf: *ref_4
+              discriminator: *ref_5
+            examples:
+              Duo:
+                $ref: '#/components/examples/AuthenticatorRequestDuo'
+              TAC:
+                $ref: '#/components/examples/AuthenticatorRequestTac'
+              Passkeys with custom name and description:
+                $ref: '#/components/examples/AuthenticatorRequestWebAuthnWithNameAndDescription'
+        required: true
       responses:
         '200':
-          $ref: '#/components/responses/AuthenticatorResponse'
+          description: OK
+          content:
+            application/json:
+              schema:
+                oneOf: *ref_4
+                discriminator: *ref_5
+              examples:
+                Duo:
+                  $ref: '#/components/examples/AuthenticatorResponseDuo'
+                Email:
+                  $ref: '#/components/examples/AuthenticatorResponseEmail'
+                Password:
+                  $ref: '#/components/examples/AuthenticatorResponsePassword'
+                Phone:
+                  $ref: '#/components/examples/AuthenticatorResponsePhone'
+                WebAuthn:
+                  $ref: '#/components/examples/AuthenticatorResponseWebAuthn'
+                Passkeys with custom name and description:
+                  $ref: '#/components/examples/AuthenticatorResponseWebAuthnWithNameAndDescription'
+                SecurityQuestion:
+                  $ref: '#/components/examples/AuthenticatorResponseSecurityQuestion'
+                TAC:
+                  $ref: '#/components/examples/AuthenticatorResponseTac'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -5168,7 +5204,29 @@ paths:
       operationId: getAuthenticator
       responses:
         '200':
-          $ref: '#/components/responses/AuthenticatorResponse'
+          description: OK
+          content:
+            application/json:
+              schema:
+                oneOf: *ref_4
+                discriminator: *ref_5
+              examples:
+                Duo:
+                  $ref: '#/components/examples/AuthenticatorResponseDuo'
+                Email:
+                  $ref: '#/components/examples/AuthenticatorResponseEmail'
+                Password:
+                  $ref: '#/components/examples/AuthenticatorResponsePassword'
+                Phone:
+                  $ref: '#/components/examples/AuthenticatorResponsePhone'
+                WebAuthn:
+                  $ref: '#/components/examples/AuthenticatorResponseWebAuthn'
+                Passkeys with custom name and description:
+                  $ref: '#/components/examples/AuthenticatorResponseWebAuthnWithNameAndDescription'
+                SecurityQuestion:
+                  $ref: '#/components/examples/AuthenticatorResponseSecurityQuestion'
+                TAC:
+                  $ref: '#/components/examples/AuthenticatorResponseTac'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -5193,7 +5251,7 @@ paths:
 
          > <x-lifecycle class="ea"></x-lifecycle> **Note:** When the Flexible Okta Verify authenticator configuration feature is enabled, the `compliance.fips` and `enrollmentSecurityLevel` settings are shared across all Okta Verify per-method authenticators (`okta_verify_totp`, `okta_verify_push`, `okta_verify_fastpass`). Updating either property on any one authenticator applies the change to all three. The `okta_verify` key is returned in responses for backward compatibility only and is no longer accepted in the request body. Use `okta_verify_totp`, `okta_verify_push`, or `okta_verify_fastpass` instead.
          >
-         > Flexible Okta Verify authenticator configuration is a [self-service Early Access (EA)](/docs/concepts/feature-lifecycle-management/#self-service-features) feature. See [Manage Early Access and Beta features](https://help.okta.com/okta_help.htm?id=ext_secur_manage_ea_bata) to enable the feature.
+         > Flexible Okta Verify authenticator configuration is a [self-service Early Access (EA)](https://developer.okta.com/docs/concepts/feature-lifecycle-management#self-service-features) feature. See [Manage Early Access and Beta features](https://help.okta.com/okta_help.htm?id=ext_secur_manage_ea_bata) to enable the feature.
       operationId: replaceAuthenticator
       x-codegen-request-body-name: authenticator
       requestBody:
@@ -5212,7 +5270,29 @@ paths:
                 $ref: '#/components/examples/AuthenticatorRequestWebAuthnWithNameAndDescription'
       responses:
         '200':
-          $ref: '#/components/responses/AuthenticatorResponse'
+          description: OK
+          content:
+            application/json:
+              schema:
+                oneOf: *ref_4
+                discriminator: *ref_5
+              examples:
+                Duo:
+                  $ref: '#/components/examples/AuthenticatorResponseDuo'
+                Email:
+                  $ref: '#/components/examples/AuthenticatorResponseEmail'
+                Password:
+                  $ref: '#/components/examples/AuthenticatorResponsePassword'
+                Phone:
+                  $ref: '#/components/examples/AuthenticatorResponsePhone'
+                WebAuthn:
+                  $ref: '#/components/examples/AuthenticatorResponseWebAuthn'
+                Passkeys with custom name and description:
+                  $ref: '#/components/examples/AuthenticatorResponseWebAuthnWithNameAndDescription'
+                SecurityQuestion:
+                  $ref: '#/components/examples/AuthenticatorResponseSecurityQuestion'
+                TAC:
+                  $ref: '#/components/examples/AuthenticatorResponseTac'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -5451,7 +5531,29 @@ paths:
       operationId: activateAuthenticator
       responses:
         '200':
-          $ref: '#/components/responses/AuthenticatorResponse'
+          description: OK
+          content:
+            application/json:
+              schema:
+                oneOf: *ref_4
+                discriminator: *ref_5
+              examples:
+                Duo:
+                  $ref: '#/components/examples/AuthenticatorResponseDuo'
+                Email:
+                  $ref: '#/components/examples/AuthenticatorResponseEmail'
+                Password:
+                  $ref: '#/components/examples/AuthenticatorResponsePassword'
+                Phone:
+                  $ref: '#/components/examples/AuthenticatorResponsePhone'
+                WebAuthn:
+                  $ref: '#/components/examples/AuthenticatorResponseWebAuthn'
+                Passkeys with custom name and description:
+                  $ref: '#/components/examples/AuthenticatorResponseWebAuthnWithNameAndDescription'
+                SecurityQuestion:
+                  $ref: '#/components/examples/AuthenticatorResponseSecurityQuestion'
+                TAC:
+                  $ref: '#/components/examples/AuthenticatorResponseTac'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -5478,7 +5580,15 @@ paths:
       operationId: deactivateAuthenticator
       responses:
         '200':
-          $ref: '#/components/responses/AuthenticatorResponseInactiveWebAuthn'
+          description: OK
+          content:
+            application/json:
+              schema:
+                oneOf: *ref_4
+                discriminator: *ref_5
+              examples:
+                WebAuthn:
+                  $ref: '#/components/examples/AuthenticatorResponseInactiveWebAuthn'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -6282,7 +6392,7 @@ paths:
       description: |-
         Lists all client resources for which the specified authorization server has tokens.
 
-        > **Note:** To list a specific user's client resources for which they have tokens or grants, use the [List all clients endpoint in the User Resources API](/openapi/okta-management/management/userresources/listuserclients).
+        > **Note:** To list a specific user's client resources for which they have tokens or grants, use the [List all clients endpoint in the User Resources API](/openapi/okta-management/management/tags/userresources/other/listuserclients).
       operationId: listOAuth2ClientsForAuthorizationServer
       responses:
         '200':
@@ -6935,6 +7045,8 @@ paths:
             examples:
               CreateAuthorizationServerPolicyRule:
                 $ref: '#/components/examples/CreateAuthorizationServerPolicyRuleRequest'
+              CreateAuthorizationServerPolicyRuleXaa:
+                $ref: '#/components/examples/CreateAuthorizationServerPolicyRuleXaaRequest'
         required: true
       responses:
         '201':
@@ -7012,6 +7124,8 @@ paths:
             examples:
               UpdateAuthorizationServerPolicyRule:
                 $ref: '#/components/examples/UpdateAuthorizationServerPolicyRuleRequest'
+              UpdateAuthorizationServerPolicyRuleXaa:
+                $ref: '#/components/examples/UpdateAuthorizationServerPolicyRuleXaaRequest'
         required: true
       responses:
         '200':
@@ -7166,7 +7280,7 @@ paths:
       summary: Add a JSON Web Key
       description: |-
         Adds a new JSON Web Key to the custom authorization server`s JSON web keys.
-        > **Note:** This API doesn't allow you to add a key if the existing key doesn't have a `kid`. Use the [Replace an Authorization Server](/openapi/okta-management/management/authorizationserver/replaceauthorizationserver) operation to update the JWKS or [Delete a Custom Authorization Server Public JSON Web Key](/openapi/okta-management/management/oauth2resourceservercredentialskeys/deleteoauth2resourceserverjsonwebkey) and re-add the key with a `kid`.
+        > **Note:** This API doesn't allow you to add a key if the existing key doesn't have a `kid`. Use the [Replace an Authorization Server](/openapi/okta-management/management/tags/authorizationserver/other/replaceauthorizationserver) operation to update the JWKS or [Delete a Custom Authorization Server Public JSON Web Key](/openapi/okta-management/management/tags/oauth2resourceservercredentialskeys/other/deleteoauth2resourceserverjsonwebkey) and re-add the key with a `kid`.
         > **Note:** This API doesn't allow you to add a key with an ACTIVE status. You need to add an INACTIVE key first, and then ACTIVATE the key.
       operationId: addOAuth2ResourceServerJsonWebKey
       requestBody:
@@ -7599,7 +7713,7 @@ paths:
                       ANOMALOUS_IP: '#/components/schemas/BehaviorRuleAnomalousIP'
                       ANOMALOUS_DEVICE: '#/components/schemas/BehaviorRuleAnomalousDevice'
                       VELOCITY: '#/components/schemas/BehaviorRuleVelocity'
-                      ANOMALOUS_ASN: '#/components/schemas/BehaviorRuleASN'
+                      NEW_ASN: '#/components/schemas/BehaviorRuleASN'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '429':
@@ -9853,7 +9967,7 @@ paths:
       description: |-
         Retrieves the breached credential protection configuration for your org
 
-        > **Note:** This API is only available to Okta Customer Identity orgs with Identity Threat Protection enabled.
+        > **Note:** This API is only available to orgs with Identity Threat Protection enabled.
       operationId: getBreachedCredentialProtectionConfiguration
       responses:
         '200':
@@ -9886,7 +10000,7 @@ paths:
       description: |-
         Replaces the breached credential protection configuration for your org
 
-        > **Note:** This API is only available to Okta Customer Identity orgs with Identity Threat Protection enabled.
+        > **Note:** This API is only available to orgs with Identity Threat Protection enabled.
       operationId: replaceBreachedCredentialProtectionConfiguration
       x-codegen-request-body-name: breachedCredentialProtectionConfiguration
       requestBody:
@@ -10991,7 +11105,7 @@ paths:
       description: |-
         Lists all devices with pagination support.
 
-        >**Note:** To list all devices enrolled by a user, use the [List all devices endpoint in the User Resources API](/openapi/okta-management/management/userresources/listuserdevices).
+        >**Note:** To list all devices enrolled by a user, use the [List all devices endpoint in the User Resources API](/openapi/okta-management/management/tags/userresources/other/listuserdevices).
 
         You can return a subset of devices that match a supported search criteria using the `search` query parameter.
         Searches for devices based on the properties specified in the `search` parameter conforming SCIM filter specifications (case-insensitive). This data is eventually consistent. The API returns different results depending on specified queries in the request. Empty list is returned if no objects match `search` request.
@@ -11019,7 +11133,7 @@ paths:
             maximum: 200
             default: 200
             example: 20
-          description: A limit on the number of objects to return (recommend `20`)
+          description: A limit on the number of objects to return (recommend `20`). If you include `expand=user`, the default and maximum value is `20`.
         - name: search
           in: query
           description: |-
@@ -12816,7 +12930,7 @@ paths:
 
         > **Note:** To list all groups belonging to a member, use the [List all groups endpoint in the User Resources API](/openapi/okta-management/management/tags/userresources/other/listusergroups).
 
-        The number of groups returned depends on the specified [`limit`](/openapi/okta-management/management/group/listgroups#group/listgroups/t=request&in=query&path=limit), if you have a search, filter, and/or query parameter set, and if that parameter is not null. We recommend using a limit less than or equal to 200.
+        The number of groups returned depends on the specified [`limit`](/openapi/okta-management/management/tags/group/other/listgroups#group/listgroups/t=request&in=query&path=limit), if you have a search, filter, and/or query parameter set, and if that parameter is not null. We recommend using a limit less than or equal to 200.
 
         A subset of groups can be returned that match a supported filter expression, query, or search criteria.
 
@@ -12836,7 +12950,7 @@ paths:
 
             * Any group profile attribute, including imported app group profile attributes.
             * The top-level properties: `id`, `created`, `lastMembershipUpdated`, `lastUpdated`, and `type`.
-            * The [source](/openapi/okta-management/management/group/listgroups#group/listgroups/t=response&c=200&path=_links/source) of groups with type of `APP_GROUP`, accessed as `source.id`.
+            * The [source](/openapi/okta-management/management/tags/group/other/listgroups#group/listgroups/t=response&c=200&path=_links/source) of groups with type of `APP_GROUP`, accessed as `source.id`.
 
             You can also use the `sortBy` and `sortOrder` parameters.
 
@@ -13625,7 +13739,7 @@ paths:
       description: |-
         Assigns a [standard role](/openapi/okta-management/guides/roles/#standard-roles) to a group.
 
-        You can also assign a custom role to a group, but the preferred method to assign a custom role to a group is to create a binding between the custom role, the resource set, and the group. See [Create a role resource set binding](/openapi/okta-management/management/roledresourcesetbinding/createresourcesetbinding).
+        You can also assign a custom role to a group, but the preferred method to assign a custom role to a group is to create a binding between the custom role, the resource set, and the group. See [Create a role resource set binding](/openapi/okta-management/management/tags/roledresourcesetbinding/other/createresourcesetbinding).
 
         > **Notes:**
         > * The request payload is different for standard and custom role assignments.
@@ -13862,7 +13976,7 @@ paths:
         Unassigns an OIN app target from an `APP_ADMIN` role assignment to a group
 
         > **Note:** You can't remove the last app target from a role assignment.
-        > If you need a role assignment that applies to all apps, delete the `APP_ADMIN` role assignment with the target and create another one. See [Unassign a group role](/openapi/okta-management/management/roleassignmentbgroup/unassignrolefromgroup).
+        > If you need a role assignment that applies to all apps, delete the `APP_ADMIN` role assignment with the target and create another one. See [Unassign a group role](/openapi/okta-management/management/tags/roleassignmentbgroup/other/unassignrolefromgroup).
       operationId: unassignAppTargetToAdminRoleForGroup
       responses:
         '204':
@@ -13923,7 +14037,7 @@ paths:
         Unassigns an app instance target from an `APP_ADMIN` role assignment to a group
 
         > **Note:** You can't remove the last app instance target from a role assignment.
-        > If you need a role assignment that applies to all apps, delete the `APP_ADMIN` role assignment with the target and create another one. See [Unassign a group role](/openapi/okta-management/management/roleassignmentbgroup/unassignrolefromgroup).
+        > If you need a role assignment that applies to all apps, delete the `APP_ADMIN` role assignment with the target and create another one. See [Unassign a group role](/openapi/okta-management/management/tags/roleassignmentbgroup/other/unassignrolefromgroup).
       operationId: unassignAppInstanceTargetToAppAdminRoleForGroup
       responses:
         '204':
@@ -14063,7 +14177,7 @@ paths:
         - name: search
           in: query
           description: |-
-            Searches for group members using a SCIM-style search expression. Uses the same search semantics as [`List all users`](/openapi/okta-management/management/tag/User/#tag/User/operation/listUsers), including the same set of searchable properties (any user profile attribute including custom attributes, the top-level properties `id`, `status`, `created`, `activated`, `statusChanged`, and `lastUpdated`, the user `type.id`, and array-valued properties).
+            Searches for group members using a SCIM-style search expression. Uses the same search semantics as [`List all users`](/openapi/okta-management/management/tags/user#tag/User/operation/listUsers), including the same set of searchable properties (any user profile attribute including custom attributes, the top-level properties `id`, `status`, `created`, `activated`, `statusChanged`, and `lastUpdated`, the user `type.id`, and array-valued properties).
 
             Property names in the `search` parameter are case sensitive, whereas operators (`eq`, `sw`, and so on) and string values are case insensitive. The `search` parameter requires [URL encoding](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding). See [Special characters](https://developer.okta.com/docs/api/#special-characters).
 
@@ -16307,10 +16421,76 @@ paths:
     parameters:
       - $ref: '#/components/parameters/pathIdentitySourceId'
       - $ref: '#/components/parameters/pathIdentitySourceSessionId'
+    post:
+      summary: Upload the device external IDs to be deleted in Okta
+      description: Uploads external IDs of devices that need to be deleted in Okta from the identity source for the given session
+      operationId: uploadIdentitySourceDevicesForDelete
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkDeviceDeleteRequestBody'
+            examples:
+              bulkDeviceDeletePayload:
+                $ref: '#/components/examples/bulkDeviceDeletePayload'
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.identitySources.manage
+      tags:
+        - IdentitySource
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: false
+        SKUs: []
   /api/v1/identity-sources/{identitySourceId}/sessions/{sessionId}/bulk-devices-upsert:
     parameters:
       - $ref: '#/components/parameters/pathIdentitySourceId'
       - $ref: '#/components/parameters/pathIdentitySourceSessionId'
+    post:
+      summary: Upload the device profiles to be upserted in Okta
+      description: Uploads device profiles that need to be inserted or updated in Okta from the identity source for the given session
+      operationId: uploadIdentitySourceDevicesForUpsert
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkDeviceUpsertRequestBody'
+            examples:
+              bulkDeviceUpsertPayload:
+                $ref: '#/components/examples/bulkDeviceUpsertPayload'
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          $ref: '#/components/responses/ErrorApiValidationFailed400'
+        '403':
+          $ref: '#/components/responses/ErrorAccessDenied403'
+        '404':
+          $ref: '#/components/responses/ErrorResourceNotFound404'
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      security:
+        - apiToken: []
+        - oauth2:
+            - okta.identitySources.manage
+      tags:
+        - IdentitySource
+      x-okta-lifecycle:
+        lifecycle: GA
+        isGenerallyAvailable: false
+        SKUs: []
   /api/v1/identity-sources/{identitySourceId}/sessions/{sessionId}/bulk-group-memberships-delete:
     parameters:
       - $ref: '#/components/parameters/pathIdentitySourceId'
@@ -17777,6 +17957,7 @@ paths:
       x-okta-lifecycle:
         lifecycle: GA
         isGenerallyAvailable: true
+  /api/v1/imports/roadblocks: {}
   /api/v1/inlineHooks:
     get:
       summary: List all inline hooks
@@ -17790,7 +17971,7 @@ paths:
           | `com.okta.oauth2.tokens.transform` | [Token inline hook](/openapi/okta-management/management/management/inlinehook/createtokeninlinehook)               |
           | `com.okta.saml.tokens.transform`   | [SAML assertion inline hook](/openapi/okta-management/management/management/inlinehook/createsamlassertioninlinehook)       |
           | `com.okta.telephony.provider`      | [Telephony inline hook](/openapi/okta-management/management/management/inlinehook/createtelephonyinlinehook) |
-          | `com.okta.user.credential.password.import` | [Password import inline hook](openapi/okta-management/management/management/inlinehook/createpasswordimportinlinehook)|
+          | `com.okta.user.credential.password.import` | [Password import inline hook](/openapi/okta-management/management/tags/inlinehook/webhooks/createpasswordimportinlinehook)|
           | `com.okta.user.pre-registration`   | [Registration inline hook](/openapi/okta-management/management/management/inlinehook/create-registration-hook) |
       operationId: listInlineHooks
       parameters:
@@ -18321,7 +18502,7 @@ paths:
 
         This operation is typically used to update the configuration of a log stream.
         Depending on the type of log stream you want to update, certain properties can't be modified after the log stream is initially created.
-        Use the [Retrieve the log stream schema for the schema type](/openapi/okta-management/management/schema/getlogstreamschema) request to determine which properties you can update for the specific log stream type.
+        Use the [Retrieve the log stream schema for the schema type](/openapi/okta-management/management/tags/schema/other/getlogstreamschema) request to determine which properties you can update for the specific log stream type.
         Log stream properties with the `"writeOnce" : true` attribute can't be updated after creation.
         You must still specify these `writeOnce` properties in the request body with the original values in the PUT request.
 
@@ -20985,6 +21166,7 @@ paths:
                     - $ref: '#/components/schemas/SessionViolationDetectionPolicy'
                     - $ref: '#/components/schemas/ClientUpdatePolicy'
                     - $ref: '#/components/schemas/UserIdentificationPolicy'
+                    - $ref: '#/components/schemas/SelfServiceRegistrationPolicy'
                   discriminator: &ref_19
                     propertyName: type
                     mapping:
@@ -20999,6 +21181,7 @@ paths:
                       SESSION_VIOLATION_DETECTION: '#/components/schemas/SessionViolationDetectionPolicy'
                       CLIENT_UPDATE: '#/components/schemas/ClientUpdatePolicy'
                       USER_IDENTIFICATION: '#/components/schemas/UserIdentificationPolicy'
+                      SELF_SERVICE_REGISTRATION: '#/components/schemas/SelfServiceRegistrationPolicy'
               examples:
                 password:
                   $ref: '#/components/examples/list-password-policy-response'
@@ -21026,6 +21209,8 @@ paths:
                   $ref: '#/components/examples/list-mfa-enroll-policy-auto-enroll-disabled-response'
                 user-identification-policy:
                   $ref: '#/components/examples/list-user-identification-policy-response'
+                self-service-registration-policy:
+                  $ref: '#/components/examples/list-self-service-registration-policy-response'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '429':
@@ -21062,6 +21247,7 @@ paths:
                 - $ref: '#/components/schemas/PasswordPolicy'
                 - $ref: '#/components/schemas/ProfileEnrollmentPolicy'
                 - $ref: '#/components/schemas/UserIdentificationPolicy'
+                - $ref: '#/components/schemas/SelfServiceRegistrationPolicy'
               discriminator: &ref_17
                 propertyName: type
                 mapping:
@@ -21071,6 +21257,7 @@ paths:
                   PASSWORD: '#/components/schemas/PasswordPolicy'
                   PROFILE_ENROLLMENT: '#/components/schemas/ProfileEnrollmentPolicy'
                   USER_IDENTIFICATION: '#/components/schemas/UserIdentificationPolicy'
+                  SELF_SERVICE_REGISTRATION: '#/components/schemas/SelfServiceRegistrationPolicy'
         required: true
       responses:
         '200':
@@ -21099,6 +21286,8 @@ paths:
                   $ref: '#/components/examples/mfa-enroll-policy-auto-enroll-disabled-response'
                 user-identification-policy:
                   $ref: '#/components/examples/user-identification-policy-response'
+                self-service-registration-policy:
+                  $ref: '#/components/examples/self-service-registration-policy-response'
         '400':
           $ref: '#/components/responses/ErrorApiValidationFailed400'
         '403':
@@ -21210,6 +21399,8 @@ paths:
                   $ref: '#/components/examples/mfa-enroll-policy-auto-enroll-disabled-response'
                 user-identification-policy:
                   $ref: '#/components/examples/user-identification-policy-response'
+                self-service-registration-policy:
+                  $ref: '#/components/examples/self-service-registration-policy-response'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -21655,6 +21846,7 @@ paths:
                     - $ref: '#/components/schemas/SessionViolationDetectionPolicyRule'
                     - $ref: '#/components/schemas/ClientUpdatePolicyRule'
                     - $ref: '#/components/schemas/UserIdentificationPolicyRule'
+                    - $ref: '#/components/schemas/SelfServiceRegistrationPolicyRule'
                   discriminator: &ref_21
                     propertyName: type
                     mapping:
@@ -21669,6 +21861,7 @@ paths:
                       SESSION_VIOLATION_DETECTION: '#/components/schemas/SessionViolationDetectionPolicyRule'
                       CLIENT_UPDATE: '#/components/schemas/ClientUpdatePolicyRule'
                       USER_IDENTIFICATION: '#/components/schemas/UserIdentificationPolicyRule'
+                      SELF_SERVICE_REGISTRATION: '#/components/schemas/SelfServiceRegistrationPolicyRule'
               examples:
                 okta-sign-on:
                   $ref: '#/components/examples/list-all-sign-on-policy-rule-response'
@@ -21689,7 +21882,9 @@ paths:
                 session-violation-detection:
                   $ref: '#/components/examples/list-all-session-violation-detection-policy-rule-response'
                 userIdentification:
-                  $ref: '#/components/examples/list-all-user-identification-rule-response'
+                  $ref: '#/components/examples/list-all-user-identification-rule-passkey-response'
+                selfServiceRegistration:
+                  $ref: '#/components/examples/list-all-self-service-registration-rule-response'
         '403':
           $ref: '#/components/responses/ErrorAccessDenied403'
         '404':
@@ -21765,6 +21960,8 @@ paths:
                 $ref: '#/components/examples/sspr-recovery-email-without-enrollment'
               UserIdentificationPolicyRule:
                 $ref: '#/components/examples/create-user-identification-rule'
+              SelfServiceRegistrationPolicyRule:
+                $ref: '#/components/examples/create-self-service-registration-rule'
               EnableIdProofingForOamp:
                 $ref: '#/components/examples/oamp-id-proofing-policy-rule'
               PostAuthSessionRule:
@@ -21821,6 +22018,8 @@ paths:
                   $ref: '#/components/examples/sspr-recovery-email-without-enrollment-response'
                 UserIdentificationPolicyRule:
                   $ref: '#/components/examples/user-identification-rule-response'
+                SelfServiceRegistrationPolicyRule:
+                  $ref: '#/components/examples/self-service-registration-rule-response'
                 EnableIdProofingForOamp:
                   $ref: '#/components/examples/oamp-id-proofing-policy-rule-response'
                 PostAuthSessionRule:
@@ -21897,6 +22096,8 @@ paths:
                   $ref: '#/components/examples/sspr-recovery-email-without-enrollment-update'
                 UserIdentificationPolicyRule:
                   $ref: '#/components/examples/user-identification-rule-response'
+                SelfServiceRegistrationPolicyRule:
+                  $ref: '#/components/examples/self-service-registration-rule-response'
                 PostAuthSessionRule:
                   $ref: '#/components/examples/post-auth-session-rule-response'
                 EntityRiskRule:
@@ -21964,6 +22165,8 @@ paths:
                 $ref: '#/components/examples/sspr-recovery-email-without-enrollment-update'
               UpdateUserIdentificationPolicyRule:
                 $ref: '#/components/examples/update-user-identification-rule'
+              UpdateSelfServiceRegistrationPolicyRule:
+                $ref: '#/components/examples/update-self-service-registration-rule'
               PostAuthSessionRule:
                 $ref: '#/components/examples/post-auth-session-rule-example'
               EntityRiskRule:
@@ -22010,6 +22213,8 @@ paths:
                   $ref: '#/components/examples/update-identifiers-in-user-profile-policy-response'
                 UpdateUserIdentificationPolicyRule:
                   $ref: '#/components/examples/update-user-identification-rule-response'
+                UpdateSelfServiceRegistrationPolicyRule:
+                  $ref: '#/components/examples/update-self-service-registration-rule-response'
                 EnableSsprWithConstraints:
                   $ref: '#/components/examples/sspr-enabled-sso-step-up-with-constraints-response'
                 EnableSsprNoEmailEnroll:
@@ -24241,7 +24446,7 @@ paths:
       description: |-
         Deletes a custom telephony provider by its ID.
 
-        Before you delete a provider, ensure that it is [deactivated](/openapi/okta-management/management/customtelephonyprovider/deactivatecustomtelephonycredential). Consider setting up another telephony provider if you still plan to use telephony in your org. See [Set up an external telephony provider](https://help.okta.com/okta_help.htm?type=oie&id=about-telephony).
+        Before you delete a provider, ensure that it is [deactivated](/openapi/okta-management/management/tags/customtelephonyprovider/other/deactivatecustomtelephonycredential). Consider setting up another telephony provider if you still plan to use telephony in your org. See [Set up an external telephony provider](https://help.okta.com/okta_help.htm?type=oie&id=about-telephony).
       operationId: deleteCustomTelephonyProviderCredential
       parameters:
         - $ref: '#/components/parameters/customTelephonyProviderId'
@@ -25269,7 +25474,7 @@ paths:
          * The request returns the user linked to the API token that is specified in the Authorization header, not the user linked to the active session. Details of the admin user who granted the API token is returned.
          * When the end user has an active Okta session, it is typically a CORS request from the browser. Therefore, it's possible to retrieve the current user without the Authorization header.
 
-        When fetching a user by `login` or `login shortname`, [URL encode](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding) the request parameter to ensure that special characters are escaped properly. Logins with a `/` character can only be fetched by `id` due to URL issues with escaping the `/` character. If you don't know a user's ID, you can use the [List all users](/openapi/okta-management/management/user/listusers) endpoint to find it.
+        When fetching a user by `login` or `login shortname`, [URL encode](https://developer.mozilla.org/en-US/docs/Glossary/Percent-encoding) the request parameter to ensure that special characters are escaped properly. Logins with a `/` character can only be fetched by `id` due to URL issues with escaping the `/` character. If you don't know a user's ID, you can use the [List all users](/openapi/okta-management/management/tags/user/other/listusers) endpoint to find it.
 
         > **Note:** Some browsers block third-party cookies by default, which disrupts Okta functionality in certain flows. See [Mitigate the impact of third-party cookie deprecation](https://help.okta.com/okta_help.htm?type=oie&id=ext-third-party-cookies).
       operationId: getUser
@@ -25653,7 +25858,7 @@ paths:
       summary: List all groups
       description: |-
         Lists all groups of which the user is a member
-        > **Note:** To list all groups in your org, use the [List all groups endpoints in the Groups API](/openapi/okta-management/management/group/listgroups).
+        > **Note:** To list all groups in your org, use the [List all groups endpoints in the Groups API](/openapi/okta-management/management/tags/group/other/listgroups).
       operationId: listUserGroups
       responses:
         '200':
@@ -25735,7 +25940,7 @@ paths:
         > For example, change `subdomain.okta.com` to `custom.domain.one`. See [Multibrand and custom domains](https://developer.okta.com/docs/concepts/brands/#multibrand-and-custom-domains).
 
         > **Note:** If you have optional password enabled, visiting the activation link is optional for users who aren't required to enroll a password.
-        > See [Create user with optional password](/openapi/okta-management/management/user/create-user-with-optional-password#user/Create-user-with-optional-password).
+        > See [Create user with optional password](/openapi/okta-management/management/tags/user#user/Create-user-with-optional-password).
 
         > **Legal disclaimer**
         > After a user is added to the Okta directory, they receive an activation email. As part of signing up for this service,
@@ -25791,7 +25996,7 @@ paths:
 
         You can also perform user deactivation asynchronously. To invoke asynchronous user deactivation, pass an HTTP header `Prefer: respond-async` with the request.
 
-        > **Note:** Users with the `DEPROVISIONED` status won't have their profiles updated when running the [Update a user](/openapi/okta-management/management/user/updateuser) endpoint unless you have the **Edit Deactived User Profile Updates** option turned on in the Admin Console. See [Edit deactivated user profiles](https://help.okta.com/okta_help.htm?type=oie&id=edit-deactivated-users).
+        > **Note:** Users with the `DEPROVISIONED` status won't have their profiles updated when running the [Update a user](/openapi/okta-management/management/tags/user/other/updateuser) endpoint unless you have the **Edit Deactived User Profile Updates** option turned on in the Admin Console. See [Edit deactivated user profiles](https://help.okta.com/okta_help.htm?type=oie&id=edit-deactivated-users).
       operationId: deactivateUser
       parameters:
         - name: sendEmail
@@ -25924,10 +26129,10 @@ paths:
       description: |-
         Reactivates a user.
 
-        Perform this operation only on users with a `PROVISIONED` or `RECOVERY` [status](/openapi/okta-management/management/user/listusers#user/listusers/t=response&c=200&path=status).
-        This operation restarts the activation workflow if for some reason the user activation wasn't completed when using the `activationToken` from [Activate User](/openapi/okta-management/management/userlifecycle/activateuser).
+        Perform this operation only on users with a `PROVISIONED` or `RECOVERY` [status](/openapi/okta-management/management/tags/user/other/listusers#user/listusers/t=response&c=200&path=status).
+        This operation restarts the activation workflow if for some reason the user activation wasn't completed when using the `activationToken` from [Activate User](/openapi/okta-management/management/tags/userlifecycle/other/activateuser).
 
-        Users that don't have a password must complete the flow by completing the [Reset password](/openapi/okta-management/management/usercred/resetpassword) flow and MFA enrollment steps to transition the user to `ACTIVE` status.
+        Users that don't have a password must complete the flow by completing the [Reset password](/openapi/okta-management/management/tags/usercred/other/resetpassword) flow and MFA enrollment steps to transition the user to `ACTIVE` status.
 
         If `sendEmail` is `false`, returns an activation link for the user to set up their account. The activation token can be used to create a custom activation link.
       operationId: reactivateUser
@@ -26402,7 +26607,7 @@ paths:
       description: |-
         Lists all client resources for which the specified user has grants or tokens
 
-        > **Note:** To list all client resources for which a specified authorization server has tokens, use the [List all client resources for an authorization server in the Authorization Servers API](/openapi/okta-management/management/authorizationserverclients/listoauth2clientsforauthorizationserver).
+        > **Note:** To list all client resources for which a specified authorization server has tokens, use the [List all client resources for an authorization server in the Authorization Servers API](/openapi/okta-management/management/tags/authorizationserverclients/other/listoauth2clientsforauthorizationserver).
       operationId: listUserClients
       responses:
         '200':
@@ -27448,7 +27653,7 @@ paths:
          > **Note:**
          > The response body for a number matching push challenge to an Okta Verify `push` factor enrollment is different from the response body of a standard push challenge.
          > The number matching push challenge [response body](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/userfactor/other/getfactortransactionstatus!c=200&path=1/_embedded&t=response) contains the correct answer for the challenge.
-         > Use [Verify a factor](/openapi/okta-management/management/userfactor/verifyfactor) to configure which challenge is sent.
+         > Use [Verify a factor](/openapi/okta-management/management/tags/userfactor/other/verifyfactor) to configure which challenge is sent.
       operationId: getFactorTransactionStatus
       responses:
         '200':
@@ -27965,7 +28170,7 @@ paths:
       description: |-
         Assigns a [standard role](/openapi/okta-management/guides/roles/#standard-roles) to a user.
 
-        You can also assign a custom role to a user, but the preferred method to assign a custom role to a user is to create a binding between the custom role, the resource set, and the user. See [Create a role resource set binding](/openapi/okta-management/management/roledresourcesetbinding/createresourcesetbinding).
+        You can also assign a custom role to a user, but the preferred method to assign a custom role to a user is to create a binding between the custom role, the resource set, and the user. See [Create a role resource set binding](/openapi/okta-management/management/tags/roledresourcesetbinding/other/createresourcesetbinding).
 
         > **Notes:**
         > * The request payload is different for standard and custom role assignments.
@@ -29688,7 +29893,7 @@ paths:
       description: |-
         Assigns a [standard role](/openapi/okta-management/guides/roles/#standard-roles) to a client app.
 
-        You can also assign a custom role to a client app, but the preferred method to assign a custom role to a client is to create a binding between the custom role, the resource set, and the client app. See [Create a role resource set binding](/openapi/okta-management/management/roledresourcesetbinding/createresourcesetbinding).
+        You can also assign a custom role to a client app, but the preferred method to assign a custom role to a client is to create a binding between the custom role, the resource set, and the client app. See [Create a role resource set binding](/openapi/okta-management/management/tags/roledresourcesetbinding/other/createresourcesetbinding).
 
         > **Notes:**
         > * The request payload is different for standard and custom role assignments.
@@ -30533,7 +30738,7 @@ paths:
         description: |
           The request body is a signed [SET](https://datatracker.ietf.org/doc/html/rfc8417), which is a type of JSON Web Token (JWT).
 
-          For SET JWT header and body descriptions, see [SET JWT header](/openapi/okta-management/management/ssfsecurityeventtoken/securityeventtokenrequestjwtheader) and [SET JWT body payload](/openapi/okta-management/management/ssfsecurityeventtoken/securityeventtokenrequestjwtbody).
+          For SET JWT header and body descriptions, see [SET JWT header](/openapi/okta-management/management/tags/ssfsecurityeventtoken) and [SET JWT body payload](/openapi/okta-management/management/tags/ssfsecurityeventtoken).
         content:
           application/secevent+jwt:
             schema:
@@ -30558,6 +30763,10 @@ paths:
         isGenerallyAvailable: false
         SKUs:
           - Okta Identity Engine
+  /spiffe/api/v1/trust-domains: {}
+  /spiffe/api/v1/trust-domains/{id}:
+    parameters:
+      - $ref: '#/components/parameters/pathSpiffeTrustDomainRegistrationId'
   /webauthn-registration/api/v1/activate:
     post:
       summary: Activate a preregistered WebAuthn factor
@@ -30879,10 +31088,10 @@ x-webhooks:
 
         Note: Administrators can use the [Okta System Log](https://developer.okta.com/docs/reference/api/system-log/) to view errors. See the Troubleshooting section in the inline hooks topic for details on events captured by the Okta System Log.
 
-        | Issue                                                                               | Impact                                                                                          | Error Visibility                          | 
+        | Issue                                                                               | Impact                                                                                          | Error Visibility                          |
         |-------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|-------------------------------------------|
         |External service fails to communicate or times out                                   | Inline hook operation is skipped, OTP is sent to the Requester using an Okta telephony provider. The telephony inline hook isn't retried. | Administrators only                       |
-        |External service responds with any HTTP status code besides `200`                    | Inline hook operation is skipped, OTP is sent to the Requester using an Okta telephony provider | Administrators only                       | 
+        |External service responds with any HTTP status code besides `200`                    | Inline hook operation is skipped, OTP is sent to the Requester using an Okta telephony provider | Administrators only                       |
         |External service returns an error object                                             | Inline hook operation fails, OTP is sent to the Requester using an Okta telephony provider      | Administrators, developers, and end users |
         |Hook response is malformed or can't be mapped to the expected API response           | Inline hook operation is skipped                                                                | Administrators only                       |
         |Request header doesn't include an `authScheme`                                       | Inline hook operation is skipped                                                                | Administrators only                       |
@@ -30930,7 +31139,7 @@ x-webhooks:
         >**Note:** The size of your response payload must be less than 256 KB.
 
         The password import inline hook allows you to migrate users from another data store where you want the users to retain their current passwords.
-        Use this hook with the [Create user with password import inline hook flow](/openapi/okta-management/management/user/create-user-with-imported-hashed-password#user/Create-user-with-password-import-inline-hook) that's described in the [Users API](/openapi/okta-management/management/tags/user).
+        Use this hook with the [Create user with password import inline hook flow](/openapi/okta-management/management/tags/user#user/Create-user-with-password-import-inline-hook) that's described in the [Users API](/openapi/okta-management/management/tags/user).
 
         The password import inline hook is triggered when the user tries to sign in to Okta for the first time. Okta sends your external service the password that the user supplied. Your external service then needs to send a response to Okta indicating whether the password supplied by the end user is valid.
 
@@ -30953,7 +31162,7 @@ x-webhooks:
 
         To enable a password import inline hook, you first need to register your external service endpoint with Okta and configure it as an inline hook of type `com.okta.user.credential.password.import`.
         You can enable the hook using the Admin Console, see [Add an inline hook](https://help.okta.com/okta_help.htm?type=oie&id=ext-add-inline-hook) or through the [Inline Hooks Management API](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/inlinehook/).
-        When creating a user with the Users API, you need to use the [Create User with password import inline hook](/openapi/okta-management/management/user/create-user-with-imported-hashed-password#user/Create-user-with-password-import-inline-hook) use case.
+        When creating a user with the Users API, you need to use the [Create User with password import inline hook](/openapi/okta-management/management/tags/user#user/Create-user-with-password-import-inline-hook) use case.
         This involves specifying a `credentials.password.hook` property in the request body.
 
         When the user that you have added attempts to sign in to Okta for the first time, the hook is triggered and Okta calls your external service. The call sends the credentials that the end user provided. Your service can check
@@ -30966,7 +31175,7 @@ x-webhooks:
 
         ### Password removal from an existing user store
 
-        Because of the possibility of your org being in a special service mode, you shouldn't attempt to permanently delete user passwords from your existing user store until you can verify the success of the password import . An Okta System Log Event, `user.import.password`, is available for this purpose. An event of this type is created every time a password import inline hook is fired, with its `Event.Outcome` property providing a status of `FAILURE` or `SUCCESS` for the password import operation. 
+        Because of the possibility of your org being in a special service mode, you shouldn't attempt to permanently delete user passwords from your existing user store until you can verify the success of the password import . An Okta System Log Event, `user.import.password`, is available for this purpose. An event of this type is created every time a password import inline hook is fired, with its `Event.Outcome` property providing a status of `FAILURE` or `SUCCESS` for the password import operation.
         If the status is `SUCCESS`, Okta has successfully saved the end user's password, and it's safe to delete it from your previous user store.
 
         You can configure an [Event hook](https://developer.okta.com/docs/concepts/event-hooks/) to send this event type to you for use when triggering automated cleanup of end-user
@@ -31064,12 +31273,12 @@ x-webhooks:
     post:
       summary: Create a user import inline hook
       description: |-
-        Creates a user import inline hook request, one type of inline hook supported by Okta. This is an automated request from Okta to your third-party service endpoint. 
-        This reference provides sample JSON objects that are contained in the outbound request from Okta to your external service, and sample JSON objects that you can include 
+        Creates a user import inline hook request, one type of inline hook supported by Okta. This is an automated request from Okta to your third-party service endpoint.
+        This reference provides sample JSON objects that are contained in the outbound request from Okta to your external service, and sample JSON objects that you can include
         in your response. The objects that you return in the JSON payload of your response to this Okta request are an array of one or more objects, which specify the Okta commands to execute.
 
-        The user import inline hook enables you to add custom logic to the process of importing new users into Okta from an app. You can resolve conflicts in user name or other profile attributes, 
-        modify values of profile attributes, and control whether the imported user is treated as a match for an existing user or not. The hook is invoked for each user being imported, 
+        The user import inline hook enables you to add custom logic to the process of importing new users into Okta from an app. You can resolve conflicts in user name or other profile attributes,
+        modify values of profile attributes, and control whether the imported user is treated as a match for an existing user or not. The hook is invoked for each user being imported,
         at the point immediately after any applicable profile attribute mappings have been applied, and any potential matches with existing users have been found, but before the Okta user profile is created.
 
         >**Note:** If the external service times out after receiving an Okta request, the Okta process flow continues and the user is created.
@@ -31796,6 +32005,45 @@ components:
                 hints:
                   allow:
                     - POST
+    ActionInvalidAppInstanceIds_Example:
+      summary: Invalid app instance IDs
+      value:
+        errorCode: E0000001
+        errorSummary: One or more app instance IDs are invalid or not permitted for this action
+        errorLink: E0000001
+        errorId: sampleiCF-8D5rLW6myqiPItW
+        errorCauses:
+          - errorSummary: '0oa9zzz999: The app instance doesn''t exist or you aren''t permitted to act on it'
+    ActionInvalidTaskIds_Example:
+      summary: Invalid task IDs
+      value:
+        errorCode: E0000001
+        errorSummary: One or more task IDs are invalid or ineligible for this action
+        errorLink: E0000001
+        errorId: sampleiCF-8D5rLW6myqiPItW
+        errorCauses:
+          - errorSummary: 'aat003abc: The task is invalid or ineligible for this action'
+          - errorSummary: 'aat007abc: The task is invalid or ineligible for this action'
+    ActionRequest_ResolveTaskIds_Example:
+      summary: Resolve tasks by ID
+      value:
+        action: RESOLVE
+        taskIds:
+          - dtr001abc
+          - dtr002def
+    ActionRequest_RetryAppInstanceIds_Example:
+      summary: Retry every eligible task in an app instance
+      value:
+        action: RETRY
+        appInstanceIds:
+          - 0oa1abc123
+    ActionRequest_RetryTaskIds_Example:
+      summary: Retry tasks by ID
+      value:
+        action: RETRY
+        taskIds:
+          - aat001abc
+          - aat002def
     ActivateFactorCallResponse:
       summary: call
       value:
@@ -32366,6 +32614,48 @@ components:
             hints:
               allow:
                 - GET
+    AppAssignmentTaskListResponse_Example:
+      summary: List of app assignment tasks
+      value:
+        - id: aat001abc
+          outcome: FAILED
+          reason: DATA_INVALID
+          eligibleActions:
+            - RETRY
+          error: john.doe@example.com isn't a valid value for the sign-in field.
+          userId: 00u1abc123
+          appUserId: 0ua1abc123
+          assignmentType: SINGLE
+          appInstanceId: 0oa1abc123
+          createdDate: '2026-07-15T10:30:00Z'
+          lastUpdatedDate: '2026-07-15T11:00:00Z'
+        - id: aat002def
+          outcome: FAILED
+          reason: TARGET_APP_ERROR
+          eligibleActions:
+            - RETRY
+          error: The target app returned an error while assigning the user (HTTP 503).
+          userId: 00u2def456
+          appUserId: 0ua2def456
+          assignmentType: GROUP
+          appInstanceId: 0oa1abc123
+          createdDate: '2026-07-16T08:15:00Z'
+          lastUpdatedDate: '2026-07-16T08:45:00Z'
+    AppAssignmentTask_Example:
+      summary: App assignment task
+      value:
+        id: aat001abc
+        outcome: FAILED
+        reason: DATA_INVALID
+        eligibleActions:
+          - RETRY
+        error: john.doe@example.com isn't a valid value for the sign-in field.
+        userId: 00u1abc123
+        appUserId: 0ua1abc123
+        assignmentType: SINGLE
+        appInstanceId: 0oa1abc123
+        createdDate: '2026-07-15T10:30:00Z'
+        lastUpdatedDate: '2026-07-15T11:00:00Z'
     AppCsrJsonResponse:
       summary: CSR object in JSON format
       value:
@@ -35679,6 +35969,30 @@ components:
             refreshTokenWindowMinutes: 10080
             inlineHook:
               id: cal4egvp1mbMldrYN0g7
+    CreateAuthorizationServerPolicyRuleXaaRequest:
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs: []
+      summary: Create authorization server policy rule for XAA external IdP
+      value:
+        type: RESOURCE_ACCESS
+        name: XAA external IdP rule
+        conditions:
+          people:
+            groups:
+              include:
+                - EVERYONE
+          grantTypes:
+            include:
+              - urn:ietf:params:oauth:grant-type:jwt-bearer
+          scopes:
+            include:
+              - '*'
+          xaaSupportedIdentityProvider:
+            provider: SPECIFIC_IDP
+            idpIds:
+              - 0oa1abcd2EFGhIJKl3m4
     CreateBrandRequest:
       value:
         name: My Awesome Brand
@@ -37690,6 +38004,49 @@ components:
             rel: self
             href: http://your-subdomain.okta.com/api/v1/realms/guox9jQ16k9V8IQWL0g3
             method: GET
+    DeprovisionTaskListResponse_Example:
+      summary: List of deprovision tasks
+      value:
+        - id: dtr001abc
+          outcome: MANUAL_ACTION_REQUIRED
+          eligibleActions:
+            - RESOLVE
+            - RETRY
+          error: null
+          userId: 00u1abc123
+          appUserId: 0ua1abc123
+          purpose: REVOKE
+          appInstanceId: 0oa1abc123
+          createdDate: '2026-07-15T10:30:00Z'
+          lastUpdatedDate: '2026-07-15T11:00:00Z'
+        - id: dtr002def
+          outcome: FAILED
+          reason: TARGET_APP_ERROR
+          eligibleActions:
+            - RESOLVE
+            - RETRY
+          error: The target app returned an error while deactivating the user (HTTP 500).
+          userId: 00u2def456
+          appUserId: 0ua2def456
+          purpose: REASSIGN
+          appInstanceId: 0oa2def456
+          createdDate: '2026-07-16T08:15:00Z'
+          lastUpdatedDate: '2026-07-16T08:45:00Z'
+    DeprovisionTask_Example:
+      summary: Deprovision task
+      value:
+        id: dtr001abc
+        outcome: MANUAL_ACTION_REQUIRED
+        eligibleActions:
+          - RESOLVE
+          - RETRY
+        error: null
+        userId: 00u1abc123
+        appUserId: 0ua1abc123
+        purpose: REVOKE
+        appInstanceId: 0oa1abc123
+        createdDate: '2026-07-15T10:30:00Z'
+        lastUpdatedDate: '2026-07-15T11:00:00Z'
     DeviceAssuranceAndroidRequest:
       summary: Android request
       value:
@@ -39195,6 +39552,8 @@ components:
         metadata:
           type: DEVICE_IDP
           idpId: 0oa2owlGX5l74kjr60g4
+        claimLifetime: PT45M
+        claimLifetimeUnit: MINUTES
         _links:
           self:
             href: https://your-subdomain.okta.com/api/v1/device-integrations/dindyfzlaerjWVdqt0g4
@@ -41197,6 +41556,16 @@ components:
                   - GET
                   - PUT
                   - DELETE
+    ExecutionAcceptedResponse_Example:
+      summary: Execution accepted
+      value:
+        status: QUEUED
+        executionId: job123xyz
+    Execution_Example:
+      summary: Execution completed
+      value:
+        status: COMPLETED
+        error: null
     ExpirePwdResponse:
       value:
         id: 00ub0oNGTSWTBKOLGLNR
@@ -44043,6 +44412,37 @@ components:
             client:
               href: https://{yourOktaDomain}/oauth2/v1/clients/{clientId}
               title: Client name
+    ListAppInstanceImportRoadblocksResponse:
+      summary: The roadblocks that pause one app instance (appInstanceId=0oa1jjjMMxjniJIG00g4)
+      value:
+        importJobSuspended: true
+        roadblocks:
+          - id: orb4qhlsdFLq8KO5s0g4
+            status: ACTIVE
+            type: GROUP_DELETE
+            pauseScope: APP_INSTANCE
+            appInstanceId: 0oa1jjjMMxjniJIG00g4
+            appName: active_directory
+            appInstanceLabel: Corporate Active Directory
+            created: '2026-11-09T18:24:36.000Z'
+            affectedApps:
+              - appInstanceId: 0oa2e4yaJytrQdUOU0g4
+                appInstanceLabel: Salesforce Production
+                unassignments: 450
+                assignments: 1000
+                unassignmentPercentage: 45
+                threshold: 20
+          - id: orb5rimteGMr9LP6t0g4
+            status: ACTIVE
+            type: USER_DELETE
+            pauseScope: ORG
+            appInstanceId: 0oa3lllOOzlpkLKI00g4
+            appName: workday
+            appInstanceLabel: Workday HR
+            created: '2026-11-09T19:02:11.000Z'
+            unassignments: 3100
+            assignments: 12000
+            unassignmentPercentage: 25.8
     ListAppLinks:
       value:
         - id: 00ub0oNGTSWTBKOLGLNR
@@ -44756,6 +45156,42 @@ components:
               hints:
                 allow:
                   - POST
+    ListEntitlementImportRoadblockResponse:
+      summary: An entitlement value change roadblock
+      value:
+        importJobSuspended: true
+        roadblocks:
+          - id: orb6sjnufHNs0MQ7u0g4
+            status: ACTIVE
+            type: ENTITLEMENT_VALUE_CHANGE
+            reason: Detected entitlement changes for 230 of 1200 users (19.2%), which is above the entitlement threshold of 10%. Imports are paused to prevent unintended changes.
+            pauseScope: APP_INSTANCE
+            appInstanceId: 0oa4mmmPPamqlMLJ00g4
+            appName: salesforce
+            appInstanceLabel: Salesforce Production
+            created: '2026-11-09T20:10:00.000Z'
+            entitlementChanges:
+              changedUsers: 230
+              modifiedUsers: 180
+              deletedUsers: 50
+              totalUsers: 1200
+              changePercentage: 19.2
+              thresholdType: PERCENTAGE
+              percentageThreshold: 10
+            entitlementSettings:
+              entitlementRoadblock:
+                enabled: true
+                percentageThreshold:
+                  enabled: true
+                  value: 10
+                  orgDefault: 20
+                absoluteThreshold:
+                  enabled: false
+                  value: -1
+                  orgDefault: 100
+                baselineCaptured: true
+              entitlementSchemaLock:
+                locked: false
     ListFactorsResults:
       summary: List of enrolled factors for the specified user
       value:
@@ -44979,6 +45415,39 @@ components:
               href: https://{yourOktaDomain}/api/v1/idps/0oa4lb6lbtmH355Hx0h7
             user:
               href: https://{yourOktaDomain}/api/v1/users/00u5cl9lo7nMjHjPr0h7
+    ListImportRoadblocksResponse:
+      summary: An app-level and an org-level roadblock
+      value:
+        importJobSuspended: true
+        roadblocks:
+          - id: orb4qhlsdFLq8KO5s0g4
+            status: ACTIVE
+            type: GROUP_DELETE
+            reason: Detected a high number of potential app unassignments from group removals, which is above the app-level threshold of 20%. Imports are paused to prevent unintended changes.
+            pauseScope: APP_INSTANCE
+            appInstanceId: 0oa1jjjMMxjniJIG00g4
+            appName: active_directory
+            appInstanceLabel: Corporate Active Directory
+            created: '2026-11-09T18:24:36.000Z'
+            affectedApps:
+              - appInstanceId: 0oa2e4yaJytrQdUOU0g4
+                appInstanceLabel: Salesforce Production
+                unassignments: 450
+                assignments: 1000
+                unassignmentPercentage: 45
+                threshold: 20
+          - id: orb5rimteGMr9LP6t0g4
+            status: ACTIVE
+            type: USER_DELETE
+            reason: Detected a high number of potential app unassignments from user removals, which is above the org-level threshold of 20%. Imports are paused to prevent unintended changes.
+            pauseScope: ORG
+            appInstanceId: 0oa3lllOOzlpkLKI00g4
+            appName: workday
+            appInstanceLabel: Workday HR
+            created: '2026-11-09T19:02:11.000Z'
+            unassignments: 3100
+            assignments: 12000
+            unassignmentPercentage: 25.8
     ListInterclientAllowedAppsResponse:
       summary: List interclient allowed apps example
       value:
@@ -45362,7 +45831,7 @@ components:
       summary: List of pre-registered devices with grants
       value:
         - id: guo4a5u7YAHhjXrMK0g4
-          status: CREATED
+          status: PENDING_REGISTRATION
           created: '2026-04-10T18:03:07.000Z'
           lastUpdated: '2026-04-10T18:03:07.000Z'
           profile:
@@ -48283,7 +48752,7 @@ components:
       value:
         - action: CREATED
           id: guo4a5u7YAHhjXrMK0g4
-          status: CREATED
+          status: PENDING_REGISTRATION
           created: '2026-04-10T18:03:07.000Z'
           lastUpdated: '2026-04-10T18:03:07.000Z'
           profile:
@@ -48308,7 +48777,7 @@ components:
                   - PUT
         - action: CREATED
           id: guo4a5u7YAHhjXrMK0g5
-          status: CREATED
+          status: PENDING_REGISTRATION
           created: '2026-04-10T18:03:07.000Z'
           lastUpdated: '2026-04-10T18:03:07.000Z'
           profile:
@@ -49838,6 +50307,13 @@ components:
       value:
         summary: Reset password without sending email
         resetPasswordUrl: https://{yourOktaDomain}/reset_password/XE6wE17zmphl3KqAPFxO
+    ResolveImportRoadblocksRequest:
+      summary: Restart one import and cancel another
+      value:
+        - appInstanceId: 0oa1jjjMMxjniJIG00g4
+          action: RESTART
+        - appInstanceId: 0oa2kkkNNykojKJH00g4
+          action: CANCEL
     ResourceSetBindingAddMembersRequestExample:
       value:
         additions:
@@ -52517,6 +52993,38 @@ components:
               hints:
                 allow:
                   - POST
+    SyncPasswordTaskListResponse_Example:
+      summary: List of sync password tasks
+      value:
+        - id: spt001abc
+          outcome: MANUAL_ACTION_REQUIRED
+          eligibleActions:
+            - RETRY
+          userId: 00u1abc123
+          appUserId: 0ua1abc123
+          appInstanceId: 0oa1abc123
+          createdDate: '2026-07-15T10:30:00Z'
+          lastUpdatedDate: '2026-07-15T11:00:00Z'
+        - id: spt002def
+          outcome: PENDING
+          eligibleActions: []
+          userId: 00u2def456
+          appUserId: 0ua2def456
+          appInstanceId: 0oa2def456
+          createdDate: '2026-07-16T08:15:00Z'
+          lastUpdatedDate: '2026-07-16T08:45:00Z'
+    SyncPasswordTask_Example:
+      summary: Sync password task
+      value:
+        id: spt001abc
+        outcome: MANUAL_ACTION_REQUIRED
+        eligibleActions:
+          - RETRY
+        userId: 00u1abc123
+        appUserId: 0ua1abc123
+        appInstanceId: 0oa1abc123
+        createdDate: '2026-07-15T10:30:00Z'
+        lastUpdatedDate: '2026-07-15T11:00:00Z'
     TelephonyFailureResponse:
       summary: An example telephony hook response for an external web service returning failure
       value:
@@ -53280,6 +53788,31 @@ components:
             refreshTokenWindowMinutes: 10080
             inlineHook:
               id: cal4egvp1mbMldrYN0g7
+    UpdateAuthorizationServerPolicyRuleXaaRequest:
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs: []
+      summary: Update authorization server policy rule for XAA external IdP
+      value:
+        type: RESOURCE_ACCESS
+        name: XAA external IdP rule
+        status: ACTIVE
+        conditions:
+          people:
+            groups:
+              include:
+                - EVERYONE
+          grantTypes:
+            include:
+              - urn:ietf:params:oauth:grant-type:jwt-bearer
+          scopes:
+            include:
+              - '*'
+          xaaSupportedIdentityProvider:
+            provider: SPECIFIC_IDP
+            idpIds:
+              - 0oa1abcd2EFGhIJKl3m4
     UpdateBrandRequest:
       value:
         customPrivacyPolicyUrl: https://www.someHost.com/privacy-policy
@@ -55574,13 +56107,28 @@ components:
             hints:
               allow:
                 - POST
+    create-self-service-registration-rule:
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs: []
+      summary: Self-service registration policy - allow registration from a trusted network
+      value:
+        name: Allow registration from trusted network
+        conditions:
+          network:
+            connection: ANYWHERE
+        actions:
+          registration:
+            access: ALLOW
+        type: SELF_SERVICE_REGISTRATION
     create-user-identification-rule:
       x-okta-lifecycle:
         lifecycle: LIMITED_GA
         isGenerallyAvailable: false
         SKUs:
           - Okta Identity Engine
-      summary: User Identification policy - enable FastPass for sign-in
+      summary: User Identification policy - enable FastPass and passkey for sign-in
       value:
         name: User Identification Rule
         conditions:
@@ -55596,6 +56144,8 @@ components:
             settings:
               securityMethods:
                 fastpass:
+                  showSignInButton: ALWAYS
+                passkey:
                   showSignInButton: ALWAYS
         type: USER_IDENTIFICATION
     create-user-in-group-request:
@@ -56766,6 +57316,42 @@ components:
                   - GET
                   - PUT
           type: PROFILE_ENROLLMENT
+    list-all-self-service-registration-rule-response:
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs: []
+      summary: SELF_SERVICE_REGISTRATION
+      value:
+        - id: rula6m9s4cnMNgwW00g6
+          status: ACTIVE
+          name: Deny suspicious email domains
+          priority: 1
+          created: '2026-09-11T17:35:02.000Z'
+          lastUpdated: '2026-09-11T17:35:02.000Z'
+          system: false
+          conditions:
+            network:
+              connection: ANYWHERE
+            emailDomains:
+              include:
+                - ALL_SUSPICIOUS_EMAIL_DOMAINS
+          actions:
+            registration:
+              access: DENY
+          type: SELF_SERVICE_REGISTRATION
+          _links:
+            self:
+              href: https://{yourOktaDomain}/api/v1/policies/{policyId}/rules/{ruleId}
+              hints:
+                allow:
+                  - GET
+                  - PUT
+            deactivate:
+              href: https://{yourOktaDomain}/api/v1/policies/{policyId}/rules/{ruleId}/lifecycle/deactivate
+              hints:
+                allow:
+                  - POST
     list-all-session-violation-detection-policy-rule-response:
       x-okta-lifecycle:
         lifecycle: LIMITED_GA
@@ -56872,6 +57458,51 @@ components:
                 allow:
                   - POST
           type: SIGN_ON
+    list-all-user-identification-rule-passkey-response:
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
+      summary: USER_IDENTIFICATION
+      value:
+        - id: ruleId
+          status: ACTIVE
+          name: User Identification Rule
+          priority: 0
+          created: '2025-04-25T17:35:02.000Z'
+          lastUpdated: '2025-04-25T17:35:02.000Z'
+          system: false
+          conditions:
+            network:
+              connection: ANYWHERE
+            platform:
+              include:
+                - type: DESKTOP
+                  os:
+                    type: WINDOWS
+              exclude: []
+          actions:
+            userIdentification:
+              settings:
+                securityMethods:
+                  fastpass:
+                    showSignInButton: ALWAYS
+                  passkey:
+                    showSignInButton: ALWAYS
+          _links:
+            self:
+              href: https://{yourOktaDomain}/api/v1/policies/{policyId}/rules/{ruleId}
+              hints:
+                allow:
+                  - GET
+                  - PUT
+            deactivate:
+              href: https://{yourOktaDomain}/api/v1/policies/{policyId}/rules/{ruleId}/lifecycle/deactivate
+              hints:
+                allow:
+                  - POST
+          type: USER_IDENTIFICATION
     list-all-user-identification-rule-response:
       x-okta-lifecycle:
         lifecycle: LIMITED_GA
@@ -57694,6 +58325,40 @@ components:
                 allow:
                   - POST
                   - GET
+    list-self-service-registration-policy-response:
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs: []
+      summary: SELF_SERVICE_REGISTRATION
+      value:
+        - type: SELF_SERVICE_REGISTRATION
+          id: rsta5zh9glg8QQTuQ0g6
+          status: ACTIVE
+          name: Self-service registration policy
+          description: Policy description
+          priority: 1
+          system: false
+          conditions: null
+          created: '2026-09-11T17:35:02.000Z'
+          lastUpdated: '2026-09-11T17:35:02.000Z'
+          _links:
+            self:
+              href: https://{yourOktaDomain}/api/v1/policies/{policyId}
+              hints:
+                allow:
+                  - GET
+            mappings:
+              href: https://{yourOktaDomain}/api/v1/policies/{policyId}/mappings
+              hints:
+                allow:
+                  - GET
+            rules:
+              href: https://{yourOktaDomain}/api/v1/policies/{policyId}/rules
+              hints:
+                allow:
+                  - GET
+                  - POST
     list-session-violation-detection-policy-response:
       x-okta-lifecycle:
         lifecycle: LIMITED_GA
@@ -58787,6 +59452,73 @@ components:
         expression: appuser.entitlements.readOnly
         created: '2024-12-25T04:00:00.000Z'
         lastUpdated: '2024-12-25T05:00:00.000Z'
+    self-service-registration-policy-response:
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs: []
+      summary: SELF_SERVICE_REGISTRATION
+      value:
+        type: SELF_SERVICE_REGISTRATION
+        id: rsta5zh9glg8QQTuQ0g6
+        status: ACTIVE
+        name: Self-service registration policy
+        description: Policy description
+        priority: 1
+        system: false
+        conditions: null
+        created: '2026-09-11T17:35:02.000Z'
+        lastUpdated: '2026-09-11T17:35:02.000Z'
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/policies/{policyId}
+            hints:
+              allow:
+                - GET
+          mappings:
+            href: https://{yourOktaDomain}/api/v1/policies/{policyId}/mappings
+            hints:
+              allow:
+                - GET
+          rules:
+            href: https://{yourOktaDomain}/api/v1/policies/{policyId}/rules
+            hints:
+              allow:
+                - GET
+                - POST
+    self-service-registration-rule-response:
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs: []
+      summary: Self-service registration policy - allow registration from a trusted network
+      value:
+        id: rula6m9s4cnMNgwW00g6
+        status: ACTIVE
+        name: Allow registration from trusted network
+        priority: 1
+        created: '2026-09-11T17:35:02.000Z'
+        lastUpdated: '2026-09-11T17:35:02.000Z'
+        system: false
+        conditions:
+          network:
+            connection: ANYWHERE
+        actions:
+          registration:
+            access: ALLOW
+        type: SELF_SERVICE_REGISTRATION
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/policies/{policyId}/rules/{ruleId}
+            hints:
+              allow:
+                - GET
+                - PUT
+          deactivate:
+            href: https://{yourOktaDomain}/api/v1/policies/{policyId}/rules/{ruleId}/lifecycle/deactivate
+            hints:
+              allow:
+                - POST
     session-violation-detection-rule-example:
       summary: Session Violation Detection Rule
       value:
@@ -60065,13 +60797,67 @@ components:
               allow:
                 - GET
                 - PUT
+    update-self-service-registration-rule:
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs: []
+      summary: Self-service registration policy - deny suspicious email domains
+      value:
+        name: Deny suspicious email domains
+        conditions:
+          network:
+            connection: ANYWHERE
+          emailDomains:
+            include:
+              - ALL_SUSPICIOUS_EMAIL_DOMAINS
+        actions:
+          registration:
+            access: DENY
+        type: SELF_SERVICE_REGISTRATION
+    update-self-service-registration-rule-response:
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs: []
+      summary: Self-service registration policy - deny suspicious email domains
+      value:
+        id: rula6m9s4cnMNgwW00g6
+        status: ACTIVE
+        name: Deny suspicious email domains
+        priority: 1
+        created: '2026-09-11T17:35:02.000Z'
+        lastUpdated: '2026-09-11T17:35:02.000Z'
+        system: false
+        conditions:
+          network:
+            connection: ANYWHERE
+          emailDomains:
+            include:
+              - ALL_SUSPICIOUS_EMAIL_DOMAINS
+        actions:
+          registration:
+            access: DENY
+        type: SELF_SERVICE_REGISTRATION
+        _links:
+          self:
+            href: https://{yourOktaDomain}/api/v1/policies/{policyId}/rules/{ruleId}
+            hints:
+              allow:
+                - GET
+                - PUT
+          deactivate:
+            href: https://{yourOktaDomain}/api/v1/policies/{policyId}/rules/{ruleId}/lifecycle/deactivate
+            hints:
+              allow:
+                - POST
     update-user-identification-rule:
       x-okta-lifecycle:
         lifecycle: LIMITED_GA
         isGenerallyAvailable: false
         SKUs:
           - Okta Identity Engine
-      summary: User Identification policy - disable FastPass for sign-in
+      summary: User Identification policy - disable FastPass and passkey for sign-in
       value:
         name: User Identification Rule
         conditions:
@@ -60088,6 +60874,8 @@ components:
               securityMethods:
                 fastpass:
                   showSignInButton: NEVER
+                passkey:
+                  showSignInButton: NEVER
         type: USER_IDENTIFICATION
     update-user-identification-rule-response:
       x-okta-lifecycle:
@@ -60095,7 +60883,7 @@ components:
         isGenerallyAvailable: false
         SKUs:
           - Okta Identity Engine
-      summary: User Identification policy - disable FastPass for sign-in
+      summary: User Identification policy - disable FastPass and passkey for sign-in
       value:
         id: ruleId
         status: ACTIVE
@@ -60118,6 +60906,8 @@ components:
             settings:
               securityMethods:
                 fastpass:
+                  showSignInButton: NEVER
+                passkey:
                   showSignInButton: NEVER
         type: USER_IDENTIFICATION
         _links:
@@ -60235,7 +61025,7 @@ components:
         isGenerallyAvailable: false
         SKUs:
           - Okta Identity Engine
-      summary: User Identification policy - enable FastPass for sign-in
+      summary: User Identification policy - enable FastPass and passkey for sign-in
       value:
         id: ruleId
         status: ACTIVE
@@ -60258,6 +61048,8 @@ components:
             settings:
               securityMethods:
                 fastpass:
+                  showSignInButton: ALWAYS
+                passkey:
                   showSignInButton: ALWAYS
         type: USER_IDENTIFICATION
         _links:
@@ -60789,6 +61581,14 @@ components:
       schema:
         type: string
         example: who8vt36qfNpCGz9H1e6
+    pathExecutionId:
+      name: executionId
+      in: path
+      required: true
+      description: ID of the execution, returned when the action is accepted
+      schema:
+        type: string
+        example: job123xyz
     pathExternalUserId:
       name: externalId
       in: path
@@ -61336,6 +62136,14 @@ components:
       schema:
         type: string
         example: 00g1e9dfjHeLAsdX983d
+    pathTaskId:
+      name: taskId
+      in: path
+      required: true
+      description: ID of the provisioning task
+      schema:
+        type: string
+        example: aat001abc
     pathTemplateId:
       name: templateId
       description: '`id` of the Template'
@@ -61762,6 +62570,7 @@ components:
             - customizedUrl
             - preview
             - previewUrl
+            - widgetConfigurationSchema
       description: Specifies additional metadata to be included in the response. `widgetConfigurationSchema` requires the SIW_CONFIG_JSON_CUSTOMIZATION feature.
     queryExpandWellKnownUri:
       name: expand
@@ -62001,19 +62810,6 @@ components:
             TacEx:
               $ref: '#/components/examples/AuthenticatorEnrollmentCreateRequestTac'
       required: true
-    AuthenticatorRequestBody:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/AuthenticatorBase'
-          examples:
-            Duo:
-              $ref: '#/components/examples/AuthenticatorRequestDuo'
-            TAC:
-              $ref: '#/components/examples/AuthenticatorRequestTac'
-            Passkeys with custom name and description:
-              $ref: '#/components/examples/AuthenticatorRequestWebAuthnWithNameAndDescription'
-      required: true
   responses:
     ErrorAppUserForbidden403:
       description: Forbidden
@@ -62070,38 +62866,6 @@ components:
           examples:
             TacEx:
               $ref: '#/components/examples/AuthenticatorEnrollmentResponseTac'
-    AuthenticatorResponse:
-      description: OK
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/AuthenticatorBase'
-          examples:
-            Duo:
-              $ref: '#/components/examples/AuthenticatorResponseDuo'
-            Email:
-              $ref: '#/components/examples/AuthenticatorResponseEmail'
-            Password:
-              $ref: '#/components/examples/AuthenticatorResponsePassword'
-            Phone:
-              $ref: '#/components/examples/AuthenticatorResponsePhone'
-            WebAuthn:
-              $ref: '#/components/examples/AuthenticatorResponseWebAuthn'
-            Passkeys with custom name and description:
-              $ref: '#/components/examples/AuthenticatorResponseWebAuthnWithNameAndDescription'
-            SecurityQuestion:
-              $ref: '#/components/examples/AuthenticatorResponseSecurityQuestion'
-            TAC:
-              $ref: '#/components/examples/AuthenticatorResponseTac'
-    AuthenticatorResponseInactiveWebAuthn:
-      description: OK
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/AuthenticatorBase'
-          examples:
-            WebAuthn:
-              $ref: '#/components/examples/AuthenticatorResponseInactiveWebAuthn'
     ErrorApiValidationFailed400:
       description: Bad Request
       content:
@@ -62634,7 +63398,7 @@ components:
         condition:
           type: string
           description: |-
-            The Okta Expression Language expression to evaluate. 
+            The Okta Expression Language expression to evaluate.
 
             > <x-lifecycle class="ea"></x-lifecycle> **Note:** When the Flexible Okta Verify authenticator configuration feature is enabled, `okta_verify` in expressions such as `accessRequest.authenticator.key == 'okta_verify'` is no longer accepted. Use `okta_verify_totp`, `okta_verify_push`, or `okta_verify_fastpass` instead.
       required:
@@ -63185,6 +63949,101 @@ components:
       x-okta-known-values:
         - APP
         - APP_TYPE
+    AppAssignmentTask:
+      description: An app assignment task
+      type: object
+      properties:
+        appInstanceId:
+          type: string
+          description: ID of the app instance the task belongs to
+          example: 0oa1abc123
+        appUserId:
+          type: string
+          description: ID of the user's assignment to the app instance
+          example: 0ua1abc123
+        assignmentType:
+          $ref: '#/components/schemas/ProvisioningTaskAssignmentType'
+        createdDate:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Timestamp when the task was created
+        eligibleActions:
+          type: array
+          description: Actions that you can currently perform on the task. Empty when none are available, which can also be the case for a `FAILED` task. Use this list instead of working out the actions from `outcome` or `reason`.
+          items:
+            $ref: '#/components/schemas/AppAssignmentTaskAction'
+        error:
+          type: string
+          nullable: true
+          description: Human-readable error detail from the task. `null` when the task has no error text.
+        id:
+          type: string
+          readOnly: true
+          description: Unique identifier of the task
+          example: aat001abc
+        lastUpdatedDate:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Timestamp when the task was last updated
+        outcome:
+          $ref: '#/components/schemas/ProvisioningTaskOutcome'
+        reason:
+          $ref: '#/components/schemas/ProvisioningTaskReason'
+        userId:
+          type: string
+          description: ID of the user the task is for
+          example: 00u1abc123
+      required:
+        - id
+        - outcome
+        - eligibleActions
+        - error
+        - userId
+        - appUserId
+        - assignmentType
+        - appInstanceId
+        - createdDate
+        - lastUpdatedDate
+    AppAssignmentTaskAction:
+      description: Action to perform on an app assignment task. Only the actions listed in a task's `eligibleActions` can be performed on it. If you specify `taskIds` and a task doesn't allow the action, the request is rejected with a `400` error. If you specify `appInstanceIds`, only the tasks that allow the action are acted on. Tasks that no longer allow the action when the request is processed are skipped.
+      type: string
+      x-enumDescriptions:
+        RETRY: Retries the task.
+      x-okta-known-values:
+        - RETRY
+    AppAssignmentTaskActionRequest:
+      additionalProperties: false
+      minProperties: 2
+      not:
+        required:
+          - taskIds
+          - appInstanceIds
+      description: Specify exactly one of `taskIds` or `appInstanceIds`.
+      type: object
+      properties:
+        action:
+          $ref: '#/components/schemas/AppAssignmentTaskAction'
+        appInstanceIds:
+          type: array
+          description: Acts on every currently eligible task across these app instances (maximum 10 by default)
+          maxItems: 10
+          items:
+            type: string
+          example:
+            - 0oa1abc123
+        taskIds:
+          type: array
+          description: Explicit IDs of the tasks to act on (maximum 50 by default)
+          maxItems: 50
+          items:
+            type: string
+          example:
+            - aat001abc
+            - aat002def
+      required:
+        - action
     AppConfig:
       description: Additional app configuration for group push mappings. Currently only required for Active Directory or Office 365.
       type: object
@@ -63597,7 +64456,7 @@ components:
     AppUserCredentials:
       description: |
         Specifies a user's credentials for the app.
-        This parameter can be omitted for apps with [sign-on mode](/openapi/okta-management/management/application/getapplication#application/getapplication/t=response&c=200&path=&d=0/signonmode) (`signOnMode`) or [authentication schemes](/openapi/okta-management/management/application/getapplication#application/getapplication/t=response&c=200&path=&d=0/credentials/scheme) (`credentials.scheme`) that don't require credentials.
+        This parameter can be omitted for apps with [sign-on mode](/openapi/okta-management/management/tags/application/other/getapplication#application/getapplication/t=response&c=200&path=&d=0/signonmode) (`signOnMode`) or [authentication schemes](/openapi/okta-management/management/tags/application/other/getapplication#application/getapplication/t=response&c=200&path=&d=0/credentials/scheme) (`credentials.scheme`) that don't require credentials.
       type: object
       properties:
         password:
@@ -63634,14 +64493,14 @@ components:
         Specifies the default and custom profile properties for a user.
         Properties that are visible in the Admin Console for an app assignment can also be assigned through the API.
         Some properties are reference properties that are imported from the target app and can't be configured.
-        See [profile](/openapi/okta-management/management/user/getuser#user/getuser/t=response&c=200&path=profile).
+        See [profile](/openapi/okta-management/management/tags/user/other/getuser#user/getuser/t=response&c=200&path=profile).
       additionalProperties: true
       type: object
     AppUserProfileRequestPayload:
       title: Profile
       description: |-
         Updates the assigned user profile
-        > **Note:** The Okta API currently doesn't support entity tags for conditional updates. As long as you're the only user updating the the user profile, Okta recommends you fetch the most recent profile with [Retrieve an Application User](/openapi/okta-management/management/applicationusers#tag/ApplicationUsers/operation/getApplicationUser), apply your profile update, and then `POST` back the updated profile.
+        > **Note:** The Okta API currently doesn't support entity tags for conditional updates. As long as you're the only user updating the the user profile, Okta recommends you fetch the most recent profile with [Retrieve an Application User](/openapi/okta-management/management/tags/applicationusers#tag/ApplicationUsers/operation/getApplicationUser), apply your profile update, and then `POST` back the updated profile.
       type: object
       properties:
         profile:
@@ -63930,7 +64789,7 @@ components:
             Unique identifier for the OAuth 2.0 client app
 
             > **Notes:**
-            > * If you don't specify the `client_id`, this immutable property is populated with the [Application instance ID](/openapi/okta-management/management/application/replaceapplication#application/replaceapplication/t=response&c=200&path=&d=0/id).
+            > * If you don't specify the `client_id`, this immutable property is populated with the [Application instance ID](/openapi/okta-management/management/tags/application/other/replaceapplication#application/replaceapplication/t=response&c=200&path=&d=0/id).
             > * The `client_id` must consist of alphanumeric characters or the following special characters: `$-_.+!*'(),`.
             > * You can't use the reserved word `ALL_CLIENTS`.
         client_secret:
@@ -64129,7 +64988,7 @@ components:
           type: object
           description: |-
             Embedded resource related to the Application Group using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification.
-            If the `expand=group` query parameter is specified, then the [group](openapi/okta-management/management/group) object is embedded. 
+            If the `expand=group` query parameter is specified, then the [group](openapi/okta-management/management/group) object is embedded.
             If the `expand=metadata` query parameter is specified, then the group assignment metadata is embedded.
           additionalProperties:
             type: object
@@ -64612,7 +65471,7 @@ components:
         key:
           type: string
           description: |-
-            A label that identifies the authenticator. 
+            A label that identifies the authenticator.
 
             > <x-lifecycle class="ea"></x-lifecycle> **Note:** When the Flexible Okta Verify authenticator configuration feature is enabled, `okta_verify` is no longer accepted. Use `okta_verify_totp`, `okta_verify_push`, or `okta_verify_fastpass` instead.
         method:
@@ -64690,7 +65549,7 @@ components:
         key:
           type: string
           description: |-
-            A label that identifies the authenticator. 
+            A label that identifies the authenticator.
 
             > <x-lifecycle class="ea"></x-lifecycle> **Note:** When the Flexible Okta Verify authenticator configuration feature is enabled, `okta_verify` is no longer accepted. Use `okta_verify_totp`, `okta_verify_push`, or `okta_verify_fastpass` instead.
         method:
@@ -64746,7 +65605,7 @@ components:
         - OKTA
         - SOCIAL
     AuthenticationProviderWritable:
-      description: Specifies the authentication provider that validates the user password credential. The user's current provider is managed by the **Delegated Authentication** settings in your org. See [Create user with authentication provider](/openapi/okta-management/management/user/create-user-with-password-and-recovery-question#user/Create-user-with-authentication-provider).
+      description: Specifies the authentication provider that validates the user password credential. The user's current provider is managed by the **Delegated Authentication** settings in your org. See [Create user with authentication provider](/openapi/okta-management/management/tags/user#user/Create-user-with-authentication-provider).
       type: object
       properties:
         name:
@@ -64890,10 +65749,10 @@ components:
               type: boolean
               nullable: true
               description: |-
-                <x-lifecycle class="oie"></x-lifecycle> Controls whether the email authenticator is automatically enrolled for users during sign-up, user account creation, or if the user's profile email address is changed or updated.  
+                <x-lifecycle class="oie"></x-lifecycle> Controls whether the email authenticator is automatically enrolled for users during sign-up, user account creation, or if the user's profile email address is changed or updated.
 
-                * `true` or `null`: The email authenticator is auto-enrolled. This is the default behavior for the email authenticator in Identity Engine.  
-                * `false`: The email authenticator auto-enrollment is skipped. Users see email as an optional authenticator during enrollment and can choose to skip it.  
+                * `true` or `null`: The email authenticator is auto-enrolled. This is the default behavior for the email authenticator in Identity Engine.
+                * `false`: The email authenticator auto-enrollment is skipped. Users see email as an optional authenticator during enrollment and can choose to skip it.
 
                 > **Note:** `autoEnroll` can only be set to `false` when [`self`](/openapi/okta-management/management/tags/policy/other/createpolicy#other/createpolicy/t=request&path=&d=1/settings/authenticators/enroll/self) is `OPTIONAL` or `NOT_ALLOWED`. This property is only available if the Email auto-enrollment and recovery control [self-service EA](/openapi/okta-management/guides/release-lifecycle/#early-access-ea) feature is enabled.
               x-okta-lifecycle:
@@ -65422,7 +66281,7 @@ components:
                   allOf:
                     - $ref: '#/components/schemas/ShowSignInWithOV'
                   deprecated: true
-                  description: (Deprecated when `USER_IDENTIFICATION_POLICY` is enabled) This field is omitted from GET responses and rejected on PUT requests while User Identification Policy is active. Configure this setting using the [User Identification Policy](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/policy) rules instead.
+                  description: Controls whether to show the **Sign in with Okta Verify** button on the Sign-In Widget. This property is deprecated. Use the [`fastpass.showSignInButton`](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/policy/other/createpolicyrule#other/createpolicyrule/t=request&path=&d=12/actions/useridentification/settings/securitymethods/fastpass/showsigninbutton) property in a user identification policy rule to show or hide the button instead. This property is omitted from GET responses. PUT requests that include it are rejected.
     AuthenticatorMethodSimple:
       x-okta-ignore-redocly-rules-for-sdk: true
       allOf:
@@ -65515,6 +66374,8 @@ components:
                   x-okta-ignore-redocly-rules-for-sdk: true
                   allOf:
                     - $ref: '#/components/schemas/WebAuthnSettingShowSignInWithAPasskeyButton'
+                  deprecated: true
+                  description: Indicates whether the **Sign in with a passkey** button on the Sign-In Widget is shown. This property is deprecated. Use the [`passkey.showSignInButton`](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/policy/other/createpolicyrule#other/createpolicyrule/t=request&path=&d=12/actions/useridentification/settings/securitymethods/passkey/showsigninbutton) property in a user identification policy rule to show or hide the button instead. This property is omitted from GET responses. PUT requests that include it are rejected.
                 certBasedAttestationValidation:
                   $ref: '#/components/schemas/WebAuthnSettingCertBasedAttestationValidation'
                 hardwareProtected:
@@ -65874,6 +66735,8 @@ components:
           $ref: '#/components/schemas/AuthorizationServerPolicyPeopleCondition'
         scopes:
           $ref: '#/components/schemas/OAuth2ScopesMediationPolicyRuleCondition'
+        xaaSupportedIdentityProvider:
+          $ref: '#/components/schemas/AuthorizationServerPolicyRuleXaaIdpCondition'
     AuthorizationServerPolicyRuleGroupCondition:
       description: Specifies a set of Groups whose Users are to be included
       type: object
@@ -65901,6 +66764,21 @@ components:
           type: array
           items:
             type: string
+    AuthorizationServerPolicyRuleXaaIdpCondition:
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs: []
+      description: <x-lifecycle-container><x-lifecycle class="oie"></x-lifecycle></x-lifecycle-container>Specifies the identity providers (IdPs) that can be used for Cross App Access (XAA) when the rule is evaluated
+      type: object
+      properties:
+        idpIds:
+          type: array
+          description: IDs of the IdPs that are allowed. It's required when `provider` is set as `SPECIFIC_IDP`.
+          items:
+            type: string
+        provider:
+          $ref: '#/components/schemas/XaaSupportedIdentityProviderType'
     AuthorizationServerResourceHrefObject:
       type: object
       properties:
@@ -66399,7 +67277,7 @@ components:
         - ANOMALOUS_IP
         - ANOMALOUS_LOCATION
         - VELOCITY
-        - ANOMALOUS_ASN
+        - NEW_ASN
     BehaviorRuleVelocity:
       allOf:
         - $ref: '#/components/schemas/BehaviorRule'
@@ -67237,7 +68115,7 @@ components:
         features:
           type: array
           readOnly: true
-          description: Features supported by the app. See app [features](/openapi/okta-management/management/application/listapplications#application/listapplications/t=response&c=200&path=&d=0/features).
+          description: Features supported by the app. See app [features](/openapi/okta-management/management/tags/application/other/listapplications#application/listapplications/t=response&c=200&path=&d=0/features).
           items:
             type: string
         id:
@@ -67255,7 +68133,7 @@ components:
           description: App key name. For OIN catalog apps, this is a unique key for the app definition.
         signOnModes:
           type: array
-          description: Authentication mode for the app. See app [signOnMode](/openapi/okta-management/management/application/listapplications#application/listapplications/t=response&c=200&path=&d=0/signonmode).
+          description: Authentication mode for the app. See app [signOnMode](/openapi/okta-management/management/tags/application/other/listapplications#application/listapplications/t=response&c=200&path=&d=0/signonmode).
           items:
             type: string
         status:
@@ -68132,7 +69010,7 @@ components:
       description: The signing key rotation setting for the provisioning connection
       type: string
       x-enumDescriptions:
-        AUTO: Okta manages key rotation for the provisioning connection. Use the [Retrieve a JWKS for the default provisioning connection](/openapi/okta-management/management/applicationconnections/getuserprovisioningconnectionjwks) endpoint for the latest key credentials.
+        AUTO: Okta manages key rotation for the provisioning connection. Use the [Retrieve a JWKS for the default provisioning connection](/openapi/okta-management/management/tags/applicationconnections/other/getuserprovisioningconnectionjwks) endpoint for the latest key credentials.
         MANUAL: You need to rotate the keys for your provisioning connection manually based on your own schedule. See [Key rotation](https://developer.okta.com/docs/concepts/key-rotation/).
       x-okta-known-values:
         - AUTO
@@ -69152,6 +70030,103 @@ components:
         classicApplicationUri:
           type: string
           description: Application URI for classic Orgs
+    DeprovisionTask:
+      description: A deprovision task
+      type: object
+      properties:
+        appInstanceId:
+          type: string
+          description: ID of the app instance the task belongs to
+          example: 0oa1abc123
+        appUserId:
+          type: string
+          description: ID of the user's assignment to the app instance
+          example: 0ua1abc123
+        createdDate:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Timestamp when the task was created
+        eligibleActions:
+          type: array
+          description: Actions that you can currently perform on the task. Empty when none are available, which can also be the case for a `FAILED` task. Use this list instead of working out the actions from `outcome` or `reason`.
+          items:
+            $ref: '#/components/schemas/ProvisioningTaskAction'
+        error:
+          type: string
+          nullable: true
+          description: Human-readable error detail from the task. `null` when the task has no error text.
+        id:
+          type: string
+          readOnly: true
+          description: Unique identifier of the task
+          example: dtr001abc
+        lastUpdatedDate:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Timestamp when the task was last updated
+        outcome:
+          $ref: '#/components/schemas/ProvisioningTaskOutcome'
+        purpose:
+          $ref: '#/components/schemas/DeprovisionTaskPurpose'
+        reason:
+          $ref: '#/components/schemas/ProvisioningTaskReason'
+        userId:
+          type: string
+          description: ID of the user the task is for
+          example: 00u1abc123
+      required:
+        - id
+        - outcome
+        - eligibleActions
+        - error
+        - userId
+        - appUserId
+        - purpose
+        - appInstanceId
+        - createdDate
+        - lastUpdatedDate
+    DeprovisionTaskActionRequest:
+      additionalProperties: false
+      minProperties: 2
+      not:
+        required:
+          - taskIds
+          - appInstanceIds
+      description: Specify exactly one of `taskIds` or `appInstanceIds`.
+      type: object
+      properties:
+        action:
+          $ref: '#/components/schemas/ProvisioningTaskAction'
+        appInstanceIds:
+          type: array
+          description: Acts on every currently eligible task across these app instances (maximum 10 by default)
+          maxItems: 10
+          items:
+            type: string
+          example:
+            - 0oa1abc123
+        taskIds:
+          type: array
+          description: Explicit IDs of the tasks to act on (maximum 50 by default)
+          maxItems: 50
+          items:
+            type: string
+          example:
+            - dtr001abc
+            - dtr002def
+      required:
+        - action
+    DeprovisionTaskPurpose:
+      description: Why the deprovision task was created
+      type: string
+      x-enumDescriptions:
+        REASSIGN: The user's app assignment is being reassigned.
+        REVOKE: The user's app assignment is being removed.
+      x-okta-known-values:
+        - REASSIGN
+        - REVOKE
     DesktopMFAEnforceNumberMatchingChallengeOrgSetting:
       type: object
       properties:
@@ -69860,6 +70835,8 @@ components:
           example: macOSFirewall
         _links:
           $ref: '#/components/schemas/LinksSelf'
+      required:
+        - remediationSettings
     DevicePostureChecksMappingType:
       description: Represents how the device posture check is rendered in device assurance policies
       type: string
@@ -69882,10 +70859,12 @@ components:
               type: string
               description: Default URL for the link. This property is only relevant if type is set to `BUILTIN`. If type is set to `CUSTOM`, this field is ignored.
               example: https://help.okta.com/eu/en-us/content/topics/end-user/ov-device-health-macos.htm
+              nullable: true
             customUrl:
               type: string
               description: Custom URL for the link
               example: example.myremediationurl.com/docs
+              nullable: true
         message:
           type: object
           properties:
@@ -69893,10 +70872,15 @@ components:
               type: string
               description: Default i18n key for the message. This property is only relevant if type is set to `BUILTIN`. If type is set to `CUSTOM`, this field is ignored.
               example: macos.firewall.enabled.remediation.message
+              nullable: true
             customText:
               type: string
               description: Custom text for the message
               example: It is our company policy that all devices must have a firewall enabled.
+              nullable: true
+      required:
+        - message
+        - link
     DevicePostureChecksType:
       type: string
       x-okta-known-values:
@@ -69931,8 +70915,7 @@ components:
         serialNumber:
           type: string
           description: The serial number of the device
-          minLength: 10
-          maxLength: 128
+          maxLength: 127
           example: DNQJQ4GFF1GH
       required:
         - serialNumber
@@ -70552,13 +71535,13 @@ components:
         body:
           type: string
           description: |
-            The HTML body of the email. May contain [variable references](https://velocity.apache.org/engine/1.7/user-guide.html#references). 
+            The HTML body of the email. May contain [variable references](https://velocity.apache.org/engine/1.7/user-guide.html#references).
 
             <x-lifecycle class="ea"></x-lifecycle> Not required if Custom languages for Okta Email Templates is enabled. A `null` body is replaced with a default value from one of the following in priority order:
 
             1. An existing default email customization, if one exists
             2. Okta-provided translated content for the specified language, if one exists
-            3. Okta-provided translated content for the brand locale, if it's set 
+            3. Okta-provided translated content for the brand locale, if it's set
             4. Okta-provided content in English
         subject:
           type: string
@@ -71072,11 +72055,23 @@ components:
     EntitlementManagementStatusValidationReason:
       description: The machine-readable reason code for blocking the transition to the Entitlement Management state
       type: string
+      x-enumDescriptions:
+        PROVISIONING_ENABLED: Provisioning is enabled for the app
+        PROVISIONING_NOT_ENABLED: Provisioning isn't enabled for the app
+        PROVISIONING_CONFIGURATION_ERROR: The provisioning configuration (credentials, region, or permissions) failed validation. The admin can fix it on the Provisioning tab.
+        CONNECTOR_ERROR: The connector failed for a reason outside the admin's control, such as an outage, throttling, or an unexpected error. Retry later.
+        APP_INSTANCE_NOT_ACTIVE: The app instance isn't active
+        APP_NOT_SUPPORTED: The app doesn't support Entitlement Management
+        IMPROPER_ENTITLEMENT_MANAGEMENT_STATUS: The app's current Entitlement Management status doesn't allow the requested transition
+        USER_IMPORT_IN_PROGRESS: A user import is in progress
+        PROVISIONING_DATA_IMPORT_IN_PROGRESS: A provisioning data import is in progress
       x-okta-known-values:
         - APP_INSTANCE_NOT_ACTIVE
         - APP_NOT_SUPPORTED
-        - CREDENTIALS_VALIDATION_FAILED
+        - CONNECTOR_ERROR
         - IMPROPER_ENTITLEMENT_MANAGEMENT_STATUS
+        - PROVISIONING_CONFIGURATION_ERROR
+        - PROVISIONING_DATA_IMPORT_IN_PROGRESS
         - PROVISIONING_ENABLED
         - PROVISIONING_NOT_ENABLED
         - USER_IMPORT_IN_PROGRESS
@@ -71534,6 +72529,49 @@ components:
       required:
         - type
         - items
+    Execution:
+      type: object
+      properties:
+        error:
+          type: string
+          nullable: true
+          description: Human-readable failure reason. `null` unless `status` is `FAILED`.
+        status:
+          $ref: '#/components/schemas/ExecutionStatus'
+      required:
+        - status
+    ExecutionAcceptedResponse:
+      type: object
+      properties:
+        executionId:
+          type: string
+          description: ID used to retrieve the execution status
+          example: job123xyz
+        status:
+          $ref: '#/components/schemas/ExecutionAcceptedResponseStatus'
+      required:
+        - status
+        - executionId
+    ExecutionAcceptedResponseStatus:
+      description: Status of the accepted execution
+      type: string
+      x-enumDescriptions:
+        QUEUED: The action is queued for processing.
+      x-okta-known-values:
+        - QUEUED
+    ExecutionStatus:
+      description: Status of the execution. `FAILED` is an execution-level failure (for example, a worker crash), not the outcome of an individual task.
+      type: string
+      x-enumDescriptions:
+        QUEUED: The execution is queued for processing.
+        IN_PROGRESS: The execution is being processed.
+        COMPLETED: The execution finished. Individual tasks can still have failed, and that outcome is reflected on the task.
+        FAILED: The execution itself failed.
+      x-okta-known-values:
+        - COMPLETED
+        - FAILED
+        - IN_PROGRESS
+        - QUEUED
     ExpiresAt:
       format: date-time
       description: Timestamp when the object expires
@@ -71726,7 +72764,7 @@ components:
           example: role
     FipsEnum:
       description: |-
-        The FIPS compliance mode. 
+        The FIPS compliance mode.
 
         > <x-lifecycle class="ea"></x-lifecycle> **Note:** When the Flexible Okta Verify authenticator configuration feature is enabled, this is a common setting shared across all per-method authenticators (`okta_verify_totp`, `okta_verify_push`, `okta_verify_fastpass`). Updating this value on any one authenticator applies the change to all three.
       type: string
@@ -72065,19 +73103,34 @@ components:
               properties:
                 id:
                   type: string
-                  description: The ID of the `AppInstance`
+                  description: The ID of the app instance
                 name:
                   type: string
-                  description: The name of the `AppInstance`
+                  description: The name of the app instance
                 label:
                   type: string
-                  description: The user-facing display name of the `AppInstance`
+                  description: The user-facing display name of the app instance
                 signOnMode:
                   type: string
-                  description: The configured sign-on mode for the `AppInstance`
+                  description: The configured sign-on mode for the app instance
                   example: SAML_1_1
+                emOptInStatus:
+                  type: string
+                  description: The entitlement management opt-in status for the app instance
+                  readOnly: true
+                  enum:
+                    - DISABLED
+                    - DISABLING
+                    - ENABLED
+                    - ENABLING
+                    - NONE
+                  x-enumDescriptions:
+                    DISABLED: Entitlement management for the app is disabled.
+                    DISABLING: Entitlement management for the app was enabled and is now being disabled.
+                    ENABLED: Entitlement management for the app is enabled.
+                    ENABLING: Entitlement management for the app was disabled and is now being enabled.
         _links:
-          description: '[Discoverable resources](/openapi/okta-management/management/group/listgroups#group/listgroups/t=response&c=200&path=_links/source) related to the group'
+          description: '[Discoverable resources](/openapi/okta-management/management/tags/group/other/listgroups#group/listgroups/t=response&c=200&path=_links/source) related to the group'
           allOf:
             - $ref: '#/components/schemas/LinksSelf'
             - properties:
@@ -72093,7 +73146,7 @@ components:
                   $ref: '#/components/schemas/HrefObject'
     GroupAssignmentProfile:
       description: |-
-        Specifies the profile properties applied to [application users](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/applicationusers) that are assigned to the app through group membership. 
+        Specifies the profile properties applied to [application users](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/applicationusers) that are assigned to the app through group membership.
         Some reference properties are imported from the target app and can't be configured. See [profile](https://developer.okta.com/docs/api/openapi/okta-management/management/user/getuser#user/getuser/t=response&c=200&path=profile).
       additionalProperties: true
       type: object
@@ -72676,7 +73729,7 @@ components:
     HookKey:
       title: HookKeyInstance
       description: |-
-        The `id` property in the response as `id` serves as the unique ID for the key, which you can specify when invoking other CRUD operations. 
+        The `id` property in the response as `id` serves as the unique ID for the key, which you can specify when invoking other CRUD operations.
 
         The `keyId` provided in the response is the alias of the public key that you can use to get details of the public key data in a separate call.
       type: object
@@ -73158,6 +74211,7 @@ components:
         - HEXTECH_PROXY
         - HIDEME_VPN
         - HIDE_MY_ASS_VPN
+        - HIGH_RISK_PROXIES
         - HITUN_VPN
         - HOTSPOT_VPN
         - IBOSS_VPN
@@ -73415,7 +74469,7 @@ components:
               type: string
               description: ID for ID proofing entity
     IdTokenKeyEncryptionAlgorithm:
-      description: JWE alg algorithm for encrypting the ID token issued to this client. If this is requested, the response is signed, and then encrypted with the result being a nested JWT. The default, if omitted, is that no encryption is performed. See the [Application Public Keys API](/openapi/okta-management/management/applicationssopublickeys/) for more information on encryption keys. See [Key management](https://developer.okta.com/docs/guides/key-management/main/) for more information on how encryption keys are used.
+      description: JWE alg algorithm for encrypting the ID token issued to this client. If this is requested, the response is signed, and then encrypted with the result being a nested JWT. The default, if omitted, is that no encryption is performed. See the [Application Public Keys API](/openapi/okta-management/management/tags/applicationssopublickeys) for more information on encryption keys. See [Key management](https://developer.okta.com/docs/guides/key-management/main/) for more information on how encryption keys are used.
       x-okta-lifecycle:
         lifecycle: GA
         isGenerallyAvailable: true
@@ -73428,6 +74482,20 @@ components:
       x-okta-ignore-redocly-rules-for-sdk: true
       type: object
       properties:
+        capabilities:
+          type: array
+          x-okta-lifecycle:
+            lifecycle: LIMITED_GA
+            isGenerallyAvailable: false
+            SKUs: []
+          description: |-
+            <x-lifecycle-container><x-lifecycle class="oie"></x-lifecycle></x-lifecycle-container>The capabilities of an OIDC IdP. This array is only supported for `OIDC` IdPs.
+            * Set `capabilities` to `["XAA"]` for an IdP that only issues Identity Assertion JWT Authorization Grants (ID-JAGs) for Cross App Access (XAA). With `["XAA"]`, `protocol.endpoints.authorization`, `protocol.endpoints.token`, and `protocol.credentials.client.client_secret` aren't required. `protocol.issuer` and `protocol.endpoints.jwks` are still required.
+            * Set `capabilities` to `["SSO", "XAA"]` for an IdP that signs users in to Okta and also issues ID-JAGs for XAA. All the standard OIDC IdP properties are required.
+             Setting `capabilities` doesn't enable XAA for the IdP. To accept ID-JAGs from the IdP, set its IdP usage to **Cross App Access only** or **SSO and Cross App Access** in the Admin Console.
+             You can't set `capabilities` to `["XAA"]` on an IdP whose IdP usage includes SSO or factor authentication.
+          items:
+            $ref: '#/components/schemas/IdentityProviderCapability'
         created:
           $ref: '#/components/schemas/Created'
         id:
@@ -73527,7 +74595,7 @@ components:
         profile:
           type: object
           description: |-
-            IdP-specific profile for the user. 
+            IdP-specific profile for the user.
 
             IdP user profiles are IdP-specific but may be customized by the Profile Editor in the Admin Console.
 
@@ -73575,6 +74643,19 @@ components:
                     href: https://{yourOktaDomain}/api/v1/users/00ulwodIu7wCfdiVR0g3
                   allOf:
                     - $ref: '#/components/schemas/HrefObject'
+    IdentityProviderCapability:
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs: []
+      description: <x-lifecycle-container><x-lifecycle class="oie"></x-lifecycle></x-lifecycle-container>Capability that the IdP is used for.
+      type: string
+      x-enumDescriptions:
+        SSO: The IdP signs users in to Okta. `protocol.endpoints.authorization`, `protocol.endpoints.token`, and `protocol.credentials.client.client_secret` are required.
+        XAA: The IdP only issues ID-JAGs for XAA. Okta doesn't sign users in through the IdP, so `protocol.endpoints.authorization`, `protocol.endpoints.token`, and `protocol.credentials.client.client_secret` aren't required in the IdP configuration.
+      x-okta-known-values:
+        - SSO
+        - XAA
     IdentityProviderIssuerMode:
       description: Indicates whether Okta uses the original Okta org domain URL or a custom domain URL in the request to the social IdP
       default: DYNAMIC
@@ -73670,7 +74751,7 @@ components:
           description: |-
             Enables attribute synchronization from the X.509 certificate to the user's Okta profile. If it's set to `true`, Okta overwrites user profile attributes with values found in the X.509 certificate. Applies to `X509` IdP type.
 
-            > **Note:** Some attributes are restricted and won't be updated, including `login`, `email`, `secondEmail`, and configured attributes that are used in multiple identifiers. 
+            > **Note:** Some attributes are restricted and won't be updated, including `login`, `email`, `secondEmail`, and configured attributes that are used in multiple identifiers.
           default: false
         ialValue:
           type: string
@@ -73679,30 +74760,16 @@ components:
             The [type of identity verification](https://developers.login.gov/oidc/#ial-values) (IAL) value for the Login.gov IdP.
             See [Add a Login.gov IdP](https://developer.okta.com/docs/guides/add-logingov-idp/). Applies to `LOGINGOV` and `LOGINGOV_SANDBOX` IdP types.
         idvMetadata:
-          type: object
-          description: Metadata about the IDV vendor. Available for `IDV_STANDARD` IdPs and IDV vendors that are published through the Okta Integration Network (OIN).
-          properties:
-            vendorDisplayName:
-              type: string
-              description: The display name of the IDV vendor
-            termsOfUse:
-              type: string
-              description: A URL that links to the terms of use for the IDV vendor
-            privacyPolicy:
-              type: string
-              description: A URL that links to the privacy policy for the IDV vendor
-            configUrl:
-              type: string
-              description: A URL that links to the IDV vendor's own setup or configuration guide
+          $ref: '#/components/schemas/IdvMetadata'
         inquiryTemplateId:
           type: string
           description: The ID of the inquiry template from your Persona dashboard. The inquiry template always starts with `itmpl`. Applies to the legacy `IDV_PERSONA` IdP type.
           example: itmpl_HSctx8fNvXoHtrQfz2hxUVH8RBjG
     IdentityProviderType:
       description: |-
-        The IdP object's `type` property identifies the social or enterprise IdP used for authentication. 
-        Each IdP uses a specific protocol, therefore the `protocol` object must correspond with the IdP `type`. 
-        If the protocol is OAuth 2.0-based, the `protocol` object's `scopes` property must also correspond with the scopes supported by the IdP `type`. 
+        The IdP object's `type` property identifies the social or enterprise IdP used for authentication.
+        Each IdP uses a specific protocol, therefore the `protocol` object must correspond with the IdP `type`.
+        If the protocol is OAuth 2.0-based, the `protocol` object's `scopes` property must also correspond with the scopes supported by the IdP `type`.
         For policy actions supported by each IdP type, see [IdP type policy actions](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/IdentityProvider/#tag/IdentityProvider/operation/createIdentityProvider!path=policy&t=request).
 
         IDV vendors published through the [Okta Integration Network](https://developer.okta.com/docs/guides/submit-oin-app/xidv/main/) (OIN) use a `type` value that matches the integration's OIN app name. This value is assigned when the integration is submitted and is unique for every vendor. These integrations otherwise follow the same general request and response format as `IDV_CLEAR`, `IDV_INCODE`, and `IDV_STANDARD`.
@@ -74067,6 +75134,22 @@ components:
       x-okta-known-values:
         - DYNAMIC
         - SPECIFIC
+    IdvMetadata:
+      description: Metadata about the IDV vendor. Available for `IDV_STANDARD` IdPs and IDV vendors that are published through the Okta Integration Network (OIN).
+      type: object
+      properties:
+        configUrl:
+          type: string
+          description: A URL that links to the IDV vendor's own setup or configuration guide
+        privacyPolicy:
+          type: string
+          description: A URL that links to the privacy policy for the IDV vendor
+        termsOfUse:
+          type: string
+          description: A URL that links to the terms of use for the IDV vendor
+        vendorDisplayName:
+          type: string
+          description: The display name of the IDV vendor
     IframeEmbedScopeAllowedApps:
       type: string
       x-okta-known-values:
@@ -74077,6 +75160,243 @@ components:
         url:
           readOnly: true
           type: string
+    ImportRoadblock:
+      description: A safeguard that paused user imports because an import would unassign an unusually large share of users
+      type: object
+      properties:
+        affectedApps:
+          type: array
+          description: |-
+            The apps whose assignments the import would remove, each checked against its own app-level threshold. Only returned for app-level roadblocks (`type` is `GROUP_DELETE` or `GROUP_UPDATE` and the threshold crossed is an app-level one).
+
+            These are the apps that lose assignments, not the app instance whose import triggered the roadblock (`appInstanceId`). For example, deleting a group in an Active Directory source removes the assignments that the group grants to other apps.
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/ImportRoadblockAffectedApp'
+        appInstanceId:
+          type: string
+          description: ID of the app instance whose import triggered the roadblock (the import source)
+          readOnly: true
+          example: 0oa1jjjMMxjniJIG00g4
+        appInstanceLabel:
+          type: string
+          description: Label of the app instance
+          readOnly: true
+        appName:
+          type: string
+          description: Key name of the app, for example, `active_directory`
+          readOnly: true
+          example: active_directory
+        assignments:
+          type: integer
+          description: Number of app assignments in the org used as the denominator for `unassignmentPercentage`. Only returned for org-level roadblocks.
+          readOnly: true
+        created:
+          type: string
+          format: date-time
+          description: Timestamp when the roadblock was created
+          readOnly: true
+        entitlementChanges:
+          $ref: '#/components/schemas/ImportRoadblockEntitlementChanges'
+        entitlementSettings:
+          $ref: '#/components/schemas/ImportRoadblockEntitlementSettings'
+        id:
+          type: string
+          description: Unique identifier for the roadblock
+          readOnly: true
+          example: orb4qhlsdFLq8KO5s0g4
+        pauseScope:
+          type: string
+          description: |-
+            Indicates which user imports the roadblock pauses:
+
+            * `ORG`: Every user import in the org is paused.
+            * `APP_INSTANCE`: Only the user imports of this app instance are paused.
+          readOnly: true
+          enum:
+            - ORG
+            - APP_INSTANCE
+        reason:
+          type: string
+          description: A human-readable message that describes why the roadblock was created, in the org's language. Use it for display only. Don't parse it; use `type` and the count fields instead.
+          readOnly: true
+        status:
+          type: string
+          description: Status of the roadblock
+          readOnly: true
+          enum:
+            - ACTIVE
+            - INACTIVE
+        type:
+          type: string
+          description: The safeguard that triggered the roadblock
+          readOnly: true
+          enum:
+            - GROUP_DELETE
+            - GROUP_UPDATE
+            - USER_DELETE
+            - ENTITLEMENT_VALUE_CHANGE
+            - ENTITLEMENT_SCHEMA_CHANGE
+        unassignmentPercentage:
+          type: number
+          description: The share of app assignments in the org that the import would remove (`unassignments` / `assignments` × 100). Only returned for org-level roadblocks.
+          readOnly: true
+        unassignments:
+          type: integer
+          description: Number of app assignments in the org that the import would remove. Only returned for org-level roadblocks (`pauseScope` is `ORG` and `type` is `USER_DELETE`, `GROUP_DELETE`, or `GROUP_UPDATE`).
+          readOnly: true
+      required:
+        - id
+        - status
+        - type
+        - pauseScope
+        - appInstanceId
+        - created
+    ImportRoadblockAction:
+      description: An action to apply to the active import roadblock of an app instance
+      type: object
+      properties:
+        action:
+          type: string
+          description: |-
+            The action to apply:
+
+            * `RESTART`: Restarts the import that triggered the roadblock, bypassing the roadblock safeguard for that import.
+            * `CANCEL`: Cancels the import that triggered the roadblock and resumes the user imports paused by that roadblock. The resumed imports run with the roadblock thresholds still enforced: no safeguard is skipped.
+          enum:
+            - RESTART
+            - CANCEL
+        appInstanceId:
+          type: string
+          description: ID of the app instance whose roadblock to act on
+          example: 0oa1jjjMMxjniJIG00g4
+      required:
+        - appInstanceId
+        - action
+    ImportRoadblockAffectedApp:
+      description: An app whose assignments the import would remove
+      type: object
+      properties:
+        appInstanceId:
+          type: string
+          description: ID of the app instance that would lose assignments
+          readOnly: true
+        appInstanceLabel:
+          type: string
+          description: Label of the app instance that would lose assignments
+          readOnly: true
+        assignments:
+          type: integer
+          description: Number of assignments to this app used as the denominator for `unassignmentPercentage`
+          readOnly: true
+        threshold:
+          type: integer
+          description: The app-level percentage threshold that this app crossed
+          readOnly: true
+        unassignmentPercentage:
+          type: number
+          description: The share of assignments to this app that the import would remove (`unassignments` / `assignments` × 100)
+          readOnly: true
+        unassignments:
+          type: integer
+          description: Number of assignments to this app that the import would remove
+          readOnly: true
+    ImportRoadblockEntitlementChanges:
+      description: The entitlement changes that the import would apply. Only returned for `ENTITLEMENT_VALUE_CHANGE` roadblocks.
+      type: object
+      properties:
+        absoluteThreshold:
+          type: integer
+          description: The absolute threshold (number of users) in effect when the roadblock was created. Only returned when the absolute threshold is enabled.
+        changedUsers:
+          type: integer
+          description: Number of users whose entitlements the import would change or remove (`modifiedUsers` + `deletedUsers`). Compared with `absoluteThreshold`.
+        changePercentage:
+          type: number
+          description: The share of users whose entitlements the import would change or remove (`changedUsers` / `totalUsers` × 100). Compared with `percentageThreshold`.
+        deletedUsers:
+          type: integer
+          description: Number of users whose entitlements the import would remove because they're no longer in the source
+        modifiedUsers:
+          type: integer
+          description: Number of users whose entitlements the import would change
+        percentageThreshold:
+          type: number
+          description: The percentage threshold in effect when the roadblock was created. Only returned when the percentage threshold is enabled.
+        thresholdType:
+          type: string
+          description: The threshold that the import crossed. If both thresholds were crossed, `PERCENTAGE` is returned.
+          enum:
+            - PERCENTAGE
+            - ABSOLUTE
+        totalUsers:
+          type: integer
+          description: Number of users with entitlements before the import (the baseline). Used as the denominator for `changePercentage`.
+      readOnly: true
+    ImportRoadblockEntitlementSettings:
+      description: The entitlement safeguard settings of the app instance. Only returned for entitlement roadblocks (`ENTITLEMENT_VALUE_CHANGE` and `ENTITLEMENT_SCHEMA_CHANGE`).
+      type: object
+      properties:
+        entitlementRoadblock:
+          description: Thresholds that create a roadblock when an import changes the entitlements of too many users. A roadblock is created when any enabled threshold is crossed.
+          type: object
+          readOnly: true
+          properties:
+            enabled:
+              type: boolean
+              description: Indicates whether the entitlement roadblock is enabled for the app instance
+            percentageThreshold:
+              $ref: '#/components/schemas/ImportRoadblockEntitlementThreshold'
+            absoluteThreshold:
+              $ref: '#/components/schemas/ImportRoadblockEntitlementThreshold'
+            baselineCaptured:
+              type: boolean
+              description: Indicates whether an entitlement baseline has been captured for the app instance. Changes are only measured against a baseline.
+        entitlementSchemaLock:
+          description: Lock on the entitlement schema of the app instance that prevents schema changes
+          type: object
+          readOnly: true
+          properties:
+            locked:
+              type: boolean
+              description: Indicates whether the entitlement schema is locked
+            lockedAt:
+              type: string
+              format: date-time
+              description: Timestamp when the entitlement schema was locked
+            lockedBy:
+              type: string
+              description: ID of the user who locked the entitlement schema
+      readOnly: true
+    ImportRoadblockEntitlementThreshold:
+      description: An entitlement roadblock threshold. For `percentageThreshold` the values are percentages of users; for `absoluteThreshold` they're numbers of users.
+      type: object
+      properties:
+        enabled:
+          type: boolean
+          description: Indicates whether this threshold is enforced
+        orgDefault:
+          type: number
+          description: The org-level default for this threshold
+        value:
+          type: number
+          description: The threshold set for the app instance. `-1` means the app instance uses `orgDefault`.
+          minimum: -1
+      readOnly: true
+    ImportRoadblocks:
+      description: The import roadblock state for your org
+      type: object
+      properties:
+        importJobSuspended:
+          type: boolean
+          description: Indicates whether any user import in the org is currently paused by a roadblock. When the request filters by `appInstanceId`, indicates whether that app instance's user imports are paused.
+          readOnly: true
+        roadblocks:
+          type: array
+          description: The import roadblocks that match the request
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/ImportRoadblock'
     ImportScheduleObject:
       x-okta-ignore-redocly-rules-for-sdk: true
       description: Import schedule configuration
@@ -74881,7 +76201,7 @@ components:
       properties:
         activate:
           allOf:
-            - description: Activates an enrolled factor. See [Activate a factor](/openapi/okta-management/management/userfactor/activatefactor).
+            - description: Activates an enrolled factor. See [Activate a factor](/openapi/okta-management/management/tags/userfactor/other/activatefactor).
             - $ref: '#/components/schemas/HrefObject'
       readOnly: true
     LinksAerialConsentGranted:
@@ -74921,7 +76241,7 @@ components:
       properties:
         authenticator:
           allOf:
-            - description: Returns information about a specific authenticator. See [Retrieve an authenticator](/openapi/okta-management/management/authenticator/getauthenticator).
+            - description: Returns information about a specific authenticator. See [Retrieve an authenticator](/openapi/okta-management/management/tags/authenticator/other/getauthenticator).
             - $ref: '#/components/schemas/HrefObject'
       readOnly: true
     LinksCancel:
@@ -74953,7 +76273,7 @@ components:
       properties:
         deactivate:
           allOf:
-            - description: Deactivates the factor. See [Unenroll a factor](/openapi/okta-management/management/userfactor/unenrollfactor).
+            - description: Deactivates the factor. See [Unenroll a factor](/openapi/okta-management/management/tags/userfactor/other/unenrollfactor).
             - $ref: '#/components/schemas/HrefObject'
       readOnly: true
     LinksEnroll:
@@ -74962,7 +76282,7 @@ components:
       properties:
         enroll:
           allOf:
-            - description: Enrolls a supported factor. See [Enroll a factor](/openapi/okta-management/management/userfactor/enrollfactor).
+            - description: Enrolls a supported factor. See [Enroll a factor](/openapi/okta-management/management/tags/userfactor/other/enrollfactor).
             - $ref: '#/components/schemas/HrefObject'
       readOnly: true
     LinksFactor:
@@ -75031,7 +76351,7 @@ components:
       properties:
         question:
           allOf:
-            - description: Lists all supported security questions. See [List all supported security questions](/openapi/okta-management/management/userfactor/listsupportedsecurityquestions).
+            - description: Lists all supported security questions. See [List all supported security questions](/openapi/okta-management/management/tags/userfactor/other/listsupportedsecurityquestions).
             - $ref: '#/components/schemas/HrefObject'
       readOnly: true
     LinksResend:
@@ -75040,7 +76360,7 @@ components:
       properties:
         resend:
           allOf:
-            - description: Resends the factor enrollment challenge. See [Resend a factor enrollment](/openapi/okta-management/management/userfactor/resendenrollfactor).
+            - description: Resends the factor enrollment challenge. See [Resend a factor enrollment](/openapi/okta-management/management/tags/userfactor/other/resendenrollfactor).
             - $ref: '#/components/schemas/HrefObject'
       readOnly: true
     LinksSelf:
@@ -75130,7 +76450,7 @@ components:
       properties:
         verify:
           allOf:
-            - description: Verifies the factor resource. See [Verify a factor](/openapi/okta-management/management/userfactor/verifyfactor).
+            - description: Verifies the factor resource. See [Verify a factor](/openapi/okta-management/management/tags/userfactor/other/verifyfactor).
             - $ref: '#/components/schemas/HrefObject'
       readOnly: true
     ListProfileMappings:
@@ -76148,7 +77468,7 @@ components:
       x-okta-ignore-redocly-rules-for-sdk: true
       allOf:
         - $ref: '#/components/schemas/HrefObject'
-        - description: Link to the [SAML metadata](/openapi/okta-management/management/applicationsso/previewsamlmetadataforapplication) for SSO
+        - description: Link to the [SAML metadata](/openapi/okta-management/management/tags/applicationsso/other/previewsamlmetadataforapplication) for SSO
     MtlsCredentials:
       description: Certificate chain description for verifying assertions from the Smart Card
       type: object
@@ -78377,7 +79697,7 @@ components:
           example: AD Integrations Admin
         oktaUserId:
           description: |-
-            The ID of the Okta user to manage as a service account. 
+            The ID of the Okta user to manage as a service account.
             This must be an existing user in your Okta org.
           type: string
           minLength: 20
@@ -78802,7 +80122,7 @@ components:
 
         * [prompt](/openapi/okta-oauth/oauth/orgas/authorize#orgas/authorize/t=request&in=query&path=prompt): A query parameter that is used in requests to `/authorize`
         * `consent_method` (this property)
-        * [consent](/openapi/okta-management/management/authorizationserverscopes/createoauth2scope#authorizationserverscopes/createoauth2scope/t=request&path=consent): A [Scope](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/AuthorizationServerScopes/) property that allows you to enable or disable user consent for an individual scope
+        * [consent](/openapi/okta-management/management/tags/authorizationserverscopes/other/createoauth2scope#authorizationserverscopes/createoauth2scope/t=request&path=consent): A [Scope](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/AuthorizationServerScopes/) property that allows you to enable or disable user consent for an individual scope
 
         | `prompt` | `consent_method` | `consent` | Result
         | ---------- | ----------- | ---------- | ----------- |
@@ -79086,7 +80406,7 @@ components:
         - rotation_type
     OpenIdConnectApplicationType:
       description: |-
-        The type of client app     
+        The type of client app
         Specific `grant_types` are valid for each `application_type`. See [Create a Client Application](/openapi/okta-oauth/oauth/client/createclient).
       type: string
       x-enumDescriptions:
@@ -79410,7 +80730,7 @@ components:
           type: object
           description: |-
             Specifies the profile attributes for the first super admin user. The minimal set of required attributes are `email`, `firstName`, `lastName`, and `login`.
-            See [profile](/openapi/okta-management/management/user/getuser#user/getuser/t=response&c=200&path=profile) for additional profile attributes.
+            See [profile](/openapi/okta-management/management/tags/user/other/getuser#user/getuser/t=response&c=200&path=profile) for additional profile attributes.
           properties:
             firstName:
               type: string
@@ -79848,7 +81168,7 @@ components:
         - SHA-256
         - SHA-512
     PasswordCredentialHook:
-      description: Specify a [password import inline hook](/openapi/okta-management/management/tags/inlinehook/createpasswordimportinlinehook) to trigger verification of the user's password the first time the user signs in. This allows an existing password to be imported into Okta directly from some other store.
+      description: Specify a [password import inline hook](/openapi/okta-management/management/tags/inlinehook/webhooks/createpasswordimportinlinehook) to trigger verification of the user's password the first time the user signs in. This allows an existing password to be imported into Okta directly from some other store.
       type: object
       properties:
         type:
@@ -80362,15 +81682,17 @@ components:
           type: object
           description: Exclude attributes with specific values for the permission
           additionalProperties:
-            type: object
-            properties: {}
+            type: array
+            items:
+              type: string
           nullable: true
         include:
           type: object
           description: Include attributes with specific values for the permission
           additionalProperties:
-            type: object
-            properties: {}
+            type: array
+            items:
+              type: string
           nullable: true
     Permissions:
       description: Permissions assigned to the role
@@ -80744,14 +82066,15 @@ components:
       properties:
         resourceId:
           type: string
-          description: '[Policy ID](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/policy/#tag/Policy/operation/listPolicies!c=200&path=0/id&t=response) of the app sign-in policy that you want to map'
+          description: '[Policy ID](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/policy/#tag/Policy/operation/listPolicies!c=200&path=0/id&t=response) of the policy that you want to map. Use the self-service registration policy ID when mapping to a `PROFILE_ENROLLMENT` resource type.'
         resourceType:
           $ref: '#/components/schemas/PolicyMappingResourceType'
     PolicyMappingResourceType:
-      description: Specifies the type of resource to map. You can only map an app sign-in policy to a device signal collection policy (the `policyId` path parameter).
+      description: Specifies the type of resource to map. Use `PROFILE_ENROLLMENT` to map a self-service registration policy to a profile enrollment policy.
       type: string
       x-okta-known-values:
         - ACCESS_POLICY
+        - PROFILE_ENROLLMENT
     PolicyNetworkCondition:
       description: Specifies a network selection mode. When `connection` is `ANYWHERE`, the rule applies regardless of network, and the `include` and `exclude` arrays aren't required. When `connection` is `ZONE`, use the `include` or `exclude` array to enumerate the specific zone IDs that the rule matches. At least one of the two arrays is required in that case.
       type: object
@@ -80933,6 +82256,7 @@ components:
         - SESSION_VIOLATION_DETECTION
         - CLIENT_UPDATE
         - USER_IDENTIFICATION
+        - SELF_SERVICE_REGISTRATION
     PolicyRuleVerificationMethodType:
       description: Verification method type
       type: string
@@ -80989,6 +82313,7 @@ components:
         SESSION_VIOLATION_DETECTION: <x-lifecycle class="oie"></x-lifecycle>(Read-only) Session violation detection policy
         CLIENT_UPDATE: <x-lifecycle class="oie"></x-lifecycle>(Read-only) Client update policy
         USER_IDENTIFICATION: <x-lifecycle class="oie"></x-lifecycle><x-lifecycle class="ea"></x-lifecycle>User Identification policy
+        SELF_SERVICE_REGISTRATION: <x-lifecycle class="oie"></x-lifecycle><x-lifecycle class="ea"></x-lifecycle>Self-service registration policy
       x-okta-known-values:
         - ACCESS_POLICY
         - ENTITY_RISK
@@ -81001,6 +82326,7 @@ components:
         - SESSION_VIOLATION_DETECTION
         - CLIENT_UPDATE
         - USER_IDENTIFICATION
+        - SELF_SERVICE_REGISTRATION
     PolicyTypeSimulation:
       type: string
       x-okta-known-values:
@@ -81286,8 +82612,7 @@ components:
             serialNumber:
               type: string
               description: Serial number of the failing entry
-              minLength: 10
-              maxLength: 128
+              maxLength: 127
     PreRegistrationInlineHook:
       type: object
       properties:
@@ -81643,7 +82968,7 @@ components:
       description: |-
         Indicates whether to update target properties for user create and update or just for user create.
 
-        - Having a pushStatus of `PUSH` causes properties in the target to be updated on create and update. 
+        - Having a pushStatus of `PUSH` causes properties in the target to be updated on create and update.
         - Having a pushStatus of `DONT_PUSH` causes properties in the target to be updated only on create.
       type: string
       x-okta-known-values:
@@ -82136,6 +83461,48 @@ components:
       properties:
         action:
           $ref: '#/components/schemas/ProvisioningSuspendedAction'
+    ProvisioningTaskAction:
+      description: Action to perform on a task. Only the actions listed in a task's `eligibleActions` can be performed on it. If you specify `taskIds` and a task doesn't allow the action, the request is rejected with a `400` error. If you specify `appInstanceIds`, only the tasks that allow the action are acted on. Tasks that no longer allow the action when the request is processed are skipped.
+      type: string
+      x-enumDescriptions:
+        RETRY: Retries the task.
+        RESOLVE: Marks the task as completed without retrying it.
+      x-okta-known-values:
+        - RESOLVE
+        - RETRY
+    ProvisioningTaskAssignmentType:
+      description: Type of assignment
+      type: string
+      x-enumDescriptions:
+        SINGLE: The task was created for an assignment made directly to the user.
+        BULK: The task was created for a bulk assignment.
+        GROUP: The task was created for an assignment made through a group.
+      x-okta-known-values:
+        - BULK
+        - GROUP
+        - SINGLE
+    ProvisioningTaskOutcome:
+      description: Outcome of the task
+      type: string
+      x-enumDescriptions:
+        PENDING: The task is queued or in progress. There's nothing for you to do.
+        FAILED: The task failed. Check `eligibleActions` for the actions that you can perform. The list can be empty.
+        MANUAL_ACTION_REQUIRED: The task is waiting for you to do the work manually. Check `eligibleActions` for the actions that you can perform, for example to mark the task as resolved.
+        COMPLETED: The task is complete.
+      x-okta-known-values:
+        - COMPLETED
+        - FAILED
+        - MANUAL_ACTION_REQUIRED
+        - PENDING
+    ProvisioningTaskReason:
+      description: Reason for the outcome. Not returned when the task has no reason.
+      type: string
+      x-enumDescriptions:
+        DATA_INVALID: The data failed validation. Fix the data, because retrying alone doesn't help.
+        TARGET_APP_ERROR: The target app returned an error. Retry the task.
+      x-okta-known-values:
+        - DATA_INVALID
+        - TARGET_APP_ERROR
     ProximityProvider:
       title: ProximityProvider
       type: object
@@ -82307,7 +83674,7 @@ components:
         types:
           type: array
           description: |
-            App type categorization tags used by the Apps list page facets. Values align with the [`/apps/types`](/openapi/okta-management/management/tag/Application/#tag/Application/operation/listAppTypeUsage) taxonomy (for example, `SAML`, `OIDC`, `PROVISIONING`, `UNIVERSAL_LOGOUT`). Multi-valued because an app can belong to several buckets.
+            App type categorization tags used by the Apps list page facets. Values align with the [`/apps/types`](/openapi/okta-management/management/tags/application#tag/Application/operation/listAppTypeUsage) taxonomy (for example, `SAML`, `OIDC`, `PROVISIONING`, `UNIVERSAL_LOGOUT`). Multi-valued because an app can belong to several buckets.
           readOnly: true
           items:
             $ref: '#/components/schemas/AppInstanceSearchTypes'
@@ -84598,7 +85965,9 @@ components:
           description: CSS selector for the **Password** field in the sign-in form
         url:
           type: string
-          description: The URL of the sign-in page for this app
+          description: |-
+            The URL of the sign-in page for this app
+            > **Note:** Only users with the super admin role can modify this URL after it has been initially set.
         usernameField:
           type: string
           description: CSS selector for the **Username** field in the sign-in form
@@ -84976,6 +86345,92 @@ components:
           description: <x-lifecycle class="oie"></x-lifecycle> The type of rule action
           enum:
             - selfServicePasswordReset
+    SelfServiceRegistrationEmailDomainsCondition:
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs: []
+      description: <x-lifecycle-container><x-lifecycle class="oie"></x-lifecycle></x-lifecycle-container>Specifies email domain conditions for the rule
+      type: object
+      properties:
+        include:
+          type: array
+          description: List of email domain patterns to match. Only `ALL_SUSPICIOUS_EMAIL_DOMAINS` is supported.
+          items:
+            $ref: '#/components/schemas/SelfServiceRegistrationEmailDomainsValue'
+    SelfServiceRegistrationEmailDomainsValue:
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs: []
+      description: <x-lifecycle-container><x-lifecycle class="oie"></x-lifecycle></x-lifecycle-container>Email domain condition value
+      type: string
+      x-enumDescriptions:
+        ALL_SUSPICIOUS_EMAIL_DOMAINS: Matches registrations against Okta's list of known disposable email domains.
+      x-okta-known-values:
+        - ALL_SUSPICIOUS_EMAIL_DOMAINS
+    SelfServiceRegistrationPolicy:
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs: []
+      description: <x-lifecycle-container><x-lifecycle class="oie"></x-lifecycle></x-lifecycle-container>Represents a Self-service Registration Policy. Use this policy to control self-service registration attempts based on network zones and email domain checks. Use the [Map a resource to a policy](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/policy/other/mapresourcetopolicy) API to link this policy to a Profile Enrollment policy.
+      allOf:
+        - $ref: '#/components/schemas/Policy'
+        - type: object
+          properties:
+            conditions:
+              type: string
+              description: Policy conditions aren't supported for this policy type.
+              default: null
+              nullable: true
+    SelfServiceRegistrationPolicyRule:
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs: []
+      allOf:
+        - $ref: '#/components/schemas/PolicyRule'
+        - type: object
+          properties:
+            actions:
+              $ref: '#/components/schemas/SelfServiceRegistrationPolicyRuleActions'
+            conditions:
+              $ref: '#/components/schemas/SelfServiceRegistrationPolicyRuleConditions'
+    SelfServiceRegistrationPolicyRuleActions:
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs: []
+      description: <x-lifecycle-container><x-lifecycle class="oie"></x-lifecycle></x-lifecycle-container>Specifies actions to take when the rule conditions are satisfied
+      type: object
+      properties:
+        registration:
+          $ref: '#/components/schemas/SelfServiceRegistrationPolicyRuleRegistration'
+    SelfServiceRegistrationPolicyRuleConditions:
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs: []
+      description: <x-lifecycle-container><x-lifecycle class="oie"></x-lifecycle></x-lifecycle-container>Specifies conditions that must be met for this rule to apply. A maximum of 10 rules are supported per policy. A rule matches when all specified conditions are satisfied.
+      type: object
+      properties:
+        emailDomains:
+          $ref: '#/components/schemas/SelfServiceRegistrationEmailDomainsCondition'
+        network:
+          $ref: '#/components/schemas/PolicyNetworkCondition'
+    SelfServiceRegistrationPolicyRuleRegistration:
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs: []
+      description: <x-lifecycle-container><x-lifecycle class="oie"></x-lifecycle></x-lifecycle-container>Specifies whether to allow or deny the self-service registration attempt
+      type: object
+      properties:
+        access:
+          $ref: '#/components/schemas/PolicyAccess'
+      required:
+        - access
     ServiceAccount:
       type: object
       properties:
@@ -85376,6 +86831,8 @@ components:
           properties:
             contentSecurityPolicySetting:
               $ref: '#/components/schemas/ContentSecurityPolicySetting'
+            widgetConfiguration:
+              $ref: '#/components/schemas/WidgetConfiguration'
             widgetCustomizations:
               type: object
               properties:
@@ -85458,6 +86915,16 @@ components:
           properties:
             _embedded:
               type: object
+              properties:
+                widgetConfigurationSchema:
+                  type: string
+                  x-okta-lifecycle:
+                    lifecycle: LIMITED_GA
+                    isGenerallyAvailable: false
+                    SKUs:
+                      - Okta Identity Engine
+                  description: <x-lifecycle-container><x-lifecycle class="oie"></x-lifecycle></x-lifecycle-container>The schema used to validate `widgetConfiguration`. Returned as a JSON-serialized string (a JSON Schema document encoded as a string), not a JSON object, so clients must parse it to obtain the schema.
+                  example: '{"$schema":"http://json-schema.org/draft-07/schema#","type":"object","properties":{"logo":{"type":"string","pattern":"^https?://"}},"additionalProperties":false}'
               readOnly: true
     SignInPageTouchPointVariant:
       description: |
@@ -86296,6 +87763,100 @@ components:
         - passwordField
         - usernameField
         - url
+    SyncPasswordTask:
+      description: A sync password task
+      type: object
+      properties:
+        appInstanceId:
+          type: string
+          description: ID of the app instance the task belongs to
+          example: 0oa1abc123
+        appUserId:
+          type: string
+          description: ID of the user's assignment to the app instance
+          example: 0ua1abc123
+        createdDate:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Timestamp when the task was created
+        eligibleActions:
+          type: array
+          description: Actions that you can currently perform on the task. Empty when none are available. Use this list instead of working out the actions from `outcome`.
+          items:
+            $ref: '#/components/schemas/SyncPasswordTaskAction'
+        id:
+          type: string
+          readOnly: true
+          description: Unique identifier of the task
+          example: spt001abc
+        lastUpdatedDate:
+          type: string
+          format: date-time
+          readOnly: true
+          description: Timestamp when the task was last updated
+        outcome:
+          $ref: '#/components/schemas/SyncPasswordTaskOutcome'
+        userId:
+          type: string
+          description: ID of the user the task is for
+          example: 00u1abc123
+      required:
+        - id
+        - outcome
+        - eligibleActions
+        - userId
+        - appUserId
+        - appInstanceId
+        - createdDate
+        - lastUpdatedDate
+    SyncPasswordTaskAction:
+      description: Action to perform on a sync password task. Only the actions listed in a task's `eligibleActions` can be performed on it. If you specify `taskIds` and a task doesn't allow the action, the request is rejected with a `400` error. If you specify `appInstanceIds`, only the tasks that allow the action are acted on. Tasks that no longer allow the action when the request is processed are skipped.
+      type: string
+      x-enumDescriptions:
+        RETRY: Retries the task.
+      x-okta-known-values:
+        - RETRY
+    SyncPasswordTaskActionRequest:
+      additionalProperties: false
+      minProperties: 2
+      not:
+        required:
+          - taskIds
+          - appInstanceIds
+      description: Specify exactly one of `taskIds` or `appInstanceIds`.
+      type: object
+      properties:
+        action:
+          $ref: '#/components/schemas/SyncPasswordTaskAction'
+        appInstanceIds:
+          type: array
+          description: Acts on every currently eligible task across these app instances (maximum 10 by default)
+          maxItems: 10
+          items:
+            type: string
+          example:
+            - 0oa1abc123
+        taskIds:
+          type: array
+          description: Explicit IDs of the tasks to act on (maximum 50 by default)
+          maxItems: 50
+          items:
+            type: string
+          example:
+            - spt001abc
+            - spt002def
+      required:
+        - action
+    SyncPasswordTaskOutcome:
+      description: Outcome of the task
+      type: string
+      x-enumDescriptions:
+        PENDING: The task is queued or in progress. There's nothing for you to do.
+        MANUAL_ACTION_REQUIRED: The task is waiting for you to do the work manually. Check `eligibleActions` for the actions that you can perform.
+      x-okta-known-values:
+        - MANUAL_ACTION_REQUIRED
+        - PENDING
     TacAuthenticatorEnrollment:
       type: object
       properties:
@@ -86503,7 +88064,7 @@ components:
         excludeZones:
           type: array
           description: |-
-            Accepts a list of [Network Zone](/openapi/okta-management/management/networkzone/) IDs.
+            Accepts a list of [Network Zone](/openapi/okta-management/management/tags/networkzone) IDs.
             IPs in the excluded network zones aren't logged or blocked.
             This ensures that traffic from known, trusted IPs isn't accidentally logged or blocked.
           items:
@@ -86522,7 +88083,7 @@ components:
     TimeDuration:
       description: A time duration specified as an [ISO 8601 duration](https://en.wikipedia.org/wiki/ISO_8601#Durations).
       type: string
-      pattern: ^P(?:$)(\d+Y)?(\d+M)?(\d+W)?(\d+D)?(T(?:\d)(\d+H)?(\d+M)?(\d+S)?)?$
+      pattern: ^P(\d+Y)?(\d+M)?(\d+W)?(\d+D)?(T(\d+H)?(\d+M)?(\d+S)?)?$
     TokenAuthorizationServerPolicyRuleAction:
       type: object
       properties:
@@ -87477,7 +89038,7 @@ components:
           description: |-
             The status of the group push mapping.
 
-            If changing the group push mapping status to `ACTIVE`, Okta performs an initial push to the target group, and then begins pushing membership changes. 
+            If changing the group push mapping status to `ACTIVE`, Okta performs an initial push to the target group, and then begins pushing membership changes.
 
             If changing the group push mapping status to `INACTIVE`, Okta stops pushing membership changes to the target group.
           type: string
@@ -88866,6 +90427,24 @@ components:
             - ALWAYS
             - NEVER
           description: Controls whether to show the Sign in with Okta Verify button on the Sign-In Widget
+    UserIdentificationPasskeySettings:
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
+      description: <x-lifecycle-container><x-lifecycle class="oie"></x-lifecycle></x-lifecycle-container>Specifies the passkey user identification settings
+      type: object
+      properties:
+        showSignInButton:
+          type: string
+          enum:
+            - ALWAYS
+            - NEVER
+          description: |-
+            Controls whether to show the **Sign in with a passkey** button on the Sign-In Widget.
+
+            > **Note:** You can only set `showSignInButton` to `ALWAYS` when the Passkey (FIDO2 WebAuthn) authenticator is active.
     UserIdentificationPolicy:
       x-okta-lifecycle:
         lifecycle: LIMITED_GA
@@ -88942,6 +90521,8 @@ components:
       properties:
         fastpass:
           $ref: '#/components/schemas/UserIdentificationFastpassSettings'
+        passkey:
+          $ref: '#/components/schemas/UserIdentificationPasskeySettings'
     UserIdentificationSettings:
       x-okta-lifecycle:
         lifecycle: LIMITED_GA
@@ -89017,7 +90598,7 @@ components:
           properties:
             result:
               description: |-
-                The current default action that results when Okta imports a user. The two possible values are `CREATE_USER` and `LINK_USER`. You 
+                The current default action that results when Okta imports a user. The two possible values are `CREATE_USER` and `LINK_USER`. You
                 can change the action that is taken by means of the commands object you return.
               type: string
               enum:
@@ -89033,8 +90614,8 @@ components:
             profile:
               type: object
               description: |-
-                Provides the name-value pairs of the attributes contained in the app user profile of the user who is being imported. You can change 
-                the values of attributes in the user's app profile by means of the `commands` object you return. If you change attributes in the app 
+                Provides the name-value pairs of the attributes contained in the app user profile of the user who is being imported. You can change
+                the values of attributes in the user's app profile by means of the `commands` object you return. If you change attributes in the app
                 profile, they then flow through to the Okta user profile, based on matching and mapping rules.
               additionalProperties:
                 type: string
@@ -89091,7 +90672,7 @@ components:
         user:
           type: object
           description: |-
-            Provides information on the Okta user profile currently set to be used for the user who is being imported, based on the matching 
+            Provides information on the Okta user profile currently set to be used for the user who is being imported, based on the matching
             rules and attribute mappings that were applied.
           properties:
             profile:
@@ -89136,7 +90717,7 @@ components:
                   com.okta.user.update: Specify the existing Okta user that the imported user should be treated as a match of.
               value:
                 description: |-
-                  The `value` object is the parameter to pass to the command. In the case of the `com.okta.appUser.profile.update` and `com.okta.user.profile.update` commands, 
+                  The `value` object is the parameter to pass to the command. In the case of the `com.okta.appUser.profile.update` and `com.okta.user.profile.update` commands,
                   the parameter should be a list of one or more profile attributes and the values you wish to set them to. In the case of the `com.okta.action.update` command,
                   the parameter should be a `result` property set to either `CREATE_USER` or `LINK_USER`.
                 type: object
@@ -89144,7 +90725,7 @@ components:
                   type: string
         error:
           description: |-
-            An object to return an error. Returning an error causes Okta to record a failure event in the Okta System Log. 
+            An object to return an error. Returning an error causes Okta to record a failure event in the Okta System Log.
             The string supplied in the `errorSummary` property is recorded in the System Log event.
 
             >**Note:** If a response to an import inline hook request is not received from your external service within three seconds, a timeout occurs. In this scenario, the Okta import process continues and the user is created.
@@ -89920,7 +91501,7 @@ components:
       description: |-
         All custom profile properties are defined in a profile subschema with the resolution scope `#custom`.
 
-        > **Notes:** 
+        > **Notes:**
         > * When you refer to custom profile attributes that differ only by case, name collisions occur. This includes naming custom profile attributes the same as base profile attributes, for example, `firstName` and `FirstName`.
         > * Certain attributes are reserved and can't be used for custom user profiles. See [Review reserved attributes](https://help.okta.com/okta_help.htm?type=oie&id=reserved-attributes).
       type: object
@@ -90109,7 +91690,7 @@ components:
       x-okta-ignore-redocly-rules-for-sdk: true
       allOf:
         - $ref: '#/components/schemas/HrefObject'
-        - description: Link to the [Application Users](/openapi/okta-management/management/applicationusers#tag/ApplicationUsers/operation/listApplicationUsers) resource
+        - description: Link to the [Application Users](/openapi/okta-management/management/tags/applicationusers#tag/ApplicationUsers/operation/listApplicationUsers) resource
     UsersUpdateRequestSchema:
       type: object
       properties:
@@ -90286,7 +91867,10 @@ components:
         isGenerallyAvailable: true
       type: boolean
     WebAuthnSettingResidentKeyRequirement:
-      description: Resident key requirement setting. Okta recommends using only `REQUIRED` or `DISCOURAGED` to make the requirement preference explicit. Using `PREFERRED` can sometimes lead to unpredictable behavior depending on the client platform and authenticator capabilities.
+      description: |-
+        Resident key requirement setting. Okta recommends using only `REQUIRED` or `DISCOURAGED` to make the requirement preference explicit. Using `PREFERRED` can sometimes lead to unpredictable behavior depending on the client platform and authenticator capabilities.
+
+        > **Note:** You can't set `residentKeyRequirement` to `DISCOURAGED` while any user identification policy rule has [`passkey.showSignInButton`](https://developer.okta.com/docs/api/openapi/okta-management/management/tags/policy/other/createpolicyrule#other/createpolicyrule/t=request&path=&d=12/actions/useridentification/settings/securitymethods/passkey/showsigninbutton) set to `ALWAYS`.
       default: REQUIRED
       x-okta-lifecycle:
         lifecycle: GA
@@ -90498,6 +92082,147 @@ components:
                   $ref: '#/components/schemas/HrefObject'
                 webauthn:
                   $ref: '#/components/schemas/HrefObject'
+    WidgetConfiguration:
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
+      description: <x-lifecycle-container><x-lifecycle class="oie"></x-lifecycle></x-lifecycle-container>The Sign-In Widget configuration object containing branding, features, theme tokens, and other customization settings.
+      additionalProperties: false
+      type: object
+      properties:
+        brandColors:
+          type: object
+          description: Brand color used to generate the widget's color palette
+          properties:
+            primaryColor:
+              type: string
+              description: Primary brand color (hex value, e.g. "#1662dd")
+          additionalProperties: false
+        brandName:
+          type: string
+          description: Brand name displayed on the widget
+        features:
+          type: object
+          properties:
+            router:
+              type: boolean
+            securityImage:
+              type: boolean
+            rememberMe:
+              type: boolean
+            autoPush:
+              type: boolean
+            smsRecovery:
+              type: boolean
+            callRecovery:
+              type: boolean
+            emailRecovery:
+              type: boolean
+            webauthn:
+              type: boolean
+            selfServiceUnlock:
+              type: boolean
+            multiOptionalFactorEnroll:
+              type: boolean
+            deviceFingerprinting:
+              type: boolean
+            hideSignOutLinkInMFA:
+              type: boolean
+            hideBackToSignInForReset:
+              type: boolean
+            customExpiredPassword:
+              type: boolean
+            registration:
+              type: boolean
+            idpDiscovery:
+              type: boolean
+            passwordlessAuth:
+              type: boolean
+            showPasswordToggleOnSignInPage:
+              type: boolean
+            trackTypingPattern:
+              type: boolean
+            redirectByFormSubmit:
+              type: boolean
+            sameDeviceOVEnrollmentEnabled:
+              type: boolean
+            useDeviceFingerprintForSecurityImage:
+              type: boolean
+            showPasswordRequirementsAsHtmlList:
+              type: boolean
+            mfaOnlyFlow:
+              type: boolean
+          additionalProperties: false
+        helpLinks:
+          type: object
+          properties:
+            help:
+              type: string
+              pattern: ^https?://
+            forgotPassword:
+              type: string
+              pattern: ^https?://
+            factorPage:
+              type: object
+              properties:
+                text:
+                  type: string
+                href:
+                  type: string
+                  pattern: ^https?://
+                target:
+                  type: string
+              required:
+                - text
+                - href
+              additionalProperties: false
+            unlock:
+              type: string
+              pattern: ^https?://
+            custom:
+              type: array
+              items:
+                type: object
+                properties:
+                  text:
+                    type: string
+                  href:
+                    type: string
+                    pattern: ^https?://
+                  target:
+                    type: string
+                required:
+                  - text
+                  - href
+                additionalProperties: false
+          additionalProperties: false
+        helpSupportNumber:
+          type: string
+          description: Support phone number displayed on the widget
+        i18n:
+          $ref: '#/components/schemas/WidgetConfigurationI18n'
+        language:
+          type: string
+          description: Language code for the widget
+        logo:
+          type: string
+          pattern: ^https?://
+          description: URL for the logo displayed on the Sign-In Widget
+        logoText:
+          type: string
+          description: Alt text for the logo
+        signOutLink:
+          type: string
+          pattern: ^https?://
+          description: Custom sign-out URL
+        theme:
+          type: object
+          properties:
+            tokens:
+              $ref: '#/components/schemas/WidgetConfigurationThemeTokens'
+          additionalProperties: false
     WidgetConfigurationI18n:
       description: Internationalization overrides. Keys are locale codes (e.g. "en", "ja", "fr"), values are objects mapping i18n keys to string overrides. Override values can't contain `<` or `>` characters.
       additionalProperties:
@@ -90999,6 +92724,19 @@ components:
           example:
             - documents.read
             - messages.read
+    XaaSupportedIdentityProviderType:
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs: []
+      description: <x-lifecycle-container><x-lifecycle class="oie"></x-lifecycle></x-lifecycle-container>Specifies which IdPs that the rule applies to for XAA
+      type: string
+      x-enumDescriptions:
+        ANY: The rule accepts an ID-JAG from any IdP that's configured for XAA.
+        SPECIFIC_IDP: The rule accepts an ID-JAG only from the IdPs listed in `idpIds`. Each IdP must be configured for XAA.
+      x-okta-known-values:
+        - ANY
+        - SPECIFIC_IDP
     ZoomUsApplication:
       x-okta-ignore-redocly-rules-for-sdk: true
       title: Zoom
@@ -91185,7 +92923,7 @@ components:
             billing:
               allOf:
                 - $ref: '#/components/schemas/HrefObject'
-                - description: Link to the org billing [contact type user](/openapi/okta-management/management/orgsettingcontact/#tag/OrgSettingContact/operation/getOrgContactUser) resource
+                - description: Link to the org billing [contact type user](/openapi/okta-management/management/tags/orgsettingcontact#tag/OrgSettingContact/operation/getOrgContactUser) resource
     orgGeneralSettingLinks:
       x-okta-ignore-redocly-rules-for-sdk: true
       description: Specifies link relations (see [Web Linking](https://www.rfc-editor.org/rfc/rfc8288)) available for the org using the [JSON Hypertext Application Language](https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-06) specification
@@ -91194,7 +92932,7 @@ components:
         contacts:
           allOf:
             - $ref: '#/components/schemas/HrefObject'
-            - description: Link to the [Org Contacts](/openapi/okta-management/management/orgsettingcontact/) resource
+            - description: Link to the [Org Contacts](/openapi/okta-management/management/tags/orgsettingcontact) resource
         logo:
           allOf:
             - $ref: '#/components/schemas/HrefObject'
@@ -91203,19 +92941,19 @@ components:
           x-okta-ignore-redocly-rules-for-sdk: true
           allOf:
             - $ref: '#/components/schemas/HrefObject'
-            - description: Link to the [Org Communication Settings](/openapi/okta-management/management/orgsettingcommunication/) resource
+            - description: Link to the [Org Communication Settings](/openapi/okta-management/management/tags/orgsettingcommunication) resource
         oktaSupport:
           allOf:
             - $ref: '#/components/schemas/HrefObject'
-            - description: Link to the [Org Support Settings](/openapi/okta-management/management/orgsettingsupport/) resource
+            - description: Link to the [Org Support Settings](/openapi/okta-management/management/tags/orgsettingsupport) resource
         preferences:
           allOf:
             - $ref: '#/components/schemas/HrefObject'
-            - description: Link to the [Org Preferences](/openapi/okta-management/management/orgsettingcustomization/getorgpreferences) resource
+            - description: Link to the [Org Preferences](/openapi/okta-management/management/tags/orgsettingcustomization/other/getorgpreferences) resource
         uploadLogo:
           allOf:
             - $ref: '#/components/schemas/HrefObject'
-            - description: Link to the [Upload Org Logo](/openapi/okta-management/management/orgsettingcustomization) resource
+            - description: Link to the [Upload Org Logo](/openapi/okta-management/management/tags/orgsettingcustomization) resource
       readOnly: true
     orgTechnicalContactType:
       x-okta-ignore-redocly-rules-for-sdk: true
@@ -91232,7 +92970,7 @@ components:
             technical:
               allOf:
                 - $ref: '#/components/schemas/HrefObject'
-                - description: Link to the org technical [Contact Type User](/openapi/okta-management/management/orgsettingcontact/#tag/OrgSettingContact/operation/getOrgContactUser) resource
+                - description: Link to the org technical [Contact Type User](/openapi/okta-management/management/tags/orgsettingcontact#tag/OrgSettingContact/operation/getOrgContactUser) resource
     postAPIServiceIntegrationInstance:
       allOf:
         - $ref: '#/components/schemas/APIServiceIntegrationInstance'
@@ -91588,3 +93326,4 @@ x-tagGroups:
       - UserSessions
       - UserType
       - ProfileMapping
+

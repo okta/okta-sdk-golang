@@ -4,8 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**DefaultI18nKey** | Pointer to **string** | Default i18n key for the message. This property is only relevant if type is set to &#x60;BUILTIN&#x60;. If type is set to &#x60;CUSTOM&#x60;, this field is ignored. | [optional] 
-**CustomText** | Pointer to **string** | Custom text for the message | [optional] 
+**DefaultI18nKey** | Pointer to **NullableString** | Default i18n key for the message. This property is only relevant if type is set to &#x60;BUILTIN&#x60;. If type is set to &#x60;CUSTOM&#x60;, this field is ignored. | [optional] 
+**CustomText** | Pointer to **NullableString** | Custom text for the message | [optional] 
 
 ## Methods
 
@@ -51,6 +51,16 @@ SetDefaultI18nKey sets DefaultI18nKey field to given value.
 
 HasDefaultI18nKey returns a boolean if a field has been set.
 
+### SetDefaultI18nKeyNil
+
+`func (o *DevicePostureChecksRemediationSettingsMessage) SetDefaultI18nKeyNil(b bool)`
+
+ SetDefaultI18nKeyNil sets the value for DefaultI18nKey to be an explicit nil
+
+### UnsetDefaultI18nKey
+`func (o *DevicePostureChecksRemediationSettingsMessage) UnsetDefaultI18nKey()`
+
+UnsetDefaultI18nKey ensures that no value is present for DefaultI18nKey, not even an explicit nil
 ### GetCustomText
 
 `func (o *DevicePostureChecksRemediationSettingsMessage) GetCustomText() string`
@@ -76,6 +86,16 @@ SetCustomText sets CustomText field to given value.
 
 HasCustomText returns a boolean if a field has been set.
 
+### SetCustomTextNil
+
+`func (o *DevicePostureChecksRemediationSettingsMessage) SetCustomTextNil(b bool)`
+
+ SetCustomTextNil sets the value for CustomText to be an explicit nil
+
+### UnsetCustomText
+`func (o *DevicePostureChecksRemediationSettingsMessage) UnsetCustomText()`
+
+UnsetCustomText ensures that no value is present for CustomText, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

@@ -4,10 +4,11 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Id** | Pointer to **string** | The ID of the &#x60;AppInstance&#x60; | [optional] 
-**Name** | Pointer to **string** | The name of the &#x60;AppInstance&#x60; | [optional] 
-**Label** | Pointer to **string** | The user-facing display name of the &#x60;AppInstance&#x60; | [optional] 
-**SignOnMode** | Pointer to **string** | The configured sign-on mode for the &#x60;AppInstance&#x60; | [optional] 
+**Id** | Pointer to **string** | The ID of the app instance | [optional] 
+**Name** | Pointer to **string** | The name of the app instance | [optional] 
+**Label** | Pointer to **string** | The user-facing display name of the app instance | [optional] 
+**SignOnMode** | Pointer to **string** | The configured sign-on mode for the app instance | [optional] 
+**EmOptInStatus** | Pointer to **string** | The entitlement management opt-in status for the app instance | [optional] [readonly] 
 
 ## Methods
 
@@ -127,6 +128,31 @@ SetSignOnMode sets SignOnMode field to given value.
 `func (o *GroupEmbeddedApp) HasSignOnMode() bool`
 
 HasSignOnMode returns a boolean if a field has been set.
+
+### GetEmOptInStatus
+
+`func (o *GroupEmbeddedApp) GetEmOptInStatus() string`
+
+GetEmOptInStatus returns the EmOptInStatus field if non-nil, zero value otherwise.
+
+### GetEmOptInStatusOk
+
+`func (o *GroupEmbeddedApp) GetEmOptInStatusOk() (*string, bool)`
+
+GetEmOptInStatusOk returns a tuple with the EmOptInStatus field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetEmOptInStatus
+
+`func (o *GroupEmbeddedApp) SetEmOptInStatus(v string)`
+
+SetEmOptInStatus sets EmOptInStatus field to given value.
+
+### HasEmOptInStatus
+
+`func (o *GroupEmbeddedApp) HasEmOptInStatus() bool`
+
+HasEmOptInStatus returns a boolean if a field has been set.
 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

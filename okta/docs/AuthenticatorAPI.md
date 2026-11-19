@@ -28,7 +28,7 @@ Method | HTTP request | Description
 
 ## ActivateAuthenticator
 
-> AuthenticatorBase ActivateAuthenticator(ctx, authenticatorId).Execute()
+> ListAuthenticators200ResponseInner ActivateAuthenticator(ctx, authenticatorId).Execute()
 
 Activate an authenticator
 
@@ -56,7 +56,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.ActivateAuthenticator``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ActivateAuthenticator`: AuthenticatorBase
+	// response from `ActivateAuthenticator`: ListAuthenticators200ResponseInner
 	fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.ActivateAuthenticator`: %v\n", resp)
 }
 ```
@@ -80,7 +80,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AuthenticatorBase**](AuthenticatorBase.md)
+[**ListAuthenticators200ResponseInner**](ListAuthenticators200ResponseInner.md)
 
 ### Authorization
 
@@ -171,7 +171,7 @@ Name | Type | Description  | Notes
 
 ## CreateAuthenticator
 
-> AuthenticatorBase CreateAuthenticator(ctx).Authenticator(authenticator).Activate(activate).Execute()
+> ListAuthenticators200ResponseInner CreateAuthenticator(ctx).Authenticator(authenticator).Activate(activate).Execute()
 
 Create an authenticator
 
@@ -190,7 +190,7 @@ import (
 )
 
 func main() {
-	authenticator := *openapiclient.NewAuthenticatorBase() // AuthenticatorBase | 
+	authenticator := openapiclient.listAuthenticators_200_response_inner{AuthenticatorKeyCustomApp: openapiclient.NewAuthenticatorKeyCustomApp()} // ListAuthenticators200ResponseInner | 
 	activate := true // bool | Whether to execute the activation lifecycle operation when Okta creates the authenticator (optional) (default to true)
 
 	configuration := openapiclient.NewConfiguration()
@@ -200,7 +200,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.CreateAuthenticator``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `CreateAuthenticator`: AuthenticatorBase
+	// response from `CreateAuthenticator`: ListAuthenticators200ResponseInner
 	fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.CreateAuthenticator`: %v\n", resp)
 }
 ```
@@ -216,12 +216,12 @@ Other parameters are passed through a pointer to a apiCreateAuthenticatorRequest
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authenticator** | [**AuthenticatorBase**](AuthenticatorBase.md) |  | 
+ **authenticator** | [**ListAuthenticators200ResponseInner**](ListAuthenticators200ResponseInner.md) |  | 
  **activate** | **bool** | Whether to execute the activation lifecycle operation when Okta creates the authenticator | [default to true]
 
 ### Return type
 
-[**AuthenticatorBase**](AuthenticatorBase.md)
+[**ListAuthenticators200ResponseInner**](ListAuthenticators200ResponseInner.md)
 
 ### Authorization
 
@@ -311,7 +311,7 @@ Name | Type | Description  | Notes
 
 ## DeactivateAuthenticator
 
-> AuthenticatorBase DeactivateAuthenticator(ctx, authenticatorId).Execute()
+> ListAuthenticators200ResponseInner DeactivateAuthenticator(ctx, authenticatorId).Execute()
 
 Deactivate an authenticator
 
@@ -339,7 +339,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.DeactivateAuthenticator``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `DeactivateAuthenticator`: AuthenticatorBase
+	// response from `DeactivateAuthenticator`: ListAuthenticators200ResponseInner
 	fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.DeactivateAuthenticator`: %v\n", resp)
 }
 ```
@@ -363,7 +363,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AuthenticatorBase**](AuthenticatorBase.md)
+[**ListAuthenticators200ResponseInner**](ListAuthenticators200ResponseInner.md)
 
 ### Authorization
 
@@ -525,7 +525,7 @@ Name | Type | Description  | Notes
 
 ## GetAuthenticator
 
-> AuthenticatorBase GetAuthenticator(ctx, authenticatorId).Execute()
+> ListAuthenticators200ResponseInner GetAuthenticator(ctx, authenticatorId).Execute()
 
 Retrieve an authenticator
 
@@ -553,7 +553,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.GetAuthenticator``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `GetAuthenticator`: AuthenticatorBase
+	// response from `GetAuthenticator`: ListAuthenticators200ResponseInner
 	fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.GetAuthenticator`: %v\n", resp)
 }
 ```
@@ -577,7 +577,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AuthenticatorBase**](AuthenticatorBase.md)
+[**ListAuthenticators200ResponseInner**](ListAuthenticators200ResponseInner.md)
 
 ### Authorization
 
@@ -1008,7 +1008,7 @@ Other parameters are passed through a pointer to a apiListAuthenticatorsRequest 
 
 ## ReplaceAuthenticator
 
-> AuthenticatorBase ReplaceAuthenticator(ctx, authenticatorId).Authenticator(authenticator).Execute()
+> ListAuthenticators200ResponseInner ReplaceAuthenticator(ctx, authenticatorId).Authenticator(authenticator).Execute()
 
 Replace an authenticator
 
@@ -1037,7 +1037,7 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Error when calling `AuthenticatorAPI.ReplaceAuthenticator``: %v\n", err)
 		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
 	}
-	// response from `ReplaceAuthenticator`: AuthenticatorBase
+	// response from `ReplaceAuthenticator`: ListAuthenticators200ResponseInner
 	fmt.Fprintf(os.Stdout, "Response from `AuthenticatorAPI.ReplaceAuthenticator`: %v\n", resp)
 }
 ```
@@ -1062,7 +1062,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AuthenticatorBase**](AuthenticatorBase.md)
+[**ListAuthenticators200ResponseInner**](ListAuthenticators200ResponseInner.md)
 
 ### Authorization
 

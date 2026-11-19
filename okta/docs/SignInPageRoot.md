@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Embedded** | Pointer to **map[string]interface{}** |  | [optional] [readonly] 
+**Embedded** | Pointer to [**SignInPageRootAllOfEmbedded**](SignInPageRootAllOfEmbedded.md) |  | [optional] 
 **Links** | Pointer to [**PageRootLinks**](PageRootLinks.md) |  | [optional] 
 
 ## Methods
@@ -28,20 +28,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetEmbedded
 
-`func (o *SignInPageRoot) GetEmbedded() map[string]interface{}`
+`func (o *SignInPageRoot) GetEmbedded() SignInPageRootAllOfEmbedded`
 
 GetEmbedded returns the Embedded field if non-nil, zero value otherwise.
 
 ### GetEmbeddedOk
 
-`func (o *SignInPageRoot) GetEmbeddedOk() (*map[string]interface{}, bool)`
+`func (o *SignInPageRoot) GetEmbeddedOk() (*SignInPageRootAllOfEmbedded, bool)`
 
 GetEmbeddedOk returns a tuple with the Embedded field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEmbedded
 
-`func (o *SignInPageRoot) SetEmbedded(v map[string]interface{})`
+`func (o *SignInPageRoot) SetEmbedded(v SignInPageRootAllOfEmbedded)`
 
 SetEmbedded sets Embedded field to given value.
 

@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Verify** | Pointer to [**HrefObject**](HrefObject.md) | Verifies the factor resource. See [Verify a factor](/openapi/okta-management/management/userfactor/verifyfactor). | [optional] 
+**Verify** | Pointer to [**HrefObject**](HrefObject.md) | Verifies the factor resource. See [Verify a factor](/openapi/okta-management/management/tags/userfactor/other/verifyfactor). | [optional] 
 
 ## Methods
 
