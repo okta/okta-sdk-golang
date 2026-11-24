@@ -517,11 +517,19 @@ func createKeySigner(privateKey, privateKeyID string) (jose.Signer, error) {
 	return nil, fmt.Errorf("private key %q is not pkcs#1 or pkcs#8 format", privPem.Type)
 }
 
+// clientAssertionLifetime is how long a client assertion JWT is valid. Okta
+// rejects an assertion whose exp is more than one hour in the future, so an
+// exact one hour lifetime fails whenever the client clock is even slightly
+// ahead of Okta's. A new assertion is signed for every token request, so it
+// does not need to live long.
+const clientAssertionLifetime = 55 * time.Minute
+
 func createClientAssertion(orgURL, clientID string, privateKeySinger jose.Signer) (clientAssertion string, err error) {
+	now := time.Now()
 	claims := ClientAssertionClaims{
 		Subject:  clientID,
-		IssuedAt: jwt.NewNumericDate(time.Now()),
-		Expiry:   jwt.NewNumericDate(time.Now().Add(time.Hour * time.Duration(1))),
+		IssuedAt: jwt.NewNumericDate(now),
+		Expiry:   jwt.NewNumericDate(now.Add(clientAssertionLifetime)),
 		Issuer:   clientID,
 		Audience: orgURL + "/oauth2/v1/token",
 		ID:       uuid.New().String(),
