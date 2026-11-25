@@ -1,0 +1,12 @@
+# See: https://openapi-generator.tech/docs/customization/#ignore-file-format
+#
+# Files listed here are preserved across `make generate-files` runs.
+#
+# model_open_id_connect_application_settings_client.go contains a manual
+# fix for issue #591: the generated UnmarshalJSON rejects valid GET
+# responses that omit `grant_types` (e.g. preconfigured apps like
+# okta_atspoke_iam_connector). Once the openapi-generator go template is
+# updated to skip required-property validation on read for the
+# unmarshal path (or the spec is split into request/response variants),
+# this entry can be removed.
+model_open_id_connect_application_settings_client.go
